@@ -1,0 +1,28 @@
+{
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:idpuniv/laravel-template.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:idpuniv/laravel-base.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:idpuniv/laravel-datatable.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:idpuniv/laravel-setting.git"
+        }
+    ],
+    "require": {
+        "idpuniv/laravel-datatable": "^1.0",
+        "idpuniv/laravel-setting": "^1.0"
+    },
+    "require-dev": {
+        "idpuniv/laravel-template": "^1.0",
+        "idpuniv/laravel-base": "^1.0"
+    }
+}
