@@ -55,7 +55,12 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        }
+        },
+        "merge-plugin": {
+        "include": [
+            "composer.local.json"
+        ]
+    }
     },
     "config": {
         "optimize-autoloader": true,
