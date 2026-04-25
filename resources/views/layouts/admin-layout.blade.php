@@ -65,7 +65,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0">
                             <!-- En-tête -->
-                            <li class="text-center p-3 border-bottom bg-light">
+                            <li class="text-center p-3 border-bottom">
                                 <i class="bi bi-person-circle fs-1 text-secondary mb-2"></i>
                                 <div class="fw-bold">Admin</div>
                                 <small class="text-secondary">admin@email.com</small>
