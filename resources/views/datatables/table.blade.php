@@ -1,4 +1,5 @@
-<table class="table table-hover table-bordered">
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
     <thead class="table-light">
         <tr>
             <th class="sortable" data-field="id">#</th>
@@ -35,5 +36,6 @@
         @endforelse
     </tbody>
 </table>
+</div>
 
 @include('partials.pagination', ['data' => $data])

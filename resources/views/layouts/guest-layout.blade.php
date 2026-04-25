@@ -77,47 +77,7 @@
 
                     <!-- Profil -->
                     <div class="nav-item dropdown">
-                        <a class="nav-link d-flex align-items-center px-2 py-2 rounded-3" href="#" role="button"
-                            data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
-                            <li>
-                                <div class="dropdown-header d-flex align-items-center gap-3 py-3">
-                                    <i class="bi bi-person-circle fs-2 text-secondary"></i>
-                                    <div>
-                                        <div class="fw-semibold">Jean Dupont</div>
-                                        <small class="text-secondary">jean.dupont@example.com</small>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider my-1">
-                            </li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-3 py-2" href="/profile">
-                                    <i class="bi bi-person"></i> Profil
-                                    <span class="badge bg-secondary rounded-pill ms-auto">80%</span>
-                                </a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-3 py-2" href="/profile">
-                                    <i class="bi bi-gear"></i> Paramètres
-                                </a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-3 py-2" href="/profile#security">
-                                    <i class="bi bi-shield-lock"></i> Sécurité
-                                </a></li>
-                            <li>
-                                <hr class="dropdown-divider my-1">
-                            </li>
-                            <li>
-                                <form method="POST" action="/logout">
-                                    @csrf
-                                    <a class="dropdown-item d-flex align-items-center gap-3 py-2 text-danger" href="/logout"
-                                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                        <i class="bi bi-box-arrow-right"></i> Déconnexion
-                                    </a>
-                                </form>
-                            </li>
-                        </ul>
+                       <x-profil></x-profil>
                     </div>
                 </div>
 
