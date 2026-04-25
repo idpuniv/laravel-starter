@@ -1,0 +1,76 @@
+// tailles intuitives (en pixels)
+$icon-circle-sizes: (
+    sm: 2.5rem,
+    // 40px
+    md: 3rem,
+    // 48px
+    lg: 4rem,
+    // 64px
+    xl: 5rem,
+    // 80px
+    xxl: 6rem,
+    // 96px
+    xxxl: 8rem, // 128px
+);
+
+// responsive breakpoints Bootstrap
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+);
+
+@each $size, $value in $icon-circle-sizes {
+    // taille fixe
+    .icon-circle-#{$size} {
+        width: $value;
+        height: $value;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    // responsive (sm, md, lg...)
+    @each $breakpoint, $breakpoint-value in $grid-breakpoints {
+        @if $breakpoint-value != 0 {
+            @media (min-width: $breakpoint-value) {
+                .icon-circle-#{$breakpoint}-#{$size} {
+                    width: $value;
+                    height: $value;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+        }
+    }
+}
+
+// Responsive shadow
+@each $breakpoint, $breakpoint-value in $grid-breakpoints {
+    @if $breakpoint-value != 0 {
+        @media (min-width: $breakpoint-value) {
+            .shadow-#{$breakpoint}-none {
+                box-shadow: none !important;
+            }
+            .shadow-#{$breakpoint}-sm {
+                box-shadow: var(--bs-box-shadow-sm) !important;
+            }
+            .shadow-#{$breakpoint} {
+                box-shadow: var(--bs-box-shadow) !important;
+            }
+            .shadow-#{$breakpoint}-lg {
+                box-shadow: var(--bs-box-shadow-lg) !important;
+            }
+        }
+    }
+}

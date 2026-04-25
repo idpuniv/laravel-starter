@@ -1,0 +1,26 @@
+// 0. Bootstrap functions (must be imported first)
+@import "bootstrap/scss/functions";
+
+// 1. Bootstrap variables
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+// 2. Bootstrap mixins (required for @include usage)
+@import "bootstrap/scss/mixins";
+
+// 3. Custom colors / overrides (before components)
+@import "colors";
+
+// 4. AdminLTE variables and mixins
+@import "admin-lte/src/scss/variables";
+@import "admin-lte/src/scss/variables-dark";
+@import "admin-lte/src/scss/mixins";
+
+// 5. AdminLTE core and layout
+@import "admin-lte/src/scss/parts/core";
+@import "admin-lte/src/scss/app-wrapper";
+@import "admin-lte/src/scss/app-sidebar";
+@import "admin-lte/src/scss/app-header";
+@import "admin-lte/src/scss/app-footer";
+
+// 6. Custom overrides

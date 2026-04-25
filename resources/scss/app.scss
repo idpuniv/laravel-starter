@@ -1,0 +1,104 @@
+// 0. FUNCTIONS (must be imported first)
+@import "bootstrap/scss/functions";
+
+// 1. VARIABLES & COLORS
+@import "colors";        // Custom color definitions
+@import "custom-bs";     // Custom Bootstrap overrides
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+// 2. MAPS / MIXINS / CORE UTILITIES
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+// --- Best place to include transitions ---
+@import "bootstrap/scss/transitions";
+
+// 3. ROOT / RESET
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+
+// 4. LAYOUT
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+// 5. COMPONENTS
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/button-group";
+
+@import "bootstrap/scss/forms"; // Includes all form controls and input groups
+
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+
+// 6. HELPERS
+@import "bootstrap/scss/helpers";
+
+// 7. UTILITIES API (must always be last)
+@import "bootstrap/scss/utilities/api";
+
+@import "utility";
+
+@import "icons"; // Custom icon styles
+
+
+// ... tous tes imports Bootstrap ...
+
+// ============================================================================
+// STYLES UNIFIÉS (admin + front)
+// ============================================================================
+
+// Navbar unifiée
+.navbar,
+.app-header {
+    background-color: var(--navbar-bg) !important;
+    
+    .navbar-brand,
+    .nav-link,
+    .navbar-nav .nav-link {
+        color: var(--navbar-color) !important;
+    }
+    
+    .nav-link:hover,
+    .navbar-nav .nav-link:hover {
+        color: var(--navbar-link-hover) !important;
+    }
+}
+
+// Footer unifié
+.footer,
+.app-footer {
+    background-color: var(--footer-bg) !important;
+    color: var(--footer-color) !important;
+    border-top: 1px solid var(--footer-border-color) !important;
+    
+    a {
+        color: var(--footer-color);
+        text-decoration: none;
+        
+        &:hover {
+            color: var(--navbar-link-hover);
+        }
+    }
+}

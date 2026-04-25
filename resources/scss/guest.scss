@@ -1,0 +1,32 @@
+
+.notification-badge {
+    width: 14px;
+    height: 14px;
+    margin-top: 0.8rem;
+    margin-left: -0.8rem;
+    font-size: 0.7rem;
+}
+
+.main-content {
+    padding-top: 80px;
+    flex: 1 0 auto;
+    /* Permet au contenu de prendre l'espace disponible */
+}
+
+/* Sticky footer */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    flex-shrink: 0;
+    /* background-color: #f8f9fa; */
+    padding: 1rem 0;
+    margin-top: auto;
+}
