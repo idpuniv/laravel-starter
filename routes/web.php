@@ -11,22 +11,23 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [\App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-    Route::resource('roles', \App\Http\Controllers\Admin\RoleController::class);
-    Route::resource('permissions', \App\Http\Controllers\Admin\PermissionController::class);
-    Route::get('users/{user}/roles', [\App\Http\Controllers\Admin\UserRoleController::class, 'edit'])
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
+    Route::resource('permissions', App\Http\Controllers\Admin\PermissionController::class);
+    Route::get('users/{user}/roles', [App\Http\Controllers\Admin\UserRoleController::class, 'edit'])
         ->name('admin.users.roles.edit');
-    Route::post('users/{user}/roles', [\App\Http\Controllers\Admin\UserRoleController::class, 'update'])
+    Route::post('users/{user}/roles', [App\Http\Controllers\Admin\UserRoleController::class, 'update'])
         ->name('admin.users.roles.update');
-    Route::get('users/{user}/permissions', [\App\Http\Controllers\Admin\UserPermissionController::class, 'edit'])
+    Route::get('users/{user}/permissions', [App\Http\Controllers\Admin\UserPermissionController::class, 'edit'])
         ->name('admin.users.permissions.edit');
-    Route::post('users/{user}/permissions', [\App\Http\Controllers\Admin\UserPermissionController::class, 'update'])
+    Route::post('users/{user}/permissions', [App\Http\Controllers\Admin\UserPermissionController::class, 'update'])
         ->name('admin.users.permissions.update');
 });
 

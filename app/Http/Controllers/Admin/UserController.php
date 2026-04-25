@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\DataTables\UsersDataTable;
 use Illuminate\Http\Request;
 
-class Rolecontroller extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return UsersDataTable::make($request)->render();
     }
 
     /**

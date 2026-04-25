@@ -60,8 +60,8 @@ class UsersDataTable extends AbstractDataTable
     /**
      * Vues et Exports
      */
-    protected function defineIndexView(): string { return 'datatables.index'; }
-    protected function defineTableView(): string { return 'datatables.table'; }
+    protected function defineIndexView(): string { return 'admin.users.index'; }
+    protected function defineTableView(): string { return 'admin.users.partials.table'; }
     protected function defineExportView(): ?string { return 'exports.users-pdf'; }
 
     /**
