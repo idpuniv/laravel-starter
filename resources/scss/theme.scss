@@ -1,69 +1,13 @@
 // ============================================================================
-// CSS VARIABLES (générées automatiquement)
+// _THEME.SCSS - Gestion centralisée des couleurs du dashboard
 // ============================================================================
 
 :root {
-  // Core colors
-  --primary: #{$primary};
-  --accent:  #{$accent};
-  --secondary: #{$secondary};
-  --success: #{$success};
-  --danger: #{$danger};
-  --warning: #{$warning};
-  --info: #{$info};
-  --light: #{$light};
-  --dark: #{$dark};
-  
-  // RGB versions
-  --primary-rgb: #{red($primary)}, #{green($primary)}, #{blue($primary)};
-  --accent-rgb: #{red($accent)}, #{green($accent)}, #{blue($accent)};
-  
-  // Derived colors
-  --primary-hover: #{darken($primary, 10%)};
-  --accent-hover: #{darken($accent, 10%)};
-  
-  // Grays
-  --gray-100: #{$gray-100};
-  --gray-200: #{$gray-200};
-  --gray-300: #{$gray-300};
-  --gray-400: #{$gray-400};
-  --gray-500: #{$gray-500};
-  --gray-600: #{$gray-600};
-  --gray-700: #{$gray-700};
-  --gray-800: #{$gray-800};
-  --gray-900: #{$gray-900};
-  
-  // Layout (identique admin + front)
-  --navbar-bg: #{$navbar-bg};
-  --navbar-color: #{$navbar-color};
-  --navbar-link-color: #{$navbar-link-color};
-  --navbar-link-hover: #{$navbar-link-hover};
-  
-  --footer-bg: #{$footer-bg};
-  --footer-color: #{$footer-color};
-  --footer-border-color: #{$gray-300};
-  
-  // Sidebar
-  --sidebar-bg: #ffffff;
-  --sidebar-color: #{$lte-sidebar-color};
-  --sidebar-hover-bg: #{$lte-sidebar-hover-bg};
-  --sidebar-hover-color: #{$lte-sidebar-hover-color};
-  --sidebar-active-color: #{$lte-sidebar-active-color};
-  --sidebar-menu-active-bg: #{$lte-sidebar-menu-active-bg};
-  --sidebar-menu-active-color: #{$lte-sidebar-menu-active-color};
+    // Mode clair - gris clair vers blanc
+    --dashboard-sidebar-bg: #f0f2f5;
 }
 
-// ============================================================================
-// DARK MODE
-// ============================================================================
-
 [data-bs-theme="dark"] {
-  --sidebar-bg: #1e1e2f;
-  --sidebar-color: #{$lte-sidebar-color-dark};
-  --sidebar-hover-bg: #{$lte-sidebar-hover-bg-dark};
-  --sidebar-hover-color: #{$lte-sidebar-hover-color-dark};
-  --sidebar-active-color: #{$lte-sidebar-active-color-dark};
-  --sidebar-menu-active-bg: #{$lte-sidebar-menu-active-bg-dark};
-  --sidebar-menu-active-color: #{$lte-sidebar-menu-active-color-dark};
-  --footer-border-color: #{$gray-700};
+    // Mode sombre - sidebar très foncée
+    --dashboard-sidebar-bg: color-mix(in srgb, var(--bs-dark), black 30%);
 }

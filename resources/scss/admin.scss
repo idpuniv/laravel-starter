@@ -1,26 +1,442 @@
-// 0. Bootstrap functions (must be imported first)
-@import "bootstrap/scss/functions";
+// ============================================================================
+// ADMIN DASHBOARD - STYLES PRINCIPAUX
+// NE CONTIENT AUCUNE COULEUR FIXE - Utilise uniquement les variables Bootstrap
+// ============================================================================
 
-// 1. Bootstrap variables
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
+@import "theme";
 
-// 2. Bootstrap mixins (required for @include usage)
-@import "bootstrap/scss/mixins";
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-// 3. Custom colors / overrides (before components)
-@import "colors";
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
 
-// 4. AdminLTE variables and mixins
-@import "admin-lte/src/scss/variables";
-@import "admin-lte/src/scss/variables-dark";
-@import "admin-lte/src/scss/mixins";
+.app-container {
+    display: flex;
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+}
 
-// 5. AdminLTE core and layout
-@import "admin-lte/src/scss/parts/core";
-@import "admin-lte/src/scss/app-wrapper";
-@import "admin-lte/src/scss/app-sidebar";
-@import "admin-lte/src/scss/app-header";
-@import "admin-lte/src/scss/app-footer";
+// ============================================================================
+// SIDEBAR
+// ============================================================================
 
-// 6. Custom overrides
+.sidebar-col {
+    width: 280px;
+    flex-shrink: 0;
+    background-color: var(--dashboard-sidebar-bg, var(--bs-dark));
+    color: var(--dashboard-sidebar-color, var(--bs-light));
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: width 0.25s ease;
+    
+    &.desktop-collapsed {
+        width: 0;
+        overflow: hidden;
+    }
+}
+
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--dashboard-scrollbar-track, var(--bs-gray-800));
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--dashboard-scrollbar-thumb, var(--bs-gray-600));
+        border-radius: 2px;
+    }
+}
+
+.sidebar-footer {
+    flex-shrink: 0;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--dashboard-footer-border, var(--bs-gray-700));
+    font-size: 0.7rem;
+    color: var(--dashboard-footer-color, var(--bs-gray-500));
+    text-align: center;
+}
+
+// ============================================================================
+// MAIN CONTENT
+// ============================================================================
+
+.main-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--dashboard-main-bg, var(--bs-body-bg));
+}
+
+// ============================================================================
+// NAVBAR
+// ============================================================================
+
+.navbar-fixed {
+    flex-shrink: 0;
+    background-color: var(--dashboard-navbar-bg, var(--bs-body-bg));
+    border-bottom: 1px solid var(--dashboard-navbar-border, var(--bs-border-color));
+}
+
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-right: 0.5rem;
+    border-radius: 0.375rem;
+    color: var(--dashboard-toggle-color, var(--bs-gray-700));
+    transition: background-color 0.15s ease;
+    
+    &:hover {
+        background-color: var(--dashboard-toggle-hover-bg, var(--bs-gray-200));
+        color: var(--dashboard-toggle-hover-color, var(--bs-dark));
+    }
+    
+    &:focus-visible {
+        outline: 2px solid var(--dashboard-focus-outline, var(--bs-primary));
+        outline-offset: 2px;
+    }
+}
+
+// ============================================================================
+// SCROLLABLE CONTENT
+// ============================================================================
+
+.content-scrollable {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1.5rem;
+    
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+        background: var(--dashboard-scrollbar-track, var(--bs-gray-300));
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--dashboard-scrollbar-thumb, var(--bs-gray-500));
+        border-radius: 3px;
+    }
+}
+
+// ============================================================================
+// FOOTER
+// ============================================================================
+
+.footer-fixed {
+    flex-shrink: 0;
+    background-color: var(--dashboard-footer-bg, var(--bs-body-bg));
+    border-top: 1px solid var(--dashboard-footer-border, var(--bs-border-color));
+    padding: 0.75rem 1.5rem;
+}
+
+// ============================================================================
+// SIDEBAR MENU
+// ============================================================================
+
+.sidebar-menu {
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    list-style: none;
+    
+    .nav-item {
+        list-style: none;
+        margin-bottom: 0.125rem;
+    }
+    
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.625rem 0.75rem;
+        color: var(--dashboard-menu-link-color, var(--bs-gray-300));
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        transition: all 0.15s ease;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 100%;
+        text-align: left;
+        
+        &:hover {
+            background-color: var(--dashboard-menu-link-hover-bg, var(--bs-gray-700));
+            color: var(--dashboard-menu-link-hover-color, var(--bs-white));
+        }
+        
+        &.active {
+            background-color: var(--dashboard-menu-link-active-bg, var(--bs-primary));
+            color: var(--dashboard-menu-link-active-color, var(--bs-white));
+        }
+        
+        .nav-icon {
+            width: 1.5rem;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        
+        p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+    }
+    
+    .nav-arrow {
+        margin-left: auto;
+        transition: transform 0.2s ease;
+        font-size: 0.7rem;
+    }
+    
+    .nav-link[aria-expanded="true"] .nav-arrow {
+        transform: rotate(90deg);
+    }
+    
+    .nav-treeview {
+        list-style: none;
+        padding-left: 1.75rem;
+        margin: 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s ease-out;
+        
+        &.show {
+            max-height: 500px;
+        }
+        
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            color: var(--dashboard-menu-link-color, var(--bs-gray-400));
+            
+            &:hover {
+                color: var(--dashboard-menu-link-hover-color, var(--bs-white));
+            }
+            
+            &.active {
+                color: var(--dashboard-menu-link-active-bg, var(--bs-primary));
+                background-color: transparent;
+            }
+            
+            .nav-icon {
+                width: 1.25rem;
+                font-size: 0.7rem;
+            }
+        }
+        
+        .nav-treeview {
+            padding-left: 1.5rem;
+        }
+    }
+}
+
+// ============================================================================
+// BADGES & HEADERS
+// ============================================================================
+
+.nav-badge {
+    margin-left: 0.5rem;
+    font-size: 0.65rem;
+    padding: 0.125rem 0.5rem;
+    border-radius: 999px;
+    background-color: var(--dashboard-badge-bg, var(--bs-danger));
+    color: var(--dashboard-badge-color, var(--bs-white));
+    font-weight: 600;
+}
+
+.nav-header {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dashboard-nav-header-color, var(--bs-gray-500));
+    padding: 1rem 0.75rem 0.5rem 0.75rem;
+}
+
+// ============================================================================
+// DANGER SIDEBAR LINK
+// ============================================================================
+
+.text-danger-sidebar {
+    color: var(--dashboard-danger-color, var(--bs-danger));
+    
+    &:hover {
+        background-color: var(--dashboard-danger-hover-bg, var(--bs-danger));
+        color: var(--dashboard-danger-hover-color, var(--bs-white));
+    }
+}
+
+// ============================================================================
+// PROFILE SECTION
+// ============================================================================
+
+.avatar {
+    width: 3.5rem;
+    height: 3.5rem;
+    background-color: var(--dashboard-avatar-bg, var(--bs-primary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 0.75rem auto;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: var(--dashboard-avatar-color, var(--bs-white));
+}
+
+.sidebar-profile {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid var(--dashboard-profile-border, var(--bs-gray-700));
+}
+
+.profile-name {
+    font-weight: 600;
+    color: var(--dashboard-profile-name-color, var(--bs-white));
+    margin-bottom: 0.25rem;
+}
+
+.profile-role {
+    font-size: 0.75rem;
+    color: var(--dashboard-profile-role-color, var(--bs-gray-400));
+}
+
+// ============================================================================
+// STAT CARDS
+// ============================================================================
+
+.stat-card {
+    border: none;
+    background-color: var(--dashboard-card-bg, var(--bs-body-bg));
+    border-radius: 0.75rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--dashboard-card-shadow-hover, var(--bs-box-shadow-lg));
+    }
+}
+
+// ============================================================================
+// ACCESSIBILITY & UTILITIES
+// ============================================================================
+
+:focus-visible {
+    outline: 2px solid var(--dashboard-focus-outline, var(--bs-primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--dashboard-focus-outline, var(--bs-primary));
+    color: var(--bs-white);
+    padding: 8px 12px;
+    z-index: 1100;
+    text-decoration: none;
+    border-radius: 4px;
+    
+    &:focus {
+        top: 8px;
+        left: 8px;
+    }
+}
+
+.reduced-motion {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.touch-device {
+    button,
+    .nav-link,
+    .sidebar-toggle-btn {
+        min-height: 44px;
+    }
+}
+
+// ============================================================================
+// RESPONSIVE
+// ============================================================================
+
+@media (max-width: 768px) {
+    .sidebar-col {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1050;
+        width: 280px;
+        transition: transform 0.3s ease;
+        transform: translateX(-100%);
+        
+        &.mobile-open {
+            transform: translateX(0);
+        }
+        
+        &.desktop-collapsed {
+            width: 280px;
+            transform: translateX(-100%);
+        }
+    }
+    
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--dashboard-overlay-bg, rgba(0, 0, 0, 0.5));
+        z-index: 1040;
+        display: none;
+        
+        &.open {
+            display: block;
+        }
+    }
+    
+    .content-scrollable {
+        padding: 1rem;
+    }
+    
+    .footer-fixed {
+        padding: 0.75rem 1rem;
+        
+        small,
+        a {
+            font-size: 0.7rem;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-fixed .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}

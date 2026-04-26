@@ -1,497 +1,561 @@
-<x-app-layout class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-    <div class="app-wrapper">
-        @push('styles')
-            @vite(['resources/css/admin.css', 'resources/js/admin.js'])
-            <style>
-                .skip-links {
-                    display: none !important;
-                }
-            </style>
-        @endpush
-
-        <nav class="app-header navbar navbar-expand bg-body">
-            <!--begin::Container-->
-            <div class="container-fluid">
-                <!--begin::Start Navbar Links-->
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                            <i class="bi bi-list"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-md-block">
-                        <a href="/" class="nav-link">Accueil</a>
-                    </li>
-                </ul>
-                <!--end::Start Navbar Links-->
-
-                <!--begin::End Navbar Links-->
-                <ul class="navbar-nav ms-auto">
-
-                    <!--begin::Notifications Dropdown Menu-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                            <i class="bi bi-bell-fill fs-5"></i>
-                            <span class="navbar-badge badge text-bg-danger">3</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-envelope me-2"></i> 4 new messages
-                                <span class="float-end text-secondary fs-7">3 mins</span>
+<!DOCTYPE html>
+<html lang="fr" data-bs-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Dashboard d'administration professionnel">
+    <meta name="theme-color" content="#1e293b">
+    <meta name="color-scheme" content="dark light">
+    <title>PAUL</title>
+    <script src="{{ asset('js/color-modes.js') }}"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js'])
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
+    
+    <div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
+    
+    <div class="app-container">
+        <aside id="sidebar" class="sidebar-col" aria-label="Menu principal">
+            <div class="sidebar-content">
+                <div class="sidebar-profile">
+                    <div class="avatar" aria-label="Avatar">TA</div>
+                    <div class="profile-name">Thomas Anderson</div>
+                    <div class="profile-role">Administrateur</div>
+                </div>
+                
+                <nav class="mt-2" aria-label="Navigation principale">
+                    <ul class="nav sidebar-menu flex-column" role="menubar" data-accordion="false">
+                        <!-- Dashboard parent (plus actif, car l'enfant l'est) -->
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="true" aria-haspopup="true">
+                                <i class="nav-icon bi bi-speedometer2" aria-hidden="true"></i>
+                                <p>
+                                    Dashboard
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview show" role="menu">
+                                <li class="nav-item" role="none">
+                                    <a href="dashboard-principal.html" class="nav-link active" role="menuitem">
+                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
+                                        <p>Dashboard Principal</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="analyses.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
+                                        <p>Analyses</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="rapports-rapides.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
+                                        <p>Rapports Rapides</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                <i class="nav-icon bi bi-people" aria-hidden="true"></i>
+                                <p>
+                                    Utilisateurs
+                                    <span class="nav-badge" aria-label="12 utilisateurs">12</span>
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview" role="menu">
+                                <li class="nav-item" role="none">
+                                    <a href="utilisateurs-liste.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-list-ul" aria-hidden="true"></i>
+                                        <p>Liste des utilisateurs</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="utilisateurs-ajouter.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-person-plus" aria-hidden="true"></i>
+                                        <p>Ajouter un utilisateur</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="utilisateurs-profils.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-person-badge" aria-hidden="true"></i>
+                                        <p>Profils</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="utilisateurs-inactifs.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-person-x" aria-hidden="true"></i>
+                                        <p>Comptes inactifs</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                <i class="nav-icon bi bi-envelope" aria-hidden="true"></i>
+                                <p>
+                                    Messages
+                                    <span class="nav-badge" aria-label="5 messages non lus">5</span>
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview" role="menu">
+                                <li class="nav-item" role="none">
+                                    <a href="messages-reception.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-inbox" aria-hidden="true"></i>
+                                        <p>Réception</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="messages-envoyes.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-send" aria-hidden="true"></i>
+                                        <p>Messages envoyés</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="messages-brouillons.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-file-text" aria-hidden="true"></i>
+                                        <p>Brouillons</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="messages-corbeille.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-trash" aria-hidden="true"></i>
+                                        <p>Corbeille</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <a href="statistiques.html" class="nav-link" role="menuitem">
+                                <i class="nav-icon bi bi-graph-up" aria-hidden="true"></i>
+                                <p>Statistiques</p>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                                <span class="float-end text-secondary fs-7">12 hours</span>
+                        </li>
+                        
+                        <li class="nav-header" role="separator">GESTION</li>
+                        
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                <i class="nav-icon bi bi-database" aria-hidden="true"></i>
+                                <p>
+                                    Base de données
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview" role="menu">
+                                <li class="nav-item" role="none">
+                                    <a href="db-sauvegardes.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-save" aria-hidden="true"></i>
+                                        <p>Sauvegardes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                        <i class="nav-icon bi bi-file-earmark-spreadsheet" aria-hidden="true"></i>
+                                        <p>
+                                            Import/Export
+                                            <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                        </p>
+                                    </button>
+                                    <ul class="nav nav-treeview" role="menu">
+                                        <li class="nav-item" role="none">
+                                            <a href="export-csv.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-download" aria-hidden="true"></i>
+                                                <p>Exporter CSV</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="none">
+                                            <a href="import-json.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-upload" aria-hidden="true"></i>
+                                                <p>Importer JSON</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="none">
+                                            <a href="export-sql.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-filetype-sql" aria-hidden="true"></i>
+                                                <p>Exporter SQL</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="db-optimisation.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-speedometer" aria-hidden="true"></i>
+                                        <p>Optimisation</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="db-maintenance.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-tools" aria-hidden="true"></i>
+                                        <p>Maintenance</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                <i class="nav-icon bi bi-shield-check" aria-hidden="true"></i>
+                                <p>
+                                    Sécurité
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview" role="menu">
+                                <li class="nav-item" role="none">
+                                    <a href="securite-auth.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-shield-lock" aria-hidden="true"></i>
+                                        <p>Authentification</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="securite-sessions.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-clock-history" aria-hidden="true"></i>
+                                        <p>Sessions actives</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="securite-chiffrement.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-key" aria-hidden="true"></i>
+                                        <p>Chiffrement</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="securite-logs.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-shield-shaded" aria-hidden="true"></i>
+                                        <p>Logs sécurité</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <a href="rapports.html" class="nav-link" role="menuitem">
+                                <i class="nav-icon bi bi-file-text" aria-hidden="true"></i>
+                                <p>Rapports</p>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                                <span class="float-end text-secondary fs-7">2 days</span>
+                        </li>
+                        
+                        <li class="nav-header" role="separator">CONFIGURATION</li>
+                        
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                <i class="nav-icon bi bi-gear" aria-hidden="true"></i>
+                                <p>
+                                    Paramètres
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview" role="menu">
+                                <li class="nav-item" role="none">
+                                    <a href="params-generaux.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-globe" aria-hidden="true"></i>
+                                        <p>Généraux</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                        <i class="nav-icon bi bi-translate" aria-hidden="true"></i>
+                                        <p>
+                                            Langue
+                                            <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                        </p>
+                                    </button>
+                                    <ul class="nav nav-treeview" role="menu">
+                                        <li class="nav-item" role="none">
+                                            <a href="langue-fr.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-flag-fr" aria-hidden="true"></i>
+                                                <p>Français</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="none">
+                                            <a href="langue-en.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-flag-us" aria-hidden="true"></i>
+                                                <p>English</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="none">
+                                            <a href="langue-es.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-flag-es" aria-hidden="true"></i>
+                                                <p>Español</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="params-notifications.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-bell" aria-hidden="true"></i>
+                                        <p>Notifications</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="params-integrations.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-plug" aria-hidden="true"></i>
+                                        <p>Intégrations</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <a href="apparence.html" class="nav-link" role="menuitem">
+                                <i class="nav-icon bi bi-palette" aria-hidden="true"></i>
+                                <p>Apparence</p>
                             </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
-                        </div>
-                    </li>
-                    <!--end::Notifications Dropdown Menu-->
-
-                    <!--begin::User Menu Dropdown-->
-                    <li class="nav-item dropdown user-menu">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle fs-4 user-image"></i>
-                        </a>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <!-- En-tête -->
-                            <li class="text-center p-3 border-bottom">
-                                <i class="bi bi-person-circle fs-1 text-secondary mb-2"></i>
-                                <div class="fw-bold">Admin</div>
-                                <small class="text-secondary">admin@email.com</small>
-                            </li>
-
-                            <!-- Menu actions -->
-                            <li><a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i>Profil</a>
-                            </li>
-                            <li><a class="dropdown-item" href="/profile#security"><i
-                                        class="bi bi-shield-lock me-2"></i>Sécurité</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-bell me-2"></i>Notifications</a>
-                            </li>
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-                            <form method="POST" action="/logout">
-                                @csrf
-                                <a class="dropdown-item d-flex align-items-center gap-3 py-2 text-danger"
-                                    href="/logout"
-                                    onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                    <i class="bi bi-box-arrow-right"></i> Déconnexion
-                                </a>
-                            </form>
-                        </ul>
-                    </li>
-                    <!--end::User Menu Dropdown-->
-                </ul>
-                <!--end::End Navbar Links-->
-            </div>
-            <!--end::Container-->
-        </nav>
-
-        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-            <!-- Brand -->
-            <div class="sidebar-brand">
-                <a href="./index.html" class="brand-link">
-                    <img src="./assets/img/logo.png" alt="Logo" class="brand-image opacity-75 shadow" />
-                    <span class="brand-text fw-light">Admin Dashboard</span>
-                </a>
-            </div>
-
-            <!-- Navigation -->
-            <div class="sidebar-wrapper">
-                <nav class="mt-2">
-                    @if (View::exists('layouts.partials.sidebar-menu'))
-                        @include('layouts.partials.sidebar-menu')
-                    @else
-                        <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview">
-
-                            <!-- ================================================== -->
-                            <!-- SECTION 1 : PILOTAGE -->
-                            <!-- ================================================== -->
-                            <li class="nav-header">PILOTAGE</li>
-
-                            <!-- Dashboard -->
-                            <li class="nav-item">
-                                <a href="./dashboard.html" class="nav-link">
-                                    <i class="nav-icon bi bi-speedometer2"></i>
-                                    <p>Dashboard</p>
-                                </a>
-                            </li>
-
-                            <!-- Statistiques -->
-                            <li class="nav-item">
-                                <a href="./statistiques.html" class="nav-link">
-                                    <i class="nav-icon bi bi-graph-up"></i>
-                                    <p>Statistiques</p>
-                                </a>
-                            </li>
-
-                            <!-- ================================================== -->
-                            <!-- SECTION 2 : IDENTITÉ & ORGANISATION -->
-                            <!-- ================================================== -->
-                            <li class="nav-header mt-3">IDENTITÉ & ORGANISATION</li>
-
-                            <!-- Utilisateurs -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-people"></i>
-                                    <p>
-                                        Utilisateurs
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./users/list.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Liste des utilisateurs</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./users/add.html" class="nav-link">
-                                            <i class="nav-icon bi bi-person-plus"></i>
-                                            <p>Ajouter un utilisateur</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./users/profile.html" class="nav-link">
-                                            <i class="nav-icon bi bi-person-badge"></i>
-                                            <p>Profils utilisateurs</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Groupes -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-building"></i>
-                                    <p>
-                                        Groupes
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./groups/list.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Liste des groupes</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./groups/add.html" class="nav-link">
-                                            <i class="nav-icon bi bi-plus-circle"></i>
-                                            <p>Créer un groupe</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./groups/members.html" class="nav-link">
-                                            <i class="nav-icon bi bi-person-arms-up"></i>
-                                            <p>Membres & affectations</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- ================================================== -->
-                            <!-- SECTION 3 : GOUVERNANCE & ACCÈS -->
-                            <!-- ================================================== -->
-                            <li class="nav-header mt-3">GOUVERNANCE & ACCÈS</li>
-
-                            <!-- Rôles & Permissions -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-shield-lock"></i>
-                                    <p>
-                                        Rôles & Permissions
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./roles/list.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Gestion des rôles</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./permissions/list.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Permissions</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./roles/assign.html" class="nav-link">
-                                            <i class="nav-icon bi bi-person-check"></i>
-                                            <p>Attribuer des rôles</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Sécurité -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-shield-check"></i>
-                                    <p>
-                                        Sécurité
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./security/mfa.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Authentification MFA</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./security/sessions.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Gestion des sessions</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./security/encryption.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Chiffrement & certificats</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./security/policies.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Politiques de sécurité</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- ================================================== -->
-                            <!-- SECTION 4 : RESSOURCES TECHNIQUES -->
-                            <!-- ================================================== -->
-                            <li class="nav-header mt-3">RESSOURCES TECHNIQUES</li>
-
-                            <!-- Base de données -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-database"></i>
-                                    <p>
-                                        Base de données
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./database/backup.html" class="nav-link">
-                                            <i class="nav-icon bi bi-save"></i>
-                                            <p>Sauvegardes</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./database/export.html" class="nav-link">
-                                            <i class="nav-icon bi bi-file-earmark-spreadsheet"></i>
-                                            <p>Export / Import</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./database/optimize.html" class="nav-link">
-                                            <i class="nav-icon bi bi-speedometer"></i>
-                                            <p>Optimisation & index</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./database/maintenance.html" class="nav-link">
-                                            <i class="nav-icon bi bi-tools"></i>
-                                            <p>Maintenance DB</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Audit -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-eye"></i>
-                                    <p>
-                                        Audit
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./audit/logs.html" class="nav-link">
-                                            <i class="nav-icon bi bi-journal-text"></i>
-                                            <p>Logs système</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./audit/traces.html" class="nav-link">
-                                            <i class="nav-icon bi bi-clock-history"></i>
-                                            <p>Traçabilité des actions</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./audit/alerts.html" class="nav-link">
-                                            <i class="nav-icon bi bi-exclamation-triangle"></i>
-                                            <p>Alertes de conformité</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./audit/reports.html" class="nav-link">
-                                            <i class="nav-icon bi bi-file-text"></i>
-                                            <p>Rapports d'audit</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- ================================================== -->
-                            <!-- SECTION 5 : CONFIGURATION -->
-                            <!-- ================================================== -->
-                            <li class="nav-header mt-3">CONFIGURATION</li>
-
-                            <!-- Paramètres -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-gear"></i>
-                                    <p>
-                                        Paramètres
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./settings/general.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Généraux</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./settings/localisation.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Langue & région</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./settings/notifications.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Notifications système</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./settings/integrations.html" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
-                                            <p>Intégrations externes</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- ================================================== -->
-                            <!-- SECTION 6 : COMPTE -->
-                            <!-- ================================================== -->
-                            <li class="nav-header mt-3">COMPTE</li>
-
-                            <!-- Compte -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-person-circle"></i>
-                                    <p>
-                                        Compte
-                                        <i class="nav-arrow bi bi-chevron-right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="./account/profile.html" class="nav-link">
-                                            <i class="nav-icon bi bi-person-badge"></i>
-                                            <p>Mon profil</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./account/preferences.html" class="nav-link">
-                                            <i class="nav-icon bi bi-sliders2"></i>
-                                            <p>Mes préférences</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./account/password.html" class="nav-link">
-                                            <i class="nav-icon bi bi-key"></i>
-                                            <p>Changer mot de passe</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="./logout.html" class="nav-link text-danger">
-                                            <i class="nav-icon bi bi-box-arrow-right"></i>
-                                            <p>Déconnexion</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                        </ul>
-                    @endif
+                        </li>
+                        
+                        <li class="nav-header" role="separator">SUPPORT</li>
+                        
+                        <li class="nav-item" role="none">
+                            <a href="aide.html" class="nav-link" role="menuitem">
+                                <i class="nav-icon bi bi-question-circle" aria-hidden="true"></i>
+                                <p>Aide</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item" role="none">
+                            <a href="chat.html" class="nav-link" role="menuitem">
+                                <i class="nav-icon bi bi-chat-dots" aria-hidden="true"></i>
+                                <p>Chat & Support</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-header" role="separator">AUTH</li>
+                        
+                        <li class="nav-item" role="none">
+                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                <i class="nav-icon bi bi-box-arrow-in-right" aria-hidden="true"></i>
+                                <p>
+                                    Authentification
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview" role="menu">
+                                <li class="nav-item" role="none">
+                                    <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false" aria-haspopup="true">
+                                        <i class="nav-icon bi bi-person-circle" aria-hidden="true"></i>
+                                        <p>
+                                            Version 1
+                                            <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                        </p>
+                                    </button>
+                                    <ul class="nav nav-treeview" role="menu">
+                                        <li class="nav-item" role="none">
+                                            <a href="login.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-box-arrow-in-right" aria-hidden="true"></i>
+                                                <p>Connexion</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" role="none">
+                                            <a href="register.html" class="nav-link" role="menuitem">
+                                                <i class="nav-icon bi bi-person-plus" aria-hidden="true"></i>
+                                                <p>Inscription</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item" role="none">
+                                    <a href="mot-de-passe-oublie.html" class="nav-link" role="menuitem">
+                                        <i class="nav-icon bi bi-person-check" aria-hidden="true"></i>
+                                        <p>Mot de passe oublié</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item mt-2" role="none">
+                            <a href="deconnexion.html" class="nav-link text-danger-sidebar" role="menuitem">
+                                <i class="nav-icon bi bi-box-arrow-right" aria-hidden="true"></i>
+                                <p>Déconnexion</p>
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
             </div>
+            
+            <div class="sidebar-footer">
+                <i class="bi bi-shield-check" aria-hidden="true"></i> v2.0.1
+                <span class="mx-1" aria-hidden="true">•</span>
+                <i class="bi bi-database" aria-hidden="true"></i> Secure
+            </div>
         </aside>
-
-        <main class="app-main">
-            <!--begin::App Content Header-->
-            <div class="app-content-header">
-                <!--begin::Container-->
-                <div class="container-fluid">
-                    <!--begin::Row-->
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h3 class="mb-0">Dashboard</h3>
-                        </div>
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-end">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                            </ol>
-                        </div>
-                        <div class="col-1"></div>
+        
+        <div class="main-col">
+            <nav class="navbar-fixed navbar navbar-expand-lg" aria-label="Barre de navigation supérieure">
+                <div class="container-fluid py-2">
+                    <div class="d-flex align-items-center">
+                        <button class="sidebar-toggle-btn" id="sidebarToggleBtn" aria-label="Afficher ou masquer le menu" type="button">
+                            <i class="bi bi-list fs-4" aria-hidden="true"></i>
+                        </button>
+                        <span class="navbar-brand fw-semibold ms-2">
+                            <i class="bi bi-activity text-primary" aria-hidden="true"></i>
+                            Admin<span class="text-primary">Dashboard</span>
+                        </span>
                     </div>
-                    <!--end::Row-->
+                    
+                    <div class="ms-auto d-flex align-items-center gap-3">
+                        <div class="dropdown">
+                            <button class="btn btn-link text-decoration-none p-0" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications" type="button">
+                                <i class="bi bi-bell fs-5" aria-hidden="true"></i>
+                                <span class="badge bg-danger rounded-pill ms-1" aria-label="3 notifications non lues">3</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                <li><a class="dropdown-item" href="notifications.html">🔔 3 nouvelles alertes</a></li>
+                                <li><a class="dropdown-item" href="messages.html">📧 4 messages</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-center" href="notifications-tout.html">Voir tout</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="dropdown">
+                            <button class="d-flex align-items-center text-decoration-none bg-transparent border-0" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu utilisateur" type="button">
+                                <div class="avatar me-2" style="width: 32px; height: 32px; font-size: 14px;" aria-hidden="true">TA</div>
+                                <span class="d-none d-sm-inline">Thomas</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                                <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person" aria-hidden="true"></i> Profil</a></li>
+                                <li><a class="dropdown-item" href="params.html"><i class="bi bi-gear" aria-hidden="true"></i> Paramètres</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="deconnexion.html"><i class="bi bi-box-arrow-right" aria-hidden="true"></i> Déconnexion</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <!--end::Container-->
-            </div>
-            <!--end::App Content Header-->
-            <!--begin::App Content-->
-            <div class="app-content">
-                <!--begin::Container-->
-                <div class="container-fluid">
-                    {{ $slot }}
+            </nav>
+            
+            <main id="main-content" class="content-scrollable" tabindex="-1">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <div>
+                        <h1 class="h3 fw-semibold mb-1">Dashboard</h1>
+                        <p class="text-secondary mb-0">Vue d'ensemble de votre activité</p>
+                    </div>
+                    <button class="btn btn-primary btn-sm" type="button">
+                        <i class="bi bi-plus-circle" aria-hidden="true"></i> Nouveau
+                    </button>
                 </div>
-                <!--end::Container-->
-            </div>
-            <!--end::App Content-->
-        </main>
-
-
-        <footer class="app-footer">
-            <!--begin::To the end-->
-            <div class="float-end d-none d-sm-inline">{{ config('app.version') }}</div>
-            <strong>
-                Copyright &copy; 2026&nbsp;
-                <a href="" class="text-decoration-none">paulido.com</a>.
-            </strong>
-            All rights reserved.
-        </footer>
+                
+                <div class="row g-4 mb-4">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card stat-card p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-secondary small mb-1">Utilisateurs</div>
+                                    <div class="h3 fw-bold mb-0">1,234</div>
+                                    <small class="text-success"><i class="bi bi-arrow-up" aria-hidden="true"></i> +12%</small>
+                                </div>
+                                <div class="bg-primary bg-opacity-10 rounded-circle p-3" aria-hidden="true">
+                                    <i class="bi bi-people fs-4 text-primary"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card stat-card p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-secondary small mb-1">Ventes</div>
+                                    <div class="h3 fw-bold mb-0">€12,345</div>
+                                    <small class="text-success"><i class="bi bi-arrow-up" aria-hidden="true"></i> +8%</small>
+                                </div>
+                                <div class="bg-success bg-opacity-10 rounded-circle p-3" aria-hidden="true">
+                                    <i class="bi bi-cart fs-4 text-success"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card stat-card p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-secondary small mb-1">Visiteurs</div>
+                                    <div class="h3 fw-bold mb-0">45.6K</div>
+                                    <small class="text-danger"><i class="bi bi-arrow-down" aria-hidden="true"></i> -3%</small>
+                                </div>
+                                <div class="bg-info bg-opacity-10 rounded-circle p-3" aria-hidden="true">
+                                    <i class="bi bi-graph-up fs-4 text-info"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="card stat-card p-3">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <div class="text-secondary small mb-1">Conversion</div>
+                                    <div class="h3 fw-bold mb-0">3.2%</div>
+                                    <small class="text-success"><i class="bi bi-arrow-up" aria-hidden="true"></i> +0.5%</small>
+                                </div>
+                                <div class="bg-warning bg-opacity-10 rounded-circle p-3" aria-hidden="true">
+                                    <i class="bi bi-percent fs-4 text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-light border" role="alert">
+                    <i class="bi bi-info-circle-fill text-primary me-2" aria-hidden="true"></i>
+                    Navigation avec arborescence - cliquez sur les items avec <i class="bi bi-chevron-right" aria-hidden="true"></i> pour développer les sous-menus.
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Activités récentes</h5>
+                                <div class="list-group list-group-flush">
+                                    <div class="list-group-item border-0 px-0 py-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-person-plus text-primary me-3" aria-hidden="true"></i>
+                                            <div>Nouvel utilisateur inscrit - Jean Dupont</div>
+                                            <small class="ms-auto text-secondary">5 min</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 px-0 py-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-cart text-success me-3" aria-hidden="true"></i>
+                                            <div>Nouvelle commande #12345</div>
+                                            <small class="ms-auto text-secondary">1 heure</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 px-0 py-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-exclamation-triangle text-warning me-3" aria-hidden="true"></i>
+                                            <div>Alerte de sécurité détectée</div>
+                                            <small class="ms-auto text-secondary">3 heures</small>
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item border-0 px-0 py-2">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-file-text text-info me-3" aria-hidden="true"></i>
+                                            <div>Rapport mensuel généré</div>
+                                            <small class="ms-auto text-secondary">1 jour</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <footer class="footer-fixed">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                    <small class="text-secondary">&copy; 2026 AdminDashboard. Tous droits réservés.</small>
+                    <div>
+                        <a href="confidentialite.html" class="text-secondary text-decoration-none me-3 small">Confidentialité</a>
+                        <a href="mentions-legales.html" class="text-secondary text-decoration-none small">Mentions légales</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
 
-</x-app-layout>
+</body>
+</html>
