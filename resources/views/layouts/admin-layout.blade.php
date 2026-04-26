@@ -8,6 +8,7 @@
     <meta name="color-scheme" content="dark light">
     <title>PAUL</title>
     <script src="{{ asset('js/color-modes.js') }}"></script>
+    @datatableScripts
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js'])
 </head>
 <body>
@@ -439,110 +440,7 @@
                         <i class="bi bi-plus-circle" aria-hidden="true"></i> Nouveau
                     </button>
                 </div>
-                
-                <div class="row g-4 mb-4">
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card stat-card p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="text-secondary small mb-1">Utilisateurs</div>
-                                    <div class="h3 fw-bold mb-0">1,234</div>
-                                    <small class="text-success"><i class="bi bi-arrow-up" aria-hidden="true"></i> +12%</small>
-                                </div>
-                                <div class="bg-primary bg-opacity-10 rounded-circle p-3" aria-hidden="true">
-                                    <i class="bi bi-people fs-4 text-primary"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card stat-card p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="text-secondary small mb-1">Ventes</div>
-                                    <div class="h3 fw-bold mb-0">€12,345</div>
-                                    <small class="text-success"><i class="bi bi-arrow-up" aria-hidden="true"></i> +8%</small>
-                                </div>
-                                <div class="bg-success bg-opacity-10 rounded-circle p-3" aria-hidden="true">
-                                    <i class="bi bi-cart fs-4 text-success"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card stat-card p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="text-secondary small mb-1">Visiteurs</div>
-                                    <div class="h3 fw-bold mb-0">45.6K</div>
-                                    <small class="text-danger"><i class="bi bi-arrow-down" aria-hidden="true"></i> -3%</small>
-                                </div>
-                                <div class="bg-info bg-opacity-10 rounded-circle p-3" aria-hidden="true">
-                                    <i class="bi bi-graph-up fs-4 text-info"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-xl-3">
-                        <div class="card stat-card p-3">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <div class="text-secondary small mb-1">Conversion</div>
-                                    <div class="h3 fw-bold mb-0">3.2%</div>
-                                    <small class="text-success"><i class="bi bi-arrow-up" aria-hidden="true"></i> +0.5%</small>
-                                </div>
-                                <div class="bg-warning bg-opacity-10 rounded-circle p-3" aria-hidden="true">
-                                    <i class="bi bi-percent fs-4 text-warning"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="alert alert-light border" role="alert">
-                    <i class="bi bi-info-circle-fill text-primary me-2" aria-hidden="true"></i>
-                    Navigation avec arborescence - cliquez sur les items avec <i class="bi bi-chevron-right" aria-hidden="true"></i> pour développer les sous-menus.
-                </div>
-                
-                <div class="row g-4">
-                    <div class="col-12">
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Activités récentes</h5>
-                                <div class="list-group list-group-flush">
-                                    <div class="list-group-item border-0 px-0 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="bi bi-person-plus text-primary me-3" aria-hidden="true"></i>
-                                            <div>Nouvel utilisateur inscrit - Jean Dupont</div>
-                                            <small class="ms-auto text-secondary">5 min</small>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item border-0 px-0 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="bi bi-cart text-success me-3" aria-hidden="true"></i>
-                                            <div>Nouvelle commande #12345</div>
-                                            <small class="ms-auto text-secondary">1 heure</small>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item border-0 px-0 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="bi bi-exclamation-triangle text-warning me-3" aria-hidden="true"></i>
-                                            <div>Alerte de sécurité détectée</div>
-                                            <small class="ms-auto text-secondary">3 heures</small>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item border-0 px-0 py-2">
-                                        <div class="d-flex align-items-center">
-                                            <i class="bi bi-file-text text-info me-3" aria-hidden="true"></i>
-                                            <div>Rapport mensuel généré</div>
-                                            <small class="ms-auto text-secondary">1 jour</small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {{ $slot }}
             </main>
             
             <footer class="footer-fixed">
