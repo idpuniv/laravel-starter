@@ -8,8 +8,7 @@
     <meta name="color-scheme" content="dark light">
     <title>PAUL</title>
     <script src="{{ asset('js/color-modes.js') }}"></script>
-    @datatableScripts
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js', 'resources/js/datatable-manager.js'])
 </head>
 <body>
     <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>

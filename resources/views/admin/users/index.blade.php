@@ -76,7 +76,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const userTable = new DataTableManager({
-            url: "{{ route('users.index') }}",
+            url: "{{ route('admin.users.index') }}",
             container: '#table-container'
         });
     });

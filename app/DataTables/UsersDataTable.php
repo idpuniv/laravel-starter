@@ -4,7 +4,7 @@ namespace App\DataTables;
 
 use App\Models\User;
 use App\Models\Role;
-use Idpuniv\DataTable\Services\AbstractDataTable;
+use App\Services\AbstractDataTable;
 use Illuminate\Database\Eloquent\Builder;
 
 class UsersDataTable extends AbstractDataTable

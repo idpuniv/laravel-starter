@@ -4,62 +4,86 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use App\Models\User;
+use Spatie\Permission\Models\Permission;
 
 class UserPermissionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Page d'édition des permissions utilisateur
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $user = User::with(['roles', 'permissions'])->findOrFail($id);
+
+            // permissions déjà données via les rôles
+            $rolePermissions = $user->getPermissionsViaRoles()
+                ->pluck('name')
+                ->toArray();
+
+            // permissions assignables (hors rôles)
+            $permissions = Permission::whereNotIn('name', $rolePermissions)->get();
+
+            return view('admin.users.permissions.edit', compact(
+                'user',
+                'permissions',
+                'rolePermissions'
+            ));
+
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with('error', 'Utilisateur introuvable');
+        }
     }
 
     /**
-     * Update the specified resource in storage.
+     * Mise à jour des permissions utilisateur
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            $validated = $request->validate([
+                'permissions' => 'nullable|array',
+                'permissions.*' => 'exists:permissions,name',
+            ]);
+
+            $user = User::findOrFail($id);
+
+            $user->syncPermissions($validated['permissions'] ?? []);
+
+            return redirect()
+                ->route('admin.users.permissions.edit', $user->id)
+                ->with('success', 'Permissions mises à jour avec succès');
+
+        } catch (ValidationException $e) {
+            return back()
+                ->withErrors($e->errors())
+                ->withInput();
+
+        } catch (\Exception $e) {
+            return back()
+                ->with('error', 'Erreur lors de la mise à jour des permissions')
+                ->withInput();
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Affichage optionnel (détail user permissions)
      */
-    public function destroy(string $id)
+    public function show(string $id)
     {
-        //
+        try {
+            $user = User::with(['roles', 'permissions'])->findOrFail($id);
+
+            return view('admin.users.permissions.show', compact('user'));
+
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with('error', 'Utilisateur introuvable');
+        }
     }
 }

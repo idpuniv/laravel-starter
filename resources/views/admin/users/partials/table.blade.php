@@ -1,4 +1,5 @@
-<table class="table table-hover table-bordered">
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
     <thead class="table-light">
         <tr>
             <th class="sortable" data-field="id">#</th>
@@ -16,14 +17,25 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
                 <td>
-                    @if ($user->roles->isNotEmpty())
-                        @foreach ($user->getRoleNames() as $roleName)
-                            <span class="badge bg-light text-dark border">{{ $roleName }}</span>
-                        @endforeach
-                    @else
-                        <span class="text-muted small">Aucun rôle</span>
-                    @endif  
-                </td>
+    @php
+        $roles = $user->getRoleNames();
+        $count = $roles->count();
+    @endphp
+
+    <a href="{{ route('admin.users.roles.show', $user->id) }}" class="text-decoration-none">
+        @if ($count === 0)
+            <span class="text-muted small">Aucun rôle</span>
+        @else
+            @foreach ($roles->take(2) as $roleName)
+                <span class="badge bg-light text-dark border">{{ $roleName }}</span>
+            @endforeach
+
+            @if ($count > 2)
+                <span class="badge bg-secondary">+{{ $count - 2 }}</span>
+            @endif
+        @endif
+    </a>
+</td>
             </tr>
         @empty
             <tr>
@@ -37,3 +49,4 @@
 </table>
 
 @include('partials.pagination', ['data' => $data])
+</div>
