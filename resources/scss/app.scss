@@ -1,7 +1,7 @@
 // 0. FUNCTIONS (must be imported first)
 @import "bootstrap/scss/functions";
 
-// @import "variables";
+@import "variables";
 
 // 1. VARIABLES & COLORS
 @import "bootstrap/scss/variables";
@@ -57,4 +57,80 @@
 
 @import "utility";
 @import "icons";
+@import "theme";
+
+@import "components";
+
+// ============================================================================
+// NAVBAR STYLES - Applique automatiquement le fond (sans couleurs figées)
+// ============================================================================
+
+// Navbar Light (mode clair)
+.navbar:not([data-bs-theme="dark"]) {
+    background-color: var(--bs-navbar-bg, var(--bs-light));
+    color: var(--bs-navbar-color, var(--bs-gray-700));
+}
+
+// Navbar Dark (mode sombre)
+.navbar[data-bs-theme="dark"],
+.navbar.bg-dark {
+    background-color: var(--bs-navbar-dark-bg, var(--bs-dark));
+    color: var(--bs-navbar-dark-color, var(--bs-gray-400));
+}
+
+// Liens de navigation (clairs)
+.navbar .nav-link {
+    color: var(--bs-navbar-link-color, var(--bs-gray-700));
+    
+    &:hover {
+        color: var(--bs-navbar-link-hover-color, var(--bs-primary));
+    }
+    
+    &.active {
+        color: var(--bs-navbar-link-active-color, var(--bs-primary));
+    }
+}
+
+// Liens de navigation (sombres)
+.navbar[data-bs-theme="dark"] .nav-link {
+    color: var(--bs-navbar-dark-link-color, var(--bs-gray-400));
+    
+    &:hover {
+        color: var(--bs-navbar-dark-link-hover-color, var(--bs-primary));
+    }
+    
+    &.active {
+        color: var(--bs-navbar-dark-link-active-color, var(--bs-primary));
+    }
+}
+
+// Brand / Logo
+.navbar-brand {
+    color: var(--bs-navbar-brand-color, var(--bs-gray-900));
+    
+    &:hover {
+        color: var(--bs-navbar-brand-hover-color, var(--bs-primary));
+    }
+}
+
+.navbar[data-bs-theme="dark"] .navbar-brand {
+    color: var(--bs-navbar-dark-brand-color, var(--bs-white));
+    
+    &:hover {
+        color: var(--bs-navbar-dark-brand-hover-color, var(--bs-primary));
+    }
+}
+
+// Toggler button (mobile)
+.navbar-toggler {
+    border-color: var(--bs-navbar-toggler-border-color, var(--bs-gray-300));
+    
+    .navbar-toggler-icon {
+        background-image: var(--bs-navbar-toggler-icon-bg);
+    }
+}
+
+.navbar[data-bs-theme="dark"] .navbar-toggler {
+    border-color: var(--bs-navbar-dark-toggler-border-color, var(--bs-gray-600));
+}
 

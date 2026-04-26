@@ -1,0 +1,89 @@
+// ============================================================================
+// _VARIABLES.SCSS - Centralisation des couleurs (60-30-10)
+// ============================================================================
+
+// ========================================
+// 1. COULEURS PRINCIPALES (10% - Actions)
+// ========================================
+$primary: #4361ee !default;      // Bleu - Actions principales, CTA
+$secondary: #64748b !default;    // Gris bleu - Actions secondaires
+$accent: #f59e0b !default;       // Orange - Notifications, highlights
+
+// ========================================
+// 2. COULEURS SÉMANTIQUES (Feedbacks)
+// ========================================
+$success: #10b981 !default;      // Vert - Validation, succès
+$danger: #ef4444 !default;       // Rouge - Erreurs, suppression
+$warning: #fbbf24 !default;      // Jaune - Alertes, attention
+$info: #06b6d4 !default;         // Cyan - Informations neutres
+
+// ========================================
+// 3. COULEURS NEUTRES (60% - Fonds)
+// ========================================
+$light: #f8fafc !default;        // Blanc cassé - Fond principal
+$white: #ffffff !default;        // Blanc pur - Cards, modales
+$dark: #1e293b !default;         // Bleu nuit - Texte principal, sidebars
+
+// ========================================
+// 4. NUANCES DE GRIS (30% - Hiérarchie)
+// ========================================
+$gray-100: #f1f5f9 !default;     // Très clair - Hover subtil
+$gray-200: #e2e8f0 !default;     // Clair - Bordures, séparateurs
+$gray-300: #cbd5e1 !default;     // Moyen clair - Bordures actives
+$gray-400: #94a3b8 !default;     // Moyen - Texte secondaire
+$gray-500: #64748b !default;     // Moyen foncé - Texte désactivé
+$gray-600: #475569 !default;     // Foncé - Icons, labels
+$gray-700: #334155 !default;     // Très foncé - Texte hover
+$gray-800: #1e293b !default;     // Presque noir - Texte principal
+$gray-900: #0f172a !default;     // Noir - Titres importants
+
+// ========================================
+// 5. TYPOGRAPHIE
+// ========================================
+$font-family-base: 'Inter', system-ui, -apple-system, sans-serif !default;
+$font-size-base: 1rem !default;
+$font-weight-normal: 400 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+
+// ========================================
+// 6. ESPACEMENTS (Échelle 8px)
+// ========================================
+$spacing-unit: 0.5rem;  // 8px
+$spacing-xs: $spacing-unit;        // 0.5rem
+$spacing-sm: $spacing-unit * 2;    // 1rem
+$spacing-md: $spacing-unit * 3;    // 1.5rem
+$spacing-lg: $spacing-unit * 4;    // 2rem
+$spacing-xl: $spacing-unit * 6;    // 3rem
+
+// ========================================
+// 7. BORDURES (Cohérence visuelle)
+// ========================================
+$border-radius-sm: 0.25rem;   // 4px - Petits éléments
+$border-radius: 0.375rem;     // 6px - Standard
+$border-radius-lg: 0.5rem;    // 8px - Cards
+$border-radius-xl: 0.75rem;   // 12px - Modales
+$border-radius-2xl: 1rem;     // 16px - Sidebar
+
+// ========================================
+// 8. OMBRES (Profondeur)
+// ========================================
+$box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+$box-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+$box-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+// ========================================
+// 9. TRANSITIONS (UX fluide)
+// ========================================
+$transition-fast: 0.1s ease-in-out;
+$transition-base: 0.2s ease-in-out;
+$transition-slow: 0.3s ease-in-out;
+
+// ========================================
+// 10. DASHBOARD (30% - Sidebar, navbar)
+// ========================================
+$dashboard-sidebar-bg-light: #ffffff;
+$dashboard-sidebar-bg-dark: #0f1420;
+$dashboard-sidebar-width: 280px;
+$dashboard-sidebar-collapsed-width: 72px;
