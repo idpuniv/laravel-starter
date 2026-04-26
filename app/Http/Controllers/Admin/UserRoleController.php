@@ -19,7 +19,6 @@ class UserRoleController extends Controller
             $users = User::with('roles')->paginate(10);
 
             return view('admin.users.roles.index', compact('users'));
-
         } catch (\Exception $e) {
             return back()->with('error', 'Erreur lors du chargement des utilisateurs');
         }
@@ -35,7 +34,6 @@ class UserRoleController extends Controller
             $roles = Role::all();
 
             return view('admin.users.roles.create', compact('users', 'roles'));
-
         } catch (\Exception $e) {
             return back()->with('error', 'Erreur lors du chargement du formulaire');
         }
@@ -61,12 +59,10 @@ class UserRoleController extends Controller
             return redirect()
                 ->route('admin.users.roles.index')
                 ->with('success', 'Rôles attribués avec succès');
-
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
                 ->withInput();
-
         } catch (\Exception $e) {
             return back()
                 ->with('error', 'Erreur lors de l’attribution des rôles')
@@ -83,7 +79,6 @@ class UserRoleController extends Controller
             $user = User::with('roles')->findOrFail($id);
 
             return view('admin.users.roles.show', compact('user'));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.roles.index')
@@ -101,7 +96,6 @@ class UserRoleController extends Controller
             $roles = Role::all();
 
             return view('admin.users.roles.edit', compact('user', 'roles'));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.roles.index')
@@ -125,16 +119,17 @@ class UserRoleController extends Controller
             $user->syncRoles($validated['roles']);
 
             return redirect()
-                ->route('admin.users.roles.index')
+                ->route('admin.users.roles.edit', $user->id)
                 ->with('success', 'Rôles mis à jour');
-
         } catch (ValidationException $e) {
             return back()
-                ->withErrors($e->errors());
+                ->withErrors($e->errors())
+                ->withInput();
+        } catch (\Throwable $e) {
 
-        } catch (\Exception $e) {
             return back()
-                ->with('error', 'Erreur lors de la mise à jour');
+                ->with('error', 'Erreur système lors de la mise à jour')
+                ->withInput();
         }
     }
 
@@ -150,7 +145,6 @@ class UserRoleController extends Controller
             return redirect()
                 ->route('admin.users.roles.index')
                 ->with('success', 'Rôles supprimés');
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.roles.index')

@@ -1,4 +1,3 @@
-
 <x-admin-layout>
 <div class="container py-4">
 
@@ -19,12 +18,24 @@
                 @endif
             </p>
 
+            <hr>
+
+            <div class="d-flex gap-2">
+
+                <a href="{{ route('admin.permissions.edit', $permission->id) }}"
+                   class="btn btn-warning">
+                    Modifier
+                </a>
+
+                <a href="{{ route('admin.permissions.index') }}"
+                   class="btn btn-secondary">
+                    Retour
+                </a>
+
+            </div>
+
         </div>
     </div>
-
-    <a href="{{ route('admin.permissions.index') }}" class="btn btn-secondary mt-3">
-        Retour
-    </a>
 
 </div>
 </x-admin-layout>

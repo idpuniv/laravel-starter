@@ -46,7 +46,8 @@ final class Roles
                     'label' => 'Super admin',
                     'description' => 'Role ayant tous les privilèges',
                     'permissions' => [
-                        
+                        \App\Permissions\RolePermissions::class,
+                        \App\Permissions\PermissionPermissions::class,
                     ],
                 ],
             ],
