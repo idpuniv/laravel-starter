@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Dashboard d'administration professionnel">
     <meta name="theme-color" content="#1e293b">
     <meta name="color-scheme" content="dark light">
-    <title>PAUL</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title') - {{ config('app.name') }}</title>
     <script src="{{ asset('js/color-modes.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js', 'resources/js/datatable-manager.js'])
 </head>
@@ -28,367 +28,92 @@
 
                 <nav class="mt-2" aria-label="Navigation principale">
                     <ul class="nav sidebar-menu flex-column" role="menubar" data-accordion="false">
-                        <!-- Dashboard parent (plus actif, car l'enfant l'est) -->
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="true"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-speedometer2" aria-hidden="true"></i>
-                                <p>
-                                    Dashboard
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview show" role="menu">
-                                <li class="nav-item" role="none">
-                                    <a href="dashboard-principal.html" class="nav-link active" role="menuitem">
-                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
-                                        <p>Dashboard Principal</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="analyses.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
-                                        <p>Analyses</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="rapports-rapides.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
-                                        <p>Rapports Rapides</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        @foreach ($sidebarMenus as $menu)
+                            @php
+                                // Filtrer les enfants valides (avec route existante)
+                                $validChildren = array_filter($menu['children'] ?? [], function ($child) {
+                                    return isset($child['route']) && Route::has($child['route']);
+                                });
 
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-people" aria-hidden="true"></i>
-                                <p>
-                                    Utilisateurs
-                                    <span class="nav-badge" aria-label="12 utilisateurs">12</span>
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview" role="menu">
-                                <li class="nav-item" role="none">
-                                    <a href="utilisateurs-liste.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-list-ul" aria-hidden="true"></i>
-                                        <p>Liste des utilisateurs</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="utilisateurs-ajouter.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-person-plus" aria-hidden="true"></i>
-                                        <p>Ajouter un utilisateur</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="utilisateurs-profils.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-person-badge" aria-hidden="true"></i>
-                                        <p>Profils</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="utilisateurs-inactifs.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-person-x" aria-hidden="true"></i>
-                                        <p>Comptes inactifs</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                $hasChildren = !empty($validChildren);
+                                $hasRoute = isset($menu['route']) && Route::has($menu['route']);
 
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-envelope" aria-hidden="true"></i>
-                                <p>
-                                    Messages
-                                    <span class="nav-badge" aria-label="5 messages non lus">5</span>
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview" role="menu">
-                                <li class="nav-item" role="none">
-                                    <a href="messages-reception.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-inbox" aria-hidden="true"></i>
-                                        <p>Réception</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="messages-envoyes.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-send" aria-hidden="true"></i>
-                                        <p>Messages envoyés</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="messages-brouillons.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-file-text" aria-hidden="true"></i>
-                                        <p>Brouillons</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="messages-corbeille.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-trash" aria-hidden="true"></i>
-                                        <p>Corbeille</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                                // Vérifier si le parent a des enfants valides ou une route
+                                if (!$hasRoute && !$hasChildren) {
+                                    continue;
+                                }
 
-                        <li class="nav-item" role="none">
-                            <a href="statistiques.html" class="nav-link" role="menuitem">
-                                <i class="nav-icon bi bi-graph-up" aria-hidden="true"></i>
-                                <p>Statistiques</p>
-                            </a>
-                        </li>
+                                // Déterminer si le parent est actif
+                                $isParentActive = $hasRoute && request()->routeIs($menu['route'] . '*');
 
-                        <li class="nav-header" role="separator">GESTION</li>
+                                // Vérifier si un enfant est actif
+                                $hasActiveChild = false;
+                                if ($hasChildren) {
+                                    foreach ($validChildren as $child) {
+                                        if (isset($child['route']) && request()->routeIs($child['route'] . '*')) {
+                                            $hasActiveChild = true;
+                                            break;
+                                        }
+                                    }
+                                }
 
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-database" aria-hidden="true"></i>
-                                <p>
-                                    Base de données
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview" role="menu">
+                                // Le menu parent est considéré actif si parent actif OU enfant actif
+                                $isActive = $isParentActive || $hasActiveChild;
+                            @endphp
+
+                            @if (!$hasChildren)
+                                {{-- Menu sans enfants (lien simple) --}}
                                 <li class="nav-item" role="none">
-                                    <a href="db-sauvegardes.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-save" aria-hidden="true"></i>
-                                        <p>Sauvegardes</p>
+                                    <a href="{{ route($menu['route']) }}"
+                                        class="nav-link {{ $isActive ? 'active' : '' }}" role="menuitem">
+                                        <i class="nav-icon {{ $menu['icon'] ?? 'bi bi-circle' }}"
+                                            aria-hidden="true"></i>
+                                        <p>{{ $menu['label'] }}</p>
                                     </a>
                                 </li>
+                            @else
+                                {{-- Menu avec enfants (dropdown) --}}
                                 <li class="nav-item" role="none">
-                                    <button class="nav-link" data-treeview-toggle role="menuitem"
-                                        aria-expanded="false" aria-haspopup="true">
-                                        <i class="nav-icon bi bi-file-earmark-spreadsheet" aria-hidden="true"></i>
+                                    <button class="nav-link {{ $isActive ? 'active' : '' }}" data-treeview-toggle
+                                        role="menuitem" aria-expanded="{{ $hasActiveChild ? 'true' : 'false' }}"
+                                        aria-haspopup="true">
+                                        <i class="nav-icon {{ $menu['icon'] ?? 'bi bi-folder' }}"
+                                            aria-hidden="true"></i>
                                         <p>
-                                            Import/Export
+                                            {{ $menu['label'] }}
+                                            @if (isset($menu['badge']))
+                                                <span class="nav-badge"
+                                                    aria-label="{{ $menu['badge']['label'] ?? 'notification' }}">
+                                                    {{ $menu['badge']['value'] ?? $menu['badge'] }}
+                                                </span>
+                                            @endif
                                             <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
                                         </p>
                                     </button>
-                                    <ul class="nav nav-treeview" role="menu">
-                                        <li class="nav-item" role="none">
-                                            <a href="export-csv.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-download" aria-hidden="true"></i>
-                                                <p>Exporter CSV</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="none">
-                                            <a href="import-json.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-upload" aria-hidden="true"></i>
-                                                <p>Importer JSON</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="none">
-                                            <a href="export-sql.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-filetype-sql" aria-hidden="true"></i>
-                                                <p>Exporter SQL</p>
-                                            </a>
-                                        </li>
+                                    <ul class="nav nav-treeview {{ $hasActiveChild ? 'show' : '' }}" role="menu">
+                                        @foreach ($validChildren as $child)
+                                            <li class="nav-item" role="none">
+                                                <a href="{{ route($child['route']) }}"
+                                                    class="nav-link {{ request()->routeIs($child['route'] . '*') ? 'active' : '' }}"
+                                                    role="menuitem">
+                                                    <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
+                                                    <p>{{ $child['label'] }}</p>
+                                                </a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li class="nav-item" role="none">
-                                    <a href="db-optimisation.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-speedometer" aria-hidden="true"></i>
-                                        <p>Optimisation</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="db-maintenance.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-tools" aria-hidden="true"></i>
-                                        <p>Maintenance</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                            @endif
+                        @endforeach
 
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-shield-check" aria-hidden="true"></i>
-                                <p>
-                                    Sécurité
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview" role="menu">
-                                <li class="nav-item" role="none">
-                                    <a href="securite-auth.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-shield-lock" aria-hidden="true"></i>
-                                        <p>Authentification</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="securite-sessions.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-clock-history" aria-hidden="true"></i>
-                                        <p>Sessions actives</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="securite-chiffrement.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-key" aria-hidden="true"></i>
-                                        <p>Chiffrement</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="securite-logs.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-shield-shaded" aria-hidden="true"></i>
-                                        <p>Logs sécurité</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item" role="none">
-                            <a href="rapports.html" class="nav-link" role="menuitem">
-                                <i class="nav-icon bi bi-file-text" aria-hidden="true"></i>
-                                <p>Rapports</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header" role="separator">CONFIGURATION</li>
-
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-gear" aria-hidden="true"></i>
-                                <p>
-                                    Paramètres
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview" role="menu">
-                                <li class="nav-item" role="none">
-                                    <a href="params-generaux.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-globe" aria-hidden="true"></i>
-                                        <p>Généraux</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <button class="nav-link" data-treeview-toggle role="menuitem"
-                                        aria-expanded="false" aria-haspopup="true">
-                                        <i class="nav-icon bi bi-translate" aria-hidden="true"></i>
-                                        <p>
-                                            Langue
-                                            <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                        </p>
-                                    </button>
-                                    <ul class="nav nav-treeview" role="menu">
-                                        <li class="nav-item" role="none">
-                                            <a href="langue-fr.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-flag-fr" aria-hidden="true"></i>
-                                                <p>Français</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="none">
-                                            <a href="langue-en.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-flag-us" aria-hidden="true"></i>
-                                                <p>English</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="none">
-                                            <a href="langue-es.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-flag-es" aria-hidden="true"></i>
-                                                <p>Español</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="params-notifications.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-bell" aria-hidden="true"></i>
-                                        <p>Notifications</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="params-integrations.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-plug" aria-hidden="true"></i>
-                                        <p>Intégrations</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="nav-item" role="none">
-                            <a href="apparence.html" class="nav-link" role="menuitem">
-                                <i class="nav-icon bi bi-palette" aria-hidden="true"></i>
-                                <p>Apparence</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header" role="separator">SUPPORT</li>
-
-                        <li class="nav-item" role="none">
-                            <a href="aide.html" class="nav-link" role="menuitem">
-                                <i class="nav-icon bi bi-question-circle" aria-hidden="true"></i>
-                                <p>Aide</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item" role="none">
-                            <a href="chat.html" class="nav-link" role="menuitem">
-                                <i class="nav-icon bi bi-chat-dots" aria-hidden="true"></i>
-                                <p>Chat & Support</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-header" role="separator">AUTH</li>
-
-                        <li class="nav-item" role="none">
-                            <button class="nav-link" data-treeview-toggle role="menuitem" aria-expanded="false"
-                                aria-haspopup="true">
-                                <i class="nav-icon bi bi-box-arrow-in-right" aria-hidden="true"></i>
-                                <p>
-                                    Authentification
-                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                </p>
-                            </button>
-                            <ul class="nav nav-treeview" role="menu">
-                                <li class="nav-item" role="none">
-                                    <button class="nav-link" data-treeview-toggle role="menuitem"
-                                        aria-expanded="false" aria-haspopup="true">
-                                        <i class="nav-icon bi bi-person-circle" aria-hidden="true"></i>
-                                        <p>
-                                            Version 1
-                                            <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                        </p>
-                                    </button>
-                                    <ul class="nav nav-treeview" role="menu">
-                                        <li class="nav-item" role="none">
-                                            <a href="login.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-box-arrow-in-right" aria-hidden="true"></i>
-                                                <p>Connexion</p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item" role="none">
-                                            <a href="register.html" class="nav-link" role="menuitem">
-                                                <i class="nav-icon bi bi-person-plus" aria-hidden="true"></i>
-                                                <p>Inscription</p>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item" role="none">
-                                    <a href="mot-de-passe-oublie.html" class="nav-link" role="menuitem">
-                                        <i class="nav-icon bi bi-person-check" aria-hidden="true"></i>
-                                        <p>Mot de passe oublié</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
+                        {{-- Séparateur de déconnexion --}}
                         <li class="nav-item mt-2" role="none">
-                            <form method="POST" action="/logout">
+                            <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <a class="nav-link text-danger-sidebar" role="menuitem" href="/logout"
-                                    onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                    <i class="nav-icon bi bi-box-arrow-right" aria-hidden="true"></i> Déconnexion
-                                </a>
+                                <button type="submit" class="nav-link text-danger-sidebar" role="menuitem">
+                                    <i class="nav-icon bi bi-box-arrow-right" aria-hidden="true"></i>
+                                    <p>Déconnexion</p>
+                                </button>
                             </form>
                         </li>
                     </ul>
@@ -474,9 +199,18 @@
                         <h1 class="h3 fw-semibold mb-1">Dashboard</h1>
                         <p class="text-secondary mb-0">Vue d'ensemble de votre activité</p>
                     </div>
-                    <button class="btn btn-primary btn-sm" type="button">
+                    <div class="status">
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">{{ session('error') }}</div>
+                    @endif
+                </div>
+                    {{-- <button class="btn btn-primary btn-sm" type="button">
                         <i class="bi bi-plus-circle" aria-hidden="true"></i> Nouveau
-                    </button>
+                    </button> --}}
                 </div>
                 {{ $slot }}
             </main>

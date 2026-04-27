@@ -12,7 +12,7 @@
         <div class="mb-3">
             <label for="current_password" class="form-label fw-semibold">{{ __('Current Password') }}</label>
             <div class="input-group">
-                <span class="input-group-text bg-light border-end-0">
+                <span class="input-group-text border-end-0">
                     <i class="bi bi-lock"></i>
                 </span>
                 <input type="password" 
@@ -30,7 +30,7 @@
         <div class="mb-3">
             <label for="password" class="form-label fw-semibold">{{ __('New Password') }}</label>
             <div class="input-group">
-                <span class="input-group-text bg-light border-end-0">
+                <span class="input-group-text border-end-0">
                     <i class="bi bi-key"></i>
                 </span>
                 <input type="password" 
@@ -51,7 +51,7 @@
         <div class="mb-3">
             <label for="password_confirmation" class="form-label fw-semibold">{{ __('Confirm Password') }}</label>
             <div class="input-group">
-                <span class="input-group-text bg-light border-end-0">
+                <span class="input-group-text border-end-0">
                     <i class="bi bi-check-circle"></i>
                 </span>
                 <input type="password" 

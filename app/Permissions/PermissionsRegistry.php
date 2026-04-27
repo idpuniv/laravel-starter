@@ -18,4 +18,13 @@ return [
         'icon' => 'heroicon-o-folder',
         'order' => 0,
     ],
+
+    'Utilisateurs' => [
+        'description' => 'Gestion des Utilisateurs',
+        'permissions' => [
+            App\Permissions\UserPermissions::class,
+        ],
+        'icon' => 'heroicon-o-folder',
+        'order' => 0,
+    ],
 ];

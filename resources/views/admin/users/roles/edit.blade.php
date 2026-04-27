@@ -1,62 +1,77 @@
+@section('title', 'Modifier les rôles de ' . $user->name)
+
 <x-admin-layout>
-    <div class="container">
-        <h1>Détails utilisateur</h1>
+<div class="container py-4">
 
-        <div class="card">
-            <div class="card-body">
+    <h3>Détails utilisateur</h3>
 
-                <h4>{{ $user->name }}</h4>
-                <p>{{ $user->email }}</p>
+    <div class="card">
+        <div class="card-body">
 
-                <hr>
+            <h4 class="mb-1">{{ $user->name }}</h4>
+            <p class="text-muted">{{ $user->email }}</p>
 
-                {{-- ===================== ROLES INLINE ===================== --}}
-                <h5>Rôles</h5>
+            <hr>
 
-                <form method="POST" action="{{ route('admin.users.roles.update', $user->id) }}">
-                    @csrf
-                    @method('PUT')
+            {{-- ROLES --}}
+            <h5>Rôles</h5>
 
-                    <div class="mb-2">
-                        @foreach($roles as $role)
-                            <div class="form-check">
-                                <input type="checkbox"
-                                       name="roles[]"
-                                       value="{{ $role->name }}"
-                                       class="form-check-input"
-                                       {{ $user->hasRole($role->name) ? 'checked' : '' }}>
+            <form method="POST" action="{{ route('admin.users.roles.update', $user->id) }}">
+                @csrf
+                @method('PUT')
 
-                                <label class="form-check-label">
-                                    {{ $role->name }}
-                                </label>
-                            </div>
-                        @endforeach
-                    </div>
+                <div class="mb-3">
 
-                    <button class="btn btn-sm btn-primary">
-                        Sauvegarder rôles
-                    </button>
-                </form>
+                    @foreach($roles as $role)
+                        <div class="form-check">
+                            <input type="checkbox"
+                                   name="roles[]"
+                                   value="{{ $role->name }}"
+                                   class="form-check-input"
+                                   id="role_{{ $role->id }}"
+                                   {{ $user->hasRole($role->name) ? 'checked' : '' }}>
 
-                <hr>
+                            <label class="form-check-label" for="role_{{ $role->id }}">
+                                {{ $role->name }}
+                            </label>
+                        </div>
+                    @endforeach
 
-                {{-- ===================== PERMISSIONS LINK ===================== --}}
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h5 class="mb-0">Permissions</h5>
-
-                    <a href="{{ route('admin.users.permissions.edit', $user->id) }}"
-                       class="btn btn-sm btn-info">
-                        Gérer permissions
-                    </a>
                 </div>
 
+                <button class="btn btn-primary btn-sm">
+                    Sauvegarder
+                </button>
+            </form>
+
+            <hr>
+
+            {{-- PERMISSIONS --}}
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0">Permissions</h5>
+
+                <a href="{{ route('admin.users.permissions.edit', $user->id) }}"
+                   class="btn btn-sm btn-outline-primary">
+                    Gérer
+                </a>
+            </div>
+
+            <div class="d-flex flex-wrap gap-1">
+
                 @forelse($user->permissions as $permission)
-                    <span class="badge bg-secondary">{{ $permission->name }}</span>
+                    <span class="badge bg-secondary">
+                        {{ $permission->name }}
+                    </span>
                 @empty
-                    <p>Aucune permission attribuée</p>
+                    <span class="text-muted">
+                        Aucune permission attribuée
+                    </span>
                 @endforelse
 
             </div>
+
         </div>
     </div>
+
+</div>
 </x-admin-layout>

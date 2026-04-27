@@ -4,63 +4,116 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\DataTables\UsersDataTable;
+use App\Models\User;
+use App\Models\Team;
 use Illuminate\Http\Request;
+use App\Enums\Status;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Services\UserService;
+use Illuminate\Support\Facades\Config;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(
+        private readonly UserService $userService
+    ) {}
+
+    private function isTeamsEnabled(): bool
+    {
+        return Config::get('permission.teams', false);
+    }
+
     public function index(Request $request)
     {
         return UsersDataTable::make($request)->render();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        try {
+            $teams = $this->isTeamsEnabled()
+                ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
+                : collect();
+
+            return view('admin.users.create', compact('teams'));
+        } catch (\Exception $e) {
+            return back()->with(Status::ERROR, Status::message(Status::ERROR));
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //
+        try {
+            $this->userService->create($request->validated());
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::SUCCESS, Status::message(Status::CREATED, 'Utilisateur'));
+        } catch (\Exception $e) {
+            return back()
+                ->with(Status::ERROR, Status::message(Status::ERROR))
+                ->withInput();
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        //
+        try {
+            $user = $this->userService->find($id);
+
+            return view('admin.users.show', compact('user'));
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::ERROR, Status::message(Status::ERROR, 'Utilisateur'));
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        try {
+            $user = $this->userService->find($id);
+
+            $teams = $this->isTeamsEnabled()
+                ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
+                : collect();
+
+            return view('admin.users.edit', compact('user', 'teams'));
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::ERROR, Status::message(Status::ERROR));
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        //
+        try {
+            $this->userService->update($id, $request->validated());
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::SUCCESS, Status::message(Status::UPDATED, 'Utilisateur'));
+        } catch (\Exception $e) {
+            return back()
+                ->with(Status::ERROR, Status::message(Status::ERROR))
+                ->withInput();
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        try {
+            $this->userService->delete($id);
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::SUCCESS, Status::message(Status::DELETED, 'Utilisateur'));
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::ERROR, Status::message(Status::ERROR));
+        }
     }
 }

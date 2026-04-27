@@ -1,3 +1,4 @@
+@section('title', 'Rôles de ' . $user->name)
 <x-admin-layout>
     <div class="container">
 

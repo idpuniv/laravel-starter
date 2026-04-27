@@ -1,6 +1,13 @@
+@section('title', 'Liste des utilisateurs')
 <x-admin-layout>
     @datatableScripts
     <div class="container pt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3>Liste des utilisateurs</h3>
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+            + Nouveau utilisateurs
+        </a>
+    </div>
         <div class="row g-2 align-items-center mb-3">
             <div class="col">
                 <div class="d-flex flex-wrap align-items-center gap-2">

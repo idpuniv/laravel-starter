@@ -3,6 +3,7 @@
 namespace App\Menus;
 
 use App\Permissions\SystemPermissions;
+use App\Permissions\UserPermissions;
 
 final class Menus
 {
@@ -17,7 +18,6 @@ final class Menus
                     'label' => 'Tableau de bord',
                     'icon' => 'fas fa-home',
                     'route' => 'dashboard',
-                    'order' => 1,
                 ],
 
                 [
@@ -25,51 +25,28 @@ final class Menus
                     'label' => 'Statistiques',
                     'icon' => 'fas fa-chart-line',
                     'route' => 'statistics',
-                    'order' => 2,
                 ],
 
                 [
                     'slug' => 'users',
                     'label' => 'Utilisateurs',
                     'icon' => 'fas fa-users',
-                    'order' => 3,
                     'children' => [
                         [
                             'slug' => 'users.list',
                             'label' => 'Liste des utilisateurs',
-                            'route' => 'users.index',
+                            'route' => 'admin.users.index',
+                            'permission' => UserPermissions::VIEW
                         ],
                         [
-                            'slug' => 'users.roles',
+                            'slug' => 'admin.users.roles',
                             'label' => 'Rôles & permissions',
-                            'route' => 'roles.index',
+                            'route' => 'admin.roles.index',
                         ],
                         [
                             'slug' => 'users.groups',
                             'label' => 'Groupes',
-                            'route' => 'groups.index',
-                        ],
-                    ]
-                ],
-
-                [
-                    'slug' => 'security',
-                    'label' => 'Sécurité',
-                    'icon' => 'fas fa-shield-alt',
-                    'order' => 4,
-                    'permission' => SystemPermissions::VIEW_SECURITY,
-                    'children' => [
-                        [
-                            'slug' => 'security.settings',
-                            'label' => 'Paramètres sécurité',
-                            'route' => 'security.settings',
-                            'permission' => SystemPermissions::VIEW_SECURITY,
-                        ],
-                        [
-                            'slug' => 'security.logs',
-                            'label' => 'Logs & audit',
-                            'route' => 'security.logs',
-                            'permission' => SystemPermissions::VIEW_LOGS,
+                            'route' => 'admin.users.index',
                         ],
                     ]
                 ],
@@ -78,25 +55,23 @@ final class Menus
                     'slug' => 'settings',
                     'label' => 'Paramètres',
                     'icon' => 'fas fa-cog',
-                    'order' => 5,
-                    'permission' => SystemPermissions::VIEW_SETTINGS,
                     'children' => [
                         [
                             'slug' => 'settings.general',
                             'label' => 'Généraux',
-                            'route' => 'settings.general',
+                            'route' => 'settings.index',
                             'permission' => SystemPermissions::VIEW_SETTINGS,
                         ],
                         [
                             'slug' => 'settings.maintenance',
                             'label' => 'Maintenance',
-                            'route' => 'settings.maintenance',
+                            'route' => 'maintenance.index',
                             'permission' => SystemPermissions::VIEW_MAINTENANCE,
                         ],
                         [
                             'slug' => 'settings.cache',
                             'label' => 'Cache',
-                            'route' => 'settings.cache',
+                            'route' => 'cache.index',
                             'permission' => SystemPermissions::VIEW_CACHE,
                         ],
                     ]
@@ -106,7 +81,6 @@ final class Menus
                     'slug' => 'account',
                     'label' => 'Mon compte',
                     'icon' => 'fas fa-user-circle',
-                    'order' => 6,
                     'children' => [
                         [
                             'slug' => 'account.profile',
@@ -128,19 +102,17 @@ final class Menus
                     'slug' => 'search',
                     'label' => 'Rechercher',
                     'menu_type' => 'search',
-                    'order' => 1,
                 ],
 
                 [
                     'slug' => 'notifications',
                     'label' => 'Notifications',
                     'menu_type' => 'dropdown',
-                    'order' => 2,
                     'items' => [
                         [
                             'slug' => 'notification.view_all',
                             'label' => 'Voir toutes',
-                            'route' => 'notifications.index',
+                            'route' => 'admin.users.index',
                         ],
                     ]
                 ],
@@ -148,7 +120,6 @@ final class Menus
                 [
                     'slug' => 'user',
                     'menu_type' => 'dropdown',
-                    'order' => 3,
                     'items' => [
                         [
                             'slug' => 'profile',

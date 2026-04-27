@@ -16,7 +16,7 @@
         <div class="mb-3">
             <label for="name" class="form-label fw-semibold">{{ __('Full Name') }}</label>
             <div class="input-group">
-                <span class="input-group-text bg-light border-end-0">
+                <span class="input-group-text border-end-0">
                     <i class="bi bi-person"></i>
                 </span>
                 <input type="text" 
@@ -35,7 +35,7 @@
         <div class="mb-3">
             <label for="email" class="form-label fw-semibold">{{ __('Email Address') }}</label>
             <div class="input-group">
-                <span class="input-group-text bg-light border-end-0">
+                <span class="input-group-text border-end-0">
                     <i class="bi bi-envelope"></i>
                 </span>
                 <input type="email" 

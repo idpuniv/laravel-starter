@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Spatie\Permission\Models\Permission;
+use App\Enums\Status;
 
 class UserPermissionController extends Controller
 {
@@ -18,12 +19,10 @@ class UserPermissionController extends Controller
         try {
             $user = User::with(['roles', 'permissions'])->findOrFail($id);
 
-            // permissions déjà données via les rôles
             $rolePermissions = $user->getPermissionsViaRoles()
                 ->pluck('name')
                 ->toArray();
 
-            // permissions assignables (hors rôles)
             $permissions = Permission::whereNotIn('name', $rolePermissions)->get();
 
             return view('admin.users.permissions.edit', compact(
@@ -35,7 +34,7 @@ class UserPermissionController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
-                ->with('error', 'Utilisateur introuvable');
+                ->with(Status::ERROR, Status::message(Status::ERROR, 'Utilisateur'));
         }
     }
 
@@ -56,22 +55,23 @@ class UserPermissionController extends Controller
 
             return redirect()
                 ->route('admin.users.permissions.edit', $user->id)
-                ->with('success', 'Permissions mises à jour avec succès');
+                ->with(Status::SUCCESS, Status::message(Status::SUCCESS, 'Permissions'));
 
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
-                ->withInput();
+                ->withInput()
+                ->with(Status::FAILED, Status::message(Status::FAILED));
 
         } catch (\Exception $e) {
             return back()
-                ->with('error', 'Erreur lors de la mise à jour des permissions')
-                ->withInput();
+                ->withInput()
+                ->with(Status::ERROR, Status::message(Status::ERROR, 'Permissions'));
         }
     }
 
     /**
-     * Affichage optionnel (détail user permissions)
+     * Affichage détail permissions utilisateur
      */
     public function show(string $id)
     {
@@ -83,7 +83,7 @@ class UserPermissionController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
-                ->with('error', 'Utilisateur introuvable');
+                ->with(Status::ERROR, Status::message(Status::ERROR, 'Utilisateur'));
         }
     }
 }

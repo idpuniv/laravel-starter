@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Role;
 use App\Models\Permission;
+use App\Enums\Status;
 
 class RoleController extends Controller
 {
@@ -21,7 +22,10 @@ class RoleController extends Controller
             return view('admin.roles.index', compact('roles'));
 
         } catch (\Exception $e) {
-            return back()->with('error', 'Erreur lors du chargement des rôles');
+            return back()->with(
+                Status::ERROR,
+                Status::message(Status::ERROR)
+            );
         }
     }
 
@@ -36,7 +40,10 @@ class RoleController extends Controller
             return view('admin.roles.create', compact('permissions'));
 
         } catch (\Exception $e) {
-            return back()->with('error', 'Erreur lors du chargement du formulaire');
+            return back()->with(
+                Status::ERROR,
+                Status::message(Status::ERROR)
+            );
         }
     }
 
@@ -44,38 +51,46 @@ class RoleController extends Controller
      * Enregistrement
      */
     public function store(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255|unique:roles,name',
-                'permissions' => 'nullable|array',
-                'permissions.*' => 'exists:permissions,name'
-            ]);
+{
+    try {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:roles,name',
+            'permissions' => 'required|array|min:1',
+            'permissions.*' => 'exists:permissions,name'
+        ]);
 
-            $role = Role::create([
-                'name' => $validated['name'],
-                'guard_name' => 'web'
-            ]);
+        $role = Role::create([
+            'name' => $validated['name'],
+            'guard_name' => 'web'
+        ]);
 
-            if (!empty($validated['permissions'])) {
-                $role->syncPermissions($validated['permissions']);
-            }
+        $role->syncPermissions($validated['permissions']);
 
-            return redirect()
-                ->route('admin.roles.index')
-                ->with('success', 'Rôle créé avec succès');
+        return redirect()
+            ->route('admin.roles.index')
+            ->with(
+                Status::SUCCESS,
+                Status::message(Status::CREATED, 'Rôle')
+            );
 
-        } catch (ValidationException $e) {
-            return back()
-                ->withErrors($e->errors())
-                ->withInput();
+    } catch (ValidationException $e) {
+        return back()
+            ->withErrors($e->errors())
+            ->withInput()
+            ->with(
+                Status::FAILED,
+                Status::message(Status::FAILED)
+            );
 
-        } catch (\Exception $e) {
-            return back()
-                ->with('error', 'Erreur lors de la création')
-                ->withInput();
-        }
+    } catch (\Exception $e) {
+        return back()
+            ->with(
+                Status::ERROR,
+                Status::message(Status::ERROR)
+            )
+            ->withInput();
     }
+}
 
     /**
      * Détail
@@ -90,7 +105,10 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.roles.index')
-                ->with('error', 'Rôle introuvable');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Rôle')
+                );
         }
     }
 
@@ -108,7 +126,10 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.roles.index')
-                ->with('error', 'Erreur lors du chargement');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR)
+                );
         }
     }
 
@@ -136,16 +157,26 @@ class RoleController extends Controller
 
             return redirect()
                 ->route('admin.roles.index')
-                ->with('success', 'Rôle mis à jour avec succès');
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::UPDATED, 'Rôle')
+                );
 
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
-                ->withInput();
+                ->withInput()
+                ->with(
+                    Status::FAILED,
+                    Status::message(Status::FAILED)
+                );
 
         } catch (\Exception $e) {
             return back()
-                ->with('error', 'Erreur lors de la mise à jour')
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR)
+                )
                 ->withInput();
         }
     }
@@ -161,12 +192,18 @@ class RoleController extends Controller
 
             return redirect()
                 ->route('admin.roles.index')
-                ->with('success', 'Rôle supprimé');
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::DELETED, 'Rôle')
+                );
 
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.roles.index')
-                ->with('error', 'Erreur lors de la suppression');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR)
+                );
         }
     }
 }

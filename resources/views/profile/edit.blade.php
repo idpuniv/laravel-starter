@@ -23,11 +23,13 @@
                 </div>
 
                 <!-- Delete Account -->
+                @can('delete', $user)
                 <div class="card shadow-sm border-0 rounded-4">
                     <div class="card-body p-4">
                         @include('profile.partials.delete-user-form')
                     </div>
                 </div>
+                @endcan
             </div>
         </div>
     </div>

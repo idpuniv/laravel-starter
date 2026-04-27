@@ -10,6 +10,3 @@ Route::get('/components', function () {
     return view('components');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-});

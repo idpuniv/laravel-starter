@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use App\Models\Role;
+use App\Enums\Status;
 
 class UserRoleController extends Controller
 {
@@ -19,13 +20,17 @@ class UserRoleController extends Controller
             $users = User::with('roles')->paginate(10);
 
             return view('admin.users.roles.index', compact('users'));
+
         } catch (\Exception $e) {
-            return back()->with('error', 'Erreur lors du chargement des utilisateurs');
+            return back()->with(
+                Status::ERROR,
+                Status::message(Status::ERROR, 'Utilisateurs')
+            );
         }
     }
 
     /**
-     * Formulaire d’attribution de rôle à un utilisateur
+     * Formulaire attribution rôle
      */
     public function create()
     {
@@ -34,13 +39,17 @@ class UserRoleController extends Controller
             $roles = Role::all();
 
             return view('admin.users.roles.create', compact('users', 'roles'));
+
         } catch (\Exception $e) {
-            return back()->with('error', 'Erreur lors du chargement du formulaire');
+            return back()->with(
+                Status::ERROR,
+                Status::message(Status::ERROR, 'Formulaire')
+            );
         }
     }
 
     /**
-     * Attribuer un rôle à un utilisateur
+     * Attribution des rôles
      */
     public function store(Request $request)
     {
@@ -53,25 +62,36 @@ class UserRoleController extends Controller
 
             $user = User::findOrFail($validated['user_id']);
 
-            // Remplace les anciens rôles
             $user->syncRoles($validated['roles']);
 
             return redirect()
                 ->route('admin.users.roles.index')
-                ->with('success', 'Rôles attribués avec succès');
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::SUCCESS, 'Rôles')
+                );
+
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
-                ->withInput();
+                ->withInput()
+                ->with(
+                    Status::FAILED,
+                    Status::message(Status::FAILED)
+                );
+
         } catch (\Exception $e) {
             return back()
-                ->with('error', 'Erreur lors de l’attribution des rôles')
-                ->withInput();
+                ->withInput()
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Rôles')
+                );
         }
     }
 
     /**
-     * Voir les rôles d’un utilisateur
+     * Voir rôles utilisateur
      */
     public function show(string $id)
     {
@@ -79,15 +99,19 @@ class UserRoleController extends Controller
             $user = User::with('roles')->findOrFail($id);
 
             return view('admin.users.roles.show', compact('user'));
+
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.roles.index')
-                ->with('error', 'Utilisateur introuvable');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Utilisateur')
+                );
         }
     }
 
     /**
-     * Formulaire modification rôles utilisateur
+     * Edition rôles
      */
     public function edit(string $id)
     {
@@ -96,15 +120,19 @@ class UserRoleController extends Controller
             $roles = Role::all();
 
             return view('admin.users.roles.edit', compact('user', 'roles'));
+
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.roles.index')
-                ->with('error', 'Erreur lors du chargement');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Chargement')
+                );
         }
     }
 
     /**
-     * Mise à jour des rôles utilisateur
+     * Mise à jour rôles
      */
     public function update(Request $request, string $id)
     {
@@ -120,35 +148,50 @@ class UserRoleController extends Controller
 
             return redirect()
                 ->route('admin.users.roles.edit', $user->id)
-                ->with('success', 'Rôles mis à jour');
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::SUCCESS, 'Rôles')
+                );
+
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
                 ->withInput();
-        } catch (\Throwable $e) {
 
+        } catch (\Exception $e) {
             return back()
-                ->with('error', 'Erreur système lors de la mise à jour')
-                ->withInput();
+                ->withInput()
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Rôles')
+                );
         }
     }
 
     /**
-     * Retirer tous les rôles d’un utilisateur
+     * Suppression rôles utilisateur
      */
     public function destroy(string $id)
     {
         try {
             $user = User::findOrFail($id);
-            $user->syncRoles([]); // supprime tous les rôles
+
+            $user->syncRoles([]);
 
             return redirect()
                 ->route('admin.users.roles.index')
-                ->with('success', 'Rôles supprimés');
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::SUCCESS, 'Rôles')
+                );
+
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.roles.index')
-                ->with('error', 'Erreur lors de la suppression');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Suppression')
+                );
         }
     }
 }

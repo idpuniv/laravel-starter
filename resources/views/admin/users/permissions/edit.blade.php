@@ -1,59 +1,82 @@
+@section('title', 'Modifier les permissions de ' . $user->name)
+
 <x-admin-layout>
-    <div class="container">
-        <h1>Permissions de {{ $user->name }}</h1>
+<div class="container py-4">
 
-        <form method="POST" action="{{ route('admin.users.permissions.update', $user->id) }}">
-            @csrf
-            @method('PUT')
+    <h3>Permissions de {{ $user->name }}</h3>
 
-            <div class="card">
-                <div class="card-body">
+    <form method="POST" action="{{ route('admin.users.permissions.update', $user->id) }}">
+        @csrf
+        @method('PUT')
 
-                    {{-- Permissions via rôles --}}
-                    <h6 class="mb-3">Permissions via rôles (non modifiables)</h6>
+        <div class="card">
+            <div class="card-body">
+
+                {{-- PERMISSIONS VIA ROLES --}}
+                <h6 class="mb-3">Permissions via rôles (non modifiables)</h6>
+
+                <div class="d-flex flex-wrap gap-1 mb-3">
 
                     @forelse($rolePermissions as $perm)
-                        <span class="badge bg-secondary mb-1">{{ $perm }}</span>
+                        <span class="badge bg-secondary">
+                            {{ $perm }}
+                        </span>
                     @empty
-                        <p class="text-muted">Aucune permission via rôles</p>
+                        <span class="text-muted">
+                            Aucune permission via rôles
+                        </span>
                     @endforelse
 
-                    <hr>
+                </div>
 
-                    {{-- Permissions directes --}}
-                    <h6 class="mb-3">Permissions directes</h6>
+                <hr>
 
-                    @if($permissions->isNotEmpty())
+                {{-- PERMISSIONS DIRECTES --}}
+                <h6 class="mb-3">Permissions directes</h6>
+
+                @if($permissions->isNotEmpty())
+
+                    <div class="row g-2">
 
                         @foreach($permissions as $permission)
-                            <div class="form-check">
-                                <input type="checkbox"
-                                       name="permissions[]"
-                                       value="{{ $permission->name }}"
-                                       class="form-check-input"
-                                       {{ $user->hasPermissionTo($permission->name) ? 'checked' : '' }}>
+                            <div class="col-md-4">
 
-                                <label class="form-check-label">
-                                    {{ $permission->name }}
-                                </label>
+                                <div class="form-check">
+                                    <input type="checkbox"
+                                           name="permissions[]"
+                                           value="{{ $permission->name }}"
+                                           id="perm_{{ $permission->id }}"
+                                           class="form-check-input"
+                                           {{ $user->hasPermissionTo($permission->name) ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="perm_{{ $permission->id }}">
+                                        {{ $permission->name }}
+                                    </label>
+                                </div>
+
                             </div>
                         @endforeach
 
-                    @else
-                        <p class="text-muted">
-                            Aucune permission supplémentaire disponible
-                        </p>
-                    @endif
+                    </div>
 
-                </div>
+                @else
+                    <span class="text-muted">
+                        Aucune permission supplémentaire disponible
+                    </span>
+                @endif
+
             </div>
+        </div>
 
-            @if($permissions->isNotEmpty())
-                <button class="btn btn-primary mt-3">
+        @if($permissions->isNotEmpty())
+            <div class="mt-3 d-flex justify-content-end">
+                <button class="btn btn-primary">
                     Enregistrer
                 </button>
-            @endif
+            </div>
+        @endif
 
-        </form>
-    </div>
+    </form>
+
+</div>
 </x-admin-layout>

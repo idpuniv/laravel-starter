@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use App\Enums\Status;
 use App\Models\Permission;
 use App\Models\Module;
 
@@ -23,7 +24,10 @@ class PermissionController extends Controller
             return view('admin.permissions.index', compact('permissions'));
 
         } catch (\Exception $e) {
-            return back()->with('error', 'Erreur lors du chargement des permissions');
+            return back()->with(
+                Status::ERROR,
+                Status::message(Status::ERROR)
+            );
         }
     }
 
@@ -40,17 +44,21 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.permissions.index')
-                ->with('error', 'Permission introuvable');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Permission')
+                );
         }
     }
 
     /**
-     * Formulaire édition (label uniquement)
+     * Formulaire édition
      */
     public function edit(string $id)
     {
         try {
             $permission = Permission::findOrFail($id);
+
             $modules = Module::where('is_active', true)->get();
 
             return view('admin.permissions.edit', compact('permission', 'modules'));
@@ -58,12 +66,15 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.permissions.index')
-                ->with('error', 'Erreur lors du chargement');
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR)
+                );
         }
     }
 
     /**
-     * Mise à jour (ONLY label + module)
+     * Mise à jour permission
      */
     public function update(Request $request, string $id)
     {
@@ -87,16 +98,26 @@ class PermissionController extends Controller
 
             return redirect()
                 ->route('admin.permissions.index')
-                ->with('success', 'Permission mise à jour avec succès');
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::UPDATED, 'Permission')
+                );
 
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
-                ->withInput();
+                ->withInput()
+                ->with(
+                    Status::FAILED,
+                    Status::message(Status::FAILED)
+                );
 
         } catch (\Exception $e) {
             return back()
-                ->with('error', 'Erreur lors de la mise à jour')
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR)
+                )
                 ->withInput();
         }
     }
