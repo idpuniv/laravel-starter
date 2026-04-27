@@ -1,5 +1,7 @@
 import './bootstrap';
-import './color-modes'
+import './color-modes';
+import './custom-select';
+import './datatable-manager';
 
 // =============================================================================
 // 1. COMPONENT IMPORTS (On-demand)

@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('app.name') }}</title>
     <script src="{{ asset('js/color-modes.js') }}"></script>
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js', 'resources/js/datatable-manager.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js'])
 </head>
 
 <body>
@@ -195,10 +195,7 @@
 
             <main id="main-content" class="content-scrollable" tabindex="-1">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
-                    <div>
-                        <h1 class="h3 fw-semibold mb-1">Dashboard</h1>
-                        <p class="text-secondary mb-0">Vue d'ensemble de votre activité</p>
-                    </div>
+                    @yield('content-header')
                     <div class="status">
                     @if (session('success'))
                         <div class="alert alert-success">{{ session('success') }}</div>

@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/js/guest.js',
                 'resources/js/admin.js',
                 'resources/js/datatable-manager.js',
+                'resources/js/custom-select.js',
                 ],
             refresh: true,
         }),

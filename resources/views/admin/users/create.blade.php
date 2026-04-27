@@ -36,21 +36,48 @@
                             @enderror
                         </div>
 
+                        {{-- TÉLÉPHONE AVEC DROPDOWN --}}
                         <div class="col-md-6">
                             <label class="form-label">Téléphone</label>
-                            <input type="text" name="phone"
-                                   class="form-control @error('phone') is-invalid @enderror"
-                                   value="{{ old('phone') }}">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary dropdown-toggle" 
+                                        type="button" 
+                                        data-bs-toggle="dropdown" 
+                                        aria-expanded="false"
+                                        id="phoneCodeBtn"
+                                        style="min-width: 120px;">
+                                    @php
+                                        $defaultCountry = $countries->firstWhere('iso2', 'SN') ?? $countries->first();
+                                    @endphp
+                                    <span class="fi fi-{{ strtolower($defaultCountry?->iso2 ?? 'sn') }}"></span>
+                                    <span class="ms-1">{{ $defaultCountry?->phone_code ?? '+221' }}</span>
+                                </button>
+                                <ul class="dropdown-menu" style="max-height: 300px; overflow-y: auto;">
+                                    @foreach($countries as $country)
+                                        <li>
+                                            <a class="dropdown-item" 
+                                               href="#"
+                                               data-code="{{ $country->phone_code }}"
+                                               data-iso2="{{ strtolower($country->iso2) }}">
+                                                <span class="fi fi-{{ strtolower($country->iso2) }} me-2"></span>
+                                                {{ $country->name }} 
+                                                <span class="text-muted">({{ $country->phone_code }})</span>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <input type="tel" 
+                                       name="phone" 
+                                       id="phoneNumber"
+                                       class="form-control @error('phone') is-invalid @enderror"
+                                       value="{{ old('phone') }}"
+                                       placeholder="77 123 45 67">
+                            </div>
+                            <input type="hidden" name="phone_code" id="hiddenPhoneCode" value="{{ $defaultCountry?->phone_code ?? '' }}">
+                            <small class="text-muted">Sélectionnez l'indicatif puis entrez le numéro</small>
                             @error('phone')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                        </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">Code pays</label>
-                            <input type="text" name="phone_code"
-                                   class="form-control @error('phone_code') is-invalid @enderror"
-                                   value="{{ old('phone_code') }}">
                             @error('phone_code')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -69,23 +96,22 @@
                             @enderror
                         </div>
 
-                        @if(isset($countries))
-                            <div class="col-md-6">
-                                <label class="form-label">Pays</label>
-                                <select name="country_id"
-                                        class="form-select @error('country_id') is-invalid @enderror">
-                                    <option value="">-- Sélectionner --</option>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}" @selected(old('country_id') == $country->id)>
-                                            {{ $country->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('country_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        @endif
+                        {{-- PAYS DE RÉSIDENCE --}}
+                        <div class="col-md-6">
+                            <label class="form-label">Pays de résidence</label>
+                            <select name="country_id"
+                                    class="form-select @error('country_id') is-invalid @enderror">
+                                <option value="">-- Sélectionner --</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{ $country->id }}" @selected(old('country_id') == $country->id)>
+                                        {{ $country->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('country_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                     </div>
 
@@ -114,7 +140,7 @@
                             @enderror
                         </div>
 
-                        @if ($teams && $teams->count() > 1)
+                        @if(isset($teams) && $teams->count() > 1)
                             <div class="col-md-6">
                                 <label class="form-label">Équipe</label>
                                 <select name="team_id"
@@ -154,15 +180,12 @@
 
                     {{-- ACTIONS --}}
                     <div class="mt-4 d-flex justify-content-end gap-2">
-
                         <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
                             Annuler
                         </a>
-
                         <button class="btn btn-primary">
                             Créer
                         </button>
-
                     </div>
 
                 </form>
@@ -172,3 +195,38 @@
 
     </div>
 </x-admin-layout>
+
+@push('scripts')
+<script>
+    // Attendre que le DOM soit chargé
+    document.addEventListener('DOMContentLoaded', function() {
+        // Sélectionner tous les éléments du dropdown
+        const dropdownItems = document.querySelectorAll('.dropdown-item');
+        const phoneCodeBtn = document.getElementById('phoneCodeBtn');
+        const hiddenPhoneCode = document.getElementById('hiddenPhoneCode');
+        
+        dropdownItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Récupérer les données
+                const code = this.dataset.code;
+                const iso2 = this.dataset.iso2;
+                
+                // Mettre à jour le bouton
+                if (phoneCodeBtn) {
+                    phoneCodeBtn.innerHTML = `
+                        <span class="fi fi-${iso2}"></span>
+                        <span class="ms-1">${code}</span>
+                    `;
+                }
+                
+                // Mettre à jour le champ caché
+                if (hiddenPhoneCode) {
+                    hiddenPhoneCode.value = code;
+                }
+            });
+        });
+    });
+</script>
+@endpush

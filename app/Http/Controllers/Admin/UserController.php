@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\DataTables\UsersDataTable;
 use App\Models\User;
+use App\Models\Country;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Enums\Status;
@@ -32,11 +33,12 @@ class UserController extends Controller
     public function create()
     {
         try {
+            $countries = Country::all();
             $teams = $this->isTeamsEnabled()
                 ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
                 : collect();
 
-            return view('admin.users.create', compact('teams'));
+            return view('admin.users.create', compact('teams', 'countries'));
         } catch (\Exception $e) {
             return back()->with(Status::ERROR, Status::message(Status::ERROR));
         }
