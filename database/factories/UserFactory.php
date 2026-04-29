@@ -24,13 +24,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        // Crée une Person d'abord car person_id est NOT NULL
+        $person = PersonFactory::new()->create();
+        
         return [
-            'name' => $this->faker->unique()->name(),
-            'username' => $this->faker->unique()->userName(),
+            'username' => $this->faker->boolean(70) ? $this->faker->unique()->userName() : null,
             'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make('password'), // Mot de passe par défaut sécurisé
-            'team_id' => 1,
+            'password' => Hash::make('password'),
+            'team_id' => null,
+            'status' => 'active',
+            'person_id' => $person->id,
             'remember_token' => Str::random(10),
             'created_at' => now(),
             'updated_at' => now(),
@@ -98,13 +102,19 @@ class UserFactory extends Factory
         ])->withRole('user');
     }
 
+    /**
+     * Create a viewer user.
+     */
     public function viewer(): static
     {
         return $this->state(fn(array $attributes) => [
-            'username' => 'member_' . Str::random(5),
+            'username' => 'viewer_' . Str::random(5),
         ])->withRole('viewer');
     }
 
+    /**
+     * Set user as active.
+     */
     public function active(): static
     {
         return $this->state(fn(array $attributes) => [
@@ -112,20 +122,56 @@ class UserFactory extends Factory
         ]);
     }
 
+    /**
+     * Set user as inactive.
+     */
     public function inactive(): static
     {
         return $this->state(fn(array $attributes) => [
             'status' => 'inactive',
         ]);
     }
+
     /**
-     * Configure the model factory.
+     * Set user as banned.
      */
-    public function configure(): static
+    public function banned(): static
     {
-        return $this->afterCreating(function (User $user) {
-            // Logique supplémentaire après la création
-            // Exemple : créer un profil utilisateur, etc.
+        return $this->state(fn(array $attributes) => [
+            'status' => 'banned',
+        ]);
+    }
+
+    /**
+     * Create a user without username.
+     */
+    public function withoutUsername(): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'username' => null,
+        ]);
+    }
+
+    /**
+     * Create a user with a specific username.
+     */
+    public function withUsername(string $username): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'username' => $username,
+        ]);
+    }
+
+    /**
+     * Create a user with custom person attributes.
+     */
+    public function withPerson(array $personAttributes = []): static
+    {
+        return $this->state(function (array $attributes) use ($personAttributes) {
+            $person = PersonFactory::new()->create($personAttributes);
+            return [
+                'person_id' => $person->id,
+            ];
         });
     }
 }

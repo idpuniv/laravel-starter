@@ -32,12 +32,36 @@ class DataTable
     }
 
     // --- API Fluide ---
-    public function columns(array $columns): self { $this->columns = $columns; return $this; }
-    public function searchable(array $fields): self { $this->searchable = $fields; return $this; }
-    public function filters(array $filters): self { $this->filters = $filters; return $this; }
-    public function views(string $tableView): self { $this->tableView = $tableView; return $this; }
-    public function export(string $view): self { $this->exportView = $view; return $this; }
-    public function paginate(?int $count): self { $this->pagination = $count; return $this; }
+    public function columns(array $columns): self
+    {
+        $this->columns = $columns;
+        return $this;
+    }
+    public function searchable(array $fields): self
+    {
+        $this->searchable = $fields;
+        return $this;
+    }
+    public function filters(array $filters): self
+    {
+        $this->filters = $filters;
+        return $this;
+    }
+    public function views(string $tableView): self
+    {
+        $this->tableView = $tableView;
+        return $this;
+    }
+    public function export(string $view): self
+    {
+        $this->exportView = $view;
+        return $this;
+    }
+    public function paginate(?int $count): self
+    {
+        $this->pagination = $count;
+        return $this;
+    }
 
     public function render(string $view, array $additionalData = [])
     {
@@ -69,8 +93,8 @@ class DataTable
 
         $tableHtml = view($this->tableView, $viewData)->render();
 
-        return $this->request->ajax() 
-            ? response($tableHtml) 
+        return $this->request->ajax()
+            ? response($tableHtml)
             : view($view, array_merge($viewData, ['table' => $tableHtml]));
     }
 
@@ -121,7 +145,7 @@ class DataTable
             $search = $this->request->search;
             $this->query->where(function ($q) use ($search) {
                 foreach ($this->searchable as $field) {
-                    $q->orWhere($field, 'like', "%{$search}%");
+                    $q->orWhere($field, 'ilike', "%{$search}%");
                 }
             });
         }
@@ -148,7 +172,10 @@ class DataTable
 
         return \Maatwebsite\Excel\Facades\Excel::download(new class($this->exportView, $data) implements \Maatwebsite\Excel\Concerns\FromView {
             public function __construct(private $v, private $d) {}
-            public function view(): \Illuminate\Contracts\View\View { return view($this->v, ['data' => $this->d]); }
+            public function view(): \Illuminate\Contracts\View\View
+            {
+                return view($this->v, ['data' => $this->d]);
+            }
         }, $filename . '.xlsx');
     }
 }

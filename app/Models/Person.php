@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Person extends Model
 {
 
+    use HasFactory;
+
     protected $fillable = [
-        'nom',
-        'prenom',
+        'last_name',
+        'first_name',
         'phone',
         'phone_code',
         'country_id',
@@ -22,10 +25,22 @@ class Person extends Model
         return $this->hasOne(User::class);
     }
 
-
     public function getFullNameAttribute(): string
     {
-        return trim($this->prenom . ' ' . $this->nom);
+        return trim($this->first_name . ' ' . $this->last_name);
+    }
+
+    /**
+     * Get the full phone number with country code
+     */
+    public function getFullPhoneAttribute(): string
+    {
+        if (!$this->phone) {
+            return '';
+        }
+        
+        $phoneCode = $this->phone_code ? '+' . $this->phone_code : '';
+        return trim($phoneCode . ' ' . $this->phone);
     }
 
     public function country()

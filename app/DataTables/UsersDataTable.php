@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\User;
+use App\Models\Person;
 use App\Models\Role;
 use App\Services\AbstractDataTable;
 use Illuminate\Database\Eloquent\Builder;
@@ -14,7 +15,7 @@ class UsersDataTable extends AbstractDataTable
      */
     protected function query(): Builder
     {
-        return User::query()->with('roles');
+        return Person::query()->with(['user', 'user.roles']);
     }
 
     /**
@@ -22,7 +23,7 @@ class UsersDataTable extends AbstractDataTable
      */
     protected function defineSearchable(): array
     {
-        return ['username', 'email'];
+        return ['first_name', 'last_name', 'phone'];
     }
 
     /**
@@ -34,7 +35,7 @@ class UsersDataTable extends AbstractDataTable
             'status' => ['type' => 'single'],
             'roles'  => [
                 'type' => 'relation',
-                'relation' => 'roles',
+                'relation' => 'user.roles',
                 'column' => 'id'
             ],
             'date_range' => [
@@ -46,11 +47,11 @@ class UsersDataTable extends AbstractDataTable
             ],
             'no_role' => [
                 'type' => 'no_relation',
-                'relation' => 'roles'
+                'relation' => 'user.roles'
             ],
             'multi_roles' => [
                 'type' => 'has_count',
-                'relation' => 'roles',
+                'relation' => 'user.roles',
                 'operator' => '>',
                 'count' => 1
             ],

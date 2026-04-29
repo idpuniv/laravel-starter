@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\DataTables\UsersDataTable;
-use App\Models\User;
+use App\Models\Role;
+use App\Models\Person;
 use App\Models\Country;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -30,22 +31,38 @@ class UserController extends Controller
         return UsersDataTable::make($request)->render();
     }
 
-    public function create()
-    {
-        try {
-            $countries = Country::all();
-            $teams = $this->isTeamsEnabled()
-                ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
-                : collect();
-
-            return view('admin.users.create', compact('teams', 'countries'));
-        } catch (\Exception $e) {
-            return back()->with(Status::ERROR, Status::message(Status::ERROR));
+    public function create(Request $request)
+{
+    try {
+        $person = null;
+        
+        // Si on crée un compte pour une personne existante
+        if ($request->has('person_id')) {
+            $person = Person::findOrFail($request->person_id);
+            
+            // Si la personne a déjà un compte, rediriger vers l'édition
+            if ($person->user) {
+                return redirect()
+                    ->route('admin.users.edit', $person->id)
+                    ->with(Status::SUCCESS, 'Cette personne a déjà un compte utilisateur.');
+            }
         }
+        
+        $countries = Country::all();
+        $roles = Role::all();
+        $teams = $this->isTeamsEnabled()
+            ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
+            : collect();
+
+        return view('admin.users.create', compact('teams', 'countries', 'roles', 'person'));
+    } catch (\Exception $e) {
+        return back()->with(Status::ERROR, Status::message(Status::ERROR));
     }
+}
 
     public function store(StoreUserRequest $request)
     {
+        // dd($request->all());
         try {
             $this->userService->create($request->validated());
 
@@ -53,25 +70,25 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, Status::message(Status::CREATED, 'Utilisateur'));
         } catch (\Exception $e) {
+            dd($e);
             return back()
                 ->with(Status::ERROR, Status::message(Status::ERROR))
                 ->withInput();
         }
     }
 
-    public function show(string $id)
+    public function show(string $personId)
     {
         try {
-            $user = $this->userService->find($id);
+            $person = $this->userService->find($personId);
 
-            return view('admin.users.show', compact('user'));
+            return view('admin.users.show', compact('person'));
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
-                ->with(Status::ERROR, Status::message(Status::ERROR, 'Utilisateur'));
+                ->with(Status::ERROR, Status::message(Status::ERROR, 'affichage de la personne'));
         }
     }
-
     public function edit(string $id)
     {
         try {

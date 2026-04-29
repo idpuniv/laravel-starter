@@ -19,7 +19,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)
+    ->parameters(['users' => 'person_id']);
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
 
     Route::resource('permissions', App\Http\Controllers\Admin\PermissionController::class)

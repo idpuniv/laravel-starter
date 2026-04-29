@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('username')->nullable()->unique();
+            $table->foreignId('person_id')->constrained('people');
             $table->foreignId('team_id')->nullable()->constrained('teams');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

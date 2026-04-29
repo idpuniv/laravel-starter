@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Person;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -23,29 +24,30 @@ class DatabaseSeeder extends Seeder
         ]);
         
         User::factory()->create([
-            'name' => 'Admin User',
+            'username' => 'admin',
             'email' => 'admin@email.com',
             'password' => Hash::make('admin')
         ])->assignRole(Roles::ADMIN);
 
         User::factory()->create([
-            'name' => 'Regular User',
+            'username' => 'user',
             'email' => 'user@email.com',
             'password' => Hash::make('user')
         ])->assignRole(Roles::USER);
 
         User::factory()->create([
-            'name' => 'Viewer User',
+            'username' => 'viewer',
             'email' => 'viewer@email.com',
             'password' => Hash::make('viewer')
         ])->assignRole(Roles::VIEWER);
 
         User::factory()->create([
-            'name' => 'Root user',
+            'username' => 'root',
             'email' => 'root@email.com',
             'password' => Hash::make('root')
         ])->assignRole(Roles::ROOT);
 
+        Person::factory(1)->create();
         User::factory(10)->create();
         User::factory(3)->user()->create();
         User::factory(3)->viewer()->create();

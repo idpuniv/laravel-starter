@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
             $table->foreignId('country_id')->nullable()->constrained('countries');
-            $table->nullableMorphs('personable');
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('email')->unique()->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('phone_code', 7)->nullable();
             $table->string('phone')->nullable();

@@ -37,11 +37,11 @@ class User extends Authenticatable implements
      */
     protected $fillable = [
         'email',
-        'name',
         'username',
         'password',
         'status',
         'team_id',
+        'person_id',
         'email_verified_at',
     ];
 
@@ -65,9 +65,9 @@ class User extends Authenticatable implements
      | Relations
      |------------------------------------------------------------------*/
 
-    public function person(): MorphOne
+    public function person(): BelongsTo
     {
-        return $this->morphOne(Person::class, 'personable');
+        return $this->belongsTo(Person::class);
     }
 
     public function team(): BelongsTo
@@ -82,6 +82,16 @@ class User extends Authenticatable implements
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
+    }
+
+    public function scopeInactive($query)
+    {
+        return $query->where('status', 'inactive');
+    }
+
+    public function scopeBanned($query)
+    {
+        return $query->where('status', 'banned');
     }
 
     /* -----------------------------------------------------------------
