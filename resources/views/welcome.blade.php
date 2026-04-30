@@ -16,6 +16,14 @@
         </div>
     </div>
 
+
+   <div class="overlay-dark-50" 
+     style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4'); background-size: cover; background-position: center; min-height: 200px;">
+    <div class="d-flex align-items-center justify-content-center h-100 p-4">
+        <h3 class="m-0 text-white p-2 rounded-5">MY DIV WITH OVERLAY</h3>
+    </div>
+</div>
+
     <!-- Select SANS barre de recherche -->
 <div class="custom-select">
     <button type="button" 
