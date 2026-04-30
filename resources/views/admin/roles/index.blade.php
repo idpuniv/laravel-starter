@@ -43,13 +43,13 @@
                                     <td>
                                         <div class="d-flex align-items-center">
                                             <a href="{{ route('admin.roles.show', $role->id) }}"
-                                                class="icon-circle-xs text-decoration-none text-body hover-bg-primary bg-opacity-10"
+                                                class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                                                 title="Voir">
                                                 <i class="bi bi-eye"></i>
                                                 <span class="visually-hidden">Voir</span>
                                             </a>
                                             <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                                class="icon-circle-xs text-decoration-none text-body hover-bg-primary bg-opacity-10"
+                                                class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                                                 title="Modifier">
                                                 <i class="bi bi-pencil"></i>
                                                 <span class="visually-hidden">Modifier</span>
@@ -59,7 +59,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
-                                                    class="icon-circle-xs text-decoration-none text-body bg-transparent border-0 hover-bg-primary-10"
+                                                    class="icon-circle-xs text-decoration-none text-body bg-transparent border-0 hover-bg-secondary-25"
                                                     title="Supprimer">
                                                     <i class="bi bi-trash"></i>
                                                     <span class="visually-hidden">Supprimer</span>
