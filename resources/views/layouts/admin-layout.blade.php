@@ -152,9 +152,9 @@
                                 data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications"
                                 type="button">
                                 <i class="bi bi-bell fs-5" aria-hidden="true"></i>
-                                <span class="nav-badge position-absolute top-0 start-100 translate-middle mt-1"
+                                <span class="nav-badge"
                                     aria-label="99+ notifications non lues">
-                                    99+
+                                    9
                                 </span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">

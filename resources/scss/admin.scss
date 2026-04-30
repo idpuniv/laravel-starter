@@ -373,6 +373,13 @@ html, body {
 }
 
 .nav-badge {
+    /* === Ajout des utilitaires Bootstrap === */
+    position: absolute;       /* position-absolute */
+    top: 0;                   /* top-0 */
+    left: 100%;               /* start-100 */
+    transform: translate(-50%, -50%); /* translate-middle */
+    margin-top: 0.25rem;      /* mt-1 */
+
     /* Centrage du texte */
     display: inline-flex;
     align-items: center;
@@ -392,6 +399,8 @@ html, body {
     font-weight: bold;
     line-height: 0;
     white-space: nowrap;
+
+    /* Finition */
     border: 1.5px solid var(--dashboard-navbar-bg, #fff);
     pointer-events: none;
 }
