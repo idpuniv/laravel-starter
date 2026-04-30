@@ -9,25 +9,6 @@
 
     const mobileQuery = window.matchMedia("(max-width: 768px)");
 
-    function updateSidebarState() {
-        const isMobile = mobileQuery.matches;
-
-        if (isMobile) {
-            sidebar.classList.remove("desktop-collapsed");
-            document.body.style.overflow = "";
-        } else {
-            sidebar.classList.remove("mobile-open");
-            overlay.classList.remove("open");
-            document.body.style.overflow = "";
-
-            if (desktopCollapsed) {
-                sidebar.classList.add("desktop-collapsed");
-            } else {
-                sidebar.classList.remove("desktop-collapsed");
-            }
-        }
-    }
-
     function openMobileSidebar() {
         if (mobileQuery.matches) {
             sidebar.classList.add("mobile-open");
@@ -96,14 +77,29 @@
         overlay.addEventListener("click", closeMobileSidebar);
     }
 
-    const allMobileLinks = document.querySelectorAll(".sidebar-menu .nav-link");
-    allMobileLinks.forEach((link) => {
-        link.addEventListener("click", function () {
+    // CORRECTION ICI : Ne fermer le sidebar que pour les VRAIS liens de navigation
+    // Exclure les boutons avec data-treeview-toggle (menus parents)
+    const allNavLinks = document.querySelectorAll(".sidebar-menu .nav-link");
+    allNavLinks.forEach((link) => {
+        link.addEventListener("click", function (e) {
+            // Vérifier si c'est un VRAI lien (a href) et non un bouton de menu
+            const isRealLink = this.tagName === 'A' && this.getAttribute('href') !== '#';
+            const isTreeviewToggle = this.hasAttribute("data-treeview-toggle");
+            
+            // Ne fermer le sidebar mobile que pour les vrais liens, pas pour les toggles
             if (
+                isRealLink &&
+                !isTreeviewToggle &&
                 mobileQuery.matches &&
                 sidebar.classList.contains("mobile-open")
             ) {
                 setTimeout(closeMobileSidebar, 150);
+            }
+            
+            // Gestion de l'état actif (pour les vrais liens uniquement)
+            if (!isTreeviewToggle && isRealLink) {
+                allNavLinks.forEach((l) => l.classList.remove("active"));
+                this.classList.add("active");
             }
         });
     });
@@ -142,36 +138,8 @@
 
     initTreeview();
 
-    const allNavLinks = document.querySelectorAll(".sidebar-menu .nav-link");
-    allNavLinks.forEach((link) => {
-        link.addEventListener("click", function (e) {
-            if (!this.hasAttribute("data-treeview-toggle")) {
-                allNavLinks.forEach((l) => l.classList.remove("active"));
-                this.classList.add("active");
-            }
-        });
-    });
-
     // ============================================================
-    // PARTIE SUPPRIMÉE - Conflit avec color-modes.js
-    // Le bloc suivant a été retiré car il modifiait data-bs-theme
-    // et entrait en conflit avec color-modes.js
-    // ============================================================
-    // const darkModeQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    // function handleDarkMode(e) {
-    //     if (e.matches) {
-    //         console.log("🌙 Mode sombre détecté");
-    //         document.body.setAttribute("data-bs-theme", "dark");
-    //     } else {
-    //         console.log("☀️ Mode clair détecté");
-    //         document.body.setAttribute("data-bs-theme", "light");
-    //     }
-    // }
-    // darkModeQuery.addEventListener("change", handleDarkMode);
-    // handleDarkMode(darkModeQuery);
-
-    // ============================================================
-    // GESTION DES PRÉFÉRENCES D'ANIMATION (gardé)
+    // GESTION DES PRÉFÉRENCES D'ANIMATION
     // ============================================================
     const reducedMotionQuery = window.matchMedia(
         "(prefers-reduced-motion: reduce)",
@@ -188,16 +156,16 @@
     handleReducedMotion(reducedMotionQuery);
 
     // ============================================================
-    // GESTION DE L'ORIENTATION (gardé)
+    // GESTION DE L'ORIENTATION
     // ============================================================
     const orientationQuery = window.matchMedia("(orientation: landscape)");
     function handleOrientation(e) {
         if (e.matches) {
-            console.log("🔄 Mode paysage");
+            console.log("Mode paysage");
             document.body.classList.add("landscape");
             document.body.classList.remove("portrait");
         } else {
-            console.log("📱 Mode portrait");
+            console.log("Mode portrait");
             document.body.classList.add("portrait");
             document.body.classList.remove("landscape");
         }
@@ -206,12 +174,12 @@
     handleOrientation(orientationQuery);
 
     // ============================================================
-    // DÉTECTION TACTILE (gardé)
+    // DÉTECTION TACTILE
     // ============================================================
     const touchQuery = window.matchMedia("(pointer: coarse)");
     function handleTouch(e) {
         if (e.matches) {
-            console.log("👆 Appareil tactile détecté");
+            console.log("Appareil tactile détecté");
             document.body.classList.add("touch-device");
         } else {
             document.body.classList.remove("touch-device");
@@ -220,5 +188,5 @@
     touchQuery.addEventListener("change", handleTouch);
     handleTouch(touchQuery);
 
-    console.log('✅ Dashboard initialisé - Gestion du thème confiée à color-modes.js');
+    console.log('Dashboard initialisé - Gestion du thème confiée à color-modes.js');
 })();

@@ -20,10 +20,9 @@
     <div class="app-container">
         <aside id="sidebar" class="sidebar-col" aria-label="Menu principal">
             <div class="sidebar-content">
-                <div class="sidebar-profile">
-                    <div class="avatar" aria-label="Avatar">TA</div>
-                    <div class="profile-name">Thomas Anderson</div>
-                    <div class="profile-role">Administrateur</div>
+                <div class="sidebar-profile text-center">
+                    <div class="avatar d-inline-flex mx-auto" aria-label="Avatar">TA</div>
+                    <div class="profile-name text-muted">Thomas Anderson</div>
                 </div>
 
                 <nav class="mt-2" aria-label="Navigation principale">
@@ -197,14 +196,14 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     @yield('content-header')
                     <div class="status">
-                    @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
 
-                    @if (session('error'))
-                        <div class="alert alert-danger">{{ session('error') }}</div>
-                    @endif
-                </div>
+                        @if (session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                        @endif
+                    </div>
                     {{-- <button class="btn btn-primary btn-sm" type="button">
                         <i class="bi bi-plus-circle" aria-hidden="true"></i> Nouveau
                     </button> --}}

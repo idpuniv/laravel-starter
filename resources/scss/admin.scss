@@ -71,41 +71,24 @@ html, body {
     border-bottom: 1px solid var(--dashboard-profile-border, var(--bs-gray-700));
     height: 72px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: 0.25rem; /* Espace réduit entre l'avatar et le texte */
 }
 
 .sidebar-profile .avatar {
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem; /* Réduit de 2.5rem */
+    height: 2rem; /* Réduit de 2.5rem */
     margin: 0;
     flex-shrink: 0;
-}
-
-.sidebar-profile .profile-info {
-    text-align: left;
-    flex: 1;
-    min-width: 0;
+    font-size: 0.875rem; /* Taille de police adaptée */
 }
 
 .sidebar-profile .profile-name {
-    font-weight: 600;
-    color: var(--dashboard-profile-name-color, var(--bs-white));
-    margin-bottom: 0;
-    font-size: 0.875rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.sidebar-profile .profile-role {
-    font-size: 0.7rem;
-    color: var(--dashboard-profile-role-color, var(--bs-gray-400));
-    margin-bottom: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    // font-size: 0.75rem; /* Texte plus petit */
+    line-height: 1.2; /* Réduit la hauteur de ligne */
+    margin: 0;
 }
 
 // ============================================================================
