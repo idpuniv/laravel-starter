@@ -127,26 +127,35 @@
         </aside>
 
         <div class="main-col">
-            <nav class="navbar-fixed navbar navbar-expand-lg" aria-label="Barre de navigation supérieure">
+            <nav class="navbar navbar-fixed navbar-expand-lg" aria-label="Barre de navigation supérieure">
                 <div class="container-fluid py-2">
-                    <div class="d-flex align-items-center">
-                        <button class="sidebar-toggle-btn" id="sidebarToggleBtn"
-                            aria-label="Afficher ou masquer le menu" type="button">
-                            <i class="bi bi-list fs-4" aria-hidden="true"></i>
-                        </button>
-                        <span class="navbar-brand fw-semibold ms-2">
-                            <i class="bi bi-activity text-primary" aria-hidden="true"></i>
-                            Admin<span class="text-primary">Dashboard</span>
-                        </span>
-                    </div>
+                    <!-- Navigation gauche -->
+                    <ul class="navbar-nav flex-row align-items-center">
+                        <li class="nav-item">
+                            <button class="sidebar-toggle-btn nav-link" id="sidebarToggleBtn"
+                                aria-label="Afficher ou masquer le menu" type="button">
+                                <i class="bi bi-list fs-4" aria-hidden="true"></i>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <span class="navbar-brand fw-semibold ms-2">
+                                <i class="bi bi-activity text-primary" aria-hidden="true"></i>
+                                Admin<span class="text-primary">Dashboard</span>
+                            </span>
+                        </li>
+                    </ul>
 
-                    <div class="ms-auto d-flex align-items-center gap-3">
-                        <div class="dropdown">
-                            <button class="btn btn-link text-decoration-none p-0" data-bs-toggle="dropdown"
-                                aria-expanded="false" aria-label="Notifications" type="button">
+                    <!-- Navigation droite -->
+                    <ul class="navbar-nav flex-row align-items-center gap-3 ms-auto">
+                        <li class="nav-item dropdown">
+                            <button class="nav-link btn btn-link text-decoration-none p-0 position-relative"
+                                data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications"
+                                type="button">
                                 <i class="bi bi-bell fs-5" aria-hidden="true"></i>
-                                <span class="badge bg-danger rounded-pill ms-1"
-                                    aria-label="3 notifications non lues">3</span>
+                                <span class="nav-badge position-absolute top-0 start-100 translate-middle mt-1"
+                                    aria-label="99+ notifications non lues">
+                                    99+
+                                </span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
                                 <li><a class="dropdown-item" href="notifications.html">🔔 3 nouvelles alertes</a></li>
@@ -157,38 +166,37 @@
                                 <li><a class="dropdown-item text-center" href="notifications-tout.html">Voir tout</a>
                                 </li>
                             </ul>
-                        </div>
+                        </li>
 
-                        <div class="dropdown">
-                            <button class="d-flex align-items-center text-decoration-none bg-transparent border-0"
-                                data-bs-toggle="dropdown" aria-expanded="false" aria-label="Menu utilisateur"
-                                type="button">
-                                <div class="avatar me-2" style="width: 32px; height: 32px; font-size: 14px;"
+                        <li class="nav-item dropdown">
+                            <button class="nav-link d-flex align-items-center gap-2" data-bs-toggle="dropdown"
+                                aria-expanded="false" aria-label="Menu utilisateur" type="button">
+                                <div class="avatar" style="width: 32px; height: 32px; font-size: 14px;"
                                     aria-hidden="true">TA</div>
                                 <span class="d-none d-sm-inline">Thomas</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                <li><a class="dropdown-item" href="profil.html"><i class="bi bi-person"
-                                            aria-hidden="true"></i> Profil</a></li>
-                                <li><a class="dropdown-item" href="params.html"><i class="bi bi-gear"
-                                            aria-hidden="true"></i> Paramètres</a></li>
+                                <li><a class="dropdown-item" href="profil.html">
+                                        <i class="bi bi-person me-2" aria-hidden="true"></i> Profil
+                                    </a></li>
+                                <li><a class="dropdown-item" href="params.html">
+                                        <i class="bi bi-gear me-2" aria-hidden="true"></i> Paramètres
+                                    </a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <form method="POST" action="/logout">
+                                    <form method="POST" action="{{ route('logout') }}">
                                         @csrf
-                                        <a class="dropdown-item text-danger" role="menuitem" href="/logout"
-                                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                                            <i class="nav-icon bi bi-box-arrow-right" aria-hidden="true"></i>
+                                        <button type="submit" class="dropdown-item text-danger">
+                                            <i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>
                                             Déconnexion
-                                        </a>
+                                        </button>
                                     </form>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </nav>
 

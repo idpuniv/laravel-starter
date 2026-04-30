@@ -74,20 +74,19 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.25rem; /* Espace réduit entre l'avatar et le texte */
+    gap: 0.25rem;
 }
 
 .sidebar-profile .avatar {
-    width: 2rem; /* Réduit de 2.5rem */
-    height: 2rem; /* Réduit de 2.5rem */
+    width: 2rem;
+    height: 2rem;
     margin: 0;
     flex-shrink: 0;
-    font-size: 0.875rem; /* Taille de police adaptée */
+    font-size: 0.875rem;
 }
 
 .sidebar-profile .profile-name {
-    // font-size: 0.75rem; /* Texte plus petit */
-    line-height: 1.2; /* Réduit la hauteur de ligne */
+    line-height: 1.2;
     margin: 0;
 }
 
@@ -133,6 +132,55 @@ html, body {
     align-items: center;
 }
 
+.navbar-fixed .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+// Styles pour les navbar-nav
+.navbar-fixed .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+// Styles pour les nav-link dans la navbar
+.navbar-fixed .nav-link {
+    color: var(--dashboard-toggle-color, var(--bs-gray-700));
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    transition: background-color 0.15s ease;
+    
+    &:hover {
+        background-color: var(--dashboard-toggle-hover-bg, var(--bs-gray-200));
+        color: var(--dashboard-toggle-hover-color, var(--bs-dark));
+    }
+}
+
+.navbar-fixed .nav-link.btn-link {
+    padding: 0.5rem;
+}
+
+// IMPORTANT: Force les dropdowns à être positionnés absolument
+.navbar-fixed .dropdown {
+    position: relative;
+}
+
+.navbar-fixed .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    margin-top: 0.5rem;
+    z-index: 1000;
+}
+
+// Dropdown aligné à droite
+.navbar-fixed .dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+
 .sidebar-toggle-btn {
     background: none;
     border: none;
@@ -142,6 +190,9 @@ html, body {
     border-radius: 0.375rem;
     color: var(--dashboard-toggle-color, var(--bs-gray-700));
     transition: background-color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     
     &:hover {
         background-color: var(--dashboard-toggle-hover-bg, var(--bs-gray-200));
@@ -152,6 +203,18 @@ html, body {
         outline: 2px solid var(--dashboard-focus-outline, var(--bs-primary));
         outline-offset: 2px;
     }
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+}
+
+.navbar-brand i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 // ============================================================================
@@ -309,18 +372,28 @@ html, body {
     }
 }
 
-// ============================================================================
-// BADGES & HEADERS
-// ============================================================================
-
 .nav-badge {
-    margin-left: 0.5rem;
+    /* Centrage du texte */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Géométrie circulaire dynamique */
+    aspect-ratio: 1 / 1;
+    min-width: 1.1rem;
+    width: fit-content;
+    border-radius: 50%;
+    
+    /* Espacement et Style */
+    padding: 0.1rem;
+    background-color: var(--bs-danger, #dc3545);
+    color: white;
     font-size: 0.65rem;
-    padding: 0.125rem 0.5rem;
-    border-radius: 999px;
-    background-color: var(--dashboard-badge-bg, var(--bs-danger));
-    color: var(--dashboard-badge-color, var(--bs-white));
-    font-weight: 600;
+    font-weight: bold;
+    line-height: 0;
+    white-space: nowrap;
+    border: 1.5px solid var(--dashboard-navbar-bg, #fff);
+    pointer-events: none;
 }
 
 .nav-header {
@@ -345,21 +418,6 @@ html, body {
     }
 }
 
-// ============================================================================
-// STAT CARDS
-// ============================================================================
-
-.stat-card {
-    border: none;
-    background-color: var(--dashboard-card-bg, var(--bs-body-bg));
-    border-radius: 0.75rem;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-    
-    &:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--dashboard-card-shadow-hover, var(--bs-box-shadow-lg));
-    }
-}
 
 // ============================================================================
 // ACCESSIBILITY & UTILITIES
