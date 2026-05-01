@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
@@ -17,12 +14,20 @@ return new class extends Migration
             $table->string('username')->nullable()->unique();
             $table->foreignId('person_id')->constrained('people');
             $table->foreignId('team_id')->nullable()->constrained('teams');
-            $table->enum('status', ['active', 'inactive', 'banned'])->default('active');
+
+            // Index nécessaire pour le filtrage par statut
+            $table->enum('status', ['active', 'inactive', 'banned'])->default('active')->index();
+            
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->softDeletes();
+
+            // Index crucial pour les performances de l'ORM (Eloquent)
+            $table->softDeletes()->index();
             $table->timestamps();
+
+            // Index composite pour accélérer la recherche combinée (Search + Filter)
+            $table->index(['username', 'status']);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -41,9 +46,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('users');

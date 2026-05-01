@@ -26,18 +26,18 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Email</th>
-                <th>Nom complet</th>
-                <th>Date création</th>
+                <th>Nom</th>
+                <th>Prénom(s)</th>
+                <th>Télephone</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($data as $user)
+            @foreach($data as $person)
             <tr>
                 <td>{{ $loop->iteration }}</td>
-                <td>{{ $user->email }}</td>
-                <td>{{ $user->person ? $user->person->first_name . ' ' . $user->person->last_name : 'N/A' }}</td>
-                <td>{{ $user->created_at->format('d/m/Y H:i:s') }}</td>
+                <td>{{ $person->last_name }}</td>
+                <td>{{ $person->first_name }}</td>
+                <td>{{ $person->fullPhone }}</td>
             </tr>
             @endforeach
         </tbody>

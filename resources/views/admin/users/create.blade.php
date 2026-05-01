@@ -45,50 +45,12 @@
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label">Téléphone</label>
-                            
-                            @php
-                                $defaultCountry = $countries->firstWhere('iso2', 'BF') ?? $countries->first();
-                                $defaultPhoneCode = old('phone_code', $defaultCountry->phone_code ?? '');
-                            @endphp
-                            
-                            {{-- Champ caché pour le code téléphone --}}
-                            <input type="hidden" name="phone_code" id="phone_code" value="{{ $defaultPhoneCode }}">
-                            
-                            <div class="input-group">
-                                <button class="btn btn-outline-secondary dropdown-toggle d-flex align-items-center justify-content-center"
-                                        type="button"
-                                        id="phoneCodeBtn"
-                                        data-bs-toggle="dropdown"
-                                        aria-expanded="false"
-                                        style="width: 70px;">
-                                    <span class="fi fi-{{ strtolower($defaultCountry->iso2) }}"></span>
-                                </button>
-
-                                <ul class="dropdown-menu" style="max-height: 300px; overflow-y: auto;">
-                                    @foreach($countries as $country)
-                                        <li>
-                                            <a class="dropdown-item d-flex align-items-center gap-2"
-                                               href="#"
-                                               data-iso2="{{ strtolower($country->iso2) }}"
-                                               data-code="{{ $country->phone_code }}">
-                                                <span class="fi fi-{{ strtolower($country->iso2) }}"></span>
-                                                <span>{{ $country->name }}</span>
-                                                <span class="text-muted ms-auto">+{{ $country->phone_code }}</span>
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-
-                                <input type="tel"
-                                       name="phone"
-                                       class="form-control @error('phone') is-invalid @enderror"
-                                       value="{{ old('phone', $person->phone ?? '') }}"
-                                       placeholder="77 123 45 67">
-                            </div>
-                            @error('phone')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
+                            <x-phone-input 
+    :countries="$countries"
+    name="phone"
+    label="Téléphone principal"
+    required="true"
+/>
                         </div>
 
                         <div class="col-md-6">
@@ -102,26 +64,10 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-
-                        <div class="col-md-6">
-                            <label class="form-label">Pays</label>
-                            <select name="country_id" class="form-select @error('country_id') is-invalid @enderror">
-                                <option value="">Sélectionner</option>
-                                @foreach($countries as $country)
-                                    <option value="{{ $country->id }}" {{ old('country_id') == $country->id ? 'selected' : '' }}>
-                                        {{ $country->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('country_id')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
                     </div>
 
                     <hr class="my-4">
 
-                    {{-- Section compte utilisateur --}}
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="mb-0">Compte utilisateur</h5>
                         @if(!isset($person))
@@ -134,69 +80,102 @@
                         @endif
                     </div>
 
-                    <div id="account-fields" style="{{ !isset($person) ? 'display: none;' : '' }}">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="form-label">Email @if(isset($person)) <span class="text-danger">*</span> @endif</label>
-                                <input type="email" name="email"
-                                       class="form-control @error('email') is-invalid @enderror"
-                                       value="{{ old('email') }}">
-                                @error('email')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
+                    <div id="account-fields-container">
+                        @if(isset($person))
+                            <div id="account-fields">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label">Email <span class="text-danger">*</span></label>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                                        @error('email')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Nom d'utilisateur</label>
+                                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}">
+                                        @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Mot de passe <span class="text-danger">*</span></label>
+                                        <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                                        @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Confirmation <span class="text-danger">*</span></label>
+                                        <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Statut</label>
+                                        <select name="status" class="form-select">
+                                            <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Actif</option>
+                                            <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactif</option>
+                                            <option value="banned" {{ old('status') == 'banned' ? 'selected' : '' }}>Banni</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Rôles</label>
+                                        <select name="roles[]" class="form-select" multiple size="3">
+                                            @foreach($roles ?? [] as $role)
+                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small class="text-muted">Ctrl+clic pour sélectionner plusieurs</small>
+                                    </div>
+                                </div>
                             </div>
+                        @endif
+                    </div>
 
-                            <div class="col-md-6">
-                                <label class="form-label">Nom d'utilisateur</label>
-                                <input type="text" name="username"
-                                       class="form-control @error('username') is-invalid @enderror"
-                                       value="{{ old('username') }}">
-                                @error('username')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Mot de passe @if(isset($person)) <span class="text-danger">*</span> @endif</label>
-                                <input type="password" name="password"
-                                       class="form-control @error('password') is-invalid @enderror">
-                                @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Confirmation @if(isset($person)) <span class="text-danger">*</span> @endif</label>
-                                <input type="password" name="password_confirmation"
-                                       class="form-control @error('password_confirmation') is-invalid @enderror">
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Statut</label>
-                                <select name="status" class="form-select">
-                                    <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Actif</option>
-                                    <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactif</option>
-                                    <option value="banned" {{ old('status') == 'banned' ? 'selected' : '' }}>Banni</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label class="form-label">Rôles</label>
-                                <select name="roles[]" class="form-select" multiple size="3">
-                                    @foreach($roles ?? [] as $role)
-                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                    @endforeach
-                                </select>
-                                <small class="text-muted">Ctrl+clic pour sélectionner plusieurs</small>
+                    <template id="account-fields-template">
+                        <div id="account-fields">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Email <span class="text-danger">*</span></label>
+                                    <input type="email" name="email" class="form-control" value="">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Nom d'utilisateur</label>
+                                    <input type="text" name="username" class="form-control" value="">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Mot de passe <span class="text-danger">*</span></label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Confirmation <span class="text-danger">*</span></label>
+                                    <input type="password" name="password_confirmation" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Statut</label>
+                                    <select name="status" class="form-select">
+                                        <option value="active">Actif</option>
+                                        <option value="inactive">Inactif</option>
+                                        <option value="banned">Banni</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Rôles</label>
+                                    <select name="roles[]" class="form-select" multiple size="3">
+                                        @foreach($roles ?? [] as $role)
+                                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <small class="text-muted">Ctrl+clic pour sélectionner plusieurs</small>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </template>
 
                     <div class="mt-4 d-flex justify-content-end gap-2">
                         <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary">
                             Annuler
                         </a>
-                        <button class="btn btn-primary">
+                        <button type="submit" class="btn btn-primary">
                             {{ isset($person) ? 'Créer le compte' : 'Enregistrer' }}
                         </button>
                     </div>
@@ -210,41 +189,47 @@
 </x-admin-layout>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     // Gestion du code téléphone
     const btn = document.getElementById('phoneCodeBtn');
     const phoneCodeInput = document.getElementById('phone_code');
 
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const iso2 = this.dataset.iso2;
-            const code = this.dataset.code;
-            
-            // Mettre à jour le champ caché avec le code pays
-            if (phoneCodeInput) {
+    if (btn && phoneCodeInput) {
+        document.querySelectorAll('.dropdown-item').forEach(function(item) {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const iso2 = this.getAttribute('data-iso2');
+                const code = this.getAttribute('data-code');
+                
                 phoneCodeInput.value = code;
-            }
-            
-            // Mettre à jour l'affichage du drapeau
-            btn.innerHTML = `<span class="fi fi-${iso2}"></span>`;
+                btn.innerHTML = '<span class="fi fi-' + iso2 + '"></span>';
+            });
         });
-    });
-
-    // Gestion de l'affichage des champs compte
-    const createAccountCheckbox = document.getElementById('create_account');
-    const accountFields = document.getElementById('account-fields');
-
-    if (createAccountCheckbox) {
-        createAccountCheckbox.addEventListener('change', function() {
-            accountFields.style.display = this.checked ? 'block' : 'none';
-        });
+        
+        if (!phoneCodeInput.value) {
+            phoneCodeInput.value = '{{ $defaultCountry->phone_code ?? '' }}';
+        }
     }
-    
-    // Initialiser le code téléphone par défaut si le champ est vide
-    if (phoneCodeInput && !phoneCodeInput.value) {
-        const defaultCode = '{{ $defaultCountry->phone_code ?? '' }}';
-        phoneCodeInput.value = defaultCode;
+
+    // Gestion des champs compte avec template
+    const createAccountCheckbox = document.getElementById('create_account');
+    const container = document.getElementById('account-fields-container');
+    const template = document.getElementById('account-fields-template');
+
+    if (createAccountCheckbox && container && template) {
+        createAccountCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                if (!document.getElementById('account-fields')) {
+                    const clone = template.content.cloneNode(true);
+                    container.appendChild(clone);
+                }
+            } else {
+                const accountFields = document.getElementById('account-fields');
+                if (accountFields) {
+                    accountFields.remove();
+                }
+            }
+        });
     }
 });
 </script>

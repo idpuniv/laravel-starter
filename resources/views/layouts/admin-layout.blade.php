@@ -10,6 +10,7 @@
     <title>@yield('title') - {{ config('app.name') }}</title>
     <script src="{{ asset('js/color-modes.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/css/admin.css', 'resources/js/admin.js'])
+    @stack('styles')
 </head>
 
 <body>
@@ -232,6 +233,7 @@
             </footer>
         </div>
     </div>
+    @stack('scripts')
 
 </body>
 

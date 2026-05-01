@@ -70,7 +70,6 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, Status::message(Status::CREATED, 'Utilisateur'));
         } catch (\Exception $e) {
-            dd($e);
             return back()
                 ->with(Status::ERROR, Status::message(Status::ERROR))
                 ->withInput();

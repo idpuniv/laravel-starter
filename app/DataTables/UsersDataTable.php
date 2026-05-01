@@ -23,7 +23,7 @@ class UsersDataTable extends AbstractDataTable
      */
     protected function defineSearchable(): array
     {
-        return ['first_name', 'last_name', 'phone'];
+        return ['first_name', 'last_name', 'phone', 'user.email', 'user.username', 'user.roles.name'];
     }
 
     /**
@@ -32,7 +32,10 @@ class UsersDataTable extends AbstractDataTable
     protected function defineFilters(): array
     {
         return [
-            'status' => ['type' => 'single'],
+            'status' => [
+            'type'   => 'single',
+            'column' => 'user.status' 
+        ],
             'roles'  => [
                 'type' => 'relation',
                 'relation' => 'user.roles',
