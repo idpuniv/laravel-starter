@@ -22,29 +22,29 @@ final class Roles
         return [
             'web' => [
                 self::ADMIN => [
-                    'label' => 'Role administrateur',
-                    'description' => 'My admin role description',
+                    'label' => 'Administrateur',
+                    'description' => 'Gère les opérations courantes de la plateforme avec des privilèges étendus, sans accès aux paramètres critiques du système.',
                     'permissions' => [
                         \App\Permissions\SystemPermissions::class,
                     ],
                 ],
                 self::USER => [
-                    'label' => 'Role utilisateurs sans privilège particulier',
-                    'description' => 'Role utilisateur',
+                    'label' => 'Utilisateur',
+                    'description' => 'Accède aux fonctionnalités de base de l’application selon les droits qui lui sont attribués.',
                     'permissions' => [
                         
                     ],
                 ],
                 self::VIEWER => [
                     'label' => 'Lecteur',
-                    'description' => 'Role lecture seule',
+                    'description' => 'Dispose d’un accès en lecture seule aux données sans possibilité de modification.',
                     'permissions' => [
                         
                     ],
                 ],
                 self::ROOT => [
-                    'label' => 'Super admin',
-                    'description' => 'Role ayant tous les privilèges',
+                    'label' => 'Super Administrateur',
+                    'description' => 'Dispose d’un accès complet à l’ensemble du système, y compris la gestion des rôles, des permissions et des configurations critiques.',
                     'permissions' => [
                         \App\Permissions\SystemPermissions::class,
                         \App\Permissions\RolePermissions::class,

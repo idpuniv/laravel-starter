@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\Permission\Models\Role as SpatieRole;
+use Illuminate\Support\Str;
 
 class Role extends SpatieRole
 {
@@ -23,8 +24,19 @@ class Role extends SpatieRole
     protected static function booted(): void
     {
         static::creating(function (self $role) {
-            if (empty($role->label)) {
-                $role->label = ucfirst($role->name ?? '');
+
+            if (empty($role->name) && !empty($role->label)) {
+                $role->name = Str::slug($role->label);
+            }
+            if (empty($role->label) && !empty($role->name)) {
+                $role->label = ucfirst(str_replace('-', ' ', $role->name));
+            }
+        });
+
+        static::updating(function (self $role) {
+
+            if ($role->isDirty('name')) {
+                $role->name = $role->getOriginal('name');
             }
         });
     }
@@ -40,7 +52,4 @@ class Role extends SpatieRole
             ->where('group_id', $data['group_id'])
             ->where('name', '!=', 'root');
     }
-
-
-    
 }

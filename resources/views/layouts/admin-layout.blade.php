@@ -177,10 +177,10 @@
                                 <span class="d-none d-sm-inline">Thomas</span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                <li><a class="dropdown-item" href="profil.html">
+                                <li><a class="dropdown-item" href="/profile">
                                         <i class="bi bi-person me-2" aria-hidden="true"></i> Profil
                                     </a></li>
-                                <li><a class="dropdown-item" href="params.html">
+                                <li><a class="dropdown-item" href="profile">
                                         <i class="bi bi-gear me-2" aria-hidden="true"></i> Paramètres
                                     </a></li>
                                 <li>

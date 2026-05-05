@@ -1,4 +1,4 @@
-@section('title', isset($person) ? 'Ajouter un compte' : 'Ajouter une personne')
+@section('title', 'Ajouter un utilisateur')
 <x-admin-layout>
     <div class="container py-4">
 

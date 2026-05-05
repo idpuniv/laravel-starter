@@ -1,3 +1,4 @@
+@section('title', 'Liste des roles')
 <x-admin-layout>
     <div class="container py-4">
 
@@ -30,11 +31,11 @@
                             @forelse($roles as $role)
                                 <tr>
                                     <td class="fw-semibold">{{ $role->id }}</td>
-                                    <td>{{ $role->name }}</td>
+                                    <td>{{ $role->label }}</td>
                                     <td>
                                         @forelse($role->permissions as $permission)
                                             <span class="badge bg-secondary me-1 mb-1">
-                                                {{ $permission->name }}
+                                                {{ $permission->label }}
                                             </span>
                                         @empty
                                             <span class="text-muted fst-italic">Aucune permission</span>
@@ -42,29 +43,38 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <a href="{{ route('admin.roles.show', $role->id) }}"
-                                                class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
-                                                title="Voir">
-                                                <i class="bi bi-eye"></i>
-                                                <span class="visually-hidden">Voir</span>
-                                            </a>
-                                            <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                                class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
-                                                title="Modifier">
-                                                <i class="bi bi-pencil"></i>
-                                                <span class="visually-hidden">Modifier</span>
-                                            </a>
-                                            <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit"
-                                                    class="icon-circle-xs text-decoration-none text-body bg-transparent border-0 hover-bg-secondary-25"
-                                                    title="Supprimer">
-                                                    <i class="bi bi-trash"></i>
-                                                    <span class="visually-hidden">Supprimer</span>
-                                                </button>
-                                            </form>
+                                            @can(\App\Permissions\RolePermissions::VIEW)
+                                                <a href="{{ route('admin.roles.show', $role->id) }}"
+                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                    title="Voir">
+                                                    <i class="bi bi-eye"></i>
+                                                    <span class="visually-hidden">Voir</span>
+                                                </a>
+                                            @endcan
+
+                                            @can(\App\Permissions\RolePermissions::UPDATE)
+                                                <a href="{{ route('admin.roles.edit', $role->id) }}"
+                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                    title="Modifier">
+                                                    <i class="bi bi-pencil"></i>
+                                                    <span class="visually-hidden">Modifier</span>
+                                                </a>
+                                            @endcan
+
+                                            @can(\App\Permissions\RolePermissions::DELETE)
+                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit"
+                                                        class="icon-circle-xs text-decoration-none text-body bg-transparent border-0 hover-bg-secondary-25"
+                                                        title="Supprimer"
+                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rôle ?')">
+                                                        <i class="bi bi-trash"></i>
+                                                        <span class="visually-hidden">Supprimer</span>
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>

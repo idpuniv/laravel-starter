@@ -50,7 +50,7 @@
                                            {{ $user->hasPermissionTo($permission->name) ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="perm_{{ $permission->id }}">
-                                        {{ $permission->name }}
+                                        {{ $permission->label }}
                                     </label>
                                 </div>
 

@@ -4,9 +4,12 @@
     <div class="container pt-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Liste des utilisateurs</h3>
+        @can(\App\Permissions\UserPermissions::CREATE)
         <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
-            + Nouveau utilisateurs
+            <i class="bi bi-plus"></i>
+            Nouveau utilisateur
         </a>
+        @endcan
     </div>
         <div class="row g-2 align-items-center mb-3">
             <div class="col">

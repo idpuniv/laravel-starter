@@ -32,33 +32,33 @@ class UserController extends Controller
     }
 
     public function create(Request $request)
-{
-    try {
-        $person = null;
-        
-        // Si on crée un compte pour une personne existante
-        if ($request->has('person_id')) {
-            $person = Person::findOrFail($request->person_id);
-            
-            // Si la personne a déjà un compte, rediriger vers l'édition
-            if ($person->user) {
-                return redirect()
-                    ->route('admin.users.edit', $person->id)
-                    ->with(Status::SUCCESS, 'Cette personne a déjà un compte utilisateur.');
-            }
-        }
-        
-        $countries = Country::all();
-        $roles = Role::all();
-        $teams = $this->isTeamsEnabled()
-            ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
-            : collect();
+    {
+        try {
+            $person = null;
 
-        return view('admin.users.create', compact('teams', 'countries', 'roles', 'person'));
-    } catch (\Exception $e) {
-        return back()->with(Status::ERROR, Status::message(Status::ERROR));
+            // Si on crée un compte pour une personne existante
+            if ($request->has('person_id')) {
+                $person = Person::findOrFail($request->person_id);
+
+                // Si la personne a déjà un compte, rediriger vers l'édition
+                if ($person->user) {
+                    return redirect()
+                        ->route('admin.users.edit', $person->id)
+                        ->with(Status::SUCCESS, 'Cette personne a déjà un compte utilisateur.');
+                }
+            }
+
+            $countries = Country::all();
+            $roles = Role::all();
+            $teams = $this->isTeamsEnabled()
+                ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
+                : collect();
+
+            return view('admin.users.create', compact('teams', 'countries', 'roles', 'person'));
+        } catch (\Exception $e) {
+            return back()->with(Status::ERROR, Status::message(Status::ERROR));
+        }
     }
-}
 
     public function store(StoreUserRequest $request)
     {
@@ -91,13 +91,14 @@ class UserController extends Controller
     public function edit(string $id)
     {
         try {
-            $user = $this->userService->find($id);
+            $person = $this->userService->find($id);
+            $countries = Country::all();
 
             $teams = $this->isTeamsEnabled()
                 ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
                 : collect();
 
-            return view('admin.users.edit', compact('user', 'teams'));
+            return view('admin.users.edit', compact('person', 'teams', 'countries'));
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')

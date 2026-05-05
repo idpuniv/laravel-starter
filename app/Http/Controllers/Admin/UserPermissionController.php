@@ -19,18 +19,18 @@ class UserPermissionController extends Controller
         try {
             $user = User::with(['roles', 'permissions'])->findOrFail($id);
 
-            $rolePermissions = $user->getPermissionsViaRoles()
-                ->pluck('name')
-                ->toArray();
-
-            $permissions = Permission::whereNotIn('name', $rolePermissions)->get();
+            $rolePermissionsCollection = $user->getPermissionsViaRoles();
+            $rolePermissions = $rolePermissionsCollection->pluck('label');
+            $rolePermissionNames = $rolePermissionsCollection->pluck('name')->toArray();
+            $permissions = Permission::query()
+                ->whereNotIn('name', $rolePermissionNames)
+                ->get();
 
             return view('admin.users.permissions.edit', compact(
                 'user',
                 'permissions',
                 'rolePermissions'
             ));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
@@ -56,13 +56,11 @@ class UserPermissionController extends Controller
             return redirect()
                 ->route('admin.users.permissions.edit', $user->id)
                 ->with(Status::SUCCESS, Status::message(Status::SUCCESS, 'Permissions'));
-
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
                 ->withInput()
                 ->with(Status::FAILED, Status::message(Status::FAILED));
-
         } catch (\Exception $e) {
             return back()
                 ->withInput()
@@ -79,7 +77,6 @@ class UserPermissionController extends Controller
             $user = User::with(['roles', 'permissions'])->findOrFail($id);
 
             return view('admin.users.permissions.show', compact('user'));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')

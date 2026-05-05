@@ -54,11 +54,13 @@
             {{-- Compte utilisateur --}}
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <strong>Compte utilisateur</strong>
-                @if(!$person->user)
-                    <a href="{{ route('admin.users.create', ['person_id' => $person->id]) }}" class="btn btn-sm btn-primary">
-                        <i class="bi bi-plus"></i> Créer
-                    </a>
-                @endif
+                @can(\App\Permissions\UserPermissions::CREATE)
+                    @if(!$person->user)
+                        <a href="{{ route('admin.users.create', ['person_id' => $person->id]) }}" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus"></i> Créer
+                        </a>
+                    @endif
+                @endcan
             </div>
 
             @if($person->user)
@@ -93,13 +95,15 @@
                     <small class="text-muted d-block mb-2">Rôles</small>
                     <div>
                         @forelse($person->user->roles as $role)
-                            <span class="badge bg-primary me-1">{{ $role->name }}</span>
+                            <span class="badge bg-primary me-1">{{ $role->label }}</span>
                         @empty
                             <span class="text-muted">Aucun</span>
                         @endforelse
-                        <a href="{{ route('admin.users.roles.edit', $person->user->id) }}" class="ms-2">
-                            <i class="bi bi-pencil"></i>
-                        </a>
+                        @can(\App\Permissions\UserPermissions::UPDATE_ROLE)
+                            <a href="{{ route('admin.users.roles.edit', $person->user->id) }}" class="ms-2">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        @endcan
                     </div>
                 </div>
 
@@ -107,13 +111,15 @@
                     <small class="text-muted d-block mb-2">Permissions directes</small>
                     <div>
                         @forelse($person->user->permissions as $permission)
-                            <span class="badge bg-secondary me-1">{{ $permission->name }}</span>
+                            <span class="badge bg-secondary me-1">{{ $permission->label }}</span>
                         @empty
                             <span class="text-muted">Aucune</span>
                         @endforelse
-                        <a href="{{ route('admin.users.permissions.edit', $person->user->id) }}" class="ms-2">
-                            <i class="bi bi-pencil"></i>
-                        </a>
+                        @can(\App\Permissions\UserPermissions::UPDATE_PERMISSION)
+                            <a href="{{ route('admin.users.permissions.edit', $person->user->id) }}" class="ms-2">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                        @endcan
                     </div>
                 </div>
             @else
@@ -126,9 +132,11 @@
 
             <div class="d-flex justify-content-end gap-2">
                 <a href="{{ route('admin.users.index') }}" class="btn btn-secondary btn-sm">Retour</a>
-                @if($person->user)
-                    <a href="{{ route('admin.users.edit', $person->id) }}" class="btn btn-primary btn-sm">Modifier</a>
-                @endif
+                @can(\App\Permissions\UserPermissions::UPDATE)
+                    @if($person->user)
+                        <a href="{{ route('admin.users.edit', $person->id) }}" class="btn btn-primary btn-sm">Modifier</a>
+                    @endif
+                @endcan
             </div>
 
         </div>

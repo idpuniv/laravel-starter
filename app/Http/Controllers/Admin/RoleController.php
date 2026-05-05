@@ -20,7 +20,6 @@ class RoleController extends Controller
             $roles = Role::with('permissions')->paginate(10);
 
             return view('admin.roles.index', compact('roles'));
-
         } catch (\Exception $e) {
             return back()->with(
                 Status::ERROR,
@@ -38,7 +37,6 @@ class RoleController extends Controller
             $permissions = Permission::all();
 
             return view('admin.roles.create', compact('permissions'));
-
         } catch (\Exception $e) {
             return back()->with(
                 Status::ERROR,
@@ -51,46 +49,44 @@ class RoleController extends Controller
      * Enregistrement
      */
     public function store(Request $request)
-{
-    try {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:roles,name',
-            'permissions' => 'required|array|min:1',
-            'permissions.*' => 'exists:permissions,name'
-        ]);
+    {
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255|unique:roles,name',
+                'permissions' => 'required|array|min:1',
+                'permissions.*' => 'exists:permissions,name'
+            ]);
 
-        $role = Role::create([
-            'name' => $validated['name'],
-            'guard_name' => 'web'
-        ]);
+            $role = Role::create([
+                'name' => $validated['name'],
+                'guard_name' => 'web'
+            ]);
 
-        $role->syncPermissions($validated['permissions']);
+            $role->syncPermissions($validated['permissions']);
 
-        return redirect()
-            ->route('admin.roles.index')
-            ->with(
-                Status::SUCCESS,
-                Status::message(Status::CREATED, 'Rôle')
-            );
-
-    } catch (ValidationException $e) {
-        return back()
-            ->withErrors($e->errors())
-            ->withInput()
-            ->with(
-                Status::FAILED,
-                Status::message(Status::FAILED)
-            );
-
-    } catch (\Exception $e) {
-        return back()
-            ->with(
-                Status::ERROR,
-                Status::message(Status::ERROR)
-            )
-            ->withInput();
+            return redirect()
+                ->route('admin.roles.index')
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::CREATED, 'Rôle')
+                );
+        } catch (ValidationException $e) {
+            return back()
+                ->withErrors($e->errors())
+                ->withInput()
+                ->with(
+                    Status::FAILED,
+                    Status::message(Status::FAILED)
+                );
+        } catch (\Exception $e) {
+            return back()
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR)
+                )
+                ->withInput();
+        }
     }
-}
 
     /**
      * Détail
@@ -101,7 +97,6 @@ class RoleController extends Controller
             $role = Role::with('permissions')->findOrFail($id);
 
             return view('admin.roles.show', compact('role'));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.roles.index')
@@ -122,7 +117,6 @@ class RoleController extends Controller
             $permissions = Permission::all();
 
             return view('admin.roles.edit', compact('role', 'permissions'));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.roles.index')
@@ -161,7 +155,6 @@ class RoleController extends Controller
                     Status::SUCCESS,
                     Status::message(Status::UPDATED, 'Rôle')
                 );
-
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
@@ -170,7 +163,6 @@ class RoleController extends Controller
                     Status::FAILED,
                     Status::message(Status::FAILED)
                 );
-
         } catch (\Exception $e) {
             return back()
                 ->with(
@@ -196,7 +188,6 @@ class RoleController extends Controller
                     Status::SUCCESS,
                     Status::message(Status::DELETED, 'Rôle')
                 );
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.roles.index')

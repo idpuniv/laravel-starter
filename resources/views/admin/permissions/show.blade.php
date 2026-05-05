@@ -22,10 +22,12 @@
 
             <div class="d-flex gap-2">
 
+                @can(\App\Permissions\PermissionPermissions::UPDATE)
                 <a href="{{ route('admin.permissions.edit', $permission->id) }}"
                    class="btn btn-warning">
                     Modifier
                 </a>
+                @endcan
 
                 <a href="{{ route('admin.permissions.index') }}"
                    class="btn btn-secondary">

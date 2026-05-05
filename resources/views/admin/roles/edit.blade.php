@@ -12,11 +12,11 @@
         <div class="mb-3">
             <label class="form-label">Nom du rôle</label>
             <input type="text"
-                   name="name"
-                   class="form-control @error('name') is-invalid @enderror"
-                   value="{{ old('name', $role->name) }}">
+                   name="label"
+                   class="form-control @error('label') is-invalid @enderror"
+                   value="{{ old('label', $role->label) }}">
 
-            @error('name')
+            @error('label')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
@@ -38,7 +38,7 @@
                                    @checked($role->permissions->contains('name', $permission->name))>
 
                             <label class="form-check-label" for="perm_{{ $permission->id }}">
-                                {{ $permission->name }}
+                                {{ $permission->label }}
                             </label>
                         </div>
 

@@ -32,7 +32,7 @@
                                    {{ $user->hasRole($role->name) ? 'checked' : '' }}>
 
                             <label class="form-check-label" for="role_{{ $role->id }}">
-                                {{ $role->name }}
+                                {{ $role->label }}
                             </label>
                         </div>
                     @endforeach
@@ -60,7 +60,7 @@
 
                 @forelse($user->permissions as $permission)
                     <span class="badge bg-secondary">
-                        {{ $permission->name }}
+                        {{ $permission->label }}
                     </span>
                 @empty
                     <span class="text-muted">
