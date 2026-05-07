@@ -9,9 +9,9 @@
                             <div class="bg-primary bg-opacity-10 icon-circle-lg mb-3 mx-auto">
                                 <i class="bi bi-box-arrow-in-right text-primary"></i>
                             </div>
-                            <h4 class="mb-2">{{ __('Login') }}</h4>
+                            <h4 class="mb-2">{{ __('Connexion') }}</h4>
                             <p class="text-secondary small mb-0">
-                                {{ __('Welcome back! Please login to your account.') }}
+                                {{ __('Bon retour ! Veuillez vous connecter à votre compte.') }}
                             </p>
                         </div>
 
@@ -23,20 +23,13 @@
                             </div>
                         @endif
 
-                        @if ($errors->any())
-                            <div class="alert alert-danger mb-4">
-                                <i class="bi bi-exclamation-triangle me-2"></i>
-                                {{ __('Invalid credentials. Please try again.') }}
-                            </div>
-                        @endif
-
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <!-- Email Field -->
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-medium">
-                                    {{ __('Email Address') }}
+                                    {{ __('Adresse e-mail') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-body-secondary border-end-0">
@@ -44,7 +37,7 @@
                                     </span>
                                     <input type="email" id="email"
                                         class="form-control border-start-0 @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" placeholder="name@example.com"
+                                        name="email" value="{{ old('email') }}" placeholder="nom@exemple.com"
                                         required autofocus>
                                 </div>
                                 @error('email')
@@ -57,7 +50,7 @@
                             <!-- Password Field -->
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-medium">
-                                    {{ __('Password') }}
+                                    {{ __('Mot de passe') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-body-secondary border-end-0">
@@ -78,7 +71,7 @@
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="remember_me" name="remember">
                                 <label class="form-check-label" for="remember_me">
-                                    {{ __('Remember me') }}
+                                    {{ __('Se souvenir de moi') }}
                                 </label>
                             </div>
 
@@ -86,13 +79,13 @@
                             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mt-4">
                                 @if (Route::has('password.request'))
                                     <a href="{{ route('password.request') }}" class="text-decoration-none small">
-                                        {{ __('Forgot your password?') }}
+                                        {{ __('Mot de passe oublié ?') }}
                                     </a>
                                 @endif
 
                                 <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold w-100 w-sm-auto">
                                     <i class="bi bi-box-arrow-in-right me-2"></i>
-                                    {{ __('Log in') }}
+                                    {{ __('Se connecter') }}
                                 </button>
                             </div>
                         </form>

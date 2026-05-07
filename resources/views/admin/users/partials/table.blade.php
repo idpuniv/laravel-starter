@@ -9,6 +9,7 @@
                 <th>Téléphone</th>
                 <th>Date</th>
                 <th>Rôle</th>
+                <th>Statut</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -53,6 +54,47 @@
                         @endif
                     </td>
 
+                    {{-- STATUT --}}
+                    <td>
+                        @if($person->user)
+                            @can(\App\Permissions\UserPermissions::UPDATE)
+                                <form method="POST" action="{{ route('admin.users.change-status', $person->user) }}">
+                                    @csrf
+                                    @method('PATCH')
+
+                                    <select name="status"
+                                            class="form-select form-select-sm @error('status') is-invalid @enderror"
+                                            onchange="this.form.submit()">
+
+                                        <option value="{{ \App\Enums\Status::ACTIVE }}"
+                                            @selected($person->user->status === \App\Enums\Status::ACTIVE)>
+                                            Actif
+                                        </option>
+
+                                        <option value="{{ \App\Enums\Status::INACTIVE }}"
+                                            @selected($person->user->status === \App\Enums\Status::INACTIVE)>
+                                            Inactif
+                                        </option>
+
+                                    </select>
+
+                                    @error('status')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </form>
+                            @else
+                                <span class="badge {{ $person->user->status === \App\Enums\Status::ACTIVE ? 'bg-success' : 'bg-secondary' }}">
+                                    {{ $person->user->status }}
+                                </span>
+                            @endcan
+                        @else
+                            <span class="badge bg-secondary">N/A</span>
+                        @endif
+                    </td>
+
+                    {{-- ACTIONS --}}
                     <td>
                         <div class="d-flex align-items-center">
                             @can(\App\Permissions\UserPermissions::VIEW)
@@ -91,7 +133,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="7" class="text-center py-4 text-muted">
+                    <td colspan="8" class="text-center py-4 text-muted">
                         Aucune personne trouvée.
                     </td>
                 </tr>
@@ -99,6 +141,6 @@
         </tbody>
 
     </table>
-
 </div>
+
 @include('partials.pagination', ['data' => $data])

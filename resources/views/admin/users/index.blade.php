@@ -18,7 +18,7 @@
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="bi bi-download"></i> Exporter
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-end bg-dark">
                             <li><h6 class="dropdown-header text-muted">Page actuelle</h6></li>
                             <li><button type="button" class="dropdown-item" data-export="pdf" data-scope="current">PDF</button></li>
                             <li><button type="button" class="dropdown-item" data-export="excel" data-scope="current">Excel</button></li>

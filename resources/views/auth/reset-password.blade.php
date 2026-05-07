@@ -9,16 +9,16 @@
                             <div class="bg-primary bg-opacity-10 icon-circle-lg">
                                 <i class="bi bi-key text-primary"></i>
                             </div>
-                            <h4 class="mb-2">{{ __('Reset Password') }}</h4>
+                            <h4 class="mb-2">{{ __('Réinitialiser le mot de passe') }}</h4>
                             <p class="text-secondary small mb-0">
-                                {{ __('Enter your new password below.') }}
+                                {{ __('Entrez votre nouveau mot de passe ci-dessous.') }}
                             </p>
                         </div>
 
                         @if ($errors->any())
                             <div class="alert alert-danger mb-4">
                                 <i class="bi bi-exclamation-triangle me-2"></i>
-                                {{ __('Please fix the errors below.') }}
+                                {{ __('Veuillez corriger les erreurs ci-dessous.') }}
                             </div>
                         @endif
 
@@ -31,7 +31,7 @@
                             <!-- Email Field -->
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-medium">
-                                    {{ __('Email Address') }}
+                                    {{ __('Adresse e-mail') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -42,7 +42,7 @@
                                            class="form-control border-start-0 @error('email') is-invalid @enderror"
                                            name="email"
                                            value="{{ old('email', $request->email) }}"
-                                           placeholder="name@example.com"
+                                           placeholder="nom@exemple.com"
                                            required autofocus>
                                 </div>
                                 @error('email')
@@ -55,7 +55,7 @@
                             <!-- New Password Field -->
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-medium">
-                                    {{ __('New Password') }}
+                                    {{ __('Nouveau mot de passe') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -74,14 +74,14 @@
                                     </div>
                                 @enderror
                                 <div class="form-text small text-muted">
-                                    {{ __('Password must be at least 8 characters.') }}
+                                    {{ __('Le mot de passe doit contenir au moins 8 caractères.') }}
                                 </div>
                             </div>
 
                             <!-- Confirm Password Field -->
                             <div class="mb-4">
                                 <label for="password_confirmation" class="form-label fw-medium">
-                                    {{ __('Confirm Password') }}
+                                    {{ __('Confirmer le mot de passe') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -105,7 +105,7 @@
                             <div class="d-grid mt-4">
                                 <button type="submit" class="btn btn-primary py-2 fw-semibold">
                                     <i class="bi bi-arrow-repeat me-2"></i>
-                                    {{ __('Reset Password') }}
+                                    {{ __('Réinitialiser le mot de passe') }}
                                 </button>
                             </div>
 
@@ -113,7 +113,7 @@
                             <div class="text-center mt-3">
                                 <a href="{{ route('login') }}" class="text-decoration-none small">
                                     <i class="bi bi-arrow-left me-1"></i>
-                                    {{ __('Back to Login') }}
+                                    {{ __('Retour à la connexion') }}
                                 </a>
                             </div>
                         </form>

@@ -62,18 +62,9 @@
                                             @endcan
 
                                             @can(\App\Permissions\RolePermissions::DELETE)
-                                                <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST"
-                                                    class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit"
-                                                        class="icon-circle-xs text-decoration-none text-body bg-transparent border-0 hover-bg-secondary-25"
-                                                        title="Supprimer"
-                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce rôle ?')">
-                                                        <i class="bi bi-trash"></i>
-                                                        <span class="visually-hidden">Supprimer</span>
-                                                    </button>
-                                                </form>
+                                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal"
+                                                    data-url="{{ route('admin.roles.destroy', $role->id) }}">{{ __('Supprimer') }}</a>
                                             @endcan
                                         </div>
                                     </td>

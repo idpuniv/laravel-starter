@@ -9,16 +9,16 @@
                             <div class="bg-primary bg-opacity-10 icon-circle-lg">
                                 <i class="bi bi-person-plus text-primary"></i>
                             </div>
-                            <h4 class="mb-2">{{ __('Create Account') }}</h4>
+                            <h4 class="mb-2">{{ __('Créer un compte') }}</h4>
                             <p class="text-secondary small mb-0">
-                                {{ __('Register to get started with your account.') }}
+                                {{ __('Inscrivez-vous pour commencer à utiliser votre compte.') }}
                             </p>
                         </div>
 
                         @if ($errors->any())
                             <div class="alert alert-danger mb-4">
                                 <i class="bi bi-exclamation-triangle me-2"></i>
-                                {{ __('Please fix the errors below.') }}
+                                {{ __('Veuillez corriger les erreurs ci-dessous.') }}
                             </div>
                         @endif
 
@@ -28,7 +28,7 @@
                             <!-- Name Field -->
                             <div class="mb-3">
                                 <label for="name" class="form-label fw-medium">
-                                    {{ __('Full Name') }}
+                                    {{ __('Nom complet') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -52,7 +52,7 @@
                             <!-- Email Field -->
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-medium">
-                                    {{ __('Email Address') }}
+                                    {{ __('Adresse e-mail') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -63,7 +63,7 @@
                                            class="form-control border-start-0 @error('email') is-invalid @enderror"
                                            name="email"
                                            value="{{ old('email') }}"
-                                           placeholder="name@example.com"
+                                           placeholder="nom@exemple.com"
                                            required>
                                 </div>
                                 @error('email')
@@ -76,7 +76,7 @@
                             <!-- Password Field -->
                             <div class="mb-3">
                                 <label for="password" class="form-label fw-medium">
-                                    {{ __('Password') }}
+                                    {{ __('Mot de passe') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -95,14 +95,14 @@
                                     </div>
                                 @enderror
                                 <div class="form-text small text-muted">
-                                    {{ __('Password must be at least 8 characters.') }}
+                                    {{ __('Le mot de passe doit contenir au moins 8 caractères.') }}
                                 </div>
                             </div>
 
                             <!-- Confirm Password Field -->
                             <div class="mb-4">
                                 <label for="password_confirmation" class="form-label fw-medium">
-                                    {{ __('Confirm Password') }}
+                                    {{ __('Confirmer le mot de passe') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -126,12 +126,12 @@
                             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mt-4">
                                 <a href="{{ route('login') }}" class="text-decoration-none small">
                                     <i class="bi bi-arrow-left me-1"></i>
-                                    {{ __('Already registered?') }}
+                                    {{ __('Déjà inscrit ?') }}
                                 </a>
 
                                 <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold">
                                     <i class="bi bi-person-plus me-2"></i>
-                                    {{ __('Register') }}
+                                    {{ __('S\'inscrire') }}
                                 </button>
                             </div>
                         </form>

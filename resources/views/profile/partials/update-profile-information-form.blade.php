@@ -1,7 +1,7 @@
 <section>
     <div class="mb-4">
-        <h3 class="fw-bold fs-5 mb-2">{{ __('Profile Information') }}</h3>
-        <p class="text-secondary small mb-0">{{ __("Update your account's profile information.") }}</p>
+        <h3 class="fw-bold fs-5 mb-2">{{ __('Informations du profil') }}</h3>
+        <p class="text-secondary small mb-0">{{ __("Mettez à jour les informations de votre profil.") }}</p>
     </div>
 
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
@@ -14,7 +14,7 @@
 
         <!-- Name -->
         <div class="mb-3">
-            <label for="name" class="form-label fw-semibold">{{ __('Full Name') }}</label>
+            <label for="name" class="form-label fw-semibold">{{ __('Nom complet') }}</label>
             <div class="input-group">
                 <span class="input-group-text border-end-0">
                     <i class="bi bi-person"></i>
@@ -33,7 +33,7 @@
 
         <!-- Email -->
         <div class="mb-3">
-            <label for="email" class="form-label fw-semibold">{{ __('Email Address') }}</label>
+            <label for="email" class="form-label fw-semibold">{{ __('Adresse e-mail') }}</label>
             <div class="input-group">
                 <span class="input-group-text border-end-0">
                     <i class="bi bi-envelope"></i>
@@ -52,9 +52,9 @@
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div class="alert alert-warning mt-3 small">
                     <i class="bi bi-exclamation-triangle me-2"></i>
-                    {{ __('Your email address is unverified.') }}
+                    {{ __('Votre adresse e-mail n’est pas vérifiée.') }}
                     <button form="send-verification" class="btn btn-link btn-sm p-0 ms-2">
-                        {{ __('Click here to re-send the verification email.') }}
+                        {{ __('Cliquez ici pour renvoyer l’e-mail de vérification.') }}
                     </button>
                 </div>
             @endif
@@ -62,7 +62,7 @@
             @if (session('status') === 'verification-link-sent')
                 <div class="alert alert-success mt-3 small">
                     <i class="bi bi-check-circle me-2"></i>
-                    {{ __('A new verification link has been sent to your email address.') }}
+                    {{ __('Un nouveau lien de vérification a été envoyé à votre adresse e-mail.') }}
                 </div>
             @endif
         </div>
@@ -70,12 +70,12 @@
         <!-- Buttons -->
         <div class="d-flex align-items-center gap-3 mt-4">
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-check-circle me-2"></i>{{ __('Save Changes') }}
+                <i class="bi bi-check-circle me-2"></i>{{ __('Enregistrer les modifications') }}
             </button>
 
             @if (session('status') === 'profile-updated')
                 <div class="text-success small">
-                    <i class="bi bi-check-circle me-1"></i>{{ __('Saved!') }}
+                    <i class="bi bi-check-circle me-1"></i>{{ __('Enregistré !') }}
                 </div>
             @endif
         </div>

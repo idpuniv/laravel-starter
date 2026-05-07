@@ -9,28 +9,28 @@
                             <div class="bg-primary bg-opacity-10 icon-circle-lg">
                                 <i class="bi bi-envelope-check text-primary"></i>
                             </div>
-                            <h4 class="mb-2">{{ __('Verify Your Email Address') }}</h4>
+                            <h4 class="mb-2">{{ __('Vérifiez votre adresse e-mail') }}</h4>
                             <p class="text-secondary small mb-0">
-                                {{ __('Thanks for signing up!') }}
+                                {{ __('Merci pour votre inscription !') }}
                             </p>
                         </div>
 
                         <!-- Info Message -->
                         <div class="alert alert-info mb-4">
                             <i class="bi bi-info-circle me-2"></i>
-                            {{ __("Before getting started, could you verify your email address by clicking on the link we just emailed to you?") }}
+                            {{ __("Avant de commencer, veuillez vérifier votre adresse e-mail en cliquant sur le lien que nous venons de vous envoyer.") }}
                         </div>
 
                         <!-- Success Message -->
                         @if (session('status') == 'verification-link-sent')
                             <div class="alert alert-success mb-4">
                                 <i class="bi bi-check-circle me-2"></i>
-                                {{ __('A new verification link has been sent to your email address.') }}
+                                {{ __("Un nouveau lien de vérification a été envoyé à votre adresse e-mail.") }}
                             </div>
                         @endif
 
                         <p class="text-muted small mb-4">
-                            {{ __("If you didn't receive the email, click the button below to request another.") }}
+                            {{ __("Si vous n'avez pas reçu l'e-mail, cliquez sur le bouton ci-dessous pour en demander un autre.") }}
                         </p>
 
                         <!-- Buttons -->
@@ -39,7 +39,7 @@
                                 @csrf
                                 <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold">
                                     <i class="bi bi-envelope-paper me-2"></i>
-                                    {{ __('Resend Verification Email') }}
+                                    {{ __('Renvoyer l’e-mail de vérification') }}
                                 </button>
                             </form>
 
@@ -47,7 +47,7 @@
                                 @csrf
                                 <button type="submit" class="btn btn-outline-danger px-4 py-2 fw-semibold">
                                     <i class="bi bi-box-arrow-right me-2"></i>
-                                    {{ __('Log Out') }}
+                                    {{ __('Se déconnecter') }}
                                 </button>
                             </form>
                         </div>

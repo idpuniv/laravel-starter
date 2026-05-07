@@ -4,8 +4,8 @@
             <div class="col-12 col-lg-8">
                 <!-- Header -->
                 <div class="mb-4">
-                    <h2 class="fw-bold text-primary">{{ __('Profile') }}</h2>
-                    <p class="text-secondary">{{ __('Manage your account settings') }}</p>
+                    <h2 class="fw-bold text-primary">{{ __('Profil') }}</h2>
+                    <p class="text-secondary">{{ __('Gérez les paramètres de votre compte') }}</p>
                 </div>
 
                 <!-- Profile Information -->

@@ -153,8 +153,7 @@
                                 data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications"
                                 type="button">
                                 <i class="bi bi-bell fs-5" aria-hidden="true"></i>
-                                <span class="nav-badge"
-                                    aria-label="99+ notifications non lues">
+                                <span class="nav-badge" aria-label="99+ notifications non lues">
                                     9
                                 </span>
                             </button>
@@ -219,6 +218,18 @@
                 </div>
                 {{ $slot }}
             </main>
+
+
+            <form method="POST" action="" style="display: inline;" id="deleteForm">
+                @method('DELETE')
+                @csrf
+                <x-modal name="deleteModal" title="Confirmation" id="deleteModal">
+                    {{ __('Voulez vous vraiment supprmer cette donnée ?') }}
+                    <x-slot name="footer">
+                        <button type="submit" class="btn btn-danger">{{ __('Confirmer') }}</button>
+                    </x-slot>
+                </x-modal>
+            </form>
 
             <footer class="footer-fixed">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">

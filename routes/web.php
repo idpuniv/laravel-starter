@@ -8,7 +8,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,6 +21,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     Route::resource('users', App\Http\Controllers\Admin\UserController::class)
     ->parameters(['users' => 'person_id']);
+    Route::patch('users/{user}/status', [App\Http\Controllers\Admin\UserController::class, 'changeStatus'])->name('users.change-status');
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
 
     Route::resource('permissions', App\Http\Controllers\Admin\PermissionController::class)

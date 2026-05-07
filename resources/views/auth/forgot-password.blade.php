@@ -9,9 +9,9 @@
                             <div class="bg-warning bg-opacity-10 icon-circle-lg">
                                 <i class="bi bi-question-circle text-warning"></i>
                             </div>
-                            <h4 class="mb-2">{{ __('Forgot Password?') }}</h4>
+                            <h4 class="mb-2">{{ __('Mot de passe oublié ?') }}</h4>
                             <p class="text-secondary small mb-0">
-                                {{ __('No problem. Just let us know your email address and we will email you a password reset link.') }}
+                                {{ __('Pas de problème. Indiquez simplement votre adresse e-mail et nous vous enverrons un lien de réinitialisation de mot de passe.') }}
                             </p>
                         </div>
 
@@ -30,7 +30,7 @@
                             <!-- Email Field -->
                             <div class="mb-4">
                                 <label for="email" class="form-label fw-medium">
-                                    {{ __('Email Address') }}
+                                    {{ __('Adresse e-mail') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -41,7 +41,7 @@
                                            class="form-control border-start-0 @error('email') is-invalid @enderror"
                                            name="email"
                                            value="{{ old('email') }}"
-                                           placeholder="name@example.com"
+                                           placeholder="nom@exemple.com"
                                            required autofocus>
                                 </div>
                                 @error('email')
@@ -55,11 +55,11 @@
                             <div class="d-grid gap-2">
                                 <button type="submit" class="btn btn-primary py-2 fw-semibold">
                                     <i class="bi bi-send me-2"></i>
-                                    {{ __('Email Password Reset Link') }}
+                                    {{ __('Envoyer le lien de réinitialisation') }}
                                 </button>
                                 <a href="{{ route('login') }}" class="btn btn-link text-muted">
                                     <i class="bi bi-arrow-left me-1"></i>
-                                    {{ __('Back to Login') }}
+                                    {{ __('Retour à la connexion') }}
                                 </a>
                             </div>
                         </form>

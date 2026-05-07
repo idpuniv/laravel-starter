@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'username' => 'root',
             'email' => 'root@email.com',
-            'password' => Hash::make('root')
+            'password' => Hash::make('root'),
         ])->assignRole(Roles::ROOT);
 
         Person::factory(1)->create();

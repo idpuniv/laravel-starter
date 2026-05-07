@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use App\DataTables\UsersDataTable;
 use App\Models\Role;
 use App\Models\Person;
+use App\Models\User;
 use App\Models\Country;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use App\Enums\Status;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
@@ -130,6 +132,32 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, Status::message(Status::DELETED, 'Utilisateur'));
         } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::ERROR, Status::message(Status::ERROR));
+        }
+    }
+
+    public function changeStatus(Request $request, User $user)
+    {
+        try {
+            $validated = $request->validate([
+                'status' => ['required', 'string', 'in:' . Status::ACTIVE . ',' . Status::INACTIVE],
+            ]);
+
+            $user->update([
+                'status' => $validated['status'],
+            ]);
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::SUCCESS, Status::message(Status::UPDATED, 'Statut'));
+        } catch (\Exception $e) {
+            Log::error('Erreur changement statut user', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()
                 ->route('admin.users.index')
                 ->with(Status::ERROR, Status::message(Status::ERROR));

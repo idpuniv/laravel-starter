@@ -9,9 +9,9 @@
                             <div class="bg-primary bg-opacity-10 icon-circle-lg">
                                 <i class="bi bi-shield-lock text-primary"></i>
                             </div>
-                            <h4 class="mb-2">{{ __('Confirm Password') }}</h4>
+                            <h4 class="mb-2">{{ __('Confirmer le mot de passe') }}</h4>
                             <p class="text-secondary small mb-0">
-                                {{ __('This is a secure area. Please confirm your password.') }}
+                                {{ __('Cette zone est sécurisée. Veuillez confirmer votre mot de passe.') }}
                             </p>
                         </div>
 
@@ -21,7 +21,7 @@
                             <!-- Password Field -->
                             <div class="mb-4">
                                 <label for="password" class="form-label fw-medium">
-                                    {{ __('Password') }}
+                                    {{ __('Mot de passe') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text border-end-0">
@@ -31,7 +31,7 @@
                                            id="password" 
                                            class="form-control border-start-0 @error('password') is-invalid @enderror"
                                            name="password"
-                                           placeholder="Enter your password"
+                                           placeholder="Entrez votre mot de passe"
                                            required autocomplete="current-password">
                                 </div>
                                 @error('password')
@@ -45,7 +45,7 @@
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary py-2 fw-semibold">
                                     <i class="bi bi-check-circle me-2"></i>
-                                    {{ __('Confirm Password') }}
+                                    {{ __('Confirmer le mot de passe') }}
                                 </button>
                             </div>
                         </form>
