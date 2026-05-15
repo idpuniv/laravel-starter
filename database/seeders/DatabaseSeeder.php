@@ -30,10 +30,16 @@ class DatabaseSeeder extends Seeder
         ])->assignRole(Roles::ADMIN);
 
         User::factory()->create([
-            'username' => 'foxter',
-            'email' => 'idopaul@email.com',
+            'username' => 'user',
+            'email' => 'user@email.com',
             'password' => Hash::make('user')
         ])->assignRole(Roles::USER);
+
+        User::factory()->create([
+            'username' => 'user2',
+            'email' => 'user2@email.com',
+            'password' => Hash::make('user2')
+        ]);
 
         User::factory()->create([
             'username' => 'viewer',

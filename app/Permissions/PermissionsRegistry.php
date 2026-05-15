@@ -23,6 +23,7 @@ return [
         'description' => 'Gestion des Utilisateurs',
         'permissions' => [
             App\Permissions\UserPermissions::class,
+            App\Permissions\PersonPermissions::class,
         ],
         'icon' => 'heroicon-o-folder',
         'order' => 0,

@@ -38,7 +38,7 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::guard('web')->user();
 
-        if ($user->status !== Status::ACTIVE) {
+        if (! $user->is_active) {
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
@@ -50,9 +50,16 @@ class AuthenticatedSessionController extends Controller
         }
 
         $request->session()->regenerate();
+        $lifetime = $user->is_admin ? 1 : 2;
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // 2. Injecter dynamiquement la configuration pour cette requête
+        config(['session.lifetime' => $lifetime]);
+        if ($user->is_admin) {
+            session()->pull('url.intended');
+        }
+        return redirect()->intended(route($user->redirectRoute(), absolute: false));
     }
+
     /**
      * Destroy an authenticated session.
      */

@@ -17,15 +17,23 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', '2fa'])->prefix('admin')->name('admin.')->group(function () {
 
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class)
-    ->parameters(['users' => 'person_id']);
+
+    Route::get('dashboard', function () {
+        return view('admin.dashboard');
+    })->name('dashboard');
+
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::resource('people', App\Http\Controllers\PersonController::class);
     Route::patch('users/{user}/status', [App\Http\Controllers\Admin\UserController::class, 'changeStatus'])->name('users.change-status');
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
 
     Route::resource('permissions', App\Http\Controllers\Admin\PermissionController::class)
         ->except(['create', 'store', 'destroy']);
+
+    Route::delete('/admin/users/{id}/force', [App\Http\Controllers\Admin\UserController::class, 'forceDestroy'])
+        ->name('admin.users.force-destroy');
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +66,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('users.permissions.update');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 require __DIR__ . '/web_template.php';
 require __DIR__ . '/web_setting.php';

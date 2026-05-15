@@ -1,7 +1,4 @@
 <x-app-layout>
-    {{-- @vite(['resources/js/datatable-manager.js']) --}}
-    {{-- or --}}
-    @datatableScripts
     <div class="container pt-5">
         <div class="row g-2 align-items-center mb-3">
             <div class="col">

@@ -35,7 +35,7 @@ class UserService
                     'team_id' => $data['team_id'] ?? 1,
                     'person_id' => $person->id,
                 ]);
-                
+
                 $person->load('user');
             }
 
@@ -50,11 +50,11 @@ class UserService
     {
         return DB::transaction(function () use ($personId, $data) {
             $person = Person::findOrFail($personId);
-            
+
             if ($person->user) {
                 throw new \Exception('Cette personne a déjà un compte utilisateur.');
             }
-            
+
             return User::create([
                 'email' => $data['email'],
                 'username' => $data['username'] ?? null,
@@ -73,7 +73,7 @@ class UserService
     {
         return DB::transaction(function () use ($personId, $data) {
             $person = Person::findOrFail($personId);
-            
+
             // Mettre à jour la personne
             $person->update([
                 'first_name' => $data['first_name'] ?? $person->first_name,
@@ -83,7 +83,7 @@ class UserService
                 'country_id' => $data['country_id'] ?? $person->country_id,
                 'gender' => $data['gender'] ?? $person->gender,
             ]);
-            
+
             // Si l'utilisateur existe et qu'on a des données utilisateur
             if ($person->user && isset($data['email'])) {
                 $userData = [
@@ -92,14 +92,14 @@ class UserService
                     'status' => $data['status'] ?? $person->user->status,
                     'team_id' => $data['team_id'] ?? $person->user->team_id,
                 ];
-                
+
                 if (!empty($data['password'])) {
                     $userData['password'] = Hash::make($data['password']);
                 }
-                
+
                 $person->user->update($userData);
             }
-            
+
             return $person->load('user');
         });
     }
@@ -120,12 +120,29 @@ class UserService
     {
         DB::transaction(function () use ($personId) {
             $person = Person::findOrFail($personId);
-            
+
+            // Soft delete du user associé
             if ($person->user) {
-                $person->user->delete();
+                $person->user->delete();  // soft delete
             }
-            
+
+            // Soft delete de la personne
             $person->delete();
+        });
+    }
+
+    public function forceDelete(string $personId): void
+    {
+        DB::transaction(function () use ($personId) {
+            $person = Person::withTrashed()->findOrFail($personId);
+
+            // Supprimer définitivement le user
+            if ($person->user) {
+                $person->user->forceDelete();
+            }
+
+            // Supprimer définitivement la personne
+            $person->forceDelete();
         });
     }
 
@@ -136,7 +153,7 @@ class UserService
     {
         DB::transaction(function () use ($personId) {
             $person = Person::findOrFail($personId);
-            
+
             if ($person->user) {
                 $person->user->delete();
             }
@@ -149,20 +166,20 @@ class UserService
     public function getAll(array $filters = [])
     {
         $query = Person::with('user');
-        
+
         if (!empty($filters['search'])) {
             $search = $filters['search'];
             $query->where(function ($q) use ($search) {
                 $q->where('first_name', 'like', "%{$search}%")
-                  ->orWhere('last_name', 'like', "%{$search}%")
-                  ->orWhere('phone', 'like', "%{$search}%")
-                  ->orWhereHas('user', function ($q) use ($search) {
-                      $q->where('email', 'like', "%{$search}%")
-                        ->orWhere('username', 'like', "%{$search}%");
-                  });
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhereHas('user', function ($q) use ($search) {
+                        $q->where('email', 'like', "%{$search}%")
+                            ->orWhere('username', 'like', "%{$search}%");
+                    });
             });
         }
-        
+
         if (isset($filters['has_account'])) {
             if ($filters['has_account']) {
                 $query->has('user');
@@ -170,7 +187,7 @@ class UserService
                 $query->doesntHave('user');
             }
         }
-        
+
         return $query->paginate($filters['per_page'] ?? 25);
     }
 }

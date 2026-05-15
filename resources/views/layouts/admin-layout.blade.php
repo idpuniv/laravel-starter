@@ -29,81 +29,81 @@
                 <nav class="mt-2" aria-label="Navigation principale">
                     <ul class="nav sidebar-menu flex-column" role="menubar" data-accordion="false">
                         @foreach ($sidebarMenus as $menu)
-                            @php
-                                // Filtrer les enfants valides (avec route existante)
-                                $validChildren = array_filter($menu['children'] ?? [], function ($child) {
-                                    return isset($child['route']) && Route::has($child['route']);
-                                });
+                        @php
+                        // Filtrer les enfants valides (avec route existante)
+                        $validChildren = array_filter($menu['children'] ?? [], function ($child) {
+                        return isset($child['route']) && Route::has($child['route']);
+                        });
 
-                                $hasChildren = !empty($validChildren);
-                                $hasRoute = isset($menu['route']) && Route::has($menu['route']);
+                        $hasChildren = !empty($validChildren);
+                        $hasRoute = isset($menu['route']) && Route::has($menu['route']);
 
-                                // Vérifier si le parent a des enfants valides ou une route
-                                if (!$hasRoute && !$hasChildren) {
-                                    continue;
-                                }
+                        // Vérifier si le parent a des enfants valides ou une route
+                        if (!$hasRoute && !$hasChildren) {
+                        continue;
+                        }
 
-                                // Déterminer si le parent est actif
-                                $isParentActive = $hasRoute && request()->routeIs($menu['route'] . '*');
+                        // Déterminer si le parent est actif
+                        $isParentActive = $hasRoute && request()->routeIs($menu['route'] . '*');
 
-                                // Vérifier si un enfant est actif
-                                $hasActiveChild = false;
-                                if ($hasChildren) {
-                                    foreach ($validChildren as $child) {
-                                        if (isset($child['route']) && request()->routeIs($child['route'] . '*')) {
-                                            $hasActiveChild = true;
-                                            break;
-                                        }
-                                    }
-                                }
+                        // Vérifier si un enfant est actif
+                        $hasActiveChild = false;
+                        if ($hasChildren) {
+                        foreach ($validChildren as $child) {
+                        if (isset($child['route']) && request()->routeIs($child['route'] . '*')) {
+                        $hasActiveChild = true;
+                        break;
+                        }
+                        }
+                        }
 
-                                // Le menu parent est considéré actif si parent actif OU enfant actif
-                                $isActive = $isParentActive || $hasActiveChild;
-                            @endphp
+                        // Le menu parent est considéré actif si parent actif OU enfant actif
+                        $isActive = $isParentActive || $hasActiveChild;
+                        @endphp
 
-                            @if (!$hasChildren)
-                                {{-- Menu sans enfants (lien simple) --}}
+                        @if (!$hasChildren)
+                        {{-- Menu sans enfants (lien simple) --}}
+                        <li class="nav-item" role="none">
+                            <a href="{{ route($menu['route']) }}"
+                                class="nav-link {{ $isActive ? 'active' : '' }}" role="menuitem">
+                                <i class="nav-icon {{ $menu['icon'] ?? 'bi bi-circle' }}"
+                                    aria-hidden="true"></i>
+                                <p>{{ $menu['label'] }}</p>
+                            </a>
+                        </li>
+                        @else
+                        {{-- Menu avec enfants (dropdown) --}}
+                        <li class="nav-item" role="none">
+                            <button class="nav-link {{ $isActive ? 'active' : '' }}" data-treeview-toggle
+                                role="menuitem" aria-expanded="{{ $hasActiveChild ? 'true' : 'false' }}"
+                                aria-haspopup="true">
+                                <i class="nav-icon {{ $menu['icon'] ?? 'bi bi-folder' }}"
+                                    aria-hidden="true"></i>
+                                <p>
+                                    {{ $menu['label'] }}
+                                    @if (isset($menu['badge']))
+                                    <span class="nav-badge"
+                                        aria-label="{{ $menu['badge']['label'] ?? 'notification' }}">
+                                        {{ $menu['badge']['value'] ?? $menu['badge'] }}
+                                    </span>
+                                    @endif
+                                    <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
+                                </p>
+                            </button>
+                            <ul class="nav nav-treeview {{ $hasActiveChild ? 'show' : '' }}" role="menu">
+                                @foreach ($validChildren as $child)
                                 <li class="nav-item" role="none">
-                                    <a href="{{ route($menu['route']) }}"
-                                        class="nav-link {{ $isActive ? 'active' : '' }}" role="menuitem">
-                                        <i class="nav-icon {{ $menu['icon'] ?? 'bi bi-circle' }}"
-                                            aria-hidden="true"></i>
-                                        <p>{{ $menu['label'] }}</p>
+                                    <a href="{{ route($child['route']) }}"
+                                        class="nav-link {{ request()->routeIs($child['route'] . '*') ? 'active' : '' }}"
+                                        role="menuitem">
+                                        <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
+                                        <p>{{ $child['label'] }}</p>
                                     </a>
                                 </li>
-                            @else
-                                {{-- Menu avec enfants (dropdown) --}}
-                                <li class="nav-item" role="none">
-                                    <button class="nav-link {{ $isActive ? 'active' : '' }}" data-treeview-toggle
-                                        role="menuitem" aria-expanded="{{ $hasActiveChild ? 'true' : 'false' }}"
-                                        aria-haspopup="true">
-                                        <i class="nav-icon {{ $menu['icon'] ?? 'bi bi-folder' }}"
-                                            aria-hidden="true"></i>
-                                        <p>
-                                            {{ $menu['label'] }}
-                                            @if (isset($menu['badge']))
-                                                <span class="nav-badge"
-                                                    aria-label="{{ $menu['badge']['label'] ?? 'notification' }}">
-                                                    {{ $menu['badge']['value'] ?? $menu['badge'] }}
-                                                </span>
-                                            @endif
-                                            <i class="nav-arrow bi bi-chevron-right" aria-hidden="true"></i>
-                                        </p>
-                                    </button>
-                                    <ul class="nav nav-treeview {{ $hasActiveChild ? 'show' : '' }}" role="menu">
-                                        @foreach ($validChildren as $child)
-                                            <li class="nav-item" role="none">
-                                                <a href="{{ route($child['route']) }}"
-                                                    class="nav-link {{ request()->routeIs($child['route'] . '*') ? 'active' : '' }}"
-                                                    role="menuitem">
-                                                    <i class="nav-icon bi bi-circle" aria-hidden="true"></i>
-                                                    <p>{{ $child['label'] }}</p>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </li>
-                            @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        @endif
                         @endforeach
 
                         {{-- Séparateur de déconnexion --}}
@@ -204,13 +204,7 @@
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     @yield('content-header')
                     <div class="status">
-                        @if (session('success'))
-                            <div class="alert alert-success">{{ session('success') }}</div>
-                        @endif
-
-                        @if (session('error'))
-                            <div class="alert alert-danger">{{ session('error') }}</div>
-                        @endif
+                        @include('layouts.partials.toasts')
                     </div>
                     {{-- <button class="btn btn-primary btn-sm" type="button">
                         <i class="bi bi-plus-circle" aria-hidden="true"></i> Nouveau
@@ -220,11 +214,11 @@
             </main>
 
 
-            <form method="POST" action="" style="display: inline;" id="deleteForm">
+            <form method="POST" style="display: inline;" id="confirmForm">
                 @method('DELETE')
                 @csrf
-                <x-modal name="deleteModal" title="Confirmation" id="deleteModal">
-                    {{ __('Voulez vous vraiment supprmer cette donnée ?') }}
+                <x-modal name="confirmModal" title="Confirmation" id="confirmModal">
+                    {{ __('Confirmer cette action?') }}
                     <x-slot name="footer">
                         <button type="submit" class="btn btn-danger">{{ __('Confirmer') }}</button>
                     </x-slot>
@@ -244,6 +238,7 @@
             </footer>
         </div>
     </div>
+
     @stack('scripts')
 
 </body>

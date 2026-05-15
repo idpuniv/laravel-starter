@@ -16,12 +16,22 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Config;
+use App\Permissions\UserPermissions;
 
 class UserController extends Controller
 {
+
+
     public function __construct(
         private readonly UserService $userService
-    ) {}
+    ) {
+        // $this->middleware('can:' . UserPermissions::LIST)->only(['index']);
+        // $this->middleware('can:' . UserPermissions::CREATE)->only(['create', 'store']);
+        // $this->middleware('can:' . UserPermissions::UPDATE)->only(['edit', 'update', 'changeStatus']);
+        // $this->middleware('can:' . UserPermissions::DELETE)->only(['destroy', 'forceDestroy']);
+        // $this->middleware('can:' . UserPermissions::VIEW)->only(['show']);
+        // $this->authorizeResource(User::class, 'user');
+    }
 
     private function isTeamsEnabled(): bool
     {
@@ -132,9 +142,26 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, Status::message(Status::DELETED, 'Utilisateur'));
         } catch (\Exception $e) {
+            dd($e);
             return redirect()
                 ->route('admin.users.index')
                 ->with(Status::ERROR, Status::message(Status::ERROR));
+        }
+    }
+
+    // Pour suppression définitive
+    public function forceDestroy(string $id)
+    {
+        try {
+            $this->userService->forceDelete($id);
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::SUCCESS, 'Utilisateur supprimé définitivement');
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::ERROR, 'Impossible de supprimer : données associées');
         }
     }
 

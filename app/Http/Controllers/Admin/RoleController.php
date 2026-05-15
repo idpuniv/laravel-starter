@@ -2,15 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\Role;
 use App\Models\Permission;
 use App\Enums\Status;
+use App\Http\Controllers\Controller;
+use App\Permissions\RolePermissions;
 
 class RoleController extends Controller
 {
+
+
+
+
+     public function __construct(
+    ) {
+        // $this->middleware('can:' . RolePermissions::LIST)->only(['index']);
+        // $this->middleware('can:' . RolePermissions::CREATE)->only(['create', 'store']);
+        // $this->middleware('can:' . RolePermissions::UPDATE)->only(['edit', 'update']);
+        // $this->middleware('can:' . RolePermissions::DELETE)->only(['destroy']);
+        // $this->middleware('can:' . RolePermissions::VIEW)->only(['show']);
+
+        // $this->authorizeResource(Role::class, 'role');
+    }
     /**
      * Liste des rôles
      */

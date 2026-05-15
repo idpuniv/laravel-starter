@@ -5,12 +5,24 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use App\Permissions\UserPermissions;
 use App\Models\User;
 use App\Models\Role;
 use App\Enums\Status;
 
 class UserRoleController extends Controller
 {
+
+
+
+ public function __construct(
+    ) {
+        $this->middleware('can:' . UserPermissions::LIST_ROLE)->only(['index']);
+        $this->middleware('can:' . UserPermissions::CREATE_ROLE)->only(['create', 'store']);
+        $this->middleware('can:' . UserPermissions::UPDATE_ROLE)->only(['edit', 'update']);
+        $this->middleware('can:' . UserPermissions::VIEW_ROLE)->only(['show']);
+        $this->middleware('can:' . UserPermissions::DELETE_ROLE)->only(['destroy']);
+    }
     /**
      * Liste des utilisateurs avec leurs rôles
      */

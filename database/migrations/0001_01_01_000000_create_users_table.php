@@ -17,7 +17,9 @@ return new class extends Migration
 
             // Index nécessaire pour le filtrage par statut
             $table->enum('status', ['active', 'inactive', 'banned'])->default('active')->index();
-            
+            $table->string('two_factor_code')->nullable();
+            $table->timestamp('two_factor_expires_at')->nullable();
+
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
         <h3>Liste des utilisateurs</h3>
         @can(\App\Permissions\UserPermissions::CREATE)
-        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">
+        <a href="{{ route('admin.people.create') }}" class="btn btn-primary">
             <i class="bi bi-plus"></i>
             Nouveau utilisateur
         </a>
@@ -17,7 +17,7 @@
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
                             <i class="bi bi-download"></i> Exporter
                         </button>
-                        <ul class="dropdown-menu dropdown-menu-end bg-dark">
+                        <ul class="dropdown-menu dropdown-menu-end">
                             <li><h6 class="dropdown-header text-muted">Page actuelle</h6></li>
                             <li><button type="button" class="dropdown-item" data-export="pdf" data-scope="current">PDF</button></li>
                             <li><button type="button" class="dropdown-item" data-export="excel" data-scope="current">Excel</button></li>
@@ -85,7 +85,7 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const userTable = new DataTableManager({
-            url: "{{ route('admin.users.index') }}",
+            url: "{{ route('admin.people.index') }}",
             container: '#table-container'
         });
     });

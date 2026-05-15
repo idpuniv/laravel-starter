@@ -11,6 +11,14 @@ use App\Models\Module;
 
 class PermissionController extends Controller
 {
+
+
+
+   public function __construct(
+    ) {
+
+        $this->authorizeResource(Permission::class, 'permission');
+    }
     /**
      * Liste des permissions
      */

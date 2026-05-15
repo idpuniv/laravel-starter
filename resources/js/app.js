@@ -69,13 +69,38 @@ window.bootstrap = {
     Tooltip,
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-    $(function () {
-        $("#deleteModal").on("show.bs.modal", function (event) {
-            console.log("show modal");
-            var button = $(event.relatedTarget);
-            var actionUrl = button.data("url");
-            $("#deleteForm").attr("action", actionUrl);
-        });
-    });
+document.addEventListener('show.bs.modal', event => {
+    console.log('1 - show.bs.modal déclenché');
+    
+    const modal = event.target;
+    if (modal.id !== 'confirmModal') return;
+    
+    console.log('2 - Modal confirmModal OK');
+    
+    const button = event.relatedTarget;
+    console.log('3 - Bouton:', button);
+    
+    if (!button) return;
+    
+    const confirmForm = document.getElementById('confirmForm');
+    const actionUrl = button.getAttribute('data-url');
+    const method = button.getAttribute('data-method') || 'POST';
+    
+    confirmForm.setAttribute('action', actionUrl);
+    
+    const existingMethodInput = confirmForm.querySelector('input[name="_method"]');
+    if (existingMethodInput) existingMethodInput.remove();
+    
+    if (method.toUpperCase() !== 'POST') {
+        const methodInput = document.createElement('input');
+        methodInput.type = 'hidden';
+        methodInput.name = '_method';
+        methodInput.value = method.toUpperCase();
+        confirmForm.appendChild(methodInput);
+    }
+});
+
+
+document.querySelectorAll('.toast').forEach(toast => {
+    new bootstrap.Toast(toast, { autohide: true, delay: 3000 }).show();
 });

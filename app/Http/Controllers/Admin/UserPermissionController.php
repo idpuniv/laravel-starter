@@ -7,10 +7,20 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
 use Spatie\Permission\Models\Permission;
+use App\Permissions\UserPermissions;
 use App\Enums\Status;
 
 class UserPermissionController extends Controller
 {
+
+
+
+    public function __construct(
+    ) {
+        $this->middleware('can:' . UserPermissions::UPDATE_PERMISSION)->only(['edit', 'update']);
+        $this->middleware('can:' . UserPermissions::VIEW_PERMISSION)->only(['show']);
+    }
+
     /**
      * Page d'édition des permissions utilisateur
      */

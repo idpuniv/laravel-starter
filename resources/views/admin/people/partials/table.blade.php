@@ -118,7 +118,8 @@
                         @can(\App\Permissions\UserPermissions::DELETE)
                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#confirmModal"
                             data-url="{{ route('admin.users.destroy', $person->id) }}" data-method="DELETE">
-                            Supprimer
+                            <i class="bi bi-trash"></i>
+                            <span class="visually-hidden">Supprimer</span>
                         </a>
                         @endcan
                     </div>

@@ -6,12 +6,22 @@
     'countries' => [],
     'defaultCountry' => null,
     'phoneCodeName' => 'phone_code',
+    'phoneCodeValue' => null, // Valeur existante du code téléphone
     'placeholder' => '77 123 45 67'
 ])
 
 @php
     $defaultCountry = $defaultCountry ?? ($countries->firstWhere('iso2', 'BF') ?? $countries->first());
-    $defaultPhoneCode = old($phoneCodeName, $defaultCountry->phone_code ?? '');
+    
+    // Récupérer le code téléphone existant (old, ou valeur passée, ou vide)
+    $existingPhoneCode = old($phoneCodeName, $phoneCodeValue ?? '');
+    
+    // Déterminer le pays à afficher
+    $selectedCountry = $defaultCountry;
+    if (!empty($existingPhoneCode)) {
+        $selectedCountry = $countries->firstWhere('phone_code', $existingPhoneCode) ?? $defaultCountry;
+    }
+    
     $inputId = 'phone_' . md5($name);
     $btnId = 'phone_btn_' . md5($name);
     $codeInputId = 'phone_code_' . md5($name);
@@ -23,7 +33,7 @@
         @if($required) <span class="text-danger">*</span> @endif
     </label>
     
-    <input type="hidden" name="{{ $phoneCodeName }}" id="{{ $codeInputId }}" value="{{ $defaultPhoneCode }}">
+    <input type="hidden" name="{{ $phoneCodeName }}" id="{{ $codeInputId }}" value="{{ $existingPhoneCode }}">
     
     <div class="input-group">
         <button class="border-0 dropdown-toggle d-flex align-items-center justify-content-center"
@@ -32,7 +42,7 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
                 style="width: 70px;">
-            <span class="fi fi-{{ strtolower($defaultCountry->iso2) }}"></span>
+            <span class="fi fi-{{ strtolower($selectedCountry->iso2) }}"></span>
         </button>
 
         <ul class="dropdown-menu" style="max-height: 300px; overflow-y: auto;">
