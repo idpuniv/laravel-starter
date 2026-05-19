@@ -36,7 +36,7 @@ class UserPermissionController extends Controller
                 ->whereNotIn('name', $rolePermissionNames)
                 ->get();
 
-            return view('admin.users.permissions.edit', compact(
+            return view('admin.users.permissions', compact(
                 'user',
                 'permissions',
                 'rolePermissions'
@@ -86,7 +86,7 @@ class UserPermissionController extends Controller
         try {
             $user = User::with(['roles', 'permissions'])->findOrFail($id);
 
-            return view('admin.users.permissions.show', compact('user'));
+            return view('admin.users.permissions', compact('user'));
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')

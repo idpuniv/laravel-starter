@@ -4,7 +4,7 @@ namespace App\Policies;
 
 use App\Models\Permission;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
+use App\Permissions\PermissionPermissions;
 
 class PermissionPolicy
 {
@@ -13,7 +13,7 @@ class PermissionPolicy
      */
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->can(PermissionPermissions::LIST);
     }
 
     /**
@@ -21,7 +21,7 @@ class PermissionPolicy
      */
     public function view(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->can(PermissionPermissions::VIEW);
     }
 
     /**
@@ -29,7 +29,7 @@ class PermissionPolicy
      */
     public function create(User $user): bool
     {
-        return false;
+        return $user->can(PermissionPermissions::CREATE);
     }
 
     /**
@@ -37,7 +37,7 @@ class PermissionPolicy
      */
     public function update(User $user, Permission $permission): bool
     {
-        return false;
+        return $user->can(PermissionPermissions::UPDATE);
     }
 
     /**

@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/guest.js',
                 'resources/js/admin.js',
+                'resources/js/tom-select.js',
                 'resources/js/datatable-manager.js',
                 'resources/js/custom-select.js',
                 ],

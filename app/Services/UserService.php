@@ -3,191 +3,47 @@
 namespace App\Services;
 
 use App\Models\User;
-use App\Models\Person;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    /**
-     * Créer une personne (avec ou sans compte utilisateur)
-     */
-    public function create(array $data): Person
+    public function create(array $data): User
     {
-        return DB::transaction(function () use ($data) {
-            // Créer la personne
-            $person = Person::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'phone' => $data['phone'] ?? null,
-                'phone_code' => $data['phone_code'] ?? null,
-                'country_id' => $data['country_id'] ?? null,
-                'gender' => $data['gender'] ?? null,
-            ]);
+        return User::create($data);
+    }
 
-            // Si email et password sont fournis, créer aussi l'utilisateur
-            if (isset($data['email']) && isset($data['password'])) {
-                User::create([
-                    'email' => $data['email'],
-                    'username' => $data['username'] ?? null,
-                    'password' => Hash::make($data['password']),
-                    'status' => $data['status'] ?? 'active',
-                    'team_id' => $data['team_id'] ?? 1,
-                    'person_id' => $person->id,
-                ]);
+    public function find(string $id): User
+    {
+        return User::findOrFail($id);
+    }
 
-                $person->load('user');
-            }
+    public function update(string $id, array $data): User
+    {
+        $user = $this->find($id);
+        $user->update($data);
 
-            return $person;
-        });
+        return $user;
+    }
+
+    public function delete(string $id): void
+    {
+        $user = $this->find($id);
+        $user->delete(); // soft delete si SoftDeletes est activé
+    }
+
+    public function forceDelete(string $id): void
+    {
+        $user = User::withTrashed()->findOrFail($id);
+        $user->forceDelete();
     }
 
     /**
-     * Ajouter un compte à une personne existante
+     * RESTORE USER (Soft Delete)
      */
-    public function addUserToPerson(string $personId, array $data): User
+    public function restore(string $id): User
     {
-        return DB::transaction(function () use ($personId, $data) {
-            $person = Person::findOrFail($personId);
+        $user = User::withTrashed()->findOrFail($id);
+        $user->restore();
 
-            if ($person->user) {
-                throw new \Exception('Cette personne a déjà un compte utilisateur.');
-            }
-
-            return User::create([
-                'email' => $data['email'],
-                'username' => $data['username'] ?? null,
-                'password' => Hash::make($data['password']),
-                'status' => $data['status'] ?? 'active',
-                'team_id' => $data['team_id'] ?? 1,
-                'person_id' => $person->id,
-            ]);
-        });
-    }
-
-    /**
-     * Mettre à jour une personne et son compte utilisateur
-     */
-    public function update(string $personId, array $data): Person
-    {
-        return DB::transaction(function () use ($personId, $data) {
-            $person = Person::findOrFail($personId);
-
-            // Mettre à jour la personne
-            $person->update([
-                'first_name' => $data['first_name'] ?? $person->first_name,
-                'last_name' => $data['last_name'] ?? $person->last_name,
-                'phone' => $data['phone'] ?? $person->phone,
-                'phone_code' => $data['phone_code'] ?? $person->phone_code,
-                'country_id' => $data['country_id'] ?? $person->country_id,
-                'gender' => $data['gender'] ?? $person->gender,
-            ]);
-
-            // Si l'utilisateur existe et qu'on a des données utilisateur
-            if ($person->user && isset($data['email'])) {
-                $userData = [
-                    'email' => $data['email'],
-                    'username' => $data['username'] ?? $person->user->username,
-                    'status' => $data['status'] ?? $person->user->status,
-                    'team_id' => $data['team_id'] ?? $person->user->team_id,
-                ];
-
-                if (!empty($data['password'])) {
-                    $userData['password'] = Hash::make($data['password']);
-                }
-
-                $person->user->update($userData);
-            }
-
-            return $person->load('user');
-        });
-    }
-
-    /**
-     * Récupérer une personne avec son utilisateur
-     */
-    public function find(string $personId): Person
-    {
-        return Person::with('user.roles', 'user.team', 'country')
-            ->findOrFail($personId);
-    }
-
-    /**
-     * Supprimer une personne et son compte utilisateur
-     */
-    public function delete(string $personId): void
-    {
-        DB::transaction(function () use ($personId) {
-            $person = Person::findOrFail($personId);
-
-            // Soft delete du user associé
-            if ($person->user) {
-                $person->user->delete();  // soft delete
-            }
-
-            // Soft delete de la personne
-            $person->delete();
-        });
-    }
-
-    public function forceDelete(string $personId): void
-    {
-        DB::transaction(function () use ($personId) {
-            $person = Person::withTrashed()->findOrFail($personId);
-
-            // Supprimer définitivement le user
-            if ($person->user) {
-                $person->user->forceDelete();
-            }
-
-            // Supprimer définitivement la personne
-            $person->forceDelete();
-        });
-    }
-
-    /**
-     * Supprimer uniquement le compte utilisateur
-     */
-    public function deleteUserOnly(string $personId): void
-    {
-        DB::transaction(function () use ($personId) {
-            $person = Person::findOrFail($personId);
-
-            if ($person->user) {
-                $person->user->delete();
-            }
-        });
-    }
-
-    /**
-     * Liste des personnes
-     */
-    public function getAll(array $filters = [])
-    {
-        $query = Person::with('user');
-
-        if (!empty($filters['search'])) {
-            $search = $filters['search'];
-            $query->where(function ($q) use ($search) {
-                $q->where('first_name', 'like', "%{$search}%")
-                    ->orWhere('last_name', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%")
-                    ->orWhereHas('user', function ($q) use ($search) {
-                        $q->where('email', 'like', "%{$search}%")
-                            ->orWhere('username', 'like', "%{$search}%");
-                    });
-            });
-        }
-
-        if (isset($filters['has_account'])) {
-            if ($filters['has_account']) {
-                $query->has('user');
-            } else {
-                $query->doesntHave('user');
-            }
-        }
-
-        return $query->paginate($filters['per_page'] ?? 25);
+        return $user;
     }
 }

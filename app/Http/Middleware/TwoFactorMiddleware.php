@@ -12,9 +12,6 @@ class TwoFactorMiddleware
     {
         $user = Auth::user();
 
-        $rolesRequiring2FA = ['admin', 'root'];
-        $requires2FA = in_array($user->role, $rolesRequiring2FA);
-
         if (($user->is_admin || $user->two_factor_enabled) && !$request->session()->get('2fa_passed')) {
             if (!$user->two_factor_code || $user->two_factor_expires_at->isPast()) {
                 $user->generateTwoFactorCode();

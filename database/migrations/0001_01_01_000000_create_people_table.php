@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum('gender', ['male', 'female'])->nullable();
             $table->string('phone_code', 7)->nullable();
             $table->string('phone')->nullable();
+            $table->string('email')->unique()->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->unique(['phone', 'phone_code']);

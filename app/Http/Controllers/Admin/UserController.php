@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\DataTables\UsersDataTable;
 use App\Models\Role;
-use App\Models\Person;
 use App\Models\User;
 use App\Models\Country;
 use App\Models\Team;
@@ -16,12 +15,9 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Config;
-use App\Permissions\UserPermissions;
 
 class UserController extends Controller
 {
-
-
     public function __construct(
         private readonly UserService $userService
     ) {
@@ -30,7 +26,7 @@ class UserController extends Controller
         // $this->middleware('can:' . UserPermissions::UPDATE)->only(['edit', 'update', 'changeStatus']);
         // $this->middleware('can:' . UserPermissions::DELETE)->only(['destroy', 'forceDestroy']);
         // $this->middleware('can:' . UserPermissions::VIEW)->only(['show']);
-        // $this->authorizeResource(User::class, 'user');
+        $this->authorizeResource(User::class, 'user');
     }
 
     private function isTeamsEnabled(): bool
@@ -43,30 +39,16 @@ class UserController extends Controller
         return UsersDataTable::make($request)->render();
     }
 
-    public function create(Request $request)
+    public function create()
     {
         try {
-            $person = null;
-
-            // Si on crée un compte pour une personne existante
-            if ($request->has('person_id')) {
-                $person = Person::findOrFail($request->person_id);
-
-                // Si la personne a déjà un compte, rediriger vers l'édition
-                if ($person->user) {
-                    return redirect()
-                        ->route('admin.users.edit', $person->id)
-                        ->with(Status::SUCCESS, 'Cette personne a déjà un compte utilisateur.');
-                }
-            }
-
-            $countries = Country::all();
             $roles = Role::all();
+
             $teams = $this->isTeamsEnabled()
                 ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
                 : collect();
 
-            return view('admin.users.create', compact('teams', 'countries', 'roles', 'person'));
+            return view('admin.users.create', compact('roles', 'teams'));
         } catch (\Exception $e) {
             return back()->with(Status::ERROR, Status::message(Status::ERROR));
         }
@@ -74,7 +56,6 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        // dd($request->all());
         try {
             $this->userService->create($request->validated());
 
@@ -88,29 +69,30 @@ class UserController extends Controller
         }
     }
 
-    public function show(string $personId)
+    public function show(string $id)
     {
         try {
-            $person = $this->userService->find($personId);
+            $user = $this->userService->find($id);
 
-            return view('admin.users.show', compact('person'));
+            return view('admin.users.show', compact('user'));
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
-                ->with(Status::ERROR, Status::message(Status::ERROR, 'affichage de la personne'));
+                ->with(Status::ERROR, Status::message(Status::ERROR));
         }
     }
+
     public function edit(string $id)
     {
         try {
-            $person = $this->userService->find($id);
+            $user = $this->userService->find($id);
             $countries = Country::all();
 
             $teams = $this->isTeamsEnabled()
                 ? Team::where('status', Status::ACTIVE)->orderBy('name')->get()
                 : collect();
 
-            return view('admin.users.edit', compact('person', 'teams', 'countries'));
+            return view('admin.users.edit', compact('user', 'countries', 'teams'));
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
@@ -142,14 +124,40 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, Status::message(Status::DELETED, 'Utilisateur'));
         } catch (\Exception $e) {
-            dd($e);
+            Log::error('Delete user error', [
+                'user_id' => $id,
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()
                 ->route('admin.users.index')
                 ->with(Status::ERROR, Status::message(Status::ERROR));
         }
     }
 
-    // Pour suppression définitive
+    /**
+     * RESTORE USER
+     */
+    public function restore(string $id)
+    {
+        try {
+            $this->userService->restore($id);
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::SUCCESS, Status::message(Status::UPDATED, 'Utilisateur restauré'));
+        } catch (\Exception $e) {
+            Log::error('Restore user error', [
+                'user_id' => $id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return redirect()
+                ->route('admin.users.index')
+                ->with(Status::ERROR, Status::message(Status::ERROR));
+        }
+    }
+
     public function forceDestroy(string $id)
     {
         try {
@@ -159,6 +167,11 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, 'Utilisateur supprimé définitivement');
         } catch (\Exception $e) {
+            Log::error('Force delete user error', [
+                'user_id' => $id,
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()
                 ->route('admin.users.index')
                 ->with(Status::ERROR, 'Impossible de supprimer : données associées');
@@ -180,7 +193,7 @@ class UserController extends Controller
                 ->route('admin.users.index')
                 ->with(Status::SUCCESS, Status::message(Status::UPDATED, 'Statut'));
         } catch (\Exception $e) {
-            Log::error('Erreur changement statut user', [
+            Log::error('Status change error', [
                 'user_id' => $user->id,
                 'error' => $e->getMessage(),
             ]);

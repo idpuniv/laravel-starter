@@ -31,7 +31,7 @@ class UserRoleController extends Controller
         try {
             $users = User::with('roles')->paginate(10);
 
-            return view('admin.users.roles.index', compact('users'));
+            return view('admin.users.roles', compact('users'));
 
         } catch (\Exception $e) {
             return back()->with(
@@ -50,7 +50,7 @@ class UserRoleController extends Controller
             $users = User::all();
             $roles = Role::all();
 
-            return view('admin.users.roles.create', compact('users', 'roles'));
+            return view('admin.users.roles', compact('users', 'roles'));
 
         } catch (\Exception $e) {
             return back()->with(
@@ -110,7 +110,7 @@ class UserRoleController extends Controller
         try {
             $user = User::with('roles')->findOrFail($id);
 
-            return view('admin.users.roles.show', compact('user'));
+            return view('admin.users.roles', compact('user'));
 
         } catch (\Exception $e) {
             return redirect()
@@ -131,7 +131,7 @@ class UserRoleController extends Controller
             $user = User::with('roles')->findOrFail($id);
             $roles = Role::all();
 
-            return view('admin.users.roles.edit', compact('user', 'roles'));
+            return view('admin.users.roles', compact('user', 'roles'));
 
         } catch (\Exception $e) {
             return redirect()

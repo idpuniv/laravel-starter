@@ -1,4 +1,3 @@
-<h5 class="mb-3">Informations personnelles</h5>
 
 <div class="row g-3">
 

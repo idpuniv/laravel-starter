@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth', '2fa'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
 
     Route::get('dashboard', function () {
@@ -26,6 +26,9 @@ Route::middleware(['auth', '2fa'])->prefix('admin')->name('admin.')->group(funct
 
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::resource('people', App\Http\Controllers\PersonController::class);
+    Route::livewire('/admin/people', 'pages::post.create');
+    Route::post('people/{person}/add-user', [App\Http\Controllers\PersonController::class, 'addUser'])->name('people.add-user');
+    Route::get('people/{person}/add-user', [App\Http\Controllers\PersonController::class, 'showAddUserForm'])->name('people.show-add-user-form');
     Route::patch('users/{user}/status', [App\Http\Controllers\Admin\UserController::class, 'changeStatus'])->name('users.change-status');
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
 

@@ -4,7 +4,7 @@
     <input type="text"
            name="name"
            class="form-control @error('name') is-invalid @enderror"
-           value="{{ old('name', $role->name ?? '') }}">
+           value="{{ old('name', $role->label ?? '') }}">
 
     @error('name')
         <div class="invalid-feedback">{{ $message }}</div>
@@ -25,7 +25,7 @@
                     <input class="form-check-input"
                            type="checkbox"
                            name="permissions[]"
-                           value="{{ $permission->name }}"
+                           value="{{ $permission->label }}"
                            id="perm_{{ $permission->id }}"
                            @checked(
                                 is_array(old('permissions', $rolePermissions ?? []))
@@ -34,7 +34,7 @@
 
                     <label class="form-check-label"
                            for="perm_{{ $permission->id }}">
-                        {{ $permission->name }}
+                        {{ $permission->label }}
                     </label>
 
                 </div>

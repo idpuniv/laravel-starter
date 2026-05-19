@@ -1,6 +1,5 @@
 <div class="row g-3">
-
-    {{-- EMAIL --}}
+    
     <div class="col-md-6">
         <label class="form-label">
             Email <span class="text-danger">*</span>
@@ -92,7 +91,6 @@
                 $statuses = [
                     'active' => 'Actif',
                     'inactive' => 'Inactif',
-                    'banned' => 'Banni'
                 ];
                 $currentStatus = old('status', $user->status ?? 'active');
             @endphp

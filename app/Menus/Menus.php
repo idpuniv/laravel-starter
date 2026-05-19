@@ -2,6 +2,7 @@
 
 namespace App\Menus;
 
+use App\Permissions\PersonPermissions;
 use App\Permissions\SystemPermissions;
 use App\Permissions\UserPermissions;
 
@@ -35,8 +36,8 @@ final class Menus
                         [
                             'slug' => 'users.list',
                             'label' => 'Liste des utilisateurs',
-                            'route' => 'admin.users.index',
-                            'permission' => UserPermissions::VIEW
+                            'route' => 'admin.people.index',
+                            'permission' => PersonPermissions::VIEW
                         ],
                         [
                             'slug' => 'admin.users.roles',

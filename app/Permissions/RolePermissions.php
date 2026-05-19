@@ -5,12 +5,14 @@ namespace App\Permissions;
 final class RolePermissions
 {
     // Resource permissions
-    public const VIEW   = 'role.view';
-    public const LIST   = 'role.list';
-    public const CREATE = 'role.create';
-    public const UPDATE = 'role.update';
-    public const DELETE = 'role.delete';
-    public const GUARD  = 'web';
+    public const VIEW         = 'role.view';
+    public const LIST         = 'role.list';
+    public const CREATE       = 'role.create';
+    public const UPDATE       = 'role.update';
+    public const DELETE       = 'role.delete';
+    public const RESTORE      = 'role.restore';
+    public const FORCE_DELETE = 'role.force-delete';
+    public const GUARD        = 'web';
 
     /**
      * Get human-readable labels for permissions.
@@ -18,11 +20,13 @@ final class RolePermissions
     public static function labels(): array
     {
         return [
-            self::VIEW   => 'Voir Role',
-            self::LIST   => 'Lister les Roles',
-            self::CREATE => 'Créer Role',
-            self::UPDATE => 'Modifier Role',
-            self::DELETE => 'Supprimer Role',
+            self::VIEW         => 'Voir Role',
+            self::LIST         => 'Lister les Roles',
+            self::CREATE       => 'Créer Role',
+            self::UPDATE       => 'Modifier Role',
+            self::DELETE       => 'Supprimer Role',
+            self::RESTORE      => 'Restaurer Role',
+            self::FORCE_DELETE => 'Supprimer définitivement Role',
         ];
     }
 
@@ -31,15 +35,24 @@ final class RolePermissions
      */
     public static function read(): array
     {
-        return [self::VIEW, self::LIST];
+        return [
+            self::VIEW,
+            self::LIST,
+        ];
     }
 
     /**
-     * Get write permissions (create, update, delete).
+     * Get write permissions (create, update, delete, restore, force delete).
      */
     public static function write(): array
     {
-        return [self::CREATE, self::UPDATE, self::DELETE];
+        return [
+            self::CREATE,
+            self::UPDATE,
+            self::DELETE,
+            self::RESTORE,
+            self::FORCE_DELETE,
+        ];
     }
 
     /**

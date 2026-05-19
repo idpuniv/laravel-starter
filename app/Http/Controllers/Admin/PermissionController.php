@@ -42,7 +42,7 @@ class PermissionController extends Controller
     /**
      * Détail permission
      */
-    public function show(string $id)
+    public function show(Person $person)
     {
         try {
             $permission = Permission::with('module')->findOrFail($id);

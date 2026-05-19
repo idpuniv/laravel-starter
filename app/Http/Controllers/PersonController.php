@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\PeopleDataTable;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePersonRequest;
+use App\Http\Requests\UpdatePersonRequest;
 use App\Models\Country;
 use App\Models\Person;
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\DataTables\UsersDataTable;
+use App\Services\UserService;
+use App\Http\Requests\StoreUserRequest;
 
 class PersonController extends Controller
 {
+
+    public function __construct(
+        private readonly UserService $userService
+    ) {
+        $this->authorizeResource(Person::class, 'person');
+    }
+
     public function index(Request $request)
     {
         return UsersDataTable::make($request)->render();
@@ -36,25 +44,18 @@ class PersonController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StorePersonRequest $request)
     {
-        $validated = $request->validate([
-            'country_id' => ['nullable', 'exists:countries,id'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'gender' => ['required', 'in:male,female'],
-            'phone_code' => ['nullable', 'string', 'max:7'],
-            'phone' => ['nullable', 'string', 'max:255'],
-        ]);
-
         try {
-            Person::create($validated);
+            $validated = $request->validated();
+            
+            $person = Person::create($validated);
 
             return redirect()
-                ->route('admin.people.index')
+                ->route('admin.people.show', $person->id)
                 ->with(
                     Status::SUCCESS,
-                    Status::message(Status::CREATED, 'Personne')
+                    Status::message(Status::CREATED, 'Utilisateur')
                 );
         } catch (\Throwable $e) {
             Log::error($e);
@@ -68,11 +69,11 @@ class PersonController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function show(Person $person)
     {
         try {
             return view('admin.people.show', [
-                'person' => Person::with('country')->findOrFail($id),
+                'person' => $person->load('country'),
             ]);
         } catch (\Throwable $e) {
             Log::error($e);
@@ -86,11 +87,11 @@ class PersonController extends Controller
         }
     }
 
-    public function edit(string $id)
+    public function edit(Person $person)
     {
         try {
             return view('admin.people.edit', [
-                'person' => Person::findOrFail($id),
+                'person' => $person->load('country'),
                 'countries' => Country::orderBy('name')->get(),
             ]);
         } catch (\Throwable $e) {
@@ -105,27 +106,19 @@ class PersonController extends Controller
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdatePersonRequest $request, Person $person)
     {
-        $validated = $request->validate([
-            'country_id' => ['nullable', 'exists:countries,id'],
-            'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
-            'gender' => ['nullable', 'in:male,female'],
-            'phone_code' => ['nullable', 'string', 'max:7'],
-            'phone' => ['nullable', 'string', 'max:255'],
-        ]);
-
         try {
-            $person = Person::findOrFail($id);
+            $validated = $request->validated();
 
+            
             $person->update($validated);
 
             return redirect()
                 ->route('admin.people.index')
                 ->with(
                     Status::SUCCESS,
-                    Status::message(Status::UPDATED, 'Personne')
+                    Status::message(Status::UPDATED, 'Utilisateur')
                 );
         } catch (\Throwable $e) {
             Log::error($e);
@@ -139,59 +132,66 @@ class PersonController extends Controller
         }
     }
 
-
-    public function addUser(Request $request, string $personId)
-    {
-        $person = Person::findOrFail($personId);
-
-        // Si déjà un user → on évite les doublons
-        if ($person->user) {
-            return redirect()
-                ->back()
-                ->with('error', 'Cette personne a déjà un compte utilisateur.');
-        }
-
-        $validated = $request->validate([
-            'email' => ['required', 'email', 'unique:users,email'],
-            'username' => ['nullable', 'string', 'max:255', 'unique:users,username'],
-            'password' => ['required', 'string', 'min:6', 'confirmed'],
-            'status' => ['required', 'in:active,inactive,banned'],
-            'team_id' => ['nullable', 'exists:teams,id'],
-            'roles' => ['nullable', 'array'],
-            'roles.*' => ['string'],
-        ]);
-
-        $user = User::create([
-            'email' => $validated['email'],
-            'username' => $validated['username'] ?? null,
-            'password' => Hash::make($validated['password']),
-            'status' => $validated['status'],
-            'team_id' => $validated['team_id'] ?? null,
-            'person_id' => $person->id,
-        ]);
-
-        // Si tu utilises Spatie Permission
-        if (!empty($validated['roles'])) {
-            $user->syncRoles($validated['roles']);
-        }
-
-        return redirect()
-            ->route('admin.people.show', $person->id)
-            ->with('success', 'Compte utilisateur créé avec succès.');
-    }
-
-    public function destroy(string $id)
+    public function showAddUserForm(Person $person)
     {
         try {
-            $person = Person::findOrFail($id);
+            if ($person->user) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Cette personne a déjà un compte utilisateur.');
+            }
 
+            return view('admin.users.create', compact('person'));
+        } catch (\Exception $e) {
+            Log::error($e);
+            
+            return back()
+                ->with('error', 'Erreur lors du chargement du formulaire.');
+        }
+    }
+
+    public function addUser(StoreUserRequest $request, string $personId)
+    {
+        try {
+            $person = Person::findOrFail($personId);
+
+            if ($person->user) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Cette personne a déjà un compte utilisateur.');
+            }
+
+            $data = $request->validated();
+            $data['person_id'] = $person->id;
+
+            $this->userService->create($data);
+
+            return redirect()
+                ->route('admin.people.show', $person->id)
+                ->with('success', 'Compte utilisateur créé avec succès.');
+        } catch (\Exception $e) {
+            Log::error($e);
+            
+            return back()
+                ->with('error', 'Erreur lors de la création du compte.')
+                ->withInput();
+        }
+    }
+
+    public function destroy(Person $person)
+    {
+        try {
+            $user = $person->user;
+            if ($user) {
+                $user->delete();
+            }
             $person->delete();
 
             return redirect()
                 ->route('admin.people.index')
                 ->with(
                     Status::SUCCESS,
-                    Status::message(Status::DELETED, 'Personne')
+                    Status::message(Status::DELETED, 'Utilisateur')
                 );
         } catch (\Throwable $e) {
             Log::error($e);

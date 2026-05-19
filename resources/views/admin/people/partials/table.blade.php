@@ -9,7 +9,6 @@
                 <th>Téléphone</th>
                 <th>Date</th>
                 <th>Rôle</th>
-                <th>Statut</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -54,51 +53,11 @@
                     @endif
                 </td>
 
-                {{-- STATUT --}}
-                <td>
-                    @if($person->user)
-                    @can(\App\Permissions\UserPermissions::UPDATE)
-                    <form method="POST" action="{{ route('admin.users.change-status', $person->user) }}">
-                        @csrf
-                        @method('PATCH')
-
-                        <select name="status"
-                            class="form-select form-select-sm @error('status') is-invalid @enderror"
-                            onchange="this.form.submit()">
-
-                            <option value="{{ \App\Enums\Status::ACTIVE }}"
-                                @selected($person->user->status === \App\Enums\Status::ACTIVE)>
-                                Actif
-                            </option>
-
-                            <option value="{{ \App\Enums\Status::INACTIVE }}"
-                                @selected($person->user->status === \App\Enums\Status::INACTIVE)>
-                                Inactif
-                            </option>
-
-                        </select>
-
-                        @error('status')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @enderror
-                    </form>
-                    @else
-                    <span class="badge {{ $person->user->status === \App\Enums\Status::ACTIVE ? 'bg-success' : 'bg-secondary' }}">
-                        {{ $person->user->status }}
-                    </span>
-                    @endcan
-                    @else
-                    <span class="badge bg-secondary">N/A</span>
-                    @endif
-                </td>
-
                 {{-- ACTIONS --}}
                 <td>
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center justify-content-center gap-2">
                         @can(\App\Permissions\UserPermissions::VIEW)
-                        <a href="{{ route('admin.users.show', $person->id) }}"
+                        <a href="{{ route('admin.people.show', $person->id) }}"
                             class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                             title="Voir">
                             <i class="bi bi-eye"></i>
@@ -107,7 +66,7 @@
                         @endcan
 
                         @can(\App\Permissions\UserPermissions::UPDATE)
-                        <a href="{{ route('admin.users.edit', $person->id) }}"
+                        <a href="{{ route('admin.people.edit', $person->id) }}"
                             class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                             title="Modifier">
                             <i class="bi bi-pencil"></i>
@@ -116,8 +75,8 @@
                         @endcan
 
                         @can(\App\Permissions\UserPermissions::DELETE)
-                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#confirmModal"
-                            data-url="{{ route('admin.users.destroy', $person->id) }}" data-method="DELETE">
+                        <a href="#" class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25" data-bs-toggle="modal" data-bs-target="#confirmModal"
+                            data-url="{{ route('admin.people.destroy', $person->id) }}" data-method="DELETE">
                             <i class="bi bi-trash"></i>
                             <span class="visually-hidden">Supprimer</span>
                         </a>
