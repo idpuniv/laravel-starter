@@ -209,9 +209,11 @@ new class extends Component {
 ?>
 
 <div>
+    <h1 class="h3 fw-semibold m-0 d-flex align-items-center gap-2 mb-3">
+        Liste des utilisateurs
+    </h1>
     <div class="row g-3 mb-4 align-items-end">
         <div class="col-md-3">
-            <label class="form-label small text-secondary">Recherche</label>
             <div class="input-group">
                 <span class="input-group-text border-end-0">
                     <i class="bi bi-search text-secondary"></i>
@@ -222,7 +224,6 @@ new class extends Component {
         </div>
 
         <div class="col-md-2">
-            <label class="form-label small text-secondary">Statut</label>
             <select class="form-select" wire:model.live="statusFilter">
                 <option value="">Tous les statuts</option>
                 <option value="with_account">Avec compte</option>
@@ -234,7 +235,6 @@ new class extends Component {
         </div>
 
         <div class="col-md-2">
-            <label class="form-label small text-secondary">Rôle</label>
             <select class="form-select" wire:model.live="roleFilter">
                 <option value="">Tous les rôles</option>
                 <option value="{{ Roles::ADMIN }}">Admin</option>
@@ -244,7 +244,6 @@ new class extends Component {
         </div>
 
         <div class="col-md-2">
-            <label class="form-label small text-secondary">Lignes/page</label>
             <select class="form-select" wire:model.live="perPage">
                 <option value="10">10 lignes</option>
                 <option value="15">15 lignes</option>
@@ -255,7 +254,6 @@ new class extends Component {
         </div>
 
         <div class="col-md-3">
-            <label class="form-label small text-secondary">&nbsp;</label>
             <div class="d-flex gap-2">
                 <button type="button" class="btn btn-outline-secondary flex-grow-1" wire:click="resetFilters">
                     <i class="bi bi-eraser"></i> Effacer
@@ -425,18 +423,21 @@ new class extends Component {
                             <div class="d-flex align-items-center justify-content-center gap-2">
                                 @can(\App\Permissions\UserPermissions::VIEW)
                                     <a href="{{ route('admin.users.show', $person->id) }}"
-                                        class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25" title="Voir">
+                                        class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                        title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                 @endcan
                                 @can(\App\Permissions\UserPermissions::UPDATE)
                                     <a href="{{ route('admin.users.edit', $person->id) }}"
-                                        class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25" title="Modifier">
+                                        class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                        title="Modifier">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                 @endcan
                                 @can(\App\Permissions\UserPermissions::DELETE)
-                                    <button type="button" class="btn btn-link text-body icon-circle-xs text-decoration-none hover-bg-secondary-25 p-0 m-0"
+                                    <button type="button"
+                                        class="btn btn-link text-body icon-circle-xs text-decoration-none hover-bg-secondary-25 p-0 m-0"
                                         data-bs-toggle="modal" data-bs-target="#confirmModal"
                                         data-url="{{ route('admin.users.destroy', $person->id) }}" data-method="DELETE">
                                         <i class="bi bi-trash"></i>

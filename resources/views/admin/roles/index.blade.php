@@ -6,7 +6,6 @@
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
             <div>
                 <h1 class="h3 fw-semibold m-0 d-flex align-items-center gap-2">
-                    <i class="bi bi-shield-lock text-primary"></i>
                     Gestion des rôles
                 </h1>
                 <p class="text-muted small mt-1 mb-0">

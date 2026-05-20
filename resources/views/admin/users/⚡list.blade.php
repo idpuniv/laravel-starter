@@ -213,7 +213,7 @@ new class extends Component {
 ?>
 
 <div>
-    <!-- Le reste de ton HTML reste strictement inchangé -->
+    <h2>Liste des utilisateurs</h2>
     <div class="row g-3 mb-4 align-items-end">
         <div class="col-md-3">
             <label class="form-label small text-secondary">Recherche</label>
