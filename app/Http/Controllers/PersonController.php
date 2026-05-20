@@ -25,7 +25,8 @@ class PersonController extends Controller
 
     public function index(Request $request)
     {
-        return UsersDataTable::make($request)->render();
+        // return UsersDataTable::make($request)->render();
+        return view('admin.people.index');
     }
 
     public function create()

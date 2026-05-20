@@ -36,7 +36,8 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        return UsersDataTable::make($request)->render();
+        // return UsersDataTable::make($request)->render();
+        return view('admin.users.index');
     }
 
     public function create()
