@@ -80,44 +80,28 @@
         @enderror
     </div>
 
-    {{-- STATUS (PUSH STYLE) --}}
+    {{-- STATUS (SWITCH) --}}
     <div class="col-md-6">
-
         <label class="form-label">Statut</label>
 
-        <div class="d-flex gap-2 flex-wrap">
+        @php
+            $currentStatus = old('status', $user->status ?? 'active');
+        @endphp
 
-            @php
-                $statuses = [
-                    'active' => 'Actif',
-                    'inactive' => 'Inactif',
-                ];
-                $currentStatus = old('status', $user->status ?? 'active');
-            @endphp
-
-            @foreach($statuses as $key => $label)
-
-                <input type="radio"
-                       class="btn-check"
-                       name="status"
-                       id="status_{{ $key }}"
-                       value="{{ $key }}"
-                       autocomplete="off"
-                       @checked($currentStatus === $key)>
-
-                <label class="btn btn-outline-primary btn-sm"
-                       for="status_{{ $key }}">
-                    {{ $label }}
-                </label>
-
-            @endforeach
-
+        <div class="form-check form-switch" style="min-height: 38px; display: flex; align-items: center;">
+            <input type="checkbox"
+                   class="form-check-input"
+                   name="status"
+                   id="statusSwitch"
+                   value="active"
+                   @checked($currentStatus === 'active')
+                   style="width: 3rem; height: 1.5rem; margin-top: 0;">
+            <label class="form-check-label ms-2" for="statusSwitch"></label>
         </div>
 
         @error('status')
             <div class="text-danger small mt-1">{{ $message }}</div>
         @enderror
-
     </div>
 
 </div>
