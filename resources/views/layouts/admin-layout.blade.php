@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <x-theme-switch />
     <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
 
     <div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
@@ -168,33 +169,8 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item dropdown">
-                            <button class="nav-link d-flex align-items-center gap-2" data-bs-toggle="dropdown"
-                                aria-expanded="false" aria-label="Menu utilisateur" type="button">
-                                <div class="avatar" style="width: 32px; height: 32px; font-size: 14px;"
-                                    aria-hidden="true">TA</div>
-                                <span class="d-none d-sm-inline">Thomas</span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                <li><a class="dropdown-item" href="/profile">
-                                        <i class="bi bi-person me-2" aria-hidden="true"></i> Profil
-                                    </a></li>
-                                <li><a class="dropdown-item" href="profile">
-                                        <i class="bi bi-gear me-2" aria-hidden="true"></i> Paramètres
-                                    </a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf
-                                        <button type="submit" class="dropdown-item text-danger">
-                                            <i class="bi bi-box-arrow-right me-2" aria-hidden="true"></i>
-                                            Déconnexion
-                                        </button>
-                                    </form>
-                                </li>
-                            </ul>
+                        <li class="nav-item">
+                            @include('layouts.partials.profile')
                         </li>
                     </ul>
                 </div>

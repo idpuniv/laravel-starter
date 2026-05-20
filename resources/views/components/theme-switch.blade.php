@@ -18,7 +18,7 @@
     </symbol>
 </svg>
 <div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle" style="z-index: 9999;">
-    <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center" id="bd-theme" type="button"
+    <button class="btn btn-bd-primary py-2 d-flex align-items-center" id="bd-theme" type="button"
         aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
         <svg class="bi my-1 theme-icon-active" width="1em" height="1em">
             <use href="#circle-half"></use>
