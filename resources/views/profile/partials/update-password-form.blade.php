@@ -65,7 +65,7 @@
         <!-- Buttons -->
         <div class="d-flex align-items-center gap-3 mt-4">
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-save me-2"></i>{{ __('Mettre à jour le mot de passe') }}
+                {{ __('Mettre à jour le mot de passe') }}
             </button>
 
             @if (session('status') === 'password-updated')

@@ -70,7 +70,7 @@
         <!-- Buttons -->
         <div class="d-flex align-items-center gap-3 mt-4">
             <button type="submit" class="btn btn-primary">
-                <i class="bi bi-check-circle me-2"></i>{{ __('Enregistrer les modifications') }}
+                {{ __('Enregistrer les modifications') }}
             </button>
 
             @if (session('status') === 'profile-updated')

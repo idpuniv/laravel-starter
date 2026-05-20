@@ -2,7 +2,6 @@
 
     <style>
         .accordion-button:not(.collapsed) {
-            background-color: #f8f9fa;
             font-weight: 600;
         }
 
