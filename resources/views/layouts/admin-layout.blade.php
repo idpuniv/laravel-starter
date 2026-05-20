@@ -122,9 +122,7 @@
             </div>
 
             <div class="sidebar-footer">
-                <i class="bi bi-shield-check" aria-hidden="true"></i> v2.0.1
-                <span class="mx-1" aria-hidden="true">•</span>
-                <i class="bi bi-database" aria-hidden="true"></i> Secure
+                v1.0.0
             </div>
         </aside>
 

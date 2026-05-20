@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="auto">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="{{ setting('user.theme') }}">
 
 <head>
     <script src="{{ asset('js/color-modes.js') }}"></script>

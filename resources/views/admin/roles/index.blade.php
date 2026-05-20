@@ -24,7 +24,7 @@
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="bg-light">
+                        <thead>
                             <tr>
                                 <th class="ps-4 py-3" width="80">
                                     <span class="text-muted small fw-semibold">#ID</span>
@@ -72,8 +72,7 @@
                                             @endphp
 
                                             @foreach ($permissions as $permission)
-                                                <span
-                                                    class="badge bg-light text-dark border px-2 py-1 rounded-pill small">
+                                                <span class="badge border text-body px-2 py-1 rounded-pill small">
                                                     {{ $permission->label }}
                                                 </span>
                                             @endforeach
@@ -90,33 +89,31 @@
                                             @endif
                                         </div>
                                     </td>
-                                    <td class="pe-4 text-end">
-                                        <div class="d-flex gap-2 justify-content-end" role="group">
+                                    <td>
+                                        <div class="d-flex gap-2 justify-content-end">
                                             @can(\App\Permissions\RolePermissions::VIEW)
                                                 <a href="{{ route('admin.roles.show', $role->id) }}"
-                                                   class="text-secondary text-decoration-none"
-                                                   title="Voir les détails">
+                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                    title="Voir les détails">
                                                     <i class="bi bi-eye fs-6"></i>
                                                 </a>
                                             @endcan
 
                                             @can(\App\Permissions\RolePermissions::UPDATE)
                                                 <a href="{{ route('admin.roles.edit', $role->id) }}"
-                                                   class="text-primary text-decoration-none"
-                                                   title="Modifier le rôle">
+                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                    title="Modifier le rôle">
                                                     <i class="bi bi-pencil fs-6"></i>
                                                 </a>
                                             @endcan
 
                                             @can(\App\Permissions\RolePermissions::DELETE)
-                                                @if(!$role->is_default)
+                                                @if (!$role->is_default)
                                                     <a href="#"
-                                                       class="text-danger text-decoration-none"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#confirmModal"
-                                                       data-url="{{ route('admin.roles.destroy', $role->id) }}"
-                                                       data-method="DELETE"
-                                                       title="Supprimer le rôle">
+                                                        class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                        data-bs-toggle="modal" data-bs-target="#confirmModal"
+                                                        data-url="{{ route('admin.roles.destroy', $role->id) }}"
+                                                        data-method="DELETE" title="Supprimer le rôle">
                                                         <i class="bi bi-trash fs-6"></i>
                                                         <span class="visually-hidden">Supprimer</span>
                                                     </a>

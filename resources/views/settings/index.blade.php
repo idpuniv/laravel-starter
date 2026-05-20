@@ -1,3 +1,4 @@
+@section('title', 'Paramètres')
 <x-admin-layout>
 
     <style>
