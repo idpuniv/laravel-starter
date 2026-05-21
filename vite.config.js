@@ -46,13 +46,13 @@ export default defineConfig({
             }
         }
     ],
-    // --- CONFIGURATION POUR SUPPRIMER LES COMMENTAIRES ---
+    
     esbuild: {
-        legalComments: 'none', // Supprime TOUS les commentaires (y compris les licences comme @license)
+        legalComments: 'none', // Delete all comments (including licenses) from the output
     },
     build: {
-        minify: 'esbuild', // Utilise esbuild pour minifier (plus rapide)
-        cssMinify: true,   // Force aussi la minification du CSS
+        minify: 'esbuild', // minify with esbuild (default)
+        cssMinify: true,   // minify CSS (default)
         rollupOptions: {
             output: {
                 assetFileNames: (asset) => {
