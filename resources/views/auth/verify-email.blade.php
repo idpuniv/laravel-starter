@@ -37,15 +37,15 @@
                         <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
                             <form method="POST" action="{{ route('verification.send') }}">
                                 @csrf
-                                <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold">
+                                <button type="submit" class="btn btn-primary fw-semibold">
                                     <i class="bi bi-envelope-paper me-2"></i>
-                                    {{ __('Renvoyer l’e-mail de vérification') }}
+                                    {{ __('Renvoyer') }}
                                 </button>
                             </form>
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger px-4 py-2 fw-semibold">
+                                <button type="submit" class="btn btn-outline-danger fw-semibold">
                                     <i class="bi bi-box-arrow-right me-2"></i>
                                     {{ __('Se déconnecter') }}
                                 </button>

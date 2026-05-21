@@ -152,7 +152,7 @@ img {
 /* Subcopy */
 
 .subcopy {
-    border-top: 1px solid #e8e5ef;
+    border-top: 1px solid #1cc00a;
     margin-top: 25px;
     padding-top: 25px;
 }
@@ -219,7 +219,6 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    margin: 30px auto;
     padding: 0;
     text-align: center;
     width: 100%;
@@ -237,7 +236,7 @@ img {
 
 .button-blue,
 .button-primary {
-    background-color: #2d3748;
+    background-color: #30482d;
     border-bottom: 8px solid #2d3748;
     border-left: 18px solid #2d3748;
     border-right: 18px solid #2d3748;
@@ -246,7 +245,7 @@ img {
 
 .button-green,
 .button-success {
-    background-color: #48bb78;
+    background-color: #d5104b;
     border-bottom: 8px solid #48bb78;
     border-left: 18px solid #48bb78;
     border-right: 18px solid #48bb78;

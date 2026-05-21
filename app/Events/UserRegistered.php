@@ -7,6 +7,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use App\Models\User;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UserRegistered
 {
@@ -18,6 +19,7 @@ class UserRegistered
      */
     public function __construct(User $user)
     {
+        Log::info('from event');
         $this->user = $user;
     }
 
@@ -26,10 +28,10 @@ class UserRegistered
      *
      * @return array<int, \Illuminate\Broadcasting\Channel>
      */
-    public function broadcastOn(): array
-    {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
-    }
+    // public function broadcastOn(): array
+    // {
+    //     return [
+    //         new PrivateChannel('channel-name'),
+    //     ];
+    // }
 }

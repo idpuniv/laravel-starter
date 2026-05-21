@@ -13,6 +13,7 @@ use Spatie\Permission\Traits\HasRoles;
 use App\Enums\Status;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TwoFactorCodeMail;
+use App\Notifications\VerifyEmail;
 
 class User extends Authenticatable implements
     MustVerifyEmail
@@ -160,10 +161,13 @@ class User extends Authenticatable implements
      */
     public function requiresTwoFactor(): bool
     {
-        // Rôles qui doivent obligatoirement faire 2FA
         $rolesRequiring2FA = ['admin', 'root'];
 
-        // Si le rôle nécessite 2FA ou si l'utilisateur l'a activée volontairement
         return in_array($this->role, $rolesRequiring2FA) || $this->two_factor_enabled;
+    }
+
+    public function sendEmailVerificationNotification(): void
+    {
+        $this->notify(new VerifyEmail);
     }
 }

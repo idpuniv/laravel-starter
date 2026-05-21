@@ -113,4 +113,15 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+
+    // email themes for markdown-based emails: use resources/views/vendor/mail/html/themes/emails.css for custom email styles
+    'markdown' => [
+        'theme' => 'emails', // null for vite or default for default Laravel theme
+
+        'paths' => [
+            resource_path('views/vendor/mail'),
+        ],
+    ],
+
+
 ];

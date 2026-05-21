@@ -24,6 +24,21 @@ width: 100% !important;
 }
 </style>
 {!! $head ?? '' !!}
+@if (file_exists(public_path('build/manifest.json')))
+        @php
+            $manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
+            $hashedFilename = $manifest['resources/css/emails.css']['file'] ?? 'assets/emails.css';
+            $emailsCss = file_get_contents(public_path('build/' . $hashedFilename));
+        @endphp
+        <style>
+            {!! $emailsCss !!}
+        </style>
+    @else
+        <style>
+            /* Fallback si le manifest n'est pas encore créé */
+            body { background-color: #ffffff; color: #718096; }
+        </style>
+    @endif
 </head>
 <body>
 

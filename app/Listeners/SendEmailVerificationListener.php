@@ -3,8 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\UserRegistered;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class SendEmailVerificationListener
 {
@@ -21,7 +20,9 @@ class SendEmailVerificationListener
      */
     public function handle(UserRegistered $event): void
     {
-        Log::info('from listener');
-        Mail::to($event->user->email)->send(new \App\Mail\VerifyEmailMail($event->user));
+
+        if ($event->user instanceof MustVerifyEmail && ! $event->user->hasVerifiedEmail()) {
+            $event->user->sendEmailVerificationNotification();
+        }
     }
 }
