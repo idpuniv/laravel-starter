@@ -3,6 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import fs from 'fs';
 import path from 'path';
 
+// Assets to move after build (key: source path, value: target directory)
 const assetsToMove = {
     'public/build/assets/emails.css': 'resources/views/vendor/mail/html/themes',
     'public/build/color-modes.js': 'public/js',
@@ -40,7 +41,7 @@ export default defineConfig({
                     if (fs.existsSync(source)) {
                         fs.mkdirSync(targetDir, { recursive: true });
                         fs.copyFileSync(source, target);
-                        console.log(`\nDéplacé : ${path.basename(source)} -> ${targetDirectory}`);
+                        console.log(`\nMoved : ${path.basename(source)} -> ${targetDirectory}`);
                     }
                 }
             }
