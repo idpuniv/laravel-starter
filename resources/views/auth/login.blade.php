@@ -83,8 +83,7 @@
                                     </a>
                                 @endif
 
-                                <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold w-100 w-sm-auto">
-                                    <i class="bi bi-box-arrow-in-right me-2"></i>
+                                <button type="submit" class="btn btn-primary fw-semibold">
                                     {{ __('Se connecter') }}
                                 </button>
                             </div>

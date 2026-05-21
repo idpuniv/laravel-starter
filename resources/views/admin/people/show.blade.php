@@ -38,7 +38,7 @@
         <div class="card-body p-4 pt-0">
             <div class="row g-4">
                 <div class="col-md-6">
-                    <div class="bg-light rounded-3 p-3 h-100">
+                    <div class="rounded-3 p-3 h-100">
                         <div class="text-muted small mb-2">
                             <i class="bi bi-person"></i> Prénom
                         </div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="bg-light rounded-3 p-3 h-100">
+                    <div class="rounded-3 p-3 h-100">
                         <div class="text-muted small mb-2">
                             <i class="bi bi-person"></i> Nom
                         </div>
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="bg-light rounded-3 p-3 h-100">
+                    <div class="rounded-3 p-3 h-100">
                         <div class="text-muted small mb-2">
                             <i class="bi bi-telephone"></i> Téléphone
                         </div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="bg-light rounded-3 p-3 h-100">
+                    <div class="rounded-3 p-3 h-100">
                         <div class="text-muted small mb-2">
                             <i class="bi bi-gender-ambiguous"></i> Genre
                         </div>
@@ -86,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="bg-light rounded-3 p-3 h-100">
+                    <div class="rounded-3 p-3 h-100">
                         <div class="text-muted small mb-2">
                             <i class="bi bi-geo-alt"></i> Pays
                         </div>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="bg-light rounded-3 p-3 h-100">
+                    <div class="rounded-3 p-3 h-100">
                         <div class="text-muted small mb-2">
                             <i class="bi bi-calendar3"></i> Date de création
                         </div>
@@ -135,7 +135,7 @@
             @if($person->user)
                 <div class="row g-4">
                     <div class="col-md-6">
-                        <div class="bg-light rounded-3 p-3">
+                        <div class="rounded-3 p-3">
                             <div class="text-muted small mb-2">
                                 <i class="bi bi-person-badge"></i> Nom d'utilisateur
                             </div>
@@ -145,7 +145,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bg-light rounded-3 p-3">
+                        <div class="rounded-3 p-3">
                             <div class="text-muted small mb-2">
                                 <i class="bi bi-envelope"></i> Email
                             </div>
@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bg-light rounded-3 p-3">
+                        <div class="rounded-3 p-3">
                             <div class="text-muted small mb-2">
                                 <i class="bi bi-toggle-on"></i> Statut
                             </div>
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="bg-light rounded-3 p-3">
+                        <div class="rounded-3 p-3">
                             <div class="text-muted small mb-2">
                                 <i class="bi bi-building"></i> Équipe
                             </div>
