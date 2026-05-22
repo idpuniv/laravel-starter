@@ -4,7 +4,6 @@ namespace App\Menus;
 
 use App\Permissions\PersonPermissions;
 use App\Permissions\SystemPermissions;
-use App\Permissions\UserPermissions;
 
 final class Menus
 {
@@ -43,11 +42,6 @@ final class Menus
                             'slug' => 'admin.users.roles',
                             'label' => 'Rôles & permissions',
                             'route' => 'admin.roles.index',
-                        ],
-                        [
-                            'slug' => 'users.groups',
-                            'label' => 'Groupes',
-                            'route' => 'admin.users.index',
                         ],
                     ]
                 ],
@@ -113,7 +107,7 @@ final class Menus
                         [
                             'slug' => 'notification.view_all',
                             'label' => 'Voir toutes',
-                            'route' => 'admin.users.index',
+                            'route' => '',
                         ],
                     ]
                 ],

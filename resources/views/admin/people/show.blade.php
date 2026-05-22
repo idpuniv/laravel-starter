@@ -12,7 +12,7 @@
             </h1>
         </div>
         <div class="mt-3 mt-sm-0">
-            <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary me-2">
+            <a href="{{ route('admin.people.index') }}" class="btn btn-outline-secondary me-2">
                 <i class="bi bi-arrow-left"></i> Retour
             </a>
             @can(\App\Permissions\PersonPermissions::UPDATE)
@@ -159,7 +159,7 @@
                     <div class="col-md-6">
                         <div class="rounded-3 p-3">
                             <div class="text-muted small mb-2">
-                                <i class="bi bi-toggle-on"></i> Statut
+                                Statut
                             </div>
                             <div>
                                 @if($person->user->status === 'active')
@@ -178,16 +178,18 @@
                             </div>
                         </div>
                     </div>
+                    @if(config('permission.teams'))
                     <div class="col-md-6">
                         <div class="rounded-3 p-3">
-                            <div class="text-muted small mb-2">
-                                <i class="bi bi-building"></i> Équipe
+                              <div class="text-muted small mb-2">
+                                <i class="bi bi-people"></i> Équipe
                             </div>
                             <div class="fs-6 fw-semibold">
                                 {{ $person->user->team->name ?? '-' }}
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
 
                 {{-- Rôles --}}
