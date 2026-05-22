@@ -24,7 +24,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         return view('admin.dashboard');
     })->name('dashboard');
 
-    Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+    Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except('index');
     Route::resource('people', App\Http\Controllers\PersonController::class);
     Route::livewire('/admin/people', 'pages::post.create');
     Route::post('people/{person}/add-user', [App\Http\Controllers\PersonController::class, 'addUser'])->name('people.add-user');
@@ -70,6 +70,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/notifications.php';
 
 require __DIR__ . '/web_template.php';
 require __DIR__ . '/web_setting.php';

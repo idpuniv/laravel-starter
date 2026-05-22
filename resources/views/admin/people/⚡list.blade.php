@@ -422,14 +422,14 @@ new class extends Component {
                         <td>
                             <div class="d-flex align-items-center justify-content-center gap-2">
                                 @can(\App\Permissions\UserPermissions::VIEW)
-                                    <a href="{{ route('admin.users.show', $person->id) }}"
+                                    <a href="{{ route('admin.people.show', $person->id) }}"
                                         class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                                         title="Voir">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                 @endcan
                                 @can(\App\Permissions\UserPermissions::UPDATE)
-                                    <a href="{{ route('admin.users.edit', $person->id) }}"
+                                    <a href="{{ route('admin.people.edit', $person->id) }}"
                                         class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                                         title="Modifier">
                                         <i class="bi bi-pencil"></i>
@@ -439,7 +439,7 @@ new class extends Component {
                                     <button type="button"
                                         class="btn btn-link text-body icon-circle-xs text-decoration-none hover-bg-secondary-25 p-0 m-0"
                                         data-bs-toggle="modal" data-bs-target="#confirmModal"
-                                        data-url="{{ route('admin.users.destroy', $person->id) }}" data-method="DELETE">
+                                        data-url="{{ route('admin.people.destroy', $person->id) }}" data-method="DELETE">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                 @endcan

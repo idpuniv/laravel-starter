@@ -22,6 +22,12 @@ class DatabaseSeeder extends Seeder
             TeamSeeder::class,
             CountrySeeder::class,
         ]);
+
+        User::factory()->create([
+            'username' => 'root',
+            'email' => 'root@email.com',
+            'password' => Hash::make('root'),
+        ])->assignRole(Roles::ROOT);
         
         User::factory()->create([
             'username' => 'admin',
@@ -46,12 +52,6 @@ class DatabaseSeeder extends Seeder
             'email' => 'viewer@email.com',
             'password' => Hash::make('viewer')
         ])->assignRole(Roles::VIEWER);
-
-        User::factory()->create([
-            'username' => 'root',
-            'email' => 'root@email.com',
-            'password' => Hash::make('root'),
-        ])->assignRole(Roles::ROOT);
 
         Person::factory(1)->create();
         User::factory(10)->create();

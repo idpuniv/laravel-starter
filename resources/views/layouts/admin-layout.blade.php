@@ -149,23 +149,7 @@
                     <!-- Navigation droite -->
                     <ul class="navbar-nav flex-row align-items-center gap-3 ms-auto">
                         <li class="nav-item dropdown">
-                            <button class="nav-link btn btn-link text-decoration-none p-0 position-relative"
-                                data-bs-toggle="dropdown" aria-expanded="false" aria-label="Notifications"
-                                type="button">
-                                <i class="bi bi-bell fs-5" aria-hidden="true"></i>
-                                <span class="nav-badge" aria-label="99+ notifications non lues">
-                                    9
-                                </span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                                <li><a class="dropdown-item" href="notifications.html">🔔 3 nouvelles alertes</a></li>
-                                <li><a class="dropdown-item" href="messages.html">📧 4 messages</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item text-center" href="notifications-tout.html">Voir tout</a>
-                                </li>
-                            </ul>
+                            @include('layouts.partials.notifications', ['prefix' => 'admin.'])
                         </li>
 
                         <li class="nav-item">
