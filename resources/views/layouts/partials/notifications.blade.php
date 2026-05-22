@@ -1,3 +1,7 @@
+@php
+    $prefix = $prefix ?? '';
+@endphp
+
 <a class="nav-link d-flex align-items-center px-2 py-2 rounded-3 position-relative" href="#" role="button"
     data-bs-toggle="dropdown">
     <i class="bi bi-bell"></i>
@@ -31,6 +35,14 @@
             </a>
         </li>
         @endforeach
+        <li>
+            <hr class="dropdown-divider my-1">
+        </li>
+        <li>
+            <a class="dropdown-item text-center small" href="{{ route($prefix . 'notifications.index') }}">
+                Voir toutes les notifications
+            </a>
+        </li>
     @else
         <li>
             <div class="dropdown-item text-center text-muted py-3">
@@ -43,7 +55,7 @@
         <hr class="dropdown-divider my-1">
     </li>
     <li>
-        <form action="{{ route('notifications.mark-all-read') }}" method="POST">
+        <form action="{{ route($prefix . 'notifications.mark-all-read') }}" method="POST">
             @csrf
             <button type="submit" class="dropdown-item d-flex align-items-center gap-3 py-2 text-secondary" style="background: none; border: none; width: 100%; cursor: pointer;">
                 <i class="bi bi-bell-slash"></i>

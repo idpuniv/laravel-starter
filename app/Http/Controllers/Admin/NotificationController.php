@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Services\NotificationService;
 
 class NotificationController extends Controller
@@ -19,7 +20,7 @@ class NotificationController extends Controller
         $notifications = $this->notificationService->getNotifications($user);
         $unreadCount = $this->notificationService->getUnreadCount($user);
 
-        return view('notifications.index', compact('notifications', 'unreadCount'));
+        return view('admin.notifications.index', compact('notifications', 'unreadCount'));
     }
 
     public function markAsRead($id)

@@ -148,7 +148,7 @@
                     <!-- Navigation droite -->
                     <ul class="navbar-nav flex-row align-items-center gap-3 ms-auto">
                         <li class="nav-item dropdown">
-                            @include('layouts.partials.notifications')
+                            @include('layouts.partials.notifications', ['prefix' => 'admin.'])
                         </li>
 
                         <li class="nav-item">
