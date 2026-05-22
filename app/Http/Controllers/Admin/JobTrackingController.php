@@ -47,6 +47,6 @@ class JobTrackingController extends Controller
     public function destroy(JobTracking $jobTracking)
     {
         $jobTracking->delete();
-        return back()->with('success', 'Job supprimé');
+        return redirect()->route('admin.job-tracking.index')->with('success', 'Job supprimé');
     }
 }

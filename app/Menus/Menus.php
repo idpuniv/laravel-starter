@@ -71,6 +71,13 @@ final class Menus
                         ],
                     ]
                 ],
+                [
+                    'slug' => 'taches',
+                    'label' => 'Tâches',
+                    'icon' => 'fas fa-tasks',
+                    'route' => 'admin.job-tracking.index',
+                    'permission' => SystemPermissions::VIEW_JOBS,
+                ],
 
                 [
                     'slug' => 'account',

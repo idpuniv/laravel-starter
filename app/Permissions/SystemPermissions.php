@@ -15,6 +15,7 @@ final class SystemPermissions
     // Logs et monitoring
     public const VIEW_LOGS        = 'system.logs.view';
     public const CLEAR_LOGS       = 'system.logs.clear';
+    
     // Cache
     public const VIEW_CACHE       = 'system.cache.view';
     public const CLEAR_CACHE      = 'system.cache.clear';
@@ -23,21 +24,31 @@ final class SystemPermissions
     public const VIEW_SECURITY    = 'system.security.view';
     public const EDIT_SECURITY    = 'system.security.edit';
     
+    // Jobs tracking
+    public const VIEW_JOBS        = 'system.jobs.view';
+    public const RETRY_JOBS       = 'system.jobs.retry';
+    public const DELETE_JOBS      = 'system.jobs.delete';
+    public const CLEAR_JOBS       = 'system.jobs.clear';
+    
     public const GUARD = 'web';
 
     public static function labels(): array
     {
         return [
-            self::VIEW_SETTINGS     => 'Voir les paramètres système',
-            self::EDIT_SETTINGS     => 'Modifier les paramètres système',
-            self::VIEW_MAINTENANCE  => 'Voir le mode maintenance',
+            self::VIEW_SETTINGS      => 'Voir les paramètres système',
+            self::EDIT_SETTINGS      => 'Modifier les paramètres système',
+            self::VIEW_MAINTENANCE   => 'Voir le mode maintenance',
             self::TOGGLE_MAINTENANCE => 'Activer/désactiver la maintenance',
-            self::VIEW_LOGS         => 'Voir les logs',
-            self::CLEAR_LOGS        => 'Effacer les logs',
-            self::VIEW_CACHE        => 'Voir le cache',
-            self::CLEAR_CACHE       => 'Vider le cache',
-            self::VIEW_SECURITY     => 'Voir la sécurité',
-            self::EDIT_SECURITY     => 'Modifier la sécurité',
+            self::VIEW_LOGS          => 'Voir les logs',
+            self::CLEAR_LOGS         => 'Effacer les logs',
+            self::VIEW_CACHE         => 'Voir le cache',
+            self::CLEAR_CACHE        => 'Vider le cache',
+            self::VIEW_SECURITY      => 'Voir la sécurité',
+            self::EDIT_SECURITY      => 'Modifier la sécurité',
+            self::VIEW_JOBS          => 'Voir les jobs',
+            self::RETRY_JOBS         => 'Relancer les jobs',
+            self::DELETE_JOBS        => 'Supprimer les jobs',
+            self::CLEAR_JOBS         => 'Effacer tous les jobs',
         ];
     }
 
@@ -49,6 +60,7 @@ final class SystemPermissions
             self::VIEW_LOGS,
             self::VIEW_CACHE,
             self::VIEW_SECURITY,
+            self::VIEW_JOBS,
         ];
     }
 
@@ -60,6 +72,9 @@ final class SystemPermissions
             self::CLEAR_LOGS,
             self::CLEAR_CACHE,
             self::EDIT_SECURITY,
+            self::RETRY_JOBS,
+            self::DELETE_JOBS,
+            self::CLEAR_JOBS,
         ];
     }
 

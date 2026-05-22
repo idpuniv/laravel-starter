@@ -196,31 +196,37 @@
                                     </td>
                                     <td class="pe-4">
                                         <div class="d-flex gap-2 justify-content-end">
-                                            <a href="{{ route('admin.job-tracking.show', $job) }}"
-                                                class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
-                                                title="Voir les détails">
-                                                <i class="bi bi-eye fs-6"></i>
-                                            </a>
+                                            @can(\App\Permissions\SystemPermissions::VIEW_JOBS)
+                                                <a href="{{ route('admin.job-tracking.show', $job) }}"
+                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                    title="Voir les détails">
+                                                    <i class="bi bi-eye fs-6"></i>
+                                                </a>
+                                            @endcan
 
                                             @if($job->status == 'failed')
-                                                <form action="{{ route('admin.job-tracking.retry', $job->id) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25 border-0 bg-transparent p-0"
-                                                        title="Relancer le job">
-                                                        <i class="bi bi-arrow-repeat fs-6 text-warning"></i>
-                                                    </button>
-                                                </form>
+                                                @can(\App\Permissions\SystemPermissions::RETRY_JOBS)
+                                                    <form action="{{ route('admin.job-tracking.retry', $job->id) }}" method="POST" class="d-inline">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25 border-0 bg-transparent p-0"
+                                                            title="Relancer le job">
+                                                            <i class="bi bi-arrow-repeat fs-6 text-warning"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
                                             @endif
 
-                                            <a href="#"
-                                                class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
-                                                data-bs-toggle="modal" data-bs-target="#confirmModal"
-                                                data-url="{{ route('admin.job-tracking.destroy', $job) }}"
-                                                data-method="DELETE" title="Supprimer le job">
-                                                <i class="bi bi-trash fs-6"></i>
-                                                <span class="visually-hidden">Supprimer</span>
-                                            </a>
+                                            @can(\App\Permissions\SystemPermissions::DELETE_JOBS)
+                                                <a href="#"
+                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                    data-bs-toggle="modal" data-bs-target="#confirmModal"
+                                                    data-url="{{ route('admin.job-tracking.destroy', $job) }}"
+                                                    data-method="DELETE" title="Supprimer le job">
+                                                    <i class="bi bi-trash fs-6"></i>
+                                                    <span class="visually-hidden">Supprimer</span>
+                                                </a>
+                                            @endcan
                                         </div>
                                     </td>
                                 </tr>
