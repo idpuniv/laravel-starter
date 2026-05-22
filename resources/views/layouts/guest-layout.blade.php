@@ -4,6 +4,7 @@
     <x-theme-switch />
 
     <header class="d-flex fixed-top flex-column">
+        @include('layouts.partials.alert-top')
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <!-- Logo -->
