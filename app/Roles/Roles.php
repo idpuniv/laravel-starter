@@ -21,6 +21,17 @@ final class Roles
     {
         return [
             'web' => [
+                self::ROOT => [
+                    'label' => 'Super Administrateur',
+                    'description' => 'Dispose d’un accès complet à l’ensemble du système, y compris la gestion des rôles, des permissions et des configurations critiques.',
+                    'permissions' => [
+                        \App\Permissions\SystemPermissions::class,
+                        \App\Permissions\RolePermissions::class,
+                        \App\Permissions\PermissionPermissions::class,
+                        \App\Permissions\UserPermissions::class,
+                        \App\Permissions\PersonPermissions::class,
+                    ],
+                ],
                 self::ADMIN => [
                     'label' => 'Administrateur',
                     'description' => 'Gère les opérations courantes de la plateforme avec des privilèges étendus, sans accès aux paramètres critiques du système.',
@@ -42,17 +53,7 @@ final class Roles
                         
                     ],
                 ],
-                self::ROOT => [
-                    'label' => 'Super Administrateur',
-                    'description' => 'Dispose d’un accès complet à l’ensemble du système, y compris la gestion des rôles, des permissions et des configurations critiques.',
-                    'permissions' => [
-                        \App\Permissions\SystemPermissions::class,
-                        \App\Permissions\RolePermissions::class,
-                        \App\Permissions\PermissionPermissions::class,
-                        \App\Permissions\UserPermissions::class,
-                        \App\Permissions\PersonPermissions::class,
-                    ],
-                ],
+                
             ],
             // 'admin' => [
             //     self::TEST => [

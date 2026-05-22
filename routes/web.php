@@ -70,6 +70,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/notifications.php';
 
 require __DIR__ . '/web_template.php';
 require __DIR__ . '/web_setting.php';

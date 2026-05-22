@@ -34,46 +34,11 @@
                     </div>
 
                     <!-- Notifications -->
+                    @auth
                     <div class="nav-item dropdown">
-                        <a class="nav-link d-flex align-items-center px-2 py-2 rounded-3 position-relative"
-                            href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-bell"></i>
-                            <span
-                                class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger p-0 d-flex align-items-center justify-content-center notification-badge">3</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
-                            <li>
-                                <div
-                                    class="dropdown-header small fw-semibold text-secondary d-flex justify-content-between align-items-center">
-                                    NOTIFICATIONS
-                                    <span class="badge bg-primary rounded-pill">3</span>
-                                </div>
-                            </li>
-                            <li><a class="dropdown-item d-flex align-items-start gap-3 py-2" href="#">
-                                    <i class="bi bi-envelope text-primary mt-1"></i>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Nouveau message</div>
-                                        <small class="text-secondary">Il y a 5 minutes</small>
-                                    </div>
-                                    <span class="badge bg-primary rounded-pill">2</span>
-                                </a></li>
-                            <li><a class="dropdown-item d-flex align-items-start gap-3 py-2" href="#">
-                                    <i class="bi bi-arrow-up-circle text-success mt-1"></i>
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Mise à jour disponible</div>
-                                        <small class="text-secondary">Version 2.5.0</small>
-                                    </div>
-                                </a></li>
-                            <li>
-                                <hr class="dropdown-divider my-1">
-                            </li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-3 py-2 text-secondary"
-                                    href="#">
-                                    <i class="bi bi-bell-slash"></i>
-                                    <span>Tout marquer comme lu</span>
-                                </a></li>
-                        </ul>
+                        @include('layouts.partials.notifications')
                     </div>
+                    @endauth
 
                     <!-- Profil -->
                     <div class="nav-item">
