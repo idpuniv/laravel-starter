@@ -9,32 +9,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Enums\Status;
+use App\Services\AuditService;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
     public function create(): View
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
-    // public function store(LoginRequest $request): RedirectResponse
-    // {
-    //     $request->authenticate();
-
-    //     $request->session()->regenerate();
-
-    //     return redirect()->intended(route('dashboard', absolute: false));
-    // }
-
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $email = $request->email;
+        $ip = $request->ip();
+        
+        try {
+            $request->authenticate();
+        } catch (\Exception $e) {
+            AuditService::log('login', null, 'failure', null, null, [
+                'email' => $email,
+                'ip' => $ip,
+                'reason' => 'invalid_credentials'
+            ]);
+            
+            throw $e;
+        }
 
         $user = Auth::guard('web')->user();
 
@@ -42,6 +41,8 @@ class AuthenticatedSessionController extends Controller
             Auth::guard('web')->logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
+
+            AuditService::logFailure('login', $user, 'Compte désactivé');
 
             return redirect()->route('login')
                 ->withErrors([
@@ -52,23 +53,27 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         $lifetime = $user->is_admin ? 1 : 2;
 
-        // 2. Injecter dynamiquement la configuration pour cette requête
         config(['session.lifetime' => $lifetime]);
         if ($user->is_admin) {
             session()->pull('url.intended');
         }
+        
+        AuditService::log('login', $user, 'success');
+        
         return redirect()->intended(route($user->redirectRoute(), absolute: false));
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
     public function destroy(Request $request): RedirectResponse
     {
+        $user = Auth::guard('web')->user();
+        
+        if ($user) {
+            AuditService::log('logout', $user, 'success');
+        }
+        
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

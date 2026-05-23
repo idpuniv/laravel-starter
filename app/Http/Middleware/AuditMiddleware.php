@@ -11,16 +11,17 @@ class AuditMiddleware
     {
         $response = $next($request);
         
-        $sensitiveRoutes = [
-            'login', 'logout', 'export', 'import'
-        ];
+        $modifyingMethods = ['POST', 'PUT', 'PATCH', 'DELETE'];
         
-        $route = $request->route();
-        if ($route && in_array($route->getName(), $sensitiveRoutes)) {
+        if (in_array($request->method(), $modifyingMethods)) {
+            $routeName = $request->route()?->getName() ?? $request->path();
+            
+            $isSuccess = $response->getStatusCode() < 400;
+            
             AuditService::log(
-                $route->getName(),
+                $routeName,
                 null,
-                $response->isSuccessful() ? 'success' : 'failure'
+                $isSuccess ? 'success' : 'failure'
             );
         }
         
