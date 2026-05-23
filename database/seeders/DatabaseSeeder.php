@@ -28,6 +28,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'root@email.com',
             'password' => Hash::make('root'),
         ])->assignRole(Roles::ROOT);
+
+
+        $this->call([
+            SystemUserSeeder::class,
+        ]);
         
         User::factory()->create([
             'username' => 'admin',
