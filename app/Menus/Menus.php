@@ -78,6 +78,13 @@ final class Menus
                     'route' => 'admin.job-tracking.index',
                     'permission' => SystemPermissions::VIEW_JOBS,
                 ],
+                [
+                    'slug' => 'audit',
+                    'label' => 'Audit',
+                    'icon' => 'fas fa-search',
+                    'route' => 'admin.audit.index',
+                    'permission' => SystemPermissions::VIEW_AUDIT,
+                ],
 
                 [
                     'slug' => 'account',

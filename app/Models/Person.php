@@ -6,12 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\Auditable;
 
 class Person extends Model
 {
 
     use HasFactory;
     use SoftDeletes;
+    use Auditable;
+
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
 
     protected $fillable = [
         'last_name',

@@ -72,6 +72,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/notifications.php';
 require __DIR__ . '/jobs.php';
+require __DIR__ . '/audit.php';
 
 
 
