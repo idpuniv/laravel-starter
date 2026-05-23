@@ -23,7 +23,7 @@
                     <div class="col-md-10">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <div class="bg-light rounded-3 p-3">
+                                <div class="rounded-3 p-3">
                                     <div class="text-muted small mb-1">
                                         <i class="bi bi-person"></i> Nom complet
                                     </div>
@@ -33,7 +33,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="bg-light rounded-3 p-3">
+                                <div class="rounded-3 p-3">
                                     <div class="text-muted small mb-1">
                                         <i class="bi bi-telephone"></i> Téléphone
                                     </div>
@@ -47,7 +47,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="bg-light rounded-3 p-3">
+                                <div class="rounded-3 p-3">
                                     <div class="text-muted small mb-1">
                                         <i class="bi bi-geo-alt"></i> Pays
                                     </div>
@@ -61,7 +61,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="bg-light rounded-3 p-3">
+                                <div class="rounded-3 p-3">
                                     <div class="text-muted small mb-1">
                                         <i class="bi bi-calendar3"></i> Date d'inscription
                                     </div>
