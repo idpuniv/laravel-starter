@@ -30,6 +30,11 @@ final class SystemPermissions
     public const DELETE_JOBS      = 'system.jobs.delete';
     public const CLEAR_JOBS       = 'system.jobs.clear';
     
+    // Audit
+    public const VIEW_AUDIT       = 'system.audit.view';
+    public const DELETE_AUDIT     = 'system.audit.delete';
+    public const EXPORT_AUDIT     = 'system.audit.export';
+    
     public const GUARD = 'web';
 
     public static function labels(): array
@@ -49,6 +54,9 @@ final class SystemPermissions
             self::RETRY_JOBS         => 'Relancer les jobs',
             self::DELETE_JOBS        => 'Supprimer les jobs',
             self::CLEAR_JOBS         => 'Effacer tous les jobs',
+            self::VIEW_AUDIT         => 'Voir le journal d\'audit',
+            self::DELETE_AUDIT       => 'Supprimer les logs d\'audit',
+            self::EXPORT_AUDIT       => 'Exporter les logs d\'audit',
         ];
     }
 
@@ -61,6 +69,7 @@ final class SystemPermissions
             self::VIEW_CACHE,
             self::VIEW_SECURITY,
             self::VIEW_JOBS,
+            self::VIEW_AUDIT,
         ];
     }
 
@@ -75,6 +84,8 @@ final class SystemPermissions
             self::RETRY_JOBS,
             self::DELETE_JOBS,
             self::CLEAR_JOBS,
+            self::DELETE_AUDIT,
+            self::EXPORT_AUDIT,
         ];
     }
 
