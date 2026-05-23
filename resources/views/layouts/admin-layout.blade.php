@@ -153,7 +153,7 @@
                         </li>
 
                         <li class="nav-item">
-                            @include('layouts.partials.profile')
+                            @include('layouts.partials.profile', ['url' => '/admin/logout'])
                         </li>
                     </ul>
                 </div>
@@ -169,7 +169,13 @@
                         <i class="bi bi-plus-circle" aria-hidden="true"></i> Nouveau
                     </button> --}}
                 </div>
-                {{ $slot }}
+                {{-- Support pour slot (composants) --}}
+                {{ $slot ?? '' }}
+                
+                {{-- Support pour yield content (vues Blade classiques) --}}
+                @hasSection('content')
+                    @yield('content')
+                @endif
             </main>
 
 

@@ -34,6 +34,11 @@ return [
 
     'lifetime' => (int) env('SESSION_LIFETIME', 120),
 
+        'lifetimes' => [
+        'admin' => (int) env('SESSION_LIFETIME_ADMIN', 1),
+        'user' => (int) env('SESSION_LIFETIME_USER', 480),
+    ],
+
     'expire_on_close' => env('SESSION_EXPIRE_ON_CLOSE', false),
 
     /*

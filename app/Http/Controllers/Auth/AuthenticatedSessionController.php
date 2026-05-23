@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
-use App\Enums\Status;
 use App\Services\AuditService;
 
 class AuthenticatedSessionController extends Controller
@@ -50,17 +49,23 @@ class AuthenticatedSessionController extends Controller
                 ]);
         }
 
-        $request->session()->regenerate();
-        $lifetime = $user->is_admin ? 1 : 2;
-
-        config(['session.lifetime' => $lifetime]);
         if ($user->is_admin) {
-            session()->pull('url.intended');
+            Auth::guard('web')->logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            $message = app()->isLocal() 
+                ? 'Veuillez utiliser le portail administrateur.' 
+                : 'Identifiants invalides.';
+
+            return redirect()->route('admin.login')->withErrors(['email' => $message]);
         }
+
+        $request->session()->regenerate();
         
         AuditService::log('login', $user, 'success');
         
-        return redirect()->intended(route($user->redirectRoute(), absolute: false));
+        return redirect()->intended(route('dashboard'));
     }
 
     public function destroy(Request $request): RedirectResponse

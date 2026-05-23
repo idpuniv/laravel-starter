@@ -25,11 +25,7 @@ final class Roles
                     'label' => 'Super Administrateur',
                     'description' => 'Dispose d’un accès complet à l’ensemble du système, y compris la gestion des rôles, des permissions et des configurations critiques.',
                     'permissions' => [
-                        \App\Permissions\SystemPermissions::class,
-                        \App\Permissions\RolePermissions::class,
-                        \App\Permissions\PermissionPermissions::class,
-                        \App\Permissions\UserPermissions::class,
-                        \App\Permissions\PersonPermissions::class,
+                        
                     ],
                 ],
                 self::ADMIN => [
@@ -37,6 +33,10 @@ final class Roles
                     'description' => 'Gère les opérations courantes de la plateforme avec des privilèges étendus, sans accès aux paramètres critiques du système.',
                     'permissions' => [
                         \App\Permissions\SystemPermissions::class,
+                        \App\Permissions\RolePermissions::class,
+                        \App\Permissions\PermissionPermissions::class,
+                        \App\Permissions\UserPermissions::class,
+                        \App\Permissions\PersonPermissions::class,
                     ],
                 ],
                 self::USER => [

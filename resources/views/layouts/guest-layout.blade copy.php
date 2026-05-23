@@ -137,7 +137,7 @@
                             <a class="nav-link" href="/components">Composants</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/dashboard">Administration</a>
+                            <a class="nav-link" href="/admin/login">Administration</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Se connecter</a>

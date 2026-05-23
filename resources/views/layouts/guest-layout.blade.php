@@ -80,7 +80,13 @@
     <!-- Main content avec padding-top pour compenser la navbar fixed -->
     <main class="flex-grow-1 d-flex flex-column" style="padding-top: 76px;">
         <div class="container-fluid d-flex flex-column flex-grow-1">
-            {{ $slot }}
+            {{-- Support pour slot (composants) --}}
+                {{ $slot ?? '' }}
+                
+                {{-- Support pour yield content (vues Blade classiques) --}}
+                @hasSection('content')
+                    @yield('content')
+                @endif
         </div>
     </main>
 

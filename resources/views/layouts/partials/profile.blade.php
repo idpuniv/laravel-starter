@@ -1,3 +1,7 @@
+@php
+    $url = $url ?? '/logout'
+@endphp
+
 <div class="dropdown">
     <a class="nav-link d-flex align-items-center justify-content-center px-2 py-2 rounded-3" href="#" role="button"
         data-bs-toggle="dropdown">
@@ -30,7 +34,7 @@
             <hr class="dropdown-divider my-1">
         </li>
         <li>
-            <form method="POST" action="/logout" class="d-inline">
+            <form method="POST" action="{{ $url }}" class="d-inline">
                 @csrf
                 <button type="submit" class="dropdown-item d-flex align-items-center gap-3 py-2 text-danger"
                     style="background: none; border: none; width: 100%; cursor: pointer;">

@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['ensure.404:admin'])->prefix('admin')->name('admin.')->group(function () {
 
 
     Route::get('dashboard', function () {
