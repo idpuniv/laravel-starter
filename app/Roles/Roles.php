@@ -36,7 +36,7 @@ final class Roles
                         \App\Permissions\RolePermissions::class,
                         \App\Permissions\PermissionPermissions::class,
                         \App\Permissions\UserPermissions::class,
-                        \App\Permissions\PersonPermissions::class,
+                        // \App\Permissions\PersonPermissions::class,
                     ],
                 ],
                 self::USER => [

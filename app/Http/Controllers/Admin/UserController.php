@@ -34,11 +34,11 @@ class UserController extends Controller
         return Config::get('permission.teams', false);
     }
 
-    // public function index(Request $request)
-    // {
-    //     // return UsersDataTable::make($request)->render();
-    //     return view('admin.users.index');
-    // }
+    public function index(Request $request)
+    {
+        // return UsersDataTable::make($request)->render();
+        return redirect()->route('admin.people.index');
+    }
 
     public function create()
     {

@@ -17,14 +17,14 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             '2fa' => \App\Http\Middleware\TwoFactorMiddleware::class,
             'audit' => \App\Http\Middleware\AuditMiddleware::class,
-            'ensure.404'  => \App\Http\Middleware\Ensure404::class,
+            'auth'  => \App\Http\Middleware\AuthenticateOrFail::class,
         ]);
 
         // Ajouter le middleware au groupe web
         $middleware->web(append: [
             \App\Http\Middleware\SetSessionLifetime::class,
-            \App\Http\Middleware\ShareContext::class,
         ]);
+
     })
     ->withSchedule(function (Schedule $schedule) {
         $schedule->command('audit:clean 90')->daily();
