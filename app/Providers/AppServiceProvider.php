@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
+use App\Contracts\Repositories\PermissionRepositoryInterface;
+use App\Repositories\SpatiePermissionRepository;
 use App\Roles\Roles;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         View::composer('*', function ($view) {
-            
+
             if (auth('admin')->check()) {
                 $view->with('layout', 'layouts.admin-layout');
                 $view->with('home', route('admin.dashboard'));
@@ -38,7 +40,10 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('layout', 'layouts.guest-layout');
                 $view->with('home', url('/'));
             }
-            
         });
+        $this->app->bind(
+            PermissionRepositoryInterface::class,
+            SpatiePermissionRepository::class
+        );
     }
 }

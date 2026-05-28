@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\Repositories\PermissionRepositoryInterface;
+use App\Enums\Status;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Permissions\UserPermissions;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
-use Spatie\Permission\Models\Permission;
-use App\Permissions\UserPermissions;
-use App\Enums\Status;
 
 class UserPermissionController extends Controller
 {
-
-
-
     public function __construct(
+        protected PermissionRepositoryInterface $permissionRepository
     ) {
-        $this->middleware('can:' . UserPermissions::UPDATE_PERMISSION)->only(['edit', 'update']);
-        $this->middleware('can:' . UserPermissions::VIEW_PERMISSION)->only(['show']);
+        $this->middleware('can:' . UserPermissions::UPDATE_PERMISSION)
+            ->only(['edit', 'update']);
+
+        $this->middleware('can:' . UserPermissions::VIEW_PERMISSION)
+            ->only(['show']);
     }
 
     /**
@@ -27,14 +28,15 @@ class UserPermissionController extends Controller
     public function edit(string $id)
     {
         try {
-            $user = User::with(['roles', 'permissions'])->findOrFail($id);
+            $user = User::with(['roles', 'permissions'])
+                ->findOrFail($id);
 
-            $rolePermissionsCollection = $user->getPermissionsViaRoles();
-            $rolePermissions = $rolePermissionsCollection->pluck('label');
-            $rolePermissionNames = $rolePermissionsCollection->pluck('name')->toArray();
-            $permissions = Permission::query()
-                ->whereNotIn('name', $rolePermissionNames)
-                ->get();
+            $rolePermissions = $this->permissionRepository
+                ->rolePermissions($user)
+                ->pluck('label');
+
+            $permissions = $this->permissionRepository
+                ->assignablePermissions($user);
 
             return view('admin.users.permissions', compact(
                 'user',
@@ -44,7 +46,10 @@ class UserPermissionController extends Controller
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
-                ->with(Status::ERROR, Status::message(Status::ERROR, 'Utilisateur'));
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Utilisateur')
+                );
         }
     }
 
@@ -55,26 +60,38 @@ class UserPermissionController extends Controller
     {
         try {
             $validated = $request->validate([
-                'permissions' => 'nullable|array',
-                'permissions.*' => 'exists:permissions,name',
+                'permissions' => ['nullable', 'array'],
+                'permissions.*' => ['exists:permissions,name'],
             ]);
 
             $user = User::findOrFail($id);
 
-            $user->syncPermissions($validated['permissions'] ?? []);
+            $this->permissionRepository->syncPermissions(
+                $user,
+                $validated['permissions'] ?? []
+            );
 
             return redirect()
                 ->route('admin.users.permissions.edit', $user->id)
-                ->with(Status::SUCCESS, Status::message(Status::SUCCESS, 'Permissions'));
+                ->with(
+                    Status::SUCCESS,
+                    Status::message(Status::SUCCESS, 'Permissions')
+                );
         } catch (ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
                 ->withInput()
-                ->with(Status::FAILED, Status::message(Status::FAILED));
+                ->with(
+                    Status::FAILED,
+                    Status::message(Status::FAILED)
+                );
         } catch (\Exception $e) {
             return back()
                 ->withInput()
-                ->with(Status::ERROR, Status::message(Status::ERROR, 'Permissions'));
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Permissions')
+                );
         }
     }
 
@@ -84,13 +101,17 @@ class UserPermissionController extends Controller
     public function show(string $id)
     {
         try {
-            $user = User::with(['roles', 'permissions'])->findOrFail($id);
+            $user = User::with(['roles', 'permissions'])
+                ->findOrFail($id);
 
             return view('admin.users.permissions', compact('user'));
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.users.index')
-                ->with(Status::ERROR, Status::message(Status::ERROR, 'Utilisateur'));
+                ->with(
+                    Status::ERROR,
+                    Status::message(Status::ERROR, 'Utilisateur')
+                );
         }
     }
 }
