@@ -43,6 +43,11 @@ final class Menus
                             'label' => 'Rôles & permissions',
                             'route' => 'admin.roles.index',
                         ],
+                        [
+                            'slug' => 'admin.teams',
+                            'label' => 'Équipes',
+                            'route' => 'admin.teams.index',
+                        ],
                     ]
                 ],
 

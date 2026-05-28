@@ -67,6 +67,10 @@ Route::middleware(['auth:admin,404'])->prefix('admin')->name('admin.')->group(fu
 
     Route::put('users/{user}/permissions', [App\Http\Controllers\Admin\UserPermissionController::class, 'update'])
         ->name('users.permissions.update');
+
+
+    Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);
+    
 });
 
 require __DIR__ . '/auth.php';
