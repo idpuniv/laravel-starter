@@ -70,6 +70,7 @@ Route::middleware(['auth:admin,404'])->prefix('admin')->name('admin.')->group(fu
 
 
     Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);
+    Route::resource('teams.users', App\Http\Controllers\Admin\TeamUserController::class);
     
 });
 

@@ -170,4 +170,9 @@ class User extends Authenticatable implements
     {
         $this->notify(new VerifyEmail);
     }
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_user');
+    }
 }

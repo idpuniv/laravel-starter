@@ -12,9 +12,9 @@ class TeamSeeder extends Seeder
      */
     public function run(): void
     {
-        Team::create([
-            'name' => 'default',
-            'description' => null,
-        ]);
+        // Team::create([
+        //     'name' => 'default',
+        //     'description' => null,
+        // ]);
     }
 }

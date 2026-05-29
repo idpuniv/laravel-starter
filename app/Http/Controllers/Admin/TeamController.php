@@ -14,7 +14,7 @@ class TeamController extends Controller
     public function index()
     {
         try {
-            $teams = Team::query()->latest()->get();
+            $teams = Team::query()->latest()->paginate(15);
 
             return view('admin.teams.index', compact('teams'));
         } catch (\Exception $e) {

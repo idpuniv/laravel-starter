@@ -24,6 +24,7 @@ return [
         'permissions' => [
             App\Permissions\UserPermissions::class,
             App\Permissions\PersonPermissions::class,
+            App\Permissions\TeamPermissions::class,
         ],
         'icon' => 'heroicon-o-folder',
         'order' => 0,

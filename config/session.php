@@ -35,7 +35,7 @@ return [
     'lifetime' => (int) env('SESSION_LIFETIME', 120),
 
         'lifetimes' => [
-        'admin' => (int) env('SESSION_LIFETIME_ADMIN', 1),
+        'admin' => (int) env('SESSION_LIFETIME_ADMIN', 60),
         'user' => (int) env('SESSION_LIFETIME_USER', 480),
     ],
 
