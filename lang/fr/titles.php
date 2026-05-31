@@ -27,4 +27,8 @@ return [
         'edit' => 'Modifier un rôle',
         'show' => 'Détails du rôle',
     ],
+
+    'audits' => [
+        'index' => 'Journal d’audit',
+    ]
 ];

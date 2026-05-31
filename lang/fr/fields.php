@@ -84,6 +84,22 @@ return [
         'label' => 'Date de naissance',
     ],
 
+    'event' => [
+        'label' => 'Événement',
+    ],
+
+    'status' => [
+        'label' => 'Statut',
+    ],
+
+    'target' => [
+        'label' => 'Cible',
+    ],
+
+    'ip_address' => [
+        'label' => 'Adresse IP',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Adresse

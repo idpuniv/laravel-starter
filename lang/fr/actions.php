@@ -26,5 +26,8 @@ return [
 
     'import' => 'Importer',
     'export' => 'Exporter',
+    'export_pdf' => 'Exporter PDF',
+    'export_excel' => 'Exporter Excel',
+    'clear' => 'Nettoyer',
 
 ];
