@@ -33,11 +33,9 @@ class AuthenticatedSessionController extends Controller
             
             throw $e;
         }
-
-        $user = Auth::guard('web')->user();
-
+        $user = Auth::user();
         if (! $user->is_active) {
-            Auth::guard('web')->logout();
+            Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
@@ -50,7 +48,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         if ($user->is_admin) {
-            Auth::guard('web')->logout();
+            Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
 
@@ -62,6 +60,8 @@ class AuthenticatedSessionController extends Controller
         }
 
         $request->session()->regenerate();
+        $team = auth()->user()->teams()->first();
+        session()->put('team_id', $team->id);
         
         AuditService::log('login', $user, 'success');
         
@@ -70,13 +70,13 @@ class AuthenticatedSessionController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        $user = Auth::guard('web')->user();
+        $user = Auth::user();
         
         if ($user) {
             AuditService::log('logout', $user, 'success');
         }
         
-        Auth::guard('web')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

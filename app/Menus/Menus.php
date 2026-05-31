@@ -80,7 +80,7 @@ final class Menus
                     'slug' => 'taches',
                     'label' => 'Tâches',
                     'icon' => 'fas fa-tasks',
-                    'route' => 'admin.job-tracking.index',
+                    'route' => 'admin.teams.index',
                     'permission' => SystemPermissions::VIEW_JOBS,
                 ],
                 [

@@ -17,7 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             '2fa' => \App\Http\Middleware\TwoFactorMiddleware::class,
             'audit' => \App\Http\Middleware\AuditMiddleware::class,
-            'auth'  => \App\Http\Middleware\AuthenticateOrFail::class,
+            'teams'  => \App\Http\Middleware\TeamsPermission::class,
         ]);
 
         // Ajouter le middleware au groupe web

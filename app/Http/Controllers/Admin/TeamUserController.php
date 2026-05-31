@@ -11,117 +11,38 @@ use Illuminate\Validation\ValidationException;
 
 class TeamUserController extends Controller
 {
-    /**
-     * Liste des utilisateurs de l'équipe
-     */
-    public function index(string $teamId)
+    public function index(Team $team)
     {
-        try {
-            $team = Team::with('users')->findOrFail($teamId);
+        $users = $team->users()->paginate(15);
 
-            return view('admin.teams.users.index', compact('team'));
-        } catch (\Exception $e) {
-            return redirect()
-                ->route('admin.teams.index')
-                ->with(
-                    Status::ERROR,
-                    Status::message(Status::ERROR, 'Équipe')
-                );
-        }
+        return view('admin.teams.users.index', compact('team', 'users'));
     }
 
-    /**
-     * Formulaire d'assignation des utilisateurs
-     */
-    public function edit(string $teamId)
+    public function create(Team $team)
     {
-        try {
-            $team = Team::with('users')->findOrFail($teamId);
+        $users = User::whereDoesntHave('teams', function ($q) use ($team) {
+            $q->where('teams.id', $team->id);
+        })->get();
 
-            $users = User::query()
-                ->latest()
-                ->get();
-
-            $teamUsers = $team->users
-                ->pluck('id')
-                ->toArray();
-
-            return view('admin.teams.users.edit', compact(
-                'team',
-                'users',
-                'teamUsers'
-            ));
-        } catch (\Exception $e) {
-            return redirect()
-                ->route('admin.teams.index')
-                ->with(
-                    Status::ERROR,
-                    Status::message(Status::ERROR, 'Équipe')
-                );
-        }
+        return view('admin.teams.users.create', compact('team', 'users'));
     }
 
-    /**
-     * Mise à jour des utilisateurs de l'équipe
-     */
-    public function update(Request $request, string $teamId)
+    public function store(Request $request, Team $team)
     {
-        try {
-            $validated = $request->validate([
-                'users' => ['nullable', 'array'],
-                'users.*' => ['exists:users,id'],
-            ]);
+        $data = $request->validate([
+            'users' => ['required', 'array'],
+            'users.*' => ['exists:users,id']
+        ]);
 
-            $team = Team::findOrFail($teamId);
+        $team->users()->syncWithoutDetaching($data['users']);
 
-            // Laravel standard pivot sync
-            $team->users()->sync(
-                $validated['users'] ?? []
-            );
-
-            return redirect()
-                ->route('admin.teams.users.edit', $team->id)
-                ->with(
-                    Status::SUCCESS,
-                    Status::message(Status::SUCCESS, 'Utilisateurs équipe')
-                );
-        } catch (ValidationException $e) {
-            return back()
-                ->withErrors($e->errors())
-                ->withInput()
-                ->with(
-                    Status::FAILED,
-                    Status::message(Status::FAILED)
-                );
-        } catch (\Exception $e) {
-            return back()
-                ->withInput()
-                ->with(
-                    Status::ERROR,
-                    Status::message(Status::ERROR, 'Utilisateurs équipe')
-                );
-        }
+        return redirect()->route('admin.teams.users.index', $team);
     }
 
-    /**
-     * Retirer un utilisateur de l'équipe
-     */
-    public function destroy(string $teamId, string $userId)
+    public function destroy(Team $team, User $user)
     {
-        try {
-            $team = Team::findOrFail($teamId);
+        $team->users()->detach($user->id);
 
-            $team->users()->detach($userId);
-
-            return back()->with(
-                Status::SUCCESS,
-                Status::message(Status::SUCCESS, 'Utilisateur retiré')
-            );
-        } catch (\Exception $e) {
-            return back()->with(
-                Status::ERROR,
-                Status::message(Status::ERROR, 'Suppression utilisateur')
-            );
-        }
+        return back();
     }
 }

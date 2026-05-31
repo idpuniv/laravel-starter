@@ -41,7 +41,7 @@
 
                                 <th class="py-3">
                                     <span class="text-muted small fw-semibold">
-                                        Description
+                                        Membres
                                     </span>
                                 </th>
 
@@ -73,7 +73,11 @@
                                         <div class="d-flex align-items-center gap-2">
 
                                             <div class="rounded-circle bg-primary bg-opacity-10 p-2">
-                                                <i class="bi bi-people text-primary"></i>
+                                                @if($team->icon)
+                                                    <i class="bi {{ $team->icon }} text-primary"></i>
+                                                @else
+                                                    <i class="bi bi-people text-primary"></i>
+                                                @endif
                                             </div>
 
                                             <div>
@@ -89,22 +93,26 @@
                                         </div>
                                     </td>
 
-                                    {{-- DESCRIPTION --}}
+                                    {{-- MEMBRES --}}
                                     <td>
-                                        <span class="text-muted small">
-                                            {{ Str::limit($team->description, 60) ?? '—' }}
-                                        </span>
+                                        <a href="{{ route('admin.teams.users.index', $team->id) }}" 
+                                           class="text-decoration-none">
+                                            <span class="badge bg-info bg-opacity-10 text-info px-3 py-2 rounded-pill">
+                                                <i class="bi bi-people-fill me-1"></i>
+                                                {{ $team->users_count }} membre(s)
+                                            </span>
+                                        </a>
                                     </td>
 
                                     {{-- STATUS --}}
                                     <td>
                                         @if($team->status === 'active')
-                                            <span class="badge bg-success bg-opacity-10 text-success px-2 py-1 rounded-pill">
-                                                Actif
+                                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill">
+                                                <i class="bi bi-check-circle"></i> Actif
                                             </span>
                                         @else
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary px-2 py-1 rounded-pill">
-                                                Inactif
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill">
+                                                <i class="bi bi-pause-circle"></i> Inactif
                                             </span>
                                         @endif
                                     </td>
@@ -129,6 +137,15 @@
                                                 </a>
                                             @endcan
 
+                                            {{-- Lien vers les membres --}}
+                                            @can(\App\Permissions\UserPermissions::UPDATE_TEAM)
+                                                <a href="{{ route('admin.teams.users.create', $team->id) }}"
+                                                   class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
+                                                   title="Gérer les membres">
+                                                    <i class="bi bi-person-plus fs-6"></i>
+                                                </a>
+                                            @endcan
+
                                             @can(\App\Permissions\TeamPermissions::DELETE)
                                                 <a href="#"
                                                    class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
@@ -147,7 +164,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center py-5">
+                                    <td colspan="6" class="text-center py-5">
 
                                         <i class="bi bi-people fs-1 text-muted d-block mb-2"></i>
 

@@ -49,7 +49,7 @@ class PersonController extends Controller
     {
         try {
             $validated = $request->validated();
-            
+
             $person = Person::create($validated);
 
             return redirect()
@@ -73,8 +73,14 @@ class PersonController extends Controller
     public function show(Person $person)
     {
         try {
+            $person->load('country');
+
+            // Récupérer les équipes uniquement si l'utilisateur existe
+            $teams = $person->user ? $person->user->teams()->get() : collect();
+
             return view('admin.people.show', [
-                'person' => $person->load('country'),
+                'person' => $person,
+                'teams' => $teams,
             ]);
         } catch (\Throwable $e) {
             Log::error($e);
@@ -112,7 +118,7 @@ class PersonController extends Controller
         try {
             $validated = $request->validated();
 
-            
+
             $person->update($validated);
 
             return redirect()
@@ -145,7 +151,7 @@ class PersonController extends Controller
             return view('admin.users.create', compact('person'));
         } catch (\Exception $e) {
             Log::error($e);
-            
+
             return back()
                 ->with('error', 'Erreur lors du chargement du formulaire.');
         }
@@ -172,7 +178,7 @@ class PersonController extends Controller
                 ->with('success', 'Compte utilisateur créé avec succès.');
         } catch (\Exception $e) {
             Log::error($e);
-            
+
             return back()
                 ->with('error', 'Erreur lors de la création du compte.')
                 ->withInput();

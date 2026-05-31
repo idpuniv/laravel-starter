@@ -14,7 +14,7 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+    {   
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
 
@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('label');
             $table->text('description')->nullable();
             $table->string('icon')->nullable();
-
             $table->enum('status', [Status::ACTIVE, Status::INACTIVE])->default(Status::ACTIVE);
+            $table->boolean('is_default')->default(false);
 
             $table->timestamps();
 

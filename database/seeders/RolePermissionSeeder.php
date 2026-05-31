@@ -89,13 +89,16 @@ class RolePermissionSeeder extends Seeder
         $this->command->info('Permissions created: ' . count($permissionsData));
 
         // Create roles and assign permissions
+        $team_foreign_key = config('permission.teams') ? 'team_id' : null;
         foreach (Roles::guards() as $guard) {
             foreach (Roles::of($guard) as $roleSlug => $roleData) {
                 // Create the role
+                $rootTeamId = DB::table('teams')->where('name', $roleData['team'] ?? 'default')->value('id');
                 $roleId = DB::table('roles')->insertGetId([
                     'name' => $roleSlug,
                     'label' => $roleData['label'],
                     'guard_name' => $guard,
+                    $team_foreign_key => $rootTeamId,
                 ]);
 
                 $permissionIds = [];

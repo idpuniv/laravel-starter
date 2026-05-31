@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Menu;
 use App\Menus\Menus;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class MenuService
 {
@@ -31,7 +32,8 @@ class MenuService
         if ($db->isNotEmpty()) {
             return $this->fromDb($db);
         }
-
+        Log::warning(getPermissionsTeamId());
+        Log::warning("menus of type '$type'", Menus::all()[$type] ?? []);
         return Menus::all()[$type] ?? [];
     }
 

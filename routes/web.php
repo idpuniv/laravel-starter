@@ -6,9 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
@@ -17,13 +15,10 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::middleware(['auth:admin,404'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth','teams'])->prefix('admin')->name('admin.')->group(function () {
 
 
-    Route::get('dashboard', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
-
+    Route::get('dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);
     Route::resource('people', App\Http\Controllers\PersonController::class);
     Route::livewire('/admin/people', 'pages::post.create');
@@ -70,7 +65,18 @@ Route::middleware(['auth:admin,404'])->prefix('admin')->name('admin.')->group(fu
 
 
     Route::resource('teams', App\Http\Controllers\Admin\TeamController::class);
-    Route::resource('teams.users', App\Http\Controllers\Admin\TeamUserController::class);
+    // Route::resource('teams.users', App\Http\Controllers\Admin\TeamUserController::class);
+    // Route::resource('users.teams', App\Http\Controllers\Admin\UserTeamController::class);
+     Route::prefix('teams/{team}')->name('teams.')->group(function () {
+            Route::resource('users', App\Http\Controllers\Admin\TeamUserController::class)->only([
+                'index', 'create', 'store', 'destroy'
+            ]);
+
+            // Route::resource('roles', TeamRoleController::class)->only([
+            //     'index', 'store', 'destroy'
+            // ]);
+        });
+    
     
 });
 
@@ -78,7 +84,6 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/notifications.php';
 require __DIR__ . '/jobs.php';
 require __DIR__ . '/audit.php';
-
 
 
 require __DIR__ . '/web_template.php';

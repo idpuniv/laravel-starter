@@ -70,10 +70,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [App\Http\Controllers\Admin\Auth\AuthenticatedSessionController::class, 'create'])->name('login');
     Route::post('/login', [App\Http\Controllers\Admin\Auth\AuthenticatedSessionController::class, 'store']);
     Route::post('/logout', [App\Http\Controllers\Admin\Auth\AuthenticatedSessionController::class, 'destroy'])->name('logout');
-    
-    Route::middleware('auth:admin')->group(function () {
-        Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    });
+
     Route::get('/confirm-password', [App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'show'])->name('password.confirm');
     Route::post('/confirm-password', [App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'store']);
 });

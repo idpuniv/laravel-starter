@@ -20,17 +20,20 @@ class AuthenticatedSessionController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($credentials)) {
-            $admin = Auth::guard('admin')->user();
-            
-            if (!$admin->is_admin) {
-                Auth::guard('admin')->logout();
+        if (Auth::attempt($credentials)) {
+            $team = auth()->user()->teams()->first();
+            setPermissionsTeamId($team->id);
+            if (!Auth::user()->is_admin) {
+                Auth::logout();
                 return back()->withErrors(['email' => 'Accès non autorisé.']);
             }
+            
 
             $request->session()->regenerate();
-
-            return redirect()->intended(route('admin.dashboard'));
+            
+            
+            session()->put('team_id', $team->id);
+            return redirect()->to('/admin/dashboard');
         }
 
         return back()->withErrors(['email' => 'Identifiants invalides.']);
@@ -38,7 +41,7 @@ class AuthenticatedSessionController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('admin')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -57,4 +57,7 @@ class Person extends Model
     {
         return $this->belongsTo(Country::class);
     }
+    
+
+
 }

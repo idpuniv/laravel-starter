@@ -1,17 +1,4 @@
 <div class="mb-3">
-    <label class="form-label">Nom (technique)</label>
-
-    <input type="text"
-           name="name"
-           class="form-control @error('name') is-invalid @enderror"
-           value="{{ old('name', $team->name ?? '') }}">
-
-    @error('name')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
-
-<div class="mb-3">
     <label class="form-label">Libellé</label>
 
     <input type="text"
@@ -36,38 +23,42 @@
     @enderror
 </div>
 
-<div class="mb-3">
-    <label class="form-label">Icône</label>
 
-    <input type="text"
-           name="icon"
-           class="form-control @error('icon') is-invalid @enderror"
-           value="{{ old('icon', $team->icon ?? '') }}">
 
-    @error('icon')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
-</div>
+<div class="row mb-3">
+    {{-- Icône --}}
+    <div class="col-md-6">
+        <label class="form-label">Icône</label>
+        <input type="text"
+               name="icon"
+               class="form-control @error('icon') is-invalid @enderror"
+               value="{{ old('icon', $team->icon ?? '') }}">
+        @error('icon')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+    </div>
 
-<div class="mb-3">
-    <label class="form-label">Statut</label>
+    {{-- Statut --}}
+    <div class="col-md-6">
+        <label class="form-label">Statut</label>
 
-    <select name="status"
-            class="form-select @error('status') is-invalid @enderror">
+        @php
+            $currentStatus = old('status', $team->status ?? 'active');
+        @endphp
 
-        <option value="active"
-            @selected(old('status', $team->status ?? '') === 'active')>
-            Actif
-        </option>
+        <div class="form-check form-switch" style="min-height: 38px; display: flex; align-items: center;">
+            <input type="checkbox"
+                   class="form-check-input"
+                   name="status"
+                   id="statusSwitch"
+                   value="active"
+                   @checked($currentStatus === 'active')
+                   style="width: 3rem; height: 1.5rem; margin-top: 0;">
+            <label class="form-check-label ms-2" for="statusSwitch"></label>
+        </div>
 
-        <option value="inactive"
-            @selected(old('status', $team->status ?? '') === 'inactive')>
-            Inactif
-        </option>
-
-    </select>
-
-    @error('status')
-        <div class="invalid-feedback">{{ $message }}</div>
-    @enderror
+        @error('status')
+            <div class="text-danger small mt-1">{{ $message }}</div>
+        @enderror
+    </div>
 </div>

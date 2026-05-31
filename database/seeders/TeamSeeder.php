@@ -12,9 +12,28 @@ class TeamSeeder extends Seeder
      */
     public function run(): void
     {
-        // Team::create([
-        //     'name' => 'default',
-        //     'description' => null,
-        // ]);
+        Team::create([
+            'name' => 'root',
+            'label' => 'Équipe racine',
+            'description' => null,
+        ]);
+
+        Team::create([
+            'name' => 'system',
+            'label' => 'Équipe système',
+            'description' => null,
+        ]);
+
+        Team::create([
+            'name' => 'admin',
+            'label' => 'Équipe administrateur',
+            'description' => null,
+        ]);
+
+        Team::create([
+            'name' => 'default',
+            'label' => 'Equipe par défaut',
+            'description' => null,
+        ]);
     }
 }

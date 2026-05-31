@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Spatie\Permission\Models\Role as SpatieRole;
 use Illuminate\Support\Str;
+use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole
 {
@@ -16,27 +16,19 @@ class Role extends SpatieRole
         'guard_name',
         'team_id',
         'label',
-        'description'
+        'description',
     ];
-
-
 
     protected static function booted(): void
     {
-        static::creating(function (self $role) {
+        static::creating(function (self $role): void {
 
-            if (empty($role->name) && !empty($role->label)) {
+            if (blank($role->name) && filled($role->label)) {
                 $role->name = Str::slug($role->label);
             }
-            if (empty($role->label) && !empty($role->name)) {
-                $role->label = ucfirst(str_replace('-', ' ', $role->name));
-            }
-        });
 
-        static::updating(function (self $role) {
-
-            if ($role->isDirty('name')) {
-                $role->name = $role->getOriginal('name');
+            if (blank($role->label) && filled($role->name)) {
+                $role->label = Str::headline($role->name);
             }
         });
     }
@@ -44,12 +36,5 @@ class Role extends SpatieRole
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
-    }
-
-    public static function findAll(array $data = []): Builder
-    {
-        return self::query()
-            ->where('group_id', $data['group_id'])
-            ->where('name', '!=', 'root');
     }
 }

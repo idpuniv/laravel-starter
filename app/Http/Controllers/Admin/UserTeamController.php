@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
@@ -13,12 +14,13 @@ class UserTeamController extends Controller
     /**
      * Afficher les utilisateurs d'une équipe
      */
-    public function index(string $teamId)
+    public function index(string $userId)
     {
         try {
-            $team = Team::with('users')->findOrFail($teamId);
+            $user = User::with('teams')->findOrFail($userId);
+            $teams = $user->teams()->paginate(15);
 
-            return view('admin.teams.users.index', compact('team'));
+            return view('admin.people.teams.index', compact('user', 'teams'));
 
         } catch (\Exception $e) {
             return redirect()
@@ -30,12 +32,12 @@ class UserTeamController extends Controller
     /**
      * Formulaire d’assignation utilisateurs
      */
-    public function edit(string $teamId)
+    public function edit(User $user, Team $team)
     {
         try {
-            $team = Team::with('users')->findOrFail($teamId);
+            $teams = $user->load('teams');
 
-            return view('admin.teams.users.edit', compact('team'));
+            return view('admin.users.teams.edit', compact('user','teams'));
 
         } catch (\Exception $e) {
             return redirect()
@@ -47,15 +49,13 @@ class UserTeamController extends Controller
     /**
      * Mise à jour (STANDARD LARAVEL : sync pivot dans update)
      */
-    public function update(Request $request, string $teamId)
+    public function update(Request $request, User $user, Team $team)
     {
         try {
             $validated = $request->validate([
                 'users' => ['nullable', 'array'],
                 'users.*' => ['exists:users,id'],
             ]);
-
-            $team = Team::findOrFail($teamId);
 
             // STANDARD LARAVEL
             $team->users()->sync($validated['users'] ?? []);

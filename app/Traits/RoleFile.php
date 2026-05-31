@@ -1,5 +1,4 @@
 <?php
-// app/Traits/RoleFile.php
 
 namespace App\Traits;
 
@@ -19,34 +18,40 @@ trait RoleFile
     public static function of(string $guard): array
     {
         $config = self::config();
-        
+
         if (!isset($config[$guard])) {
             return [];
         }
-        
+
         $result = [];
-        
+
         foreach ($config[$guard] as $role => $roleData) {
+
             $permissions = [];
-            
+
             foreach ($roleData['permissions'] as $permissionClass) {
-                if (is_string($permissionClass) && class_exists($permissionClass) && method_exists($permissionClass, 'all')) {
+                if (
+                    is_string($permissionClass) &&
+                    class_exists($permissionClass) &&
+                    method_exists($permissionClass, 'all')
+                ) {
                     $permissions = array_merge($permissions, $permissionClass::all());
                 }
             }
-            
+
             $result[$role] = [
+                'team' => $roleData['team'] ?? null,
                 'label' => $roleData['label'] ?? $role,
                 'description' => $roleData['description'] ?? null,
                 'permissions' => array_unique($permissions),
             ];
         }
-        
+
         return $result;
     }
 
     /**
-     * Get permissions for a specific role
+     * Get permissions for a role
      */
     public static function permissions(string $guard, string $role): array
     {
@@ -54,7 +59,7 @@ trait RoleFile
     }
 
     /**
-     * Get label for a specific role
+     * Get label
      */
     public static function label(string $guard, string $role): string
     {
@@ -62,7 +67,7 @@ trait RoleFile
     }
 
     /**
-     * Get description for a specific role
+     * Get description
      */
     public static function description(string $guard, string $role): ?string
     {
@@ -70,14 +75,23 @@ trait RoleFile
     }
 
     /**
-     * Check if role exists
+     * Get team (NEW CLEAN METHOD)
+     */
+    public static function team(string $guard, string $role): string
+    {
+        return self::of($guard)[$role]['team'] ?? null;
+    }
+
+    /**
+     * Check role exists
      */
     public static function has(string $guard, string $role): bool
     {
         return isset(self::of($guard)[$role]);
     }
+
     /**
-     * Get all role constants
+     * All constants
      */
     public static function all(): array
     {

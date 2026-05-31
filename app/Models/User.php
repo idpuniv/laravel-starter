@@ -10,10 +10,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
+use App\Traits\HasTeams;
 use App\Enums\Status;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TwoFactorCodeMail;
 use App\Notifications\VerifyEmail;
+use Illuminate\Testing\Fluent\Concerns\Has;
 
 class User extends Authenticatable implements
     MustVerifyEmail
@@ -25,6 +27,11 @@ class User extends Authenticatable implements
     use Notifiable;
     use HasRoles;
     use SoftDeletes;
+    use HasTeams;
+
+     /**
+     * Guard Spatie (web par défaut)
+     */
 
     /**
      * Guard Spatie (web par défaut)
@@ -75,11 +82,6 @@ class User extends Authenticatable implements
         return $this->belongsTo(Person::class);
     }
 
-    public function team(): BelongsTo
-    {
-        return $this->belongsTo(Team::class);
-    }
-
     /* -----------------------------------------------------------------
      | Scopes
      |------------------------------------------------------------------*/
@@ -110,7 +112,7 @@ class User extends Authenticatable implements
 
     public function getIsAdminAttribute(): bool
     {
-        return $this->hasAnyRole([Roles::ADMIN, Roles::ROOT]);
+        return $this->hasAnyRole([Roles::ADMIN, Roles::ROOT, Roles::OWNER, Roles::MANAGER]);
     }
 
     public function getIsActiveAttribute(): bool
@@ -161,18 +163,11 @@ class User extends Authenticatable implements
      */
     public function requiresTwoFactor(): bool
     {
-        $rolesRequiring2FA = ['admin', 'root'];
-
-        return in_array($this->role, $rolesRequiring2FA) || $this->two_factor_enabled;
+        return $this->is_admin || $this->two_factor_enabled;
     }
 
     public function sendEmailVerificationNotification(): void
     {
         $this->notify(new VerifyEmail);
-    }
-
-    public function teams()
-    {
-        return $this->belongsToMany(Team::class, 'team_user');
     }
 }

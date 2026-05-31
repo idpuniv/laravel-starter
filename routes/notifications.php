@@ -12,7 +12,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-Route::middleware(['auth:admin,404'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('admin/notifications', [App\Http\Controllers\Admin\NotificationController::class, 'index'])->name('admin.notifications.index');
     Route::post('admin/notifications/mark-all-read', [App\Http\Controllers\Admin\NotificationController::class, 'markAllAsRead'])->name('admin.notifications.mark-all-read');
     Route::post('admin/notifications/{id}/read', [App\Http\Controllers\Admin\NotificationController::class, 'markAsRead'])->name('admin.notifications.mark-read');
