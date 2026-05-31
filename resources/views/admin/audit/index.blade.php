@@ -1,4 +1,4 @@
 <x-admin-layout>
-    @section('title', 'Liste des audits')
+    @section('title', __('titles.audits.index'))
     <livewire:audit.list />
 </x-admin-layout>

@@ -21,6 +21,7 @@ return [
 
     'open' => 'Ouvrir',
     'close' => 'Fermer',
+    'back' => 'Retour',
 
     'select' => 'Sélectionner',
 
@@ -29,5 +30,22 @@ return [
     'export_pdf' => 'Exporter PDF',
     'export_excel' => 'Exporter Excel',
     'clear' => 'Nettoyer',
+
+    'duplicate' => 'Dupliquer',
+    'archive' => 'Archiver',
+    'restore' => 'Restaurer',
+    'force_delete' => 'Supprimer définitivement',
+    'refresh' => 'Actualiser',
+    'download' => 'Télécharger',
+    'upload' => 'Téléverser',
+    'print' => 'Imprimer',
+    'share' => 'Partager',
+    'copy' => 'Copier',
+    'paste' => 'Coller',
+    'move' => 'Déplacer',
+    'sort' => 'Trier',
+    'bulk_actions' => 'Actions groupées',
+    'select_all' => 'Tout sélectionner',
+    'deselect_all' => 'Tout désélectionner',
 
 ];

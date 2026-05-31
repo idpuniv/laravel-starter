@@ -16,4 +16,14 @@ return [
     'previous' => '&laquo; Précédent',
     'next' => 'Suivant &raquo;',
 
+    // Ou version sans HTML entities
+    'previous_text' => 'Précédent',
+    'next_text' => 'Suivant',
+
+    // Pour les paginations avec plus d'info
+    'showing' => 'Affichage de',
+    'to' => 'à',
+    'of' => 'sur',
+    'results' => 'résultats',
+
 ];

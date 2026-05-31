@@ -16,11 +16,6 @@ return [
         'label' => 'UUID',
     ],
 
-    'name' => [
-        'label' => 'Nom',
-        'placeholder' => 'Entrez le nom',
-    ],
-
     'code' => [
         'label' => 'Code',
         'placeholder' => 'Entrez le code',
@@ -58,8 +53,8 @@ return [
     ],
 
     'last_name' => [
-        'label' => 'Nom',
-        'placeholder' => 'Entrez le nom',
+        'label' => 'Nom de famille',
+        'placeholder' => 'Entrez le nom de famille',
     ],
 
     'full_name' => [
@@ -68,7 +63,7 @@ return [
 
     'email' => [
         'label' => 'Adresse email',
-        'placeholder' => 'Entrez l\'email',
+        'placeholder' => 'Entrez l\'adresse email',
     ],
 
     'phone' => [
@@ -82,6 +77,7 @@ return [
 
     'birth_date' => [
         'label' => 'Date de naissance',
+        'placeholder' => 'Entrez la date de naissance',
     ],
 
     'event' => [
@@ -108,6 +104,7 @@ return [
 
     'address' => [
         'label' => 'Adresse',
+        'placeholder' => 'Entrez l\'adresse complète',
     ],
 
     'street' => [
@@ -140,10 +137,6 @@ return [
     | Système
     |--------------------------------------------------------------------------
     */
-
-    'status' => [
-        'label' => 'Statut',
-    ],
 
     'type' => [
         'label' => 'Type',
@@ -220,26 +213,32 @@ return [
 
     'amount' => [
         'label' => 'Montant',
+        'placeholder' => 'Entrez le montant',
     ],
 
     'currency' => [
         'label' => 'Devise',
+        'placeholder' => 'Entrez la devise',
     ],
 
     'price' => [
         'label' => 'Prix',
+        'placeholder' => 'Entrez le prix',
     ],
 
     'total' => [
         'label' => 'Total',
+        'placeholder' => 'Entrez le total',
     ],
 
     'tax' => [
         'label' => 'Taxe',
+        'placeholder' => 'Entrez la taxe',
     ],
 
     'discount' => [
         'label' => 'Réduction',
+        'placeholder' => 'Entrez la réduction',
     ],
 
     /*
@@ -264,13 +263,49 @@ return [
 
     'notes' => [
         'label' => 'Notes',
+        'placeholder' => 'Entrez vos notes',
     ],
 
     'comment' => [
         'label' => 'Commentaire',
+        'placeholder' => 'Entrez un commentaire',
     ],
 
     'remarks' => [
         'label' => 'Remarques',
+        'placeholder' => 'Entrez vos remarques',
     ],
+
+    'start_date' => [
+        'label' => 'Date de début',
+        'placeholder' => 'Date de début',
+    ],
+
+    'end_date' => [
+        'label' => 'Date de fin',
+        'placeholder' => 'Date de fin',
+    ],
+
+    'method' => [
+        'label' => 'Méthode',
+    ],
+    'target_type' => [
+        'label' => 'Type de cible',
+    ],
+    'target_id' => [
+        'label' => 'ID de la cible',
+    ],
+    'target_identifier' => [
+        'label' => 'Identifiant',
+    ],
+    'context' => [
+        'label' => 'Contexte',
+    ],
+    'user_agent' => [
+        'label' => 'Navigateur',
+    ],
+    'referrer' => [
+        'label' => 'Provenance',
+    ],
+
 ];
