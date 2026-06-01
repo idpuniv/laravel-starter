@@ -29,6 +29,11 @@ return [
         'show' => 'Détails du rôle',
     ],
 
+    'jobs' => [
+        'index' => 'Liste des taches',
+        'show' => 'Détails de la tache',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Permissions
@@ -82,5 +87,15 @@ return [
         'index' => 'Mon profil',
         'edit' => 'Modifier mon profil',
         'password' => 'Changer mon mot de passe',
+    ],
+
+    /*
+|--------------------------------------------------------------------------
+| Password
+|--------------------------------------------------------------------------
+*/
+
+    'password' => [
+        'confirm' => 'Confirmer le mot de passe',
     ],
 ];

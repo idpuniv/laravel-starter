@@ -16,6 +16,11 @@ return [
         'label' => 'UUID',
     ],
 
+    'name' => [
+        'label' => 'Nom'
+
+    ],
+
     'code' => [
         'label' => 'Code',
         'placeholder' => 'Entrez le code',
@@ -205,6 +210,7 @@ return [
         'label' => 'Permission',
     ],
 
+
     /*
     |--------------------------------------------------------------------------
     | Finance
@@ -306,6 +312,10 @@ return [
     ],
     'referrer' => [
         'label' => 'Provenance',
+    ],
+
+    'progress' => [
+        'label' => 'Progression',
     ],
 
 ];

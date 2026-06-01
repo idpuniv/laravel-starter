@@ -204,7 +204,7 @@ new class extends Component {
         <div>
             <h1 class="h3 fw-semibold m-0 d-flex align-items-center gap-2">
                 <i class="bi bi-journal-text"></i>
-                {{ __("Journal d'audit") }}
+                {{ __('titles.audits.index') }}
             </h1>
             <p class="text-muted small mt-1 mb-0">
                 {{ __("Total") }} : {{ $stats['total'] }} - {{ __("Aujourd'hui") }} : {{ $stats['today'] }}

@@ -25,5 +25,6 @@ return [
     'to' => 'à',
     'of' => 'sur',
     'results' => 'résultats',
+    'total' => 'Total :count élément(s)',
 
 ];

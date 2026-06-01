@@ -29,7 +29,7 @@
                             <!-- Email Field -->
                             <div class="mb-3">
                                 <label for="email" class="form-label fw-medium">
-                                    {{ __('Adresse e-mail') }}
+                                    {{ __('fields.email.label') }}
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text bg-body-secondary border-end-0">

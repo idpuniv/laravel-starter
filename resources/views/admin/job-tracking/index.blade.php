@@ -1,5 +1,5 @@
 {{-- resources/views/admin/job-tracking/index.blade.php --}}
-@section('title', 'Suivi des jobs')
+@section('title', __('titles.jobs.index'))
 <x-admin-layout>
     <div class="container py-4">
 
@@ -8,19 +8,19 @@
             <div>
                 <h1 class="h3 fw-semibold m-0 d-flex align-items-center gap-2">
                     <i class="bi bi-clock-history"></i>
-                    Suivi des jobs
+                    {{ __('titles.jobs.index') }}
                 </h1>
                 <p class="text-muted small mt-1 mb-0">
-                    {{ $jobs->total() }} job(s) au total
+                    {{ __('pagination.total', ['count' => $jobs->total()]) }}
                 </p>
             </div>
             <div class="d-flex gap-2">
                 <select id="statusFilter" class="form-select w-auto">
-                    <option value="">Tous</option>
-                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>En attente</option>
-                    <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>En cours</option>
-                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>Terminés</option>
-                    <option value="failed" {{ request('status') == 'failed' ? 'selected' : '' }}>Échoués</option>
+                    <option value="">{{ __('Tous') }}</option>
+                    <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>{{ __('En attente') }}</option>
+                    <option value="processing" {{ request('status') == 'processing' ? 'selected' : '' }}>{{ __('En cours') }}</option>
+                    <option value="completed" {{ request('status') == 'completed' ? 'selected' : '' }}>{{ __('Terminés') }}</option>
+                    <option value="failed" {{ request('status') == 'failed' ? 'selected' : '' }}>{{ __('Échoués') }}</option>
                 </select>
             </div>
         </div>
@@ -32,7 +32,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <span class="text-muted small">Total</span>
+                                <span class="text-muted small">{{ __('Total') }}</span>
                                 <div class="h5 mb-0 fw-bold">{{ $stats['total'] }}</div>
                             </div>
                             <div class="rounded-circle bg-secondary bg-opacity-10 p-2">
@@ -47,7 +47,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <span class="text-muted small">En attente</span>
+                                <span class="text-muted small">{{ __('En attente') }}</span>
                                 <div class="h5 mb-0 fw-bold text-info">{{ $stats['pending'] }}</div>
                             </div>
                             <div class="rounded-circle bg-info bg-opacity-10 p-2">
@@ -62,7 +62,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <span class="text-muted small">En cours</span>
+                                <span class="text-muted small">{{ __('En cours') }}</span>
                                 <div class="h5 mb-0 fw-bold text-warning">{{ $stats['processing'] }}</div>
                             </div>
                             <div class="rounded-circle bg-warning bg-opacity-10 p-2">
@@ -77,7 +77,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <span class="text-muted small">Terminés</span>
+                                <span class="text-muted small">{{ __('Terminés') }}</span>
                                 <div class="h5 mb-0 fw-bold text-success">{{ $stats['completed'] }}</div>
                             </div>
                             <div class="rounded-circle bg-success bg-opacity-10 p-2">
@@ -92,7 +92,7 @@
                     <div class="card-body p-3">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <span class="text-muted small">Échoués</span>
+                                <span class="text-muted small">{{ __('Échoués') }}</span>
                                 <div class="h5 mb-0 fw-bold text-danger">{{ $stats['failed'] }}</div>
                             </div>
                             <div class="rounded-circle bg-danger bg-opacity-10 p-2">
@@ -115,22 +115,22 @@
                                     <span class="text-muted small fw-semibold">#ID</span>
                                 </th>
                                 <th class="py-3">
-                                    <span class="text-muted small fw-semibold">Nom</span>
+                                    <span class="text-muted small fw-semibold">{{ __('fields.name.label') }}</span>
                                 </th>
                                 <th class="py-3">
-                                    <span class="text-muted small fw-semibold">Status</span>
+                                    <span class="text-muted small fw-semibold">{{ __('fields.status.label') }}</span>
                                 </th>
                                 <th class="py-3">
-                                    <span class="text-muted small fw-semibold">Progression</span>
+                                    <span class="text-muted small fw-semibold">{{ __('fields.progress.label') }}</span>
                                 </th>
                                 <th class="py-3">
-                                    <span class="text-muted small fw-semibold">User</span>
+                                    <span class="text-muted small fw-semibold">{{ __('fields.user_id.label') }}</span>
                                 </th>
                                 <th class="py-3">
-                                    <span class="text-muted small fw-semibold">Créé</span>
+                                    <span class="text-muted small fw-semibold">{{ __('fields.created_at.label') }}</span>
                                 </th>
                                 <th class="pe-4 py-3 text-end" width="120">
-                                    <span class="text-muted small fw-semibold">Actions</span>
+                                    <span class="text-muted small fw-semibold">{{ __('Actions') }}</span>
                                 </th>
                             </tr>
                         </thead>
@@ -163,10 +163,10 @@
                                                 default => 'secondary'
                                             };
                                             $statusLabel = match($job->status) {
-                                                'pending' => 'En attente',
-                                                'processing' => 'En cours',
-                                                'completed' => 'Terminé',
-                                                'failed' => 'Échoué',
+                                                'pending' => __('En attente'),
+                                                'processing' => __('En cours'),
+                                                'completed' => __('Terminé'),
+                                                'failed' => __('Échoué'),
                                                 default => $job->status
                                             };
                                         @endphp
@@ -188,7 +188,7 @@
                                                 <i class="bi bi-person me-1 small"></i>{{ $job->user_id }}
                                             </span>
                                         @else
-                                            <span class="text-muted fst-italic small">N/A</span>
+                                            <span class="text-muted fst-italic small">{{ __('N/A') }}</span>
                                         @endif
                                     </td>
                                     <td>
@@ -199,7 +199,7 @@
                                             @can(\App\Permissions\SystemPermissions::VIEW_JOBS)
                                                 <a href="{{ route('admin.job-tracking.show', $job) }}"
                                                     class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
-                                                    title="Voir les détails">
+                                                    title="{{ __('Voir les détails') }}">
                                                     <i class="bi bi-eye fs-6"></i>
                                                 </a>
                                             @endcan
@@ -210,7 +210,7 @@
                                                         @csrf
                                                         <button type="submit"
                                                             class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25 border-0 bg-transparent p-0"
-                                                            title="Relancer le job">
+                                                            title="{{ __('Relancer le job') }}">
                                                             <i class="bi bi-arrow-repeat fs-6 text-warning"></i>
                                                         </button>
                                                     </form>
@@ -222,9 +222,9 @@
                                                     class="icon-circle-xs text-decoration-none text-body hover-bg-secondary-25"
                                                     data-bs-toggle="modal" data-bs-target="#confirmModal"
                                                     data-url="{{ route('admin.job-tracking.destroy', $job) }}"
-                                                    data-method="DELETE" title="Supprimer le job">
+                                                    data-method="DELETE" title="{{ __('Supprimer le job') }}">
                                                     <i class="bi bi-trash fs-6"></i>
-                                                    <span class="visually-hidden">Supprimer</span>
+                                                    <span class="visually-hidden">{{ __('Supprimer') }}</span>
                                                 </a>
                                             @endcan
                                         </div>
@@ -234,7 +234,7 @@
                                 <tr>
                                     <td colspan="7" class="text-center py-5">
                                         <i class="bi bi-clock-history fs-1 text-muted d-block mb-2"></i>
-                                        <p class="text-muted mb-0">Aucun job trouvé</p>
+                                        <p class="text-muted mb-0">{{ __('messages.no_data') }}</p>
                                     </td>
                                 </tr>
                             @endforelse
