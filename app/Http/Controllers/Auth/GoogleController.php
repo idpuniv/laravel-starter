@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use Symfony\Component\HttpFoundation\Response;
 
 class GoogleController extends Controller
 {
@@ -16,15 +16,22 @@ class GoogleController extends Controller
         try {
             return Socialite::driver('google')->redirect();
         } catch (\Throwable $e) {
-            return redirect()->route('login')
-                ->withErrors(['oauth' => 'Erreur de redirection vers Google']);
+            report($e);
+
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'oauth' => __('auth.oauth_redirect_failed'),
+                ]);
         }
     }
 
     public function callback()
     {
         try {
-            $googleUser = Socialite::driver('google')->stateless()->user();
+            $googleUser = Socialite::driver('google')
+                ->stateless()
+                ->user();
 
             $user = User::where('email', $googleUser->getEmail())->first();
 
@@ -35,7 +42,7 @@ class GoogleController extends Controller
                     'provider' => 'google',
                     'provider_id' => $googleUser->getId(),
                     'avatar' => $googleUser->getAvatar(),
-                    'password' => bcrypt(Str::random(32)),
+                    'password' => Hash::make(Str::random(32)),
                     'email_verified_at' => now(),
                 ]);
             } else {
@@ -48,12 +55,17 @@ class GoogleController extends Controller
 
             Auth::login($user, true);
 
-            return redirect()->intended('/dashboard');
+            return redirect()
+                ->intended(route('dashboard'));
 
         } catch (\Throwable $e) {
-            dd($e);
-            return redirect()->route('login')
-                ->withErrors(['oauth' => 'Authentification Google échouée']);
+            report($e);
+
+            return redirect()
+                ->route('login')
+                ->withErrors([
+                    'oauth' => __('auth.oauth_authentication_failed'),
+                ]);
         }
     }
 }
