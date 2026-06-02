@@ -41,7 +41,7 @@ final class Menus
                         [
                             'slug' => 'admin.users.roles',
                             'label' => 'Rôles & permissions',
-                            'route' => 'admin.roles.index',
+                            'route' => 'admin.teams.index',
                         ],
                         [
                             'slug' => 'admin.teams',
