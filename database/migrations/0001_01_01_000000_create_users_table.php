@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('username')->nullable()->unique();
-            $table->foreignId('person_id')->constrained('people')->cascadeOnDelete()->unique();
+            $table->foreignId('person_id')->nullable()->constrained('people')->cascadeOnDelete()->unique();
             $table->foreignId('team_id')->nullable()->constrained('teams');
 
             // Index nécessaire pour le filtrage par statut

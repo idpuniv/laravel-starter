@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\TwoFactorController;
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -77,3 +78,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/confirm-password', [App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'show'])->name('password.confirm');
     Route::post('/confirm-password', [App\Http\Controllers\Admin\Auth\ConfirmablePasswordController::class, 'store']);
 });
+
+Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');

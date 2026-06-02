@@ -17,10 +17,10 @@
 
                         <!-- Session Status -->
                         @if (session('status'))
-                            <div class="alert alert-success mb-4">
-                                <i class="bi bi-check-circle me-2"></i>
-                                {{ session('status') }}
-                            </div>
+                        <div class="alert alert-success mb-4">
+                            <i class="bi bi-check-circle me-2"></i>
+                            {{ session('status') }}
+                        </div>
                         @endif
 
                         <form method="POST" action="{{ route('login') }}">
@@ -41,9 +41,9 @@
                                         required autofocus>
                                 </div>
                                 @error('email')
-                                    <div class="text-danger small mt-1">
-                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
-                                    </div>
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
                                 @enderror
                             </div>
 
@@ -61,9 +61,9 @@
                                         name="password" placeholder="••••••" required>
                                 </div>
                                 @error('password')
-                                    <div class="text-danger small mt-1">
-                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
-                                    </div>
+                                <div class="text-danger small mt-1">
+                                    <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                </div>
                                 @enderror
                             </div>
 
@@ -78,14 +78,17 @@
                             <!-- Buttons -->
                             <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mt-4">
                                 @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}" class="text-decoration-none small">
-                                        {{ __('Mot de passe oublié ?') }}
-                                    </a>
+                                <a href="{{ route('password.request') }}" class="text-decoration-none small">
+                                    {{ __('Mot de passe oublié ?') }}
+                                </a>
                                 @endif
 
                                 <button type="submit" class="btn btn-primary fw-semibold">
                                     {{ __('Se connecter') }}
                                 </button>
+                                <a href="{{ route('google.redirect') }}" class="btn btn-danger w-100">
+                                    Continuer avec Google
+                                </a>
                             </div>
                         </form>
                     </div>
