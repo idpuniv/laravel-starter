@@ -1,0 +1,83 @@
+// ============================================================================
+// _VARIABLES.SCSS - Toutes les variables du projet
+// ============================================================================
+
+// ========================================
+// 1. COULEURS PRINCIPALES (ROUGE, VERT, JAUNE)
+// ========================================
+$primary: #e53e3e !default;
+$primary-dark: #c53030 !default;
+$secondary: #38a169 !default;
+$secondary-dark: #2f855a !default;
+$accent: #f6ad55 !default;
+$accent-dark: #dd6b20 !default;
+
+// ========================================
+// 2. COULEURS SÉMANTIQUES
+// ========================================
+$success: #38a169 !default;
+$warning: #f6ad55 !default;
+$danger: #e53e3e !default;
+$info: #3182ce !default;
+
+// ========================================
+// 3. COULEURS NEUTRES
+// ========================================
+$light: #fefcf5 !default;
+$white: #ffffff !default;
+$dark: #2d3748 !default;
+
+// ========================================
+// 4. NUANCES DE GRIS
+// ========================================
+$gray-50: #f7fafc !default;
+$gray-100: #edf2f7 !default;
+$gray-200: #e2e8f0 !default;
+$gray-300: #cbd5e0 !default;
+$gray-400: #a0aec0 !default;
+$gray-500: #718096 !default;
+$gray-600: #4a5568 !default;
+$gray-700: #2d3748 !default;
+$gray-800: #1a202c !default;
+$gray-900: #171923 !default;
+
+// ========================================
+// 5. VARIANTES POUR DARK MODE
+// ========================================
+$red-400: #f56565 !default;
+$green-400: #48bb78 !default;
+$yellow-400: #ecc94b !default;
+
+// ========================================
+// 6. TYPOGRAPHIE
+// ========================================
+$font-family-base: 'DM Sans', sans-serif !default;
+$font-size-base: 1rem !default;
+
+// ========================================
+// 7. BORDURES
+// ========================================
+$border-radius: 0.5rem !default;
+$border-radius-lg: 0.75rem !default;
+$border-radius-xl: 1rem !default;
+$border-radius-2xl: 1.5rem !default;
+
+// ========================================
+// 8. OMBRES
+// ========================================
+$box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !default;
+$box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2) !default;
+$box-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12) !default;
+$box-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !default;
+
+// ========================================
+// 9. TRANSITIONS
+// ========================================
+$transition-fast: 0.1s ease-in-out !default;
+$transition-base: 0.2s ease-in-out !default;
+$transition-slow: 0.3s ease-in-out !default;
+
+// ========================================
+// 10. CARD
+// ========================================
+$card-border-radius: 24px !default;

@@ -1,0 +1,33 @@
+// ============================================================================
+// ACCESSIBILITY & UTILITIES
+// ============================================================================
+
+@import "variables";
+
+:focus-visible {
+    outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
+    border-radius: $dashboard-border-radius-sm;
+}
+
+.skip-to-content {
+    background: $dashboard-focus-outline-color;
+    color: var(--bs-white);
+    border-radius: $dashboard-border-radius-sm;
+}
+
+.reduced-motion {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.touch-device {
+    button,
+    .nav-link,
+    .sidebar-toggle-btn {
+        min-height: $dashboard-touch-target-min-height;
+    }
+}

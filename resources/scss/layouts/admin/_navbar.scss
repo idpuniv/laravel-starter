@@ -1,0 +1,35 @@
+
+
+@import "variables";
+
+.navbar-fixed {
+    background-color: $dashboard-navbar-bg;
+    border-bottom: 1px solid $dashboard-navbar-border-color;
+    height: $dashboard-navbar-height;
+}
+
+.navbar-fixed .nav-link {
+    color: $dashboard-navbar-toggle-color;
+    padding: $dashboard-nav-link-padding;
+    border-radius: $dashboard-border-radius-sm;
+}
+
+.navbar-fixed .nav-link.btn-link {
+    padding: $dashboard-nav-link-padding;
+}
+
+.sidebar-toggle-btn {
+    border-radius: $dashboard-border-radius-sm;
+    color: $dashboard-navbar-toggle-color;
+    
+    &:focus-visible {
+        outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
+        outline-offset: $dashboard-focus-outline-offset;
+    }
+}
+
+.navbar-brand i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}

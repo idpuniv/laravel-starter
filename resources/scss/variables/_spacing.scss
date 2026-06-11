@@ -1,0 +1,26 @@
+// ============================================================================
+// _SPACING.SCSS - Espacements (échelle 8px)
+// ============================================================================
+
+$spacer: 1rem !default;  // 16px de base
+
+$spacers: (
+    0: 0,
+    1: $spacer * 0.25,   // 4px
+    2: $spacer * 0.5,    // 8px
+    3: $spacer,          // 16px
+    4: $spacer * 1.5,    // 24px
+    5: $spacer * 2,      // 32px
+    6: $spacer * 2.5,    // 40px
+    7: $spacer * 3,      // 48px
+    8: $spacer * 4,      // 64px
+    9: $spacer * 5,      // 80px
+    10: $spacer * 6,     // 96px
+) !default;
+
+// Espacements spécifiques
+$padding-input: 0.9rem 1rem !default;
+$padding-btn: 1rem !default;
+$padding-hero: 2.5rem !default;
+$padding-form: 2.5rem !default;
+$padding-card: 1.5rem !default;

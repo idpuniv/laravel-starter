@@ -1,0 +1,23 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Lignes de langue pour l’authentification
+    |--------------------------------------------------------------------------
+    |
+    | Les lignes de langue suivantes sont utilisées lors de l’authentification
+    | pour afficher différents messages à l’utilisateur. Vous pouvez les modifier
+    | selon les besoins de votre application.
+    |
+    */
+
+    'failed' => 'Ces identifiants ne correspondent pas à nos enregistrements.',
+    'password' => 'Le mot de passe fourni est incorrect.',
+    'throttle' => 'Trop de tentatives de connexion. Veuillez réessayer dans :seconds secondes.',
+    'account_disabled' => 'Votre compte est désactivé. Contactez l’administrateur.',
+    'invalid_or_expired_two_factor_code' => 'Le code de vérification est invalide ou expiré.',
+    'two_factor_code_sent' => 'Un nouveau code de vérification a été envoyé à votre adresse email.',
+
+];

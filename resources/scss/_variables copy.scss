@@ -1,0 +1,146 @@
+// ============================================================================
+// _VARIABLES.SCSS - DESIGN POP CONSTRUCTIVISTE (ROUGE / VERT / JAUNE)
+// ============================================================================
+
+// ========================================
+// 1. COULEURS PRINCIPALES (10% - Actions)
+// ========================================
+$primary: #e53e3e !default;      // ROUGE - Actions principales, CTA
+$secondary: #38a169 !default;    // VERT - Actions secondaires, validation
+$accent: #f6ad55 !default;       // JAUNE - Notifications, highlights
+
+// ========================================
+// 2. COULEURS SÉMANTIQUES (Feedbacks)
+// ========================================
+$success: #38a169 !default;      // VERT - Succès, validation
+$danger: #e53e3e !default;       // ROUGE - Erreurs, suppression
+$warning: #f6ad55 !default;      // JAUNE - Alertes, attention
+$info: #3182ce !default;         // Bleu - Informations neutres (contrepoint)
+
+// ========================================
+// 3. COULEURS NEUTRES (60% - Fonds)
+// ========================================
+$light: #fefcf5 !default;        // OFF-WHITE / papier - Fond principal
+$white: #ffffff !default;        // Blanc pur - Cards, modales
+$dark: #2d3748 !default;         // GRIS FONCÉ - Texte principal
+
+// ========================================
+// 4. NUANCES DE GRIS (30% - Hiérarchie)
+// ========================================
+$gray-50: #f7fafc !default;
+$gray-100: #edf2f7 !default;
+$gray-200: #e2e8f0 !default;
+$gray-300: #cbd5e0 !default;
+$gray-400: #a0aec0 !default;
+$gray-500: #718096 !default;
+$gray-600: #4a5568 !default;
+$gray-700: #2d3748 !default;
+$gray-800: #1a202c !default;
+$gray-900: #171923 !default;
+
+// ========================================
+// 5. VARIANTES ROUGE
+// ========================================
+$red-50: #fff5f5 !default;
+$red-100: #fed7d7 !default;
+$red-200: #feb2b2 !default;
+$red-300: #fc8181 !default;
+$red-400: #f56565 !default;
+$red-500: #e53e3e !default;
+$red-600: #c53030 !default;
+$red-700: #9b2c2c !default;
+$red-800: #742a2a !default;
+$red-900: #4a1c1c !default;
+
+// ========================================
+// 6. VARIANTES VERT
+// ========================================
+$green-50: #f0fff4 !default;
+$green-100: #c6f6d5 !default;
+$green-200: #9ae6b4 !default;
+$green-300: #68d391 !default;
+$green-400: #48bb78 !default;
+$green-500: #38a169 !default;
+$green-600: #2f855a !default;
+$green-700: #276749 !default;
+$green-800: #22543d !default;
+$green-900: #1c4532 !default;
+
+// ========================================
+// 7. VARIANTES JAUNE
+// ========================================
+$yellow-50: #fffff0 !default;
+$yellow-100: #fefcbf !default;
+$yellow-200: #faf089 !default;
+$yellow-300: #f6e05e !default;
+$yellow-400: #ecc94b !default;
+$yellow-500: #f6ad55 !default;
+$yellow-600: #dd6b20 !default;
+$yellow-700: #c05621 !default;
+$yellow-800: #9c4221 !default;
+$yellow-900: #7b341e !default;
+
+// ========================================
+// 8. TYPOGRAPHIE
+// ========================================
+$font-family-display: 'Fraunces', serif !default;
+$font-family-body: 'DM Sans', sans-serif !default;
+$font-family-base: $font-family-body !default;
+$font-size-base: 1rem !default;
+$font-weight-normal: 400 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+
+// ========================================
+// 9. ESPACEMENTS (Échelle 8px)
+// ========================================
+$spacer: 1rem !default;
+$spacers: (
+    0: 0,
+    1: $spacer * 0.25,
+    2: $spacer * 0.5,
+    3: $spacer,
+    4: $spacer * 1.5,
+    5: $spacer * 2,
+    6: $spacer * 2.5,
+    7: $spacer * 3,
+    8: $spacer * 4,
+) !default;
+
+// ========================================
+// 10. BORDURES
+// ========================================
+$border-radius-sm: 0.25rem !default;
+$border-radius: 0.375rem !default;
+$border-radius-lg: 0.5rem !default;
+$border-radius-xl: 0.75rem !default;
+$border-radius-2xl: 1rem !default;
+$border-radius-3xl: 1.5rem !default;
+$border-radius-pill: 50rem !default;
+
+// ========================================
+// 11. OMBRES
+// ========================================
+$box-shadow-sm: 0 10px 20px -5px rgba(0, 0, 0, 0.08) !default;
+$box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.2) !default;
+$box-shadow-lg: 0 12px 20px -10px rgba(229, 62, 62, 0.4) !default;
+
+// ========================================
+// 12. TRANSITIONS
+// ========================================
+$transition-fast: 0.2s ease !default;
+$transition-base: 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1) !default;
+$transition-slow: 0.3s ease !default;
+
+// ========================================
+// 13. DASHBOARD
+// ========================================
+$dashboard-sidebar-bg-light: #ffffff !default;
+$dashboard-sidebar-bg-dark: #1a202c !default;
+$dashboard-sidebar-width: 280px !default;
+$dashboard-sidebar-collapsed-width: 72px !default;
+
+// ========================================
+// 14. BREADCRUMB
+// ========================================
+$breadcrumb-divider: quote(">") !default;

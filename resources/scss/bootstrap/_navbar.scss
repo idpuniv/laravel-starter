@@ -1,0 +1,17 @@
+// ============================================================================
+// NAVBAR OVERRIDES
+// ============================================================================
+
+@import "../core/colors";
+
+$navbar-light-color: $gray-600 !default;
+$navbar-light-hover-color: $primary !default;
+$navbar-light-active-color: $primary-dark !default;
+$navbar-light-brand-color: $gray-900 !default;
+$navbar-light-brand-hover-color: $primary !default;
+
+$navbar-dark-color: $gray-400 !default;
+$navbar-dark-hover-color: $primary !default;
+$navbar-dark-active-color: $primary !default;
+$navbar-dark-brand-color: $white !default;
+$navbar-dark-brand-hover-color: $primary !default;

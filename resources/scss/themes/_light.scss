@@ -1,0 +1,33 @@
+// ============================================================================
+// LIGHT THEME
+// ============================================================================
+
+:root,
+[data-bs-theme="light"] {
+    // ------------------------------------------------------------------------
+    // Navbar
+    // ------------------------------------------------------------------------
+    --bs-navbar-bg: #{$white};
+    --bs-navbar-color: #{$gray-700};
+    --bs-navbar-hover-color: #{$primary};
+    --bs-navbar-active-color: #{$primary-dark};
+    --bs-navbar-brand-color: #{$gray-900};
+    --bs-navbar-brand-hover-color: #{$primary};
+    --bs-navbar-toggler-border-color: #{$gray-300};
+
+    // ------------------------------------------------------------------------
+    // Footer
+    // ------------------------------------------------------------------------
+    --footer-bg: #{$gray-100};
+    --footer-color: #{$gray-600};
+    --footer-border-color: #{$gray-300};
+    --footer-link-color: #{$gray-600};
+    --footer-link-hover-color: #{$primary};
+
+    // ------------------------------------------------------------------------
+    // Body (hérite de Bootstrap)
+    // ------------------------------------------------------------------------
+    --bs-body-bg: #{$white};
+    --bs-body-color: #{$gray-900};
+    --bs-border-color: #{$gray-300};
+}

@@ -1,0 +1,10 @@
+// ============================================================================
+// FOOTER - Couleurs et styles visuels
+// ============================================================================
+
+@import "variables";
+
+.footer-fixed {
+    background-color: $dashboard-footer-bg;
+    border-top: 1px solid $dashboard-footer-border-color;
+}

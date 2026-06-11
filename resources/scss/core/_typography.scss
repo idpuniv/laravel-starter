@@ -1,0 +1,44 @@
+// ============================================================================
+// TYPOGRAPHY TOKENS
+// ============================================================================
+
+// Font families
+$font-family-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !default;
+$font-family-serif: Georgia, "Times New Roman", serif !default;
+$font-family-monospace: SFMono-Regular, Menlo, Monaco, monospace !default;
+
+// Font sizes
+$font-size-xs: 0.75rem !default;
+$font-size-sm: 0.875rem !default;
+$font-size-base: 1rem !default;
+$font-size-md: 1.125rem !default;
+$font-size-lg: 1.25rem !default;
+$font-size-xl: 1.5rem !default;
+$font-size-2xl: 1.875rem !default;
+$font-size-3xl: 2.25rem !default;
+$font-size-4xl: 3rem !default;
+
+// Heading sizes
+$h1-font-size: $font-size-4xl !default;
+$h2-font-size: $font-size-3xl !default;
+$h3-font-size: $font-size-2xl !default;
+$h4-font-size: $font-size-xl !default;
+$h5-font-size: $font-size-lg !default;
+$h6-font-size: $font-size-base !default;
+
+// Font weights
+$font-weight-light: 300 !default;
+$font-weight-normal: 400 !default;
+$font-weight-medium: 500 !default;
+$font-weight-semibold: 600 !default;
+$font-weight-bold: 700 !default;
+
+// Line heights
+$line-height-tight: 1.25 !default;
+$line-height-base: 1.5 !default;
+$line-height-relaxed: 1.75 !default;
+
+// Letter spacing
+$letter-spacing-tight: -0.025em !default;
+$letter-spacing-normal: 0 !default;
+$letter-spacing-wide: 0.025em !default;

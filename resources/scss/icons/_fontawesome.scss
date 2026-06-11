@@ -1,0 +1,21 @@
+// ============================================================================
+// FONT AWESOME
+// ============================================================================
+
+// Core Font Awesome styles (required)
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+
+// Load only the icon styles you need (uncomment as needed)
+@import "@fortawesome/fontawesome-free/scss/solid.scss";     // Solid icons (fas)
+// @import "@fortawesome/fontawesome-free/scss/regular.scss";  // Regular icons (far)
+// @import "@fortawesome/fontawesome-free/scss/brands.scss";   // Brand icons (fab)
+
+// ----------------------------------------------------------------------------
+// Custom Font Awesome overrides
+// ----------------------------------------------------------------------------
+.fa,
+.fas,
+.far,
+.fab {
+    vertical-align: middle;
+}

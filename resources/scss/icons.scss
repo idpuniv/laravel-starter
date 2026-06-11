@@ -1,0 +1,20 @@
+// ============================================================================
+// FONT AWESOME
+// ============================================================================
+
+// Core Font Awesome styles (required)
+$fa-font-path: "/node_modules/@fortawesome/fontawesome-free/webfonts";
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+
+// Load only the icon styles you need
+@import "@fortawesome/fontawesome-free/scss/solid.scss";    // Solid icons (fas)
+// @import "@fortawesome/fontawesome-free/scss/regular.scss";  // Regular icons (far)
+// @import "@fortawesome/fontawesome-free/scss/brands.scss";   // Brand icons (fab)
+
+
+// ============================================================================
+// BOOTSTRAP ICONS
+// ============================================================================
+
+// Bootstrap Icons (CSS-based icon library)
+@import "bootstrap-icons/font/bootstrap-icons.css";

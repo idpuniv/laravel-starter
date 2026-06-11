@@ -1,0 +1,137 @@
+// ============================================================================
+// ADMIN LAYOUT - ENTRY POINT
+// ============================================================================
+@import "../../core/colors";
+@import "variables";
+@import "layout";
+@import "sidebar";
+@import "navbar";
+@import "content";
+@import "footer";
+@import "avatar";
+@import "accessibility";
+
+// Génération des variables CSS avec préfixe dynamique
+:root {
+    // Dimensions
+    --#{$dashboard-prefix-name}sidebar-width: #{$dashboard-sidebar-width};
+    --#{$dashboard-prefix-name}sidebar-collapsed-w: #{$dashboard-sidebar-collapsed-w};
+    --#{$dashboard-prefix-name}navbar-height: #{$dashboard-navbar-height};
+    --#{$dashboard-prefix-name}footer-height: #{$dashboard-footer-height};
+    --#{$dashboard-prefix-name}scrollbar-width: #{$dashboard-scrollbar-width};
+    --#{$dashboard-prefix-name}scrollbar-width-sidebar: #{$dashboard-scrollbar-width-sidebar};
+
+    // Z-index
+    --#{$dashboard-prefix-name}zindex-sidebar: #{$dashboard-zindex-sidebar};
+    --#{$dashboard-prefix-name}zindex-overlay: #{$dashboard-zindex-overlay};
+
+    // Border radius
+    --#{$dashboard-prefix-name}border-radius-sm: #{$dashboard-border-radius-sm};
+    --#{$dashboard-prefix-name}border-radius-md: #{$dashboard-border-radius-md};
+    --#{$dashboard-prefix-name}border-radius-lg: #{$dashboard-border-radius-lg};
+    --#{$dashboard-prefix-name}border-radius-pill: #{$dashboard-border-radius-pill};
+
+    // Transitions
+    --#{$dashboard-prefix-name}transition-width: #{$dashboard-transition-width};
+    --#{$dashboard-prefix-name}transition-transform: #{$dashboard-transition-transform};
+    --#{$dashboard-prefix-name}transition-nav-arrow: #{$dashboard-transition-nav-arrow};
+    --#{$dashboard-prefix-name}transition-treeview: #{$dashboard-transition-treeview};
+    --#{$dashboard-prefix-name}transition-colors: #{$dashboard-transition-colors};
+
+    // Spacing
+    --#{$dashboard-prefix-name}spacer: #{$dashboard-spacer};
+    --#{$dashboard-prefix-name}spacer-half: #{$dashboard-spacer-half};
+    --#{$dashboard-prefix-name}spacer-quarter: #{$dashboard-spacer-quarter};
+    --#{$dashboard-prefix-name}sidebar-padding-y: #{$dashboard-sidebar-padding-y};
+    --#{$dashboard-prefix-name}sidebar-padding-x: #{$dashboard-sidebar-padding-x};
+    --#{$dashboard-prefix-name}sidebar-profile-padding: #{$dashboard-sidebar-profile-padding};
+    --#{$dashboard-prefix-name}sidebar-footer-padding: #{$dashboard-sidebar-footer-padding};
+    --#{$dashboard-prefix-name}content-padding: #{$dashboard-content-padding};
+    --#{$dashboard-prefix-name}content-padding-mobile: #{$dashboard-content-padding-mobile};
+    --#{$dashboard-prefix-name}footer-padding: #{$dashboard-footer-padding};
+    --#{$dashboard-prefix-name}nav-link-padding: #{$dashboard-nav-link-padding};
+    --#{$dashboard-prefix-name}nav-link-margin-right: #{$dashboard-nav-link-margin-right};
+    --#{$dashboard-prefix-name}menu-item-padding-y: #{$dashboard-menu-item-padding-y};
+    --#{$dashboard-prefix-name}menu-item-padding-x: #{$dashboard-menu-item-padding-x};
+    --#{$dashboard-prefix-name}menu-item-icon-width: #{$dashboard-menu-item-icon-width};
+    --#{$dashboard-prefix-name}menu-item-icon-margin: #{$dashboard-menu-item-icon-margin};
+    --#{$dashboard-prefix-name}menu-subitem-padding-y: #{$dashboard-menu-subitem-padding-y};
+    --#{$dashboard-prefix-name}menu-subitem-padding-x: #{$dashboard-menu-subitem-padding-x};
+    --#{$dashboard-prefix-name}menu-subitem-padding-left: #{$dashboard-menu-subitem-padding-left};
+    --#{$dashboard-prefix-name}nav-header-padding: #{$dashboard-nav-header-padding};
+
+    // Breakpoints
+    --#{$dashboard-prefix-name}breakpoint-mobile: #{$dashboard-breakpoint-mobile};
+    --#{$dashboard-prefix-name}breakpoint-small: #{$dashboard-breakpoint-small};
+
+    // Font sizes
+    --#{$dashboard-prefix-name}font-size-sm: #{$dashboard-font-size-sm};
+    --#{$dashboard-prefix-name}font-size-xs: #{$dashboard-font-size-xs};
+    --#{$dashboard-prefix-name}font-size-nav-header: #{$dashboard-font-size-nav-header};
+    --#{$dashboard-prefix-name}font-size-badge: #{$dashboard-font-size-badge};
+    --#{$dashboard-prefix-name}font-size-avatar: #{$dashboard-font-size-avatar};
+
+    // Font weights
+    --#{$dashboard-prefix-name}font-weight-semibold: #{$dashboard-font-weight-semibold};
+    --#{$dashboard-prefix-name}font-weight-bold: #{$dashboard-font-weight-bold};
+
+    // Touch target
+    --#{$dashboard-prefix-name}touch-target-min-height: #{$dashboard-touch-target-min-height};
+
+    // Overlay
+    --#{$dashboard-prefix-name}overlay-bg: #{$dashboard-overlay-bg};
+
+    // Scrollbar colors
+    --#{$dashboard-prefix-name}sidebar-scrollbar-track: #{$dashboard-sidebar-scrollbar-track};
+    --#{$dashboard-prefix-name}sidebar-scrollbar-thumb: #{$dashboard-sidebar-scrollbar-thumb};
+    --#{$dashboard-prefix-name}content-scrollbar-track: #{$dashboard-content-scrollbar-track};
+    --#{$dashboard-prefix-name}content-scrollbar-thumb: #{$dashboard-content-scrollbar-thumb};
+
+    // Sidebar colors
+    --#{$dashboard-prefix-name}sidebar-bg: #{$dashboard-sidebar-bg};
+    --#{$dashboard-prefix-name}sidebar-color: #{$dashboard-sidebar-color};
+    --#{$dashboard-prefix-name}sidebar-profile-border: #{$dashboard-sidebar-profile-border};
+    --#{$dashboard-prefix-name}sidebar-footer-border: #{$dashboard-sidebar-footer-border};
+    --#{$dashboard-prefix-name}sidebar-footer-color: #{$dashboard-sidebar-footer-color};
+
+    // Menu colors
+    --#{$dashboard-prefix-name}menu-link-color: #{$dashboard-menu-link-color};
+    --#{$dashboard-prefix-name}menu-link-hover-bg: #{$dashboard-menu-link-hover-bg};
+    --#{$dashboard-prefix-name}menu-link-hover-color: #{$dashboard-menu-link-hover-color};
+    --#{$dashboard-prefix-name}menu-link-active-bg: #{$dashboard-menu-link-active-bg};
+    --#{$dashboard-prefix-name}menu-link-active-color: #{$dashboard-menu-link-active-color};
+    --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color};
+
+    // Navbar colors
+    --#{$dashboard-prefix-name}navbar-bg: #{$dashboard-navbar-bg};
+    --#{$dashboard-prefix-name}navbar-border-color: #{$dashboard-navbar-border-color};
+    --#{$dashboard-prefix-name}navbar-toggle-color: #{$dashboard-navbar-toggle-color};
+
+    // Footer colors
+    --#{$dashboard-prefix-name}footer-bg: #{$dashboard-footer-bg};
+    --#{$dashboard-prefix-name}footer-border-color: #{$dashboard-footer-border-color};
+
+    // Avatar colors
+    --#{$dashboard-prefix-name}avatar-bg: #{$dashboard-avatar-bg};
+    --#{$dashboard-prefix-name}avatar-color: #{$dashboard-avatar-color};
+
+    // Danger link colors
+    --#{$dashboard-prefix-name}danger-color: #{$dashboard-danger-color};
+    --#{$dashboard-prefix-name}danger-hover-bg: #{$dashboard-danger-hover-bg};
+    --#{$dashboard-prefix-name}danger-hover-color: #{$dashboard-danger-hover-color};
+
+    // Focus outline
+    --#{$dashboard-prefix-name}focus-outline-color: #{$dashboard-focus-outline-color};
+    --#{$dashboard-prefix-name}focus-outline-width: #{$dashboard-focus-outline-width};
+    --#{$dashboard-prefix-name}focus-outline-offset: #{$dashboard-focus-outline-offset};
+
+    // Badge
+    --#{$dashboard-prefix-name}badge-bg: #{$dashboard-badge-bg};
+    --#{$dashboard-prefix-name}badge-color: #{$dashboard-badge-color};
+    --#{$dashboard-prefix-name}badge-border-width: #{$dashboard-badge-border-width};
+    --#{$dashboard-prefix-name}badge-border-color: #{$dashboard-badge-border-color};
+
+    // Nav header
+    --#{$dashboard-prefix-name}nav-header-color: #{$dashboard-nav-header-color};
+
+}

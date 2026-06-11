@@ -1,0 +1,143 @@
+<x-guest-layout>
+    <div class="container d-flex flex-column flex-grow-1">
+        <div class="row d-flex flex-column flex-grow-1 justify-content-center align-items-center">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
+                <div class="card shadow-none shadow-md-lg rounded-4 border-0">
+                    <div class="card-body p-2 p-sm-3 p-md-5 p-lg-5">
+                        <!-- Header -->
+                        <div class="text-center mb-4">
+                            <div class="bg-primary bg-opacity-10 icon-circle-lg">
+                                <i class="bi bi-person-plus text-primary"></i>
+                            </div>
+                            <h4 class="mb-2">{{ __('Créer un compte') }}</h4>
+                            <p class="text-secondary small mb-0">
+                                {{ __('Inscrivez-vous pour commencer à utiliser votre compte.') }}
+                            </p>
+                        </div>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger mb-4">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                {{ __('Veuillez corriger les erreurs ci-dessous.') }}
+                            </div>
+                        @endif
+
+                        <form method="POST" action="{{ route('register') }}">
+                            @csrf
+
+                            <!-- Name Field -->
+                            <div class="mb-3">
+                                <label for="name" class="form-label fw-medium">
+                                    {{ __('Nom complet') }}
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-end-0">
+                                        <i class="bi bi-person text-secondary"></i>
+                                    </span>
+                                    <input type="text" 
+                                           id="name" 
+                                           class="form-control border-start-0 @error('name') is-invalid @enderror"
+                                           name="name"
+                                           value="{{ old('name') }}"
+                                           placeholder="John Doe"
+                                           required autofocus>
+                                </div>
+                                @error('name')
+                                    <div class="text-danger small mt-1">
+                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Email Field -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-medium">
+                                    {{ __('Adresse e-mail') }}
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-end-0">
+                                        <i class="bi bi-envelope text-secondary"></i>
+                                    </span>
+                                    <input type="email" 
+                                           id="email" 
+                                           class="form-control border-start-0 @error('email') is-invalid @enderror"
+                                           name="email"
+                                           value="{{ old('email') }}"
+                                           placeholder="nom@exemple.com"
+                                           required>
+                                </div>
+                                @error('email')
+                                    <div class="text-danger small mt-1">
+                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Password Field -->
+                            <div class="mb-3">
+                                <label for="password" class="form-label fw-medium">
+                                    {{ __('Mot de passe') }}
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-end-0">
+                                        <i class="bi bi-lock text-secondary"></i>
+                                    </span>
+                                    <input type="password" 
+                                           id="password" 
+                                           class="form-control border-start-0 @error('password') is-invalid @enderror"
+                                           name="password"
+                                           placeholder="••••••"
+                                           required>
+                                </div>
+                                @error('password')
+                                    <div class="text-danger small mt-1">
+                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                    </div>
+                                @enderror
+                                <div class="form-text small text-muted">
+                                    {{ __('Le mot de passe doit contenir au moins 8 caractères.') }}
+                                </div>
+                            </div>
+
+                            <!-- Confirm Password Field -->
+                            <div class="mb-4">
+                                <label for="password_confirmation" class="form-label fw-medium">
+                                    {{ __('Confirmer le mot de passe') }}
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text border-end-0">
+                                        <i class="bi bi-check-circle text-secondary"></i>
+                                    </span>
+                                    <input type="password" 
+                                           id="password_confirmation" 
+                                           class="form-control border-start-0 @error('password_confirmation') is-invalid @enderror"
+                                           name="password_confirmation"
+                                           placeholder="••••••"
+                                           required>
+                                </div>
+                                @error('password_confirmation')
+                                    <div class="text-danger small mt-1">
+                                        <i class="bi bi-exclamation-circle me-1"></i>{{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-3 mt-4">
+                                <a href="{{ route('login') }}" class="text-decoration-none small">
+                                    <i class="bi bi-arrow-left me-1"></i>
+                                    {{ __('Déjà inscrit ?') }}
+                                </a>
+
+                                <button type="submit" class="btn btn-primary px-4 py-2 fw-semibold">
+                                    <i class="bi bi-person-plus me-2"></i>
+                                    {{ __('S\'inscrire') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-guest-layout>

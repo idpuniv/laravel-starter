@@ -1,0 +1,27 @@
+// ============================================================================
+// SPACING UTILITIES
+// ============================================================================
+
+@each $bp, $bp-value in $grid-breakpoints {
+    @if $bp-value != 0 {
+        @media (min-width: $bp-value) {
+            @each $size, $spacer-value in $spacers {
+                .m-#{$bp}-#{$size} { margin: $spacer-value !important; }
+                .mt-#{$bp}-#{$size} { margin-top: $spacer-value !important; }
+                .mb-#{$bp}-#{$size} { margin-bottom: $spacer-value !important; }
+                .ml-#{$bp}-#{$size} { margin-left: $spacer-value !important; }
+                .mr-#{$bp}-#{$size} { margin-right: $spacer-value !important; }
+                .mx-#{$bp}-#{$size} { margin-left: $spacer-value !important; margin-right: $spacer-value !important; }
+                .my-#{$bp}-#{$size} { margin-top: $spacer-value !important; margin-bottom: $spacer-value !important; }
+                
+                .p-#{$bp}-#{$size} { padding: $spacer-value !important; }
+                .pt-#{$bp}-#{$size} { padding-top: $spacer-value !important; }
+                .pb-#{$bp}-#{$size} { padding-bottom: $spacer-value !important; }
+                .pl-#{$bp}-#{$size} { padding-left: $spacer-value !important; }
+                .pr-#{$bp}-#{$size} { padding-right: $spacer-value !important; }
+                .px-#{$bp}-#{$size} { padding-left: $spacer-value !important; padding-right: $spacer-value !important; }
+                .py-#{$bp}-#{$size} { padding-top: $spacer-value !important; padding-bottom: $spacer-value !important; }
+            }
+        }
+    }
+}

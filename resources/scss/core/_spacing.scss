@@ -1,0 +1,26 @@
+// ============================================================================
+// SPACING TOKENS
+// ============================================================================
+
+$spacer: 1rem !default;
+
+$spacers: (
+    0: 0,
+    1: $spacer * 0.25,
+    2: $spacer * 0.5,
+    3: $spacer * 0.75,
+    4: $spacer,
+    5: $spacer * 1.25,
+    6: $spacer * 1.5,
+    7: $spacer * 1.75,
+    8: $spacer * 2,
+    9: $spacer * 2.5,
+    10: $spacer * 3,
+) !default;
+
+// Layout dimensions
+$dashboard-sidebar-width: 260px !default;
+$dashboard-sidebar-collapsed-w: 80px !default;
+$dashboard-navbar-height: 70px !default;
+$dashboard-footer-height: 60px !default;
+$dashboard-scrollbar-width: 8px !default;

@@ -1,0 +1,21 @@
+// ============================================================================
+// ICONS VARIABLES
+// ============================================================================
+
+// Font Awesome path
+$fa-font-path: "/node_modules/@fortawesome/fontawesome-free/webfonts" !default;
+
+// Icon sizes (in rem)
+$icon-size-xs: 0.75rem !default;   // 12px
+$icon-size-sm: 0.875rem !default;  // 14px
+$icon-size-md: 1rem !default;      // 16px
+$icon-size-lg: 1.25rem !default;   // 20px
+$icon-size-xl: 1.5rem !default;    // 24px
+$icon-size-2xl: 2rem !default;     // 32px
+
+// Icon color variants
+$icon-color-primary: var(--bs-primary) !default;
+$icon-color-secondary: var(--bs-secondary) !default;
+$icon-color-muted: var(--bs-secondary-color) !default;
+$icon-color-white: $white !default;
+$icon-color-black: $black !default;

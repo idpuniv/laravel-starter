@@ -1,0 +1,46 @@
+// ============================================================================
+// APP.SCSS - Main entry point
+// ============================================================================
+
+// 1. BOOTSTRAP FUNCTIONS (must be first)
+@import "bootstrap/scss/functions";
+
+// 2. CORE TOKENS
+@import "core/index";
+
+// 3. BOOTSTRAP CORE + OVERRIDES
+@import "bootstrap/index";
+
+// 4. UTILITIES
+@import "utils/index";
+
+// 5. SHARED
+@import "shared/index";
+
+// 6. COMPONENTS
+
+
+
+// 7. LAYOUTS
+@import "layouts/index";
+
+// 8. PAGES
+@import "pages/index";
+
+// 9. THEMES
+@import "themes/index";
+
+// 10. FONTS
+@import "fonts/index";
+
+// 11. ICONS
+@import "icons/index";
+
+// 12. PLUGINS
+@import "plugins/index";
+
+@import "utils/index";
+
+@import "themes/index";
+
+@import "components/index";

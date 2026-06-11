@@ -1,0 +1,10 @@
+// ============================================================================
+// NAV OVERRIDES
+// ============================================================================
+
+@import "../core/colors";
+
+$nav-link-color: $gray-700 !default;
+$nav-link-hover-color: $primary !default;
+$nav-tabs-link-active-color: $primary !default;
+$nav-pills-link-active-bg: $primary !default;

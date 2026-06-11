@@ -1,0 +1,22 @@
+// ============================================================================
+// CONTENT - Couleurs et styles visuels
+// ============================================================================
+
+@import "variables";
+
+.main-col {
+    background-color: $dashboard-body-bg;
+}
+
+.content-scrollable {
+    &::-webkit-scrollbar {
+        width: $dashboard-scrollbar-width;
+    }
+    &::-webkit-scrollbar-track {
+        background: $dashboard-content-scrollbar-track;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: $dashboard-content-scrollbar-thumb;
+        border-radius: 3px;
+    }
+}

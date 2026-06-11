@@ -1,0 +1,109 @@
+// ============================================================================
+// ICON SIZE UTILITIES
+// Works with Font Awesome, Bootstrap Icons, and custom icon sets
+// ============================================================================
+
+@import "variables";
+
+// ----------------------------------------------------------------------------
+// Size classes (.icon-xs, .icon-sm, .icon-md, etc.)
+// ----------------------------------------------------------------------------
+.icon-xs {
+    font-size: $icon-size-xs !important;
+    width: $icon-size-xs;
+    height: $icon-size-xs;
+}
+
+.icon-sm {
+    font-size: $icon-size-sm !important;
+    width: $icon-size-sm;
+    height: $icon-size-sm;
+}
+
+.icon-md {
+    font-size: $icon-size-md !important;
+    width: $icon-size-md;
+    height: $icon-size-md;
+}
+
+.icon-lg {
+    font-size: $icon-size-lg !important;
+    width: $icon-size-lg;
+    height: $icon-size-lg;
+}
+
+.icon-xl {
+    font-size: $icon-size-xl !important;
+    width: $icon-size-xl;
+    height: $icon-size-xl;
+}
+
+.icon-2xl {
+    font-size: $icon-size-2xl !important;
+    width: $icon-size-2xl;
+    height: $icon-size-2xl;
+}
+
+// ----------------------------------------------------------------------------
+// Color variants
+// ----------------------------------------------------------------------------
+.icon-primary {
+    color: $icon-color-primary !important;
+}
+
+.icon-secondary {
+    color: $icon-color-secondary !important;
+}
+
+.icon-muted {
+    color: $icon-color-muted !important;
+}
+
+.icon-white {
+    color: $icon-color-white !important;
+}
+
+.icon-black {
+    color: $icon-color-black !important;
+}
+
+// ----------------------------------------------------------------------------
+// Helper: icon with background circle
+// ----------------------------------------------------------------------------
+.icon-circle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: var(--bs-tertiary-bg);
+
+    &.icon-xs {
+        width: calc(#{$icon-size-xs} * 2);
+        height: calc(#{$icon-size-xs} * 2);
+    }
+
+    &.icon-sm {
+        width: calc(#{$icon-size-sm} * 2);
+        height: calc(#{$icon-size-sm} * 2);
+    }
+
+    &.icon-md {
+        width: calc(#{$icon-size-md} * 2);
+        height: calc(#{$icon-size-md} * 2);
+    }
+
+    &.icon-lg {
+        width: calc(#{$icon-size-lg} * 2);
+        height: calc(#{$icon-size-lg} * 2);
+    }
+
+    &.icon-xl {
+        width: calc(#{$icon-size-xl} * 2);
+        height: calc(#{$icon-size-xl} * 2);
+    }
+
+    &.icon-2xl {
+        width: calc(#{$icon-size-2xl} * 2);
+        height: calc(#{$icon-size-2xl} * 2);
+    }
+}

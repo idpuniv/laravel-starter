@@ -1,0 +1,21 @@
+// ============================================================================
+// CARD OVERRIDES
+// ============================================================================
+
+$card-border-radius: $border-radius-xl !default;
+$card-border-width: 0 !default;
+$card-border-color: transparent !default;
+
+$card-box-shadow: var(--bs-box-shadow) !default;
+$card-bg: var(--bs-body-bg) !default;
+
+$card-spacer-y: 1.5rem !default;
+$card-spacer-x: 1.5rem !default;
+$card-title-spacer-y: 0.5rem !default;
+
+$card-title-font-size: 1rem !default;
+$card-title-font-weight: 600 !default;
+
+$card-cap-bg: transparent !default;
+$card-cap-padding-y: 1rem !default;
+$card-cap-padding-x: 1.5rem !default;

@@ -1,0 +1,200 @@
+// ============================================================================
+// CUSTOM BOOTSTRAP STYLES
+// ============================================================================
+
+// --------------------------------------------------------------------------
+// INPUT GROUP STYLES (incrustés dans l'input)
+// --------------------------------------------------------------------------
+.input-group {
+    .input-group-text {
+        background-color: var(--bs-body-bg);
+        border-right: none;
+        transition: all 0.2s ease-in-out;
+    }
+    
+    .form-control {
+        border-left: none;
+        
+        &:focus {
+            border-color: var(--primary);
+            box-shadow: none;
+            
+            & + .input-group-text,
+            &:focus + .input-group-text {
+                border-color: var(--primary);
+            }
+        }
+    }
+    
+    // Effet au hover
+    &:hover {
+        .input-group-text,
+        .form-control {
+            border-color: var(--gray-400);
+        }
+    }
+    
+    // Focus sur le groupe entier
+    &:focus-within {
+        .input-group-text,
+        .form-control {
+            border-color: var(--primary);
+        }
+    }
+}
+
+// --------------------------------------------------------------------------
+// FORM CONTROLS (inputs, textarea, select)
+// --------------------------------------------------------------------------
+.form-control,
+.form-select {
+    border-radius: 0.5rem;
+    border: 1px solid var(--gray-300);
+    padding: 0.6rem 1rem;
+    transition: all 0.2s ease-in-out;
+    
+    &:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.15rem rgba(var(--primary-rgb), 0.15);
+    }
+    
+    &::placeholder {
+        color: var(--gray-500);
+        font-size: 0.875rem;
+    }
+}
+
+// --------------------------------------------------------------------------
+// FORM LABELS
+// --------------------------------------------------------------------------
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--gray-700);
+    font-size: 0.875rem;
+}
+
+// --------------------------------------------------------------------------
+// INPUT SIZES
+// --------------------------------------------------------------------------
+.form-control-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 0.4rem;
+}
+
+.form-control-lg {
+    padding: 0.8rem 1.2rem;
+    font-size: 1.1rem;
+    border-radius: 0.6rem;
+}
+
+// --------------------------------------------------------------------------
+// TEXTAREA
+// --------------------------------------------------------------------------
+textarea.form-control {
+    border-radius: 0.5rem;
+    padding: 0.6rem 1rem;
+}
+
+// --------------------------------------------------------------------------
+// SELECT
+// --------------------------------------------------------------------------
+.form-select {
+    background-position: right 1rem center;
+    cursor: pointer;
+    
+    &:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.15rem rgba(var(--primary-rgb), 0.15);
+    }
+}
+
+// --------------------------------------------------------------------------
+// CHECKBOX & RADIO
+// --------------------------------------------------------------------------
+.form-check-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0.15rem;
+    cursor: pointer;
+    border: 1.5px solid var(--gray-400);
+    transition: all 0.15s ease-in-out;
+    
+    &:checked {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+    
+    &:focus {
+        box-shadow: 0 0 0 0.15rem rgba(var(--primary-rgb), 0.15);
+        border-color: var(--primary);
+    }
+}
+
+.form-check-label {
+    cursor: pointer;
+    color: var(--gray-700);
+    font-size: 0.875rem;
+}
+
+// --------------------------------------------------------------------------
+// INPUT GROUP WITH ICONS (incrusté)
+// --------------------------------------------------------------------------
+.input-icon-group {
+    position: relative;
+    
+    .form-control {
+        padding-left: 2.5rem;
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-500);
+        font-size: 1rem;
+        pointer-events: none;
+    }
+}
+
+// --------------------------------------------------------------------------
+// FORM VALIDATION STYLES
+// --------------------------------------------------------------------------
+.was-validated .form-control:valid,
+.form-control.is-valid {
+    border-color: var(--success);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2311ca3c' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+    
+    &:focus {
+        box-shadow: 0 0 0 0.15rem rgba(var(--success-rgb), 0.15);
+    }
+}
+
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: var(--danger);
+    
+    &:focus {
+        box-shadow: 0 0 0 0.15rem rgba(var(--danger-rgb), 0.15);
+    }
+}
+
+// --------------------------------------------------------------------------
+// DISABLED STATES
+// --------------------------------------------------------------------------
+.form-control:disabled,
+.form-control.disabled {
+    background-color: var(--gray-200);
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+// --------------------------------------------------------------------------
+// READONLY
+// --------------------------------------------------------------------------
+.form-control[readonly] {
+    background-color: var(--gray-100);
+    border-color: var(--gray-300);
+}

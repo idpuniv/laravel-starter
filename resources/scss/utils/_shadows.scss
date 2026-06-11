@@ -1,0 +1,15 @@
+// ============================================================================
+// SHADOW UTILITIES
+// ============================================================================
+
+@each $bp, $bp-value in $grid-breakpoints {
+    @if $bp-value != 0 {
+        @media (min-width: $bp-value) {
+            .shadow-#{$bp}-none { box-shadow: none !important; }
+            .shadow-#{$bp}-sm { box-shadow: var(--bs-box-shadow-sm) !important; }
+            .shadow-#{$bp} { box-shadow: var(--bs-box-shadow) !important; }
+            .shadow-#{$bp}-lg { box-shadow: var(--bs-box-shadow-lg) !important; }
+            .shadow-#{$bp}-xl { box-shadow: var(--bs-box-shadow-xl) !important; }
+        }
+    }
+}

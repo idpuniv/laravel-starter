@@ -1,0 +1,174 @@
+// ============================================================================
+// _THEME.SCSS - Génération des variables CSS (Front + Dashboard)
+// ============================================================================
+
+@import "variables";
+
+// ========================================
+// MODE CLAIR - Web
+// ========================================
+:root {
+    // 1. COULEURS PRINCIPALES (10%)
+    --bs-primary: #{$primary};
+    --bs-secondary: #{$secondary};
+    --bs-accent: #{$accent};
+
+    // DASHBOARD
+    --dashboard-sidebar-bg: #{$dashboard-sidebar-bg-light};
+    --dashboard-sidebar-color: #{$gray-800};
+    --dashboard-footer-bg: var(--bs-body-bg);
+    --dashboard-footer-border: var(--bs-border-color);
+    --dashboard-footer-color: var(--bs-gray-600);
+
+    // Bordures sidebar
+    --dashboard-sidebar-border: #{$gray-200};
+    --dashboard-profile-border: #{$gray-200};
+
+    // 2. COULEURS SÉMANTIQUES
+    --bs-success: #{$success};
+    --bs-danger: #{$danger};
+    --bs-warning: #{$warning};
+    --bs-info: #{$info};
+
+    // 3. COULEURS NEUTRES (60%)
+    --bs-light: #{$light};
+    --bs-white: #{$white};
+    --bs-dark: #{$dark};
+
+    // 4. NUANCES DE GRIS (30%)
+    --bs-gray-100: #{$gray-100};
+    --bs-gray-200: #{$gray-200};
+    --bs-gray-300: #{$gray-300};
+    --bs-gray-400: #{$gray-400};
+    --bs-gray-500: #{$gray-500};
+    --bs-gray-600: #{$gray-600};
+    --bs-gray-700: #{$gray-700};
+    --bs-gray-800: #{$gray-800};
+    --bs-gray-900: #{$gray-900};
+
+    // 5. FONDS ET TEXTES
+    --bs-body-bg: #{$light};
+    --bs-body-color: #{$dark};
+    --bs-body-font-family: #{$font-family-base};
+    --bs-body-font-size: #{$font-size-base};
+
+    // 6. BORDURES
+    --bs-border-radius: #{$border-radius};
+    --bs-border-radius-lg: #{$border-radius-lg};
+    --bs-border-color: #{$gray-200};
+
+    // 7. OMBRES
+    --bs-box-shadow-sm: #{$box-shadow-sm};
+    --bs-box-shadow: #{$box-shadow};
+    --bs-box-shadow-lg: #{$box-shadow-lg};
+
+    // 8. TRANSITIONS
+    --bs-transition-base: #{$transition-base};
+
+    // 9. NAVBAR (Front)
+    --bs-navbar-bg: var(--bs-light);
+    --bs-navbar-color: var(--bs-gray-700);
+    --bs-navbar-link-color: var(--bs-gray-700);
+    --bs-navbar-link-hover-color: var(--bs-primary);
+    --bs-navbar-link-active-color: var(--bs-primary);
+    --bs-navbar-brand-color: var(--bs-gray-900);
+    --bs-navbar-brand-hover-color: var(--bs-primary);
+    --bs-navbar-toggler-border-color: var(--bs-gray-300);
+
+    // 10. DASHBOARD (30% - Éléments secondaires)
+    --dashboard-sidebar-bg: #{$dashboard-sidebar-bg-light};
+    --dashboard-sidebar-color: #{$gray-800};
+    --dashboard-sidebar-width: #{$dashboard-sidebar-width};
+    --dashboard-sidebar-collapsed-width: #{$dashboard-sidebar-collapsed-width};
+
+    --dashboard-menu-link-color: #{$gray-600};
+    --dashboard-menu-link-hover-bg: #{$gray-100};
+    --dashboard-menu-link-hover-color: #{$gray-900};
+    --dashboard-menu-link-active-bg: var(--bs-primary);
+    --dashboard-menu-link-active-color: var(--bs-white);
+
+    --dashboard-card-bg: var(--bs-white);
+    --dashboard-card-shadow: var(--bs-box-shadow);
+
+    --dashboard-focus-outline: var(--bs-primary);
+}
+
+// ========================================
+// MODE SOMBRE
+// ========================================
+[data-bs-theme="dark"] {
+    // 1. COULEURS PRINCIPALES (adaptées)
+    --bs-primary: #{lighten($primary, 15%)};
+    --bs-secondary: #{$gray-500};
+    --dashboard-sidebar-border: #{$gray-700};
+    --dashboard-profile-border: #{$gray-700};
+    --dashboard-footer-bg: var(--bs-body-bg);
+    --dashboard-footer-border: var(--bs-border-color);
+    --dashboard-footer-color: var(--bs-gray-500);
+
+    // 2. COULEURS SÉMANTIQUES
+    --bs-success: #{$success};
+    --bs-danger: #{$danger};
+    --bs-warning: #{$warning};
+    --bs-info: #{$info};
+
+    // 3. COULEURS NEUTRES
+    --bs-light: #{$gray-800};
+    --bs-dark: #{$gray-900};
+
+    // 4. NUANCES DE GRIS
+    --bs-gray-100: #{$gray-800};
+    --bs-gray-200: #{$gray-700};
+    --bs-gray-300: #{$gray-600};
+    --bs-gray-400: #{$gray-500};
+    --bs-gray-500: #{$gray-400};
+    --bs-gray-600: #{$gray-300};
+    --bs-gray-700: #{$gray-200};
+    --bs-gray-800: #{$gray-100};
+    --bs-gray-900: #{$gray-100};
+
+    // 5. FONDS ET TEXTES
+    --bs-body-bg: #{$gray-900};
+    --bs-body-color: #{$gray-200};
+    --bs-body-font-family: #{$font-family-base};
+    --bs-body-font-size: #{$font-size-base};
+
+    // 6. BORDURES
+    --bs-border-radius: #{$border-radius};
+    --bs-border-radius-lg: #{$border-radius-lg};
+    --bs-border-color: #{$gray-700};
+
+    // 7. OMBRES (plus marquées en sombre)
+    --bs-box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --bs-box-shadow:
+        0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.4);
+    --bs-box-shadow-lg:
+        0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.5);
+
+    // 8. TRANSITIONS
+    --bs-transition-base: #{$transition-base};
+
+    // 9. NAVBAR (Front - mode sombre)
+    --bs-navbar-bg: var(--bs-dark);
+    --bs-navbar-color: var(--bs-gray-400);
+    --bs-navbar-link-color: var(--bs-gray-400);
+    --bs-navbar-link-hover-color: var(--bs-primary);
+    --bs-navbar-link-active-color: var(--bs-primary);
+    --bs-navbar-brand-color: var(--bs-white);
+    --bs-navbar-brand-hover-color: var(--bs-primary);
+    --bs-navbar-toggler-border-color: var(--bs-gray-600);
+
+    // 10. DASHBOARD (mode sombre)
+    --dashboard-sidebar-bg: #{$dashboard-sidebar-bg-dark};
+    --dashboard-sidebar-color: #{$gray-300};
+    --dashboard-menu-link-color: #{$gray-400};
+    --dashboard-menu-link-hover-bg: #{$gray-800};
+    --dashboard-menu-link-hover-color: var(--bs-white);
+    --dashboard-menu-link-active-bg: var(--bs-primary);
+    --dashboard-menu-link-active-color: var(--bs-white);
+    --dashboard-card-bg: #{$gray-800};
+    --dashboard-card-shadow: var(--bs-box-shadow);
+
+    // Overlay
+    --dashboard-overlay-bg: rgba(0, 0, 0, 0.7);
+}

@@ -1,0 +1,23 @@
+// ============================================================================
+// MODAL OVERRIDES
+// ============================================================================
+
+$modal-inner-border-radius: $border-radius-xl !default;
+$modal-border-radius: $border-radius-xl !default;
+$modal-border-width: 0 !default;
+
+$modal-content-box-shadow-xs: var(--bs-box-shadow-lg) !default;
+$modal-content-box-shadow-sm-up: var(--bs-box-shadow-lg) !default;
+
+$modal-header-padding-y: 1.25rem !default;
+$modal-header-padding-x: 1.5rem !default;
+$modal-header-border-width: 0 !default;
+$modal-footer-border-width: 0 !default;
+$modal-footer-margin-between: 0.5rem !default;
+
+$modal-inner-padding: 1.5rem !default;
+
+$modal-backdrop-opacity: 0.35 !default;
+$modal-backdrop-bg: var(--bs-dark) !default;
+
+$modal-transition: transform 0.3s ease !default;

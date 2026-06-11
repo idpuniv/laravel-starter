@@ -1,0 +1,73 @@
+// ============================================================================
+// _COMPONENTS.SCSS - Boutons, inputs, cards, modals
+// Toutes les valeurs sont des variables (multi-theme compatible)
+// ============================================================================
+
+// ========================================
+// BOUTONS
+// ========================================
+$btn-padding-y: 0.55rem !default;
+$btn-padding-x: 0.85rem !default;
+$btn-padding-y-lg: 1rem !default;
+$btn-padding-x-lg: 1rem !default;
+$btn-font-size: 0.9rem !default;
+$btn-font-size-lg: 1rem !default;
+$btn-font-weight: 600 !default;
+$btn-border-radius: 0.5rem !default;
+$btn-border-radius-lg: 40px !default;
+$btn-primary-bg: var(--bs-primary) !default;
+$btn-primary-hover-bg: var(--bs-primary-dark, var(--bs-primary)) !default;
+
+// ========================================
+// INPUTS / FORMULAIRES
+// ========================================
+$input-padding-y: 0.9rem !default;
+$input-padding-x: 1rem !default;
+$input-font-size: 0.95rem !default;
+$input-border-radius: 12px !default;
+$input-border-width: 1.5px !default;
+$input-border-color: var(--bs-border-color) !default;
+$input-focus-border-color: var(--bs-primary) !default;
+$input-focus-box-shadow: 0 0 0 3px rgba(var(--bs-primary-rgb), 0.1) !default;
+$input-bg: var(--bs-body-bg) !default;
+$input-placeholder-color: var(--bs-gray-500) !default;
+
+// ========================================
+// CARDS
+// ========================================
+$card-border-radius: 24px !default;
+$card-border-width: 0 !default;
+$card-box-shadow: var(--bs-box-shadow) !default;
+$card-bg: var(--bs-card-bg, var(--bs-white)) !default;
+
+// ========================================
+// BADGES
+// ========================================
+$badge-border-radius: 40px !default;
+$badge-padding-y: 0.4rem !default;
+$badge-padding-x: 1rem !default;
+$badge-font-size: 0.7rem !default;
+$badge-font-weight: 600 !default;
+
+// ========================================
+// MODALS
+// ========================================
+$modal-inner-border-radius: 0.75rem !default;
+$modal-border-radius: 0.75rem !default;
+$modal-border-width: 0 !default;
+$modal-box-shadow: var(--bs-box-shadow-lg) !default;
+$modal-header-padding-y: 1.25rem !default;
+$modal-header-padding-x: 1.5rem !default;
+$modal-backdrop-opacity: 0.4 !default;
+
+// ========================================
+// DROPDOWNS
+// ========================================
+$dropdown-border-radius: 0.75rem !default;
+$dropdown-border-width: 1px !default;
+$dropdown-border-color: var(--bs-border-color) !default;
+$dropdown-box-shadow: var(--bs-box-shadow) !default;
+$dropdown-padding-y: 0.5rem !default;
+$dropdown-item-padding-y: 0.45rem !default;
+$dropdown-item-padding-x: 1rem !default;
+$dropdown-item-border-radius: 0.5rem !default;

@@ -1,0 +1,104 @@
+// ============================================================================
+// BOOTSTRAP
+// Main entry point
+// ============================================================================
+
+
+// ----------------------------------------------------------------------------
+// Bootstrap overrides
+//
+// Project-specific Bootstrap customizations.
+// May include component overrides and light/dark theme variants.
+// Must be loaded before Bootstrap components.
+// ----------------------------------------------------------------------------
+
+@import "variables";
+@import "nav";
+@import "navbar";
+@import "buttons";
+@import "forms";
+@import "card";
+@import "modal";
+@import "dropdown";
+@import "alert";
+@import "table";
+@import "toasts";
+
+
+// ----------------------------------------------------------------------------
+// Bootstrap variables
+// ----------------------------------------------------------------------------
+
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+
+
+// ----------------------------------------------------------------------------
+// Bootstrap core
+// ----------------------------------------------------------------------------
+
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/transitions";
+
+
+// ----------------------------------------------------------------------------
+// Root and reset
+// ----------------------------------------------------------------------------
+
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+
+
+// ----------------------------------------------------------------------------
+// Bootstrap components with project overrides
+// ----------------------------------------------------------------------------
+
+
+
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/toasts";
+
+
+// ----------------------------------------------------------------------------
+// Bootstrap components without custom overrides
+// ----------------------------------------------------------------------------
+
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/placeholders";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/tooltip";
+
+
+// ----------------------------------------------------------------------------
+// Bootstrap helpers and utility API
+// Must remain at the end of the import chain
+// ----------------------------------------------------------------------------
+
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+

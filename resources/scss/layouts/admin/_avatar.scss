@@ -1,0 +1,13 @@
+// ============================================================================
+// AVATAR - Styles visuels
+// ============================================================================
+
+@import "variables";
+
+.avatar {
+    background-color: $dashboard-avatar-bg;
+    border-radius: $dashboard-border-radius-pill;
+    font-weight: $dashboard-font-weight-semibold;
+    font-size: $dashboard-font-size-avatar;
+    color: $dashboard-avatar-color;
+}
