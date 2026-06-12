@@ -93,9 +93,11 @@ test:
       DB_PASSWORD=secret
       EOF
 
-    - composer install --no-interaction --prefer-dist
     - php artisan key:generate
+    - composer install --no-interaction --prefer-dist --optimize-autoloader
     - php artisan migrate --force
+    - php artisan optimize
+    - php artisan test --stop-on-failure
 
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
