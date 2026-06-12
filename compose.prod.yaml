@@ -1,0 +1,136 @@
+services:
+  # ===== NGINX =====
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/production/nginx/Dockerfile
+
+    restart: unless-stopped
+
+    volumes:
+      - events_storage:/var/www/storage:ro
+
+    networks:
+      - cnpi-network
+
+    depends_on:
+      php-fpm:
+        condition: service_healthy
+
+    labels:
+      - "traefik.enable=true"
+
+      # Domaine
+      - "traefik.http.routers.events.rule=Host(`cnpi.bf`)"
+      - "traefik.http.routers.events.entrypoints=https"
+      - "traefik.http.routers.events.tls.certresolver=le"
+
+      # Port interne nginx
+      - "traefik.http.services.events.loadbalancer.server.port=80"
+
+      # Middleware sécurité
+      - "traefik.http.routers.events.middlewares=security@docker"
+
+
+  # ===== PHP-FPM =====
+  php-fpm:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: production
+
+    restart: unless-stopped
+
+    volumes:
+      - events_storage:/var/www/storage
+
+    env_file:
+      - .env
+
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+
+    networks:
+      - cnpi-network
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm-healthcheck || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  # ===== QUEUE WORKER =====
+  events-queue-worker:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: production
+
+    restart: unless-stopped
+
+    command: php artisan queue:work --sleep=3 --tries=3
+
+    volumes:
+      - events_storage:/var/www/storage
+
+    env_file:
+      - .env
+
+    environment:
+      APP_ENV: production
+      APP_DEBUG: false
+
+    networks:
+      - cnpi-network
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ===== DATABASE =====
+  postgres:
+    image: postgres:16
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-app}
+      POSTGRES_USER: ${DB_USERNAME:-laravel}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-secret}
+
+    volumes:
+      - events_pgdata:/var/lib/postgresql/data
+
+    networks:
+      - cnpi-network
+
+    ports:
+      - "127.0.0.1:5432:5432"
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  events_pgdata:
+    name: events_pgdata
+    external: true
+
+  events_storage:
+    name: events_storage
+    external: true
+
+# ===== NETWORK =====
+
+networks:
+  cnpi-network:
+    name: cnpi-network
+    driver: bridge
+    external: true
