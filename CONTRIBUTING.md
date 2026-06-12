@@ -15,7 +15,22 @@ Avant de soumettre une contribution, assurez-vous que :
 - Le code est clair et compréhensible
 - Les modifications sont testées localement
 - Les standards du projet sont respectés
+- Le code suit **les conventions déjà en place dans la codebase existante**
 - Vous avez relu votre code avant soumission
+
+### Règle importante
+
+Avant de créer un nouveau composant (controller, service, request, etc.) :
+
+- Analysez le code existant
+- Respectez **le même style et la même structure déjà utilisés**
+- Ne pas introduire de nouveau pattern sans validation de l’équipe
+- Reproduire les conventions déjà appliquées dans le projet
+
+Exemples :
+- Si un controller existant utilise des Services → vous devez aussi utiliser des Services
+- Si un pattern de validation existe → vous devez le réutiliser
+- Si une structure de dossier existe → vous devez la suivre
 
 ---
 
@@ -69,7 +84,17 @@ Le projet suit une stratégie inspirée de Git Flow :
 
 ---
 
-## 5. Merge Requests (MR)
+## 5. Git Workflow
+
+Le détail complet du workflow Git (branches, synchronisation, rebase, commits, bonnes pratiques) est défini dans le fichier :
+
+[GIT.md](./docs/GIT.md)
+
+Ce fichier doit être consulté avant toute contribution.
+
+---
+
+## 6. Merge Requests (MR)
 
 Avant de soumettre une MR :
 
@@ -82,12 +107,12 @@ Avant de soumettre une MR :
 
 - [ ] Code sans erreur de compilation
 - [ ] Fonctionnalité testée localement
-- [ ] Aucun debug (`dd`, `dump`, logs inutiles)
+- [ ] Aucun debug (`dd`, `dump`, logs inutiles`)
 - [ ] Documentation mise à jour si nécessaire
 
 ---
 
-## 6. Standards de code
+## 7. Standards de code
 
 Ce projet suit **PSR-12** et les conventions Laravel.
 
@@ -97,15 +122,29 @@ Ce projet suit **PSR-12** et les conventions Laravel.
 - Garder des méthodes courtes et ciblées
 - Éviter la duplication (principe DRY)
 - Valider systématiquement les entrées utilisateur
-- Utiliser les bonnes pratiques Laravel
-
-### Formatage
-
-Des outils automatiques (PHP CS Fixer / CI) peuvent reformater le code après fusion.
+- Respecter strictement **la structure et le style du code existant**
 
 ---
 
-## 7. Convention de commits
+### Principe fondamental
+
+> Le code nouveau doit toujours s’aligner sur le code existant.
+
+Avant d’écrire :
+
+- Controller → observer les controllers existants
+- Service → suivre la structure des services existants
+- Request → réutiliser le pattern de validation déjà utilisé
+- Route → respecter la structure actuelle des routes
+- etc
+
+Interdit :
+- Introduire un nouveau style sans justification
+- Modifier une architecture existante sans validation
+
+---
+
+## 8. Convention de commits
 
 Nous utilisons les commits conventionnels :
 
@@ -139,7 +178,7 @@ docs(readme): mise à jour de l’installation
 
 ---
 
-## 8. Contributions assistées par IA
+## 9. Contributions assistées par IA
 
 Les contributions assistées par IA sont acceptées, mais :
 
@@ -151,7 +190,7 @@ Les contributions non vérifiées ne sont pas acceptées.
 
 ---
 
-## 9. Résumé du workflow
+## 10. Résumé du workflow
 
 1. Créer une branche depuis `develop`
 2. Développer la fonctionnalité ou correction
@@ -164,3 +203,4 @@ Les contributions non vérifiées ne sont pas acceptées.
 ---
 
 Merci pour votre contribution au projet.
+
