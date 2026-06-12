@@ -1,0 +1,282 @@
+stages:
+  - test
+  - deploy
+
+# =========================
+# GLOBAL CACHE 
+# =========================
+cache:
+  key:
+    files:
+      - composer.lock
+  paths:
+    - vendor/
+
+variables:
+  DEBIAN_FRONTEND: noninteractive
+  TZ: UTC
+  DB_CONNECTION: pgsql
+  DB_HOST: postgres
+  DB_PORT: 5432
+
+# =========================
+# BUILD FRONT (VITE)
+# =========================
+build_front:
+  stage: test
+  image: node:20
+  interruptible: true
+
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+
+  script:
+    - npm ci
+    - npm run build
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_TAG'
+    - if: '$CI_COMMIT_BRANCH == "release" && $CI_PIPELINE_SOURCE == "push"'
+
+# =========================
+# TEST JOB
+# =========================
+test:
+  stage: test
+  image: php:8.2-cli
+  interruptible: true
+
+  needs:
+    - job: build_front
+      artifacts: false
+
+  services:
+    - name: postgres:15
+      alias: postgres
+      variables:
+        POSTGRES_DB: laravel
+        POSTGRES_USER: laravel
+        POSTGRES_PASSWORD: secret
+
+  variables:
+    DB_CONNECTION: pgsql
+    DB_HOST: postgres
+    DB_PORT: 5432
+    DB_DATABASE: laravel
+    DB_USERNAME: laravel
+    DB_PASSWORD: secret
+
+  before_script:
+    - apt-get update -qq
+    - apt-get install -y -qq git unzip libpq-dev
+    - docker-php-ext-install pdo pdo_pgsql
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+    - rm composer-setup.php
+
+  script:
+    - cp .env.example .env
+    - |
+      cat >> .env <<EOF
+      APP_ENV=testing
+      APP_DEBUG=true
+      DB_CONNECTION=pgsql
+      DB_HOST=postgres
+      DB_PORT=5432
+      DB_DATABASE=laravel
+      DB_USERNAME=laravel
+      DB_PASSWORD=secret
+      EOF
+
+    - composer install --no-interaction --prefer-dist
+    - php artisan key:generate
+    - php artisan migrate --force
+
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_TAG'
+    - if: '$CI_COMMIT_BRANCH == "release" && $CI_PIPELINE_SOURCE == "push"'
+
+# =========================
+# DEPLOY STAGING
+# =========================
+deploy_staging:
+  stage: deploy
+  image: ubuntu:22.04
+  needs:
+    - job: test
+  interruptible: true
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "release"'
+
+  before_script:
+    - apt-get update -y && apt-get install -y openssh-client git
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - ssh-keyscan "$STAGING_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+  script:
+    - |
+      echo "Deploiement en staging en cours ..."
+      ssh "$STAGING_SSH_USER@$STAGING_HOST" << EOF
+      set -e
+
+      DEPLOY_PATH="/home/devops/deployments"
+      PROJECT_NAME="events"
+      REPO_URL="git@gitlab.com:laravel3575412/events.git"
+
+      mkdir -p "\$DEPLOY_PATH"
+      cd "\$DEPLOY_PATH"
+
+      if [ ! -d "\$PROJECT_NAME" ]; then
+        git clone "\$REPO_URL" "\$PROJECT_NAME"
+      fi
+
+      cd "\$PROJECT_NAME"
+
+      git fetch --all --prune --force
+      git checkout release
+      git reset --hard origin/release
+      git clean -fd
+
+      cp .env.example .env
+
+      sed -i "s|^APP_ENV=.*|APP_ENV=staging|" .env
+      sed -i "s|^APP_DEBUG=.*|APP_DEBUG=true|" .env
+      sed -i "s|^APP_URL=.*|APP_URL=${STAGING_APP_URL}|" .env
+
+      sed -i "s|^DB_CONNECTION=.*|DB_CONNECTION=pgsql|" .env
+      sed -i "s|^DB_PORT=.*|DB_PORT=${STAGING_DB_PORT}|" .env
+      sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${STAGING_DB_DATABASE}|" .env
+      sed -i "s|^DB_USERNAME=.*|DB_USERNAME=${STAGING_DB_USERNAME}|" .env
+      sed -i "s|^DB_PASSWORD=.*|DB_PASSWORD=${STAGING_DB_PASSWORD}|" .env
+
+      sed -i "s|^MAIL_MAILER=.*|MAIL_MAILER=smtp|" .env
+      sed -i "s|^MAIL_HOST=.*|MAIL_HOST=${STAGING_MAIL_HOST}|" .env
+      sed -i "s|^MAIL_PORT=.*|MAIL_PORT=${STAGING_MAIL_PORT}|" .env
+      sed -i "s|^MAIL_USERNAME=.*|MAIL_USERNAME=${STAGING_MAIL_USERNAME}|" .env
+      sed -i "s|^MAIL_PASSWORD=.*|MAIL_PASSWORD=${STAGING_MAIL_PASSWORD}|" .env
+      sed -i "s|^MAIL_ENCRYPTION=.*|MAIL_ENCRYPTION=${STAGING_MAIL_ENCRYPTION}|" .env
+      sed -i "s|^MAIL_FROM_ADDRESS=.*|MAIL_FROM_ADDRESS=${STAGING_MAIL_FROM_ADDRESS}|" .env
+
+      docker compose -f compose.staging.yaml down
+      docker compose -f compose.staging.yaml up -d --build --remove-orphans
+
+      echo "Déploiement staging terminé avec succès !"
+      EOF
+
+# =================
+# DEPLOY PRODUCTION
+# =================
+deploy_prod:
+  stage: deploy
+  image: ubuntu:22.04
+  needs:
+    - job: test
+  interruptible: true
+
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+$/'
+
+  before_script:
+    - apt-get update -y && apt-get install -y openssh-client git
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - ssh-keyscan "$EVENTS_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+  script:
+    - |
+      echo "Deploiement en production en cours ..."
+      ssh "$EVENTS_SSH_USER@$EVENTS_HOST" << EOF
+      set -e
+
+      DEPLOY_PATH="/cnpi"
+      PROJECT_NAME="events"
+      REPO_URL="git@gitlab.com:laravel3575412/events.git"
+
+      mkdir -p "\$DEPLOY_PATH"
+      cd "\$DEPLOY_PATH"
+
+      if [ ! -d "\$PROJECT_NAME" ]; then
+        git clone "\$REPO_URL" "\$PROJECT_NAME"
+      fi
+
+      cd "\$PROJECT_NAME"
+
+      git fetch --all --prune --force
+      git checkout main
+      git reset --hard origin/main
+      git clean -fd
+
+      cp .env.example .env
+
+      sed -i "s|^APP_ENV=.*|APP_ENV=production|" .env
+      sed -i "s|^APP_KEY=.*|APP_KEY=${EVENTS_APP_KEY}|" .env
+      sed -i "s|^APP_DEBUG=.*|APP_DEBUG=false|" .env
+      sed -i "s|^APP_URL=.*|APP_URL=${EVENTS_APP_URL}|" .env
+
+      sed -i "s|^DB_PORT=.*|DB_PORT=${EVENTS_DB_PORT}|" .env
+      sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${EVENTS_DB_DATABASE}|" .env
+      sed -i "s|^DB_USERNAME=.*|DB_USERNAME=${EVENTS_DB_USERNAME}|" .env
+      sed -i "s|^DB_PASSWORD=.*|DB_PASSWORD=${EVENTS_DB_PASSWORD}|" .env
+
+      sed -i "s|^MAIL_MAILER=.*|MAIL_MAILER=smtp|" .env
+      sed -i "s|^MAIL_HOST=.*|MAIL_HOST=${EVENTS_MAIL_HOST}|" .env
+      sed -i "s|^MAIL_PORT=.*|MAIL_PORT=${EVENTS_MAIL_PORT}|" .env
+      sed -i "s|^MAIL_USERNAME=.*|MAIL_USERNAME=${EVENTS_MAIL_USERNAME}|" .env
+      sed -i "s|^MAIL_PASSWORD=.*|MAIL_PASSWORD=${EVENTS_MAIL_PASSWORD}|" .env
+      sed -i "s|^MAIL_ENCRYPTION=.*|MAIL_ENCRYPTION=${EVENTS_MAIL_ENCRYPTION}|" .env
+      sed -i "s|^MAIL_FROM_ADDRESS=.*|MAIL_FROM_ADDRESS=${EVENTS_MAIL_FROM_ADDRESS}|" .env
+
+      docker compose -f compose.prod.yaml down
+      docker compose -f compose.prod.yaml up -d --build --remove-orphans
+
+      echo "Déploiement production terminé avec succès !"
+      EOF
+
+# ===================
+# ROLLBACK PRODUCTION
+# ==================
+rollback_prod:
+  stage: deploy
+  image: ubuntu:22.04
+  when: manual
+  allow_failure: false
+
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+
+  before_script:
+    - apt-get update -y && apt-get install -y openssh-client
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - ssh-keyscan "$EVENTS_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+  script:
+    - |
+      ssh "$EVENTS_SSH_USER@$EVENTS_HOST" << 'EOF'
+      set -e
+
+      cd /dgpe/events
+
+      echo "Rollback en cours..."
+
+      git reset --hard HEAD~1
+
+      docker compose -f compose.prod.yaml down
+      docker compose -f compose.prod.yaml up -d --build --remove-orphans
+
+      echo "Rollback terminé avec succès !"
+      EOF
+
+  environment:
+    name: production
