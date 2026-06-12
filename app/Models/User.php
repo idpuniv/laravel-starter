@@ -9,6 +9,8 @@ use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+// use Illuminate\Database\Eloquent\Relations\MorphMany; // à réactiver avec Media (branche collaborateur)
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -63,6 +65,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    // Media : à réactiver après merge de la branche du collaborateur (modèle Media).
+    // public function media(): MorphMany
+    // {
+    //     return $this->morphMany(Media::class, 'mediable');
+    // }
 
     /* -----------------------------------------------------------------
      | SCOPES (UPDATED -> ENUM)

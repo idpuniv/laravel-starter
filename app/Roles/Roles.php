@@ -37,6 +37,10 @@ final class Roles
                         \App\Permissions\PermissionPermissions::class,
                         \App\Permissions\UserPermissions::class,
                         // \App\Permissions\PersonPermissions::class,
+                        \App\Permissions\PostPermissions::class,
+                        \App\Permissions\CategoryPermissions::class,
+                        \App\Permissions\TagPermissions::class,
+                        \App\Permissions\CommentPermissions::class,
                     ],
                 ],
                 self::USER => [

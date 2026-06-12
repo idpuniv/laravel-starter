@@ -31,4 +31,16 @@ return [
         'cancelled' => 'Cancelled',
     ],
 
+    'post' => [
+        'draft' => 'Brouillon',
+        'published' => 'Publié',
+        'archived' => 'Archivé',
+    ],
+
+    'comment' => [
+        'pending' => 'En attente',
+        'approved' => 'Approuvé',
+        'spam' => 'Spam',
+    ],
+
 ];
