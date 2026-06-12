@@ -1,0 +1,234 @@
+<!--
+  Page Détail d'un article
+  Structure :
+  - Header
+  - En-tête d'article : titre, infos, tags
+  - Contenu principal avec texte enrichi (images, sous-titres)
+  - Auteur avec bio
+  - Articles liés (3 miniatures)
+  - Footer
+  Utilise les classes Bootstrap pour la mise en page, les badges, les cartes.
+  Couleurs : fond blanc (60%), cards de la sidebar ou articles liés en bg-light (30%), liens et badges primary (10%)
+  Aucun JavaScript.
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide complet pour déposer un brevet au Burkina Faso | SP-CNPI Burkina</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-white">
+
+<header class="bg-white border-bottom">
+  <!-- Barre d'infos contact -->
+  <div class="bg-primary text-white small">
+    <div class="container py-1 d-flex flex-wrap justify-content-between">
+      <span>📞 +226 71 71 92 85</span>
+      <span>✉️ spcnpi.bf@gmail.com</span>
+    </div>
+  </div>
+  <!-- Navigation principale (responsive) -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container py-2">
+      <a href="index.html" class="navbar-brand fw-bold text-primary fs-4">SP-CNPI</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir la navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a href="index.html" class="nav-link text-secondary">Accueil</a></li>
+          <li class="nav-item"><a href="index.html#apropos" class="nav-link text-secondary">À propos</a></li>
+          <li class="nav-item"><a href="index.html#services" class="nav-link text-secondary">Nos services</a></li>
+          <li class="nav-item"><a href="index.html#labels" class="nav-link text-secondary">Nos Labels</a></li>
+          <li class="nav-item"><a href="articles.html" class="nav-link text-primary fw-semibold active" aria-current="page">Actualités</a></li>
+          <li class="nav-item"><a href="index.html#contact" class="nav-link text-secondary">Contact</a></li>
+        </ul>
+        <div class="d-flex flex-column flex-lg-row gap-2">
+          <a href="#" class="btn btn-outline-primary btn-sm">Connexion</a>
+          <a href="#" class="btn btn-primary btn-sm">Inscription</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container my-5">
+  <!-- Fil d'Ariane -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Accueil</a></li>
+      <li class="breadcrumb-item"><a href="articles.html" class="text-decoration-none">Actualités</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Guide complet pour déposer un brevet</li>
+    </ol>
+  </nav>
+
+  <div class="row g-5">
+    <!-- Contenu principal -->
+    <div class="col-lg-8">
+      <!-- En-tête de l'article -->
+      <div class="mb-4">
+        <span class="badge bg-success mb-3">Brevets</span>
+        <h1 class="display-5 fw-bold text-primary">Guide complet pour déposer un brevet au Burkina Faso</h1>
+        <div class="d-flex align-items-center text-muted gap-3 mt-3 flex-wrap">
+          <span>Par <strong>Service Brevets — SP-CNPI</strong></span>
+          <span>•</span>
+          <span>22 Feb 2026</span>
+          <span>•</span>
+          <span>5 min de lecture</span>
+        </div>
+      </div>
+
+      <!-- Image d'illustration -->
+      <img src="https://picsum.photos/id/24/800/450" class="img-fluid rounded shadow-sm mb-4" alt="Dépôt d'un brevet d'invention">
+
+      <!-- Contenu textuel -->
+      <div class="fs-5 text-secondary lh-lg">
+        <p>Déposer un brevet permet de protéger une invention et d'en garder l'exclusivité d'exploitation. Au Burkina Faso, cette protection passe par le SP-CNPI, structure nationale de liaison avec l'Organisation Africaine de la Propriété Intellectuelle (OAPI).</p>
+        <h2 class="h4 text-primary mt-4">Qu'est-ce qu'un brevet ?</h2>
+        <p>Le brevet est un titre de propriété industrielle qui confère à son titulaire un droit exclusif d'exploitation sur une invention, pour une durée déterminée et sur un territoire donné. Pour être brevetable, l'invention doit être nouvelle, impliquer une activité inventive et être susceptible d'application industrielle.</p>
+        <h2 class="h4 text-primary mt-4">Les documents requis</h2>
+        <p>Le dossier de dépôt comprend généralement : une description détaillée de l'invention, les revendications, les dessins éventuels, un abrégé, ainsi que le formulaire de dépôt et la justification du paiement des taxes.</p>
+        <h2 class="h4 text-primary mt-4">La procédure étape par étape</h2>
+        <p>Après le dépôt auprès du SP-CNPI, le dossier est transmis à l'OAPI pour examen de forme. Une recherche d'antériorité peut être réalisée afin de vérifier la nouveauté. En cas de validation, le brevet est délivré puis publié au registre officiel.</p>
+        <img src="https://picsum.photos/id/180/600/300" class="img-fluid rounded mt-3 mb-3" alt="Procédure de dépôt de brevet">
+        <p>Il est fortement recommandé de se faire accompagner par les experts du SP-CNPI dès la phase de rédaction, afin de sécuriser la portée des revendications.</p>
+        <div class="bg-light p-3 rounded mt-4">
+          <p class="mb-0 fst-italic text-primary">💡 À retenir : une invention divulguée avant le dépôt perd sa nouveauté. Déposez avant toute communication publique.</p>
+        </div>
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-5 pt-3 border-top">
+        <span class="fw-semibold">Tags :</span>
+        <a href="#" class="badge bg-success text-decoration-none me-1">Brevet</a>
+        <a href="#" class="badge bg-success text-decoration-none me-1">OAPI</a>
+        <a href="#" class="badge bg-success text-decoration-none me-1">Invention</a>
+      </div>
+
+      <!-- Auteur -->
+      <div class="card bg-light border-0 mt-5">
+        <div class="card-body d-flex gap-3 align-items-center">
+          <img src="https://picsum.photos/id/65/80/80" class="rounded-circle" width="64" height="64" alt="Service Brevets">
+          <div>
+            <h3 class="h6 mb-1">Service Brevets — SP-CNPI</h3>
+            <p class="small text-secondary mb-0">L'équipe en charge de la protection des inventions au Secrétariat Permanent du Centre National de la Propriété Intellectuelle.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Articles liés -->
+      <div class="mt-5">
+        <h3 class="h4 text-primary mb-4">À lire également</h3>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img src="https://picsum.photos/id/91/400/200" class="card-img-top" alt="Interview du directeur du CNPI">
+              <div class="card-body bg-white">
+                <h4 class="h6"><a href="article-detail.html" class="text-primary text-decoration-none">Interview exclusive : Le directeur du CNPI parle des enjeux 2024</a></h4>
+                <small class="text-muted">03 Mar 2026</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img src="https://picsum.photos/id/180/400/200" class="card-img-top" alt="Marque commerciale">
+              <div class="card-body bg-white">
+                <h4 class="h6"><a href="article-detail.html" class="text-primary text-decoration-none">Protéger une marque : les étapes essentielles</a></h4>
+                <small class="text-muted">15 Jan 2026</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <img src="https://picsum.photos/id/2/400/200" class="card-img-top" alt="Droit d'auteur numérique">
+              <div class="card-body bg-white">
+                <h4 class="h6"><a href="article-detail.html" class="text-primary text-decoration-none">Le droit d'auteur à l'ère du numérique</a></h4>
+                <small class="text-muted">08 Dec 2025</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar (zone secondaire) -->
+    <div class="col-lg-4">
+      <div class="sticky-top" style="top: 1rem;">
+        <!-- Partager -->
+        <div class="bg-light p-4 rounded mb-4">
+          <h3 class="h5 text-primary mb-3">Partager cet article</h3>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="#" class="btn btn-outline-primary btn-sm">Facebook</a>
+            <a href="#" class="btn btn-outline-primary btn-sm">Linkedin</a>
+            <a href="#" class="btn btn-outline-primary btn-sm">Twitter</a>
+          </div>
+        </div>
+
+        <!-- Catégories -->
+        <div class="bg-light p-4 rounded mb-4">
+          <h3 class="h5 text-primary mb-3">Catégories</h3>
+          <ul class="list-unstyled mb-0">
+            <li class="mb-2"><a href="articles.html" class="text-secondary text-decoration-none">Brevets (3)</a></li>
+            <li class="mb-2"><a href="articles.html" class="text-secondary text-decoration-none">Marques (2)</a></li>
+            <li class="mb-2"><a href="articles.html" class="text-secondary text-decoration-none">Dessins et modèles (1)</a></li>
+            <li class="mb-2"><a href="articles.html" class="text-secondary text-decoration-none">Droit d'auteur (4)</a></li>
+            <li class="mb-0"><a href="articles.html" class="text-secondary text-decoration-none">Actualités (2)</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="bg-light p-4 rounded">
+          <h3 class="h5 text-primary mb-3">Newsletter</h3>
+          <p class="small text-secondary">Recevez nos dernières actualités sur la propriété intellectuelle.</p>
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="votre@email.bf">
+            <button class="btn btn-primary" type="button">S'abonner</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="bg-dark text-white pt-5 pb-4 mt-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h4 class="h5 text-white">SP-CNPI Burkina</h4>
+        <p class="text-white-50">Le Secrétariat du Centre National de la Propriété Intellectuelle (SP-CNPI), structure nationale de liaison avec l'OAPI.</p>
+        <div class="d-flex gap-2 mt-3">
+          <a href="#" class="btn btn-outline-light btn-sm">Facebook</a>
+          <a href="#" class="btn btn-outline-light btn-sm">Linkedin</a>
+          <a href="#" class="btn btn-outline-light btn-sm">Twitter</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <h5 class="h6 text-white">Liens rapides</h5>
+        <ul class="list-unstyled">
+          <li><a href="index.html" class="text-white-50 text-decoration-none">Accueil</a></li>
+          <li><a href="index.html#apropos" class="text-white-50 text-decoration-none">À propos</a></li>
+          <li><a href="index.html#services" class="text-white-50 text-decoration-none">Nos services</a></li>
+          <li><a href="index.html#labels" class="text-white-50 text-decoration-none">Nos Labels</a></li>
+          <li><a href="index.html#contact" class="text-white-50 text-decoration-none">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h5 class="h6 text-white">Heures d'ouverture</h5>
+        <ul class="list-unstyled text-white-50">
+          <li>Lundi - Jeudi : 7h30 - 16h00</li>
+          <li>Vendredi : 7h30 - 16h30</li>
+        </ul>
+      </div>
+    </div>
+    <hr class="bg-white-50">
+    <div class="text-center text-white-50 small">© Copyright 2026 | Tous droits réservés par SP-CNPI Burkina Faso</div>
+  </div>
+</footer>
+
+<!-- Bundle JS officiel de Bootstrap (requis pour le menu responsive) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
