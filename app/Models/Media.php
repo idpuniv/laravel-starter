@@ -11,12 +11,15 @@ class Media extends Model
 
     protected $fillable = [
         'role',
+        'collection',// champ manquant
         'type',
         'disk',
         'path',
+        'thumb_path',// champ manquant
         'filename',
         'extension',
         'mime_type',
+        'size',// champ manquant
         'is_current',
         'sort_order',
         'metadata',

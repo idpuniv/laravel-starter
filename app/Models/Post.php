@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
-// use Illuminate\Database\Eloquent\Relations\MorphOne; // à réactiver avec Media (branche collaborateur)
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -71,19 +71,33 @@ class Post extends Model
         return $this->morphMany(Like::class, 'likeable');
     }
 
-    // -----------------------------------------------------------------
-    // Media : à réactiver après merge de la branche du collaborateur
-    // qui porte le modèle/migration Media (réactiver aussi l'import MorphOne).
-    // -----------------------------------------------------------------
-    // public function media(): MorphMany
-    // {
-    //     return $this->morphMany(Media::class, 'mediable');
-    // }
-    //
-    // public function featuredImage(): MorphOne
-    // {
-    //     return $this->morphOne(Media::class, 'mediable')->where('is_featured', true);
-    // }
+    /**
+     * Tous les médias rattachés à l'article (image à la une, galerie, etc.).
+     */
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
+
+    /**
+     * Galerie de l'article (médias regroupés dans la collection "gallery").
+     */
+    public function gallery(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'mediable')
+            ->where('collection', 'gallery')
+            ->orderBy('sort_order');
+    }
+
+    /**
+     * Image à la une : le média courant ayant le rôle "cover".
+     */
+    public function featuredImage(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'mediable')
+            ->where('role', 'cover')
+            ->where('is_current', true);
+    }
 
     /* -----------------------------------------------------------------
      | SCOPES

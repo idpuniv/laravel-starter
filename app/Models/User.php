@@ -10,7 +10,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-// use Illuminate\Database\Eloquent\Relations\MorphMany; // à réactiver avec Media (branche collaborateur)
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -81,11 +82,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Like::class);
     }
 
-    // Media : à réactiver après merge de la branche du collaborateur (modèle Media).
-    // public function media(): MorphMany
-    // {
-    //     return $this->morphMany(Media::class, 'mediable');
-    // }
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
+
+    /**
+     * Avatar : le média courant ayant le rôle "avatar".
+     */
+    public function avatar(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'mediable')
+            ->where('role', 'avatar')
+            ->where('is_current', true);
+    }
 
     /* -----------------------------------------------------------------
      | SCOPES (UPDATED -> ENUM)
