@@ -21,3 +21,88 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+storage/logs/*.log
+laravel.log
+
+# Cache
+bootstrap/cache/*.php
+storage/framework/cache/data/*
+storage/framework/sessions/*
+storage/framework/testing/*
+storage/framework/views/*
+
+# Composer
+composer.phar
+composer.lock  # ← à retirer si tu veux le garder versionné
+
+# PHPUnit
+.phpunit.cache
+.phpunit.result.cache
+.coverage
+.coverage.cache
+
+# Laravel Sail
+docker-compose.override.yml
+.lando.yml
+
+# IDE
+*.swp
+*.swo
+*~
+.phpstorm.meta.php
+._*
+
+# Rapports
+*.cache
+*.sqlite
+*.sqlite-journal
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Environnement local
+.env.local
+.env.testing
+.env.ci
+.env.staging
+
+# Débug
+clockwork/*
+.xdebug.log
+
+# Dépendances spécifiques
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Outils
+.php-cs-fixer.cache
+.php_cs.cache
+.phpcs-cache
+.sass-cache/
+*.rbc
+*.rbo
+
+# Assistants IA
+.claude/
+.claudeignore
+.cursor/
+.cursorignore
+.codeium/
+.tabnine/
+.continue/
+.github/copilot-instructions.md
+.aws/codewhisperer/
+.conversations/
+.ai/
+.ai-rules/
