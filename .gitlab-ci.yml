@@ -48,7 +48,7 @@ build_front:
 # =========================
 test:
   stage: test
-  image: php:8.2-cli
+  image: php:8.4-cli
   interruptible: true
 
   needs:
