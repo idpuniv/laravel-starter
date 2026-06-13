@@ -93,8 +93,8 @@ test:
       DB_PASSWORD=secret
       EOF
 
-    - php artisan key:generate
     - composer install --no-interaction --prefer-dist --optimize-autoloader
+    - php artisan key:generate
     - php artisan migrate --force
     - php artisan optimize
     - php artisan test --stop-on-failure
