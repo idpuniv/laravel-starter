@@ -4,40 +4,36 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Person;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Roles\Roles;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
         $this->call([
             RolePermissionSeeder::class,
             CountrySeeder::class,
         ]);
 
-        User::factory()->create([
-            'username' => 'root',
-            'email' => 'root@email.com',
-            'password' => Hash::make('root'),
-        ])->assignRole(Roles::ROOT);
+        if (app()->isLocal()) {
+            User::factory()->create([
+                'username' => 'root',
+                'email' => 'root@email.com',
+                'password' => Hash::make('root'),
+            ])->assignRole(Roles::ROOT);
 
+            User::factory()->create([
+                'username' => 'admin',
+                'email' => 'admin@email.com',
+                'password' => Hash::make('admin')
+            ])->assignRole(Roles::ADMIN);
+        }
 
         $this->call([
             SystemUserSeeder::class,
         ]);
-        
-        User::factory()->create([
-            'username' => 'admin',
-            'email' => 'admin@email.com',
-            'password' => Hash::make('admin')
-        ])->assignRole(Roles::ADMIN);
 
         User::factory()->create([
             'username' => 'user',
@@ -63,5 +59,20 @@ class DatabaseSeeder extends Seeder
         User::factory(3)->viewer()->create();
         User::factory(3)->admin()->create();
         User::factory(5)->inactive()->create();
+
+        // Afficher les identifiants en dev
+        if (app()->isLocal()) {
+            echo "\n";
+            echo "+----------+-------------------------+----------+\n";
+            echo "| Username | Email                   | Password |\n";
+            echo "+----------+-------------------------+----------+\n";
+            echo "| root     | root@email.com          | root     |\n";
+            echo "| admin    | admin@email.com         | admin    |\n";
+            echo "| user     | user@email.com          | user     |\n";
+            echo "| user2    | user2@email.com         | user2    |\n";
+            echo "| viewer   | viewer@email.com        | viewer   |\n";
+            echo "+----------+-------------------------+----------+\n";
+            echo "\n";
+        }
     }
 }
