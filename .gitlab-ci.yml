@@ -73,8 +73,8 @@ test:
 
   before_script:
     - apt-get update -qq
-    - apt-get install -y -qq git unzip libpq-dev libzip-dev zlib1g-dev
-    - docker-php-ext-install pdo pdo_pgsql
+    - apt-get install -y -qq git unzip libpq-dev libzip-dev
+    - docker-php-ext-install pdo pdo_pgsql zip
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     - rm composer-setup.php
