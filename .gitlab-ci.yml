@@ -75,7 +75,6 @@ test:
     - apt-get update -qq
     - apt-get install -y -qq git unzip libpq-dev libzip-dev
     - docker-php-ext-install pdo pdo_pgsql
-    - docker-php-ext-enable zip
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     - rm composer-setup.php
