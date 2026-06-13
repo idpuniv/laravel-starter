@@ -5,6 +5,7 @@
   - Section d'en-tête avec titre
   - Grille d'articles avec pagination (fictive)
   - Sidebar avec catégories et recherche (fictive)
+  - Section Nos vidéos avec icônes Bootstrap
   - Footer
   Utilise le système de grille Bootstrap : colonne principale (8) + sidebar (4)
   Couleurs : fond blanc (60%), cards et sidebar bg-light (30%), badges/btn primary (10%)
@@ -18,6 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Actualités | SP-CNPI Burkina</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body class="bg-white">
 
@@ -25,8 +27,8 @@
   <!-- Barre d'infos contact -->
   <div class="bg-primary text-white small">
     <div class="container py-1 d-flex flex-wrap justify-content-between">
-      <span>📞 +226 71 71 92 85</span>
-      <span>✉️ spcnpi.bf@gmail.com</span>
+      <span><i class="bi bi-telephone-fill me-1"></i> +226 71 71 92 85</span>
+      <span><i class="bi bi-envelope-fill me-1"></i> spcnpi.bf@gmail.com</span>
     </div>
   </div>
   <!-- Navigation principale (responsive) -->
@@ -46,8 +48,8 @@
           <li class="nav-item"><a href="index.html#contact" class="nav-link text-secondary">Contact</a></li>
         </ul>
         <div class="d-flex flex-column flex-lg-row gap-2">
-          <a href="#" class="btn btn-outline-primary btn-sm">Connexion</a>
-          <a href="#" class="btn btn-primary btn-sm">Inscription</a>
+          <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
+          <a href="#" class="btn btn-primary btn-sm"><i class="bi bi-person-plus-fill"></i> Inscription</a>
         </div>
       </div>
     </div>
@@ -71,13 +73,13 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <span class="badge bg-success mb-2">Brevets</span>
+              <span class="badge bg-success mb-2"><i class="bi bi-file-text-fill me-1"></i>Brevets</span>
               <h2 class="h4 card-title"><a href="article-detail.html" class="text-decoration-none text-primary">Guide complet pour déposer un brevet au Burkina Faso</a></h2>
               <p class="card-text text-secondary">Procédure étape par étape pour le dépôt d'un brevet d'invention au Burkina Faso, avec les documents requis et les délais.</p>
               <div class="d-flex align-items-center text-muted small">
-                <span>22 Feb 2026</span>
+                <span><i class="bi bi-calendar3 me-1"></i>22 Feb 2026</span>
                 <span class="mx-2">•</span>
-                <span>5 min de lecture</span>
+                <span><i class="bi bi-clock me-1"></i>5 min de lecture</span>
               </div>
             </div>
           </div>
@@ -92,13 +94,13 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <span class="badge bg-danger mb-2">Actualités</span>
+              <span class="badge bg-danger mb-2"><i class="bi bi-megaphone-fill me-1"></i>Actualités</span>
               <h2 class="h4 card-title"><a href="article-detail.html" class="text-decoration-none text-primary">Interview exclusive : Le directeur du CNPI parle des enjeux 2024</a></h2>
               <p class="card-text text-secondary">Interview exclusive avec le directeur du CNPI sur les défis et opportunités de la propriété intellectuelle au Burkina Faso.</p>
               <div class="d-flex align-items-center text-muted small">
-                <span>03 Mar 2026</span>
+                <span><i class="bi bi-calendar3 me-1"></i>03 Mar 2026</span>
                 <span class="mx-2">•</span>
-                <span>8 min de lecture</span>
+                <span><i class="bi bi-clock me-1"></i>8 min de lecture</span>
               </div>
             </div>
           </div>
@@ -113,13 +115,13 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <span class="badge bg-warning text-dark mb-2">Marques</span>
+              <span class="badge bg-warning text-dark mb-2"><i class="bi bi-tag-fill me-1"></i>Marques</span>
               <h2 class="h4 card-title"><a href="article-detail.html" class="text-decoration-none text-primary">Protéger une marque : les étapes essentielles</a></h2>
               <p class="card-text text-secondary">Tout savoir sur l'enregistrement d'une marque, du dépôt à la délivrance du titre, et la protection de vos signes distinctifs.</p>
               <div class="d-flex align-items-center text-muted small">
-                <span>15 Jan 2026</span>
+                <span><i class="bi bi-calendar3 me-1"></i>15 Jan 2026</span>
                 <span class="mx-2">•</span>
-                <span>6 min de lecture</span>
+                <span><i class="bi bi-clock me-1"></i>6 min de lecture</span>
               </div>
             </div>
           </div>
@@ -134,13 +136,13 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <span class="badge bg-success mb-2">Droit d'auteur</span>
+              <span class="badge bg-success mb-2"><i class="bi bi-music-note-beamed me-1"></i>Droit d'auteur</span>
               <h2 class="h4 card-title"><a href="article-detail.html" class="text-decoration-none text-primary">Le droit d'auteur à l'ère du numérique</a></h2>
               <p class="card-text text-secondary">Comment protéger les œuvres littéraires et artistiques face aux usages numériques, et faire valoir ses droits voisins.</p>
               <div class="d-flex align-items-center text-muted small">
-                <span>08 Dec 2025</span>
+                <span><i class="bi bi-calendar3 me-1"></i>08 Dec 2025</span>
                 <span class="mx-2">•</span>
-                <span>10 min de lecture</span>
+                <span><i class="bi bi-clock me-1"></i>10 min de lecture</span>
               </div>
             </div>
           </div>
@@ -150,11 +152,11 @@
       <!-- Pagination Bootstrap (sans JS) -->
       <nav aria-label="Pagination des articles">
         <ul class="pagination justify-content-center">
-          <li class="page-item disabled"><span class="page-link">Précédent</span></li>
+          <li class="page-item disabled"><span class="page-link"><i class="bi bi-chevron-left"></i> Précédent</span></li>
           <li class="page-item active"><span class="page-link bg-primary border-primary">1</span></li>
           <li class="page-item"><a class="page-link text-primary" href="#">2</a></li>
           <li class="page-item"><a class="page-link text-primary" href="#">3</a></li>
-          <li class="page-item"><a class="page-link text-primary" href="#">Suivant</a></li>
+          <li class="page-item"><a class="page-link text-primary" href="#">Suivant <i class="bi bi-chevron-right"></i></a></li>
         </ul>
       </nav>
     </div>
@@ -162,26 +164,133 @@
     <!-- Sidebar (zone secondaire 30%) -->
     <div class="col-lg-4">
       <div class="bg-light p-4 rounded sticky-top" style="top: 1rem;">
-        <h3 class="h5 text-primary mb-3">Recherche</h3>
+        <h3 class="h5 text-primary mb-3"><i class="bi bi-search me-2"></i>Recherche</h3>
         <div class="input-group mb-4">
           <input type="text" class="form-control" placeholder="Mot-clé..." aria-label="Rechercher">
-          <button class="btn btn-outline-primary" type="button">OK</button>
+          <button class="btn btn-outline-primary" type="button"><i class="bi bi-search"></i> OK</button>
         </div>
 
-        <h3 class="h5 text-primary mb-3">Catégories</h3>
+        <h3 class="h5 text-primary mb-3"><i class="bi bi-folder2-open me-2"></i>Catégories</h3>
         <ul class="list-unstyled">
-          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Brevets (3)</a></li>
-          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Marques (2)</a></li>
-          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Dessins et modèles (1)</a></li>
-          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Droit d'auteur (4)</a></li>
-          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Actualités (2)</a></li>
+          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none"><i class="bi bi-file-text me-2"></i>Brevets (3)</a></li>
+          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none"><i class="bi bi-tag me-2"></i>Marques (2)</a></li>
+          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none"><i class="bi bi-brush me-2"></i>Dessins et modèles (1)</a></li>
+          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none"><i class="bi bi-music-note-beamed me-2"></i>Droit d'auteur (4)</a></li>
+          <li class="mb-2"><a href="#" class="text-secondary text-decoration-none"><i class="bi bi-megaphone me-2"></i>Actualités (2)</a></li>
         </ul>
 
-        <h3 class="h5 text-primary mt-4 mb-3">Newsletter</h3>
+        <h3 class="h5 text-primary mt-4 mb-3"><i class="bi bi-envelope-paper me-2"></i>Newsletter</h3>
         <p class="small text-secondary">Recevez nos derniers articles.</p>
         <div class="input-group">
           <input type="email" class="form-control" placeholder="votre@email.fr">
-          <button class="btn btn-primary" type="button">S'abonner</button>
+          <button class="btn btn-primary" type="button"><i class="bi bi-send-fill"></i> S'abonner</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DERNIÈRE SECTION : NOS VIDÉOS avec icônes Bootstrap -->
+  <div class="mt-5 pt-4">
+    <div class="border-top pt-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <h2 class="h2 fw-semibold text-primary"><i class="bi bi-camera-reels-fill me-2"></i>Nos vidéos</h2>
+          <p class="text-secondary">Découvrez nos contenus vidéo sur la propriété intellectuelle</p>
+        </div>
+        <a href="#" class="btn btn-outline-primary"><i class="bi bi-collection-play"></i> Voir toutes les vidéos →</a>
+      </div>
+      
+      <div class="row g-4">
+        <!-- Vidéo 1 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="https://picsum.photos/id/26/400/250" class="card-img-top" alt="Vidéo sur les brevets">
+            <div class="card-body">
+              <span class="badge bg-primary mb-2"><i class="bi bi-play-circle-fill me-1"></i>Tutoriel</span>
+              <h5 class="card-title h6 fw-semibold">
+                <a href="#" class="text-decoration-none text-dark">Comment déposer un brevet ?</a>
+              </h5>
+              <div class="d-flex align-items-center text-muted small mt-2">
+                <i class="bi bi-clock-history me-1"></i>
+                <span>Durée : 12:34</span>
+                <span class="mx-2">•</span>
+                <i class="bi bi-eye me-1"></i>
+                <span>1.2k vues</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+              <a href="#" class="btn btn-sm btn-outline-primary w-100"><i class="bi bi-play-fill"></i> Regarder</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vidéo 2 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="https://picsum.photos/id/29/400/250" class="card-img-top" alt="Vidéo sur les marques">
+            <div class="card-body">
+              <span class="badge bg-info mb-2"><i class="bi bi-camera-video-fill me-1"></i>Webinaire</span>
+              <h5 class="card-title h6 fw-semibold">
+                <a href="#" class="text-decoration-none text-dark">Protéger sa marque en Afrique</a>
+              </h5>
+              <div class="d-flex align-items-center text-muted small mt-2">
+                <i class="bi bi-clock-history me-1"></i>
+                <span>Durée : 45:21</span>
+                <span class="mx-2">•</span>
+                <i class="bi bi-eye me-1"></i>
+                <span>3.5k vues</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+              <a href="#" class="btn btn-sm btn-outline-primary w-100"><i class="bi bi-play-fill"></i> Regarder</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vidéo 3 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="https://picsum.photos/id/88/400/250" class="card-img-top" alt="Vidéo droit d'auteur">
+            <div class="card-body">
+              <span class="badge bg-warning text-dark mb-2"><i class="bi bi-mic-fill me-1"></i>Interview</span>
+              <h5 class="card-title h6 fw-semibold">
+                <a href="#" class="text-decoration-none text-dark">Droit d'auteur à l'ère numérique</a>
+              </h5>
+              <div class="d-flex align-items-center text-muted small mt-2">
+                <i class="bi bi-clock-history me-1"></i>
+                <span>Durée : 28:15</span>
+                <span class="mx-2">•</span>
+                <i class="bi bi-eye me-1"></i>
+                <span>892 vues</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+              <a href="#" class="btn btn-sm btn-outline-primary w-100"><i class="bi bi-play-fill"></i> Regarder</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vidéo 4 -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card border-0 shadow-sm h-100">
+            <img src="https://picsum.photos/id/96/400/250" class="card-img-top" alt="Vidéo OAPI">
+            <div class="card-body">
+              <span class="badge bg-danger mb-2"><i class="bi bi-easel-fill me-1"></i>Conférence</span>
+              <h5 class="card-title h6 fw-semibold">
+                <a href="#" class="text-decoration-none text-dark">Le rôle de l'OAPI en Afrique</a>
+              </h5>
+              <div class="d-flex align-items-center text-muted small mt-2">
+                <i class="bi bi-clock-history me-1"></i>
+                <span>Durée : 52:10</span>
+                <span class="mx-2">•</span>
+                <i class="bi bi-eye me-1"></i>
+                <span>2.1k vues</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 pb-3">
+              <a href="#" class="btn btn-sm btn-outline-primary w-100"><i class="bi bi-play-fill"></i> Regarder</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -192,34 +301,34 @@
   <div class="container">
     <div class="row g-4">
       <div class="col-md-4">
-        <h4 class="h5 text-white">SP-CNPI Burkina</h4>
+        <h4 class="h5 text-white"><i class="bi bi-building me-2"></i>SP-CNPI Burkina</h4>
         <p class="text-white-50">Le Secrétariat du Centre National de la Propriété Intellectuelle (SP-CNPI), structure nationale de liaison avec l'OAPI.</p>
         <div class="d-flex gap-2 mt-3">
-          <a href="#" class="btn btn-outline-light btn-sm">Facebook</a>
-          <a href="#" class="btn btn-outline-light btn-sm">Linkedin</a>
-          <a href="#" class="btn btn-outline-light btn-sm">Twitter</a>
+          <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-facebook"></i> Facebook</a>
+          <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-linkedin"></i> Linkedin</a>
+          <a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-twitter-x"></i> Twitter</a>
         </div>
       </div>
       <div class="col-md-4">
-        <h5 class="h6 text-white">Liens rapides</h5>
+        <h5 class="h6 text-white"><i class="bi bi-link-45deg me-2"></i>Liens rapides</h5>
         <ul class="list-unstyled">
-          <li><a href="index.html" class="text-white-50 text-decoration-none">Accueil</a></li>
-          <li><a href="index.html#apropos" class="text-white-50 text-decoration-none">À propos</a></li>
-          <li><a href="index.html#services" class="text-white-50 text-decoration-none">Nos services</a></li>
-          <li><a href="index.html#labels" class="text-white-50 text-decoration-none">Nos Labels</a></li>
-          <li><a href="index.html#contact" class="text-white-50 text-decoration-none">Contact</a></li>
+          <li><a href="index.html" class="text-white-50 text-decoration-none"><i class="bi bi-house-door me-1"></i>Accueil</a></li>
+          <li><a href="index.html#apropos" class="text-white-50 text-decoration-none"><i class="bi bi-info-circle me-1"></i>À propos</a></li>
+          <li><a href="index.html#services" class="text-white-50 text-decoration-none"><i class="bi bi-gear me-1"></i>Nos services</a></li>
+          <li><a href="index.html#labels" class="text-white-50 text-decoration-none"><i class="bi bi-trophy me-1"></i>Nos Labels</a></li>
+          <li><a href="index.html#contact" class="text-white-50 text-decoration-none"><i class="bi bi-envelope me-1"></i>Contact</a></li>
         </ul>
       </div>
       <div class="col-md-4">
-        <h5 class="h6 text-white">Heures d'ouverture</h5>
+        <h5 class="h6 text-white"><i class="bi bi-clock me-2"></i>Heures d'ouverture</h5>
         <ul class="list-unstyled text-white-50">
-          <li>Lundi - Jeudi : 7h30 - 16h00</li>
-          <li>Vendredi : 7h30 - 16h30</li>
+          <li><i class="bi bi-calendar-week me-2"></i>Lundi - Jeudi : 7h30 - 16h00</li>
+          <li><i class="bi bi-calendar-day me-2"></i>Vendredi : 7h30 - 16h30</li>
         </ul>
       </div>
     </div>
     <hr class="bg-white-50">
-    <div class="text-center text-white-50 small">© Copyright 2026 | Tous droits réservés par SP-CNPI Burkina Faso</div>
+    <div class="text-center text-white-50 small"><i class="bi bi-c-circle me-1"></i> Copyright 2026 | Tous droits réservés par SP-CNPI Burkina Faso</div>
   </div>
 </footer>
 

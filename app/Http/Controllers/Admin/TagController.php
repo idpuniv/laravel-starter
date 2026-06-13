@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use App\Support\Flash;
 use Illuminate\Support\Facades\Log;

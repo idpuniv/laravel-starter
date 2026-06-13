@@ -218,6 +218,9 @@
                             <a href="{{ url('/templates/article-form') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
                                 <i class="bi bi-pencil-square me-1"></i> Formulaire (admin)
                             </a>
+                            <a href="{{ url('/templates/video') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                <i class="bi bi-pencil-square me-1"></i> Videos
+                            </a>
                         </div>
                     </div>
                 </div>
