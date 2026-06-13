@@ -221,6 +221,9 @@
                             <a href="{{ url('/templates/video') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
                                 <i class="bi bi-pencil-square me-1"></i> Videos
                             </a>
+                            <a href="{{ url('/templates/documents') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
+                                <i class="bi bi-pencil-square me-1"></i> Documents
+                            </a>
                         </div>
                     </div>
                 </div>
