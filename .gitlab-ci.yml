@@ -35,7 +35,7 @@ build_front:
       - node_modules/
 
   script:
-    - npm ci
+    - npm install
     - npm run build
 
   rules:
