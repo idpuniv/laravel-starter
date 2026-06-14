@@ -35,8 +35,13 @@ build_front:
       - node_modules/
 
   script:
-    - npm install
+    - npm ci
     - npm run build
+    
+  artifacts:
+    paths:
+      - public/build/
+    expire_in: 1 hour
 
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
