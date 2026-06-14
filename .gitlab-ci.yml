@@ -58,7 +58,7 @@ test:
 
   needs:
     - job: build_front
-      artifacts: false
+      artifacts: true
 
   services:
     - name: postgres:15
