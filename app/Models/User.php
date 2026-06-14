@@ -9,6 +9,9 @@ use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -62,6 +65,36 @@ class User extends Authenticatable implements MustVerifyEmail
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
+    }
+
+    public function media(): MorphMany
+    {
+        return $this->morphMany(Media::class, 'mediable');
+    }
+
+    /**
+     * Avatar : le média courant ayant le rôle "avatar".
+     */
+    public function avatar(): MorphOne
+    {
+        return $this->morphOne(Media::class, 'mediable')
+            ->where('role', 'avatar')
+            ->where('is_current', true);
     }
 
     /* -----------------------------------------------------------------

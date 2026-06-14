@@ -36,7 +36,6 @@ build_front:
 
   script:
     - npm ci
-    - npm ci
     - npm run build
   
   artifacts:
