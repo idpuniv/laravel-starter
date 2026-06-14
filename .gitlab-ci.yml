@@ -36,8 +36,9 @@ build_front:
 
   script:
     - npm ci
+    - npm ci
     - npm run build
-    
+  
   artifacts:
     paths:
       - public/build/
@@ -58,7 +59,7 @@ test:
 
   needs:
     - job: build_front
-      artifacts: false
+      artifacts: true
 
   services:
     - name: postgres:15
@@ -78,9 +79,8 @@ test:
 
   before_script:
     - apt-get update -qq
-    - apt-get install -y -qq git unzip libpq-dev
-    - docker-php-ext-install pdo pdo_pgsql
-    - docker-php-ext-enable zip
+    - apt-get install -y -qq git unzip libpq-dev libzip-dev
+    - docker-php-ext-install pdo pdo_pgsql zip
     - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
     - rm composer-setup.php
@@ -102,7 +102,6 @@ test:
     - composer install --no-interaction --prefer-dist --optimize-autoloader
     - php artisan key:generate
     - php artisan migrate --force
-    - php artisan optimize
     - php artisan test --stop-on-failure
 
   rules:
