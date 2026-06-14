@@ -4,6 +4,13 @@
 
 <div class="container py-4">
 
+<div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center gap-2">
+            <x-breadcrumb></x-breadcrumb>
+        </div>
+    </div>
+
+
     <div class="card">
         <div class="card-body">
 

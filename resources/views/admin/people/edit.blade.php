@@ -2,28 +2,14 @@
 
 <x-admin-layout>
 <div class="container py-4">
-
+    
     {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div class="d-flex align-items-center gap-2">
-            <a href="{{ route('admin.people.index') }}"
-               class="btn btn-link text-body icon-circle-xs text-decoration-none hover-bg-secondary-25 p-0 m-0">
-                <i class="bi bi-arrow-left"></i>
-            </a>
-            <h1 class="h5 mb-0 fw-semibold">
-                {{ $person->first_name }} {{ $person->last_name }}
-                <small class="text-body-secondary fw-normal fs-6">#{{ $person->id }}</small>
-            </h1>
+            <x-breadcrumb></x-breadcrumb>
         </div>
 
         <div class="d-flex align-items-center gap-2">
-            @can(\App\Permissions\PersonPermissions::VIEW)
-                <a href="{{ route('admin.people.show', $person->id) }}"
-                   class="btn btn-link text-body icon-circle-xs text-decoration-none hover-bg-secondary-25 p-0 m-0"
-                   title="{{ __('Voir') }}">
-                    <i class="bi bi-eye"></i>
-                </a>
-            @endcan
 
             @can(\App\Permissions\PersonPermissions::DELETE)
                 <button type="button"

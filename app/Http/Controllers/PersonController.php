@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Support\Flash;
+use App\Support\Breadcrumb;
 use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Requests\StoreUserRequest;
@@ -27,6 +28,9 @@ class PersonController extends Controller
     public function create()
     {
         try {
+            Breadcrumb::add('Utilisateurs', 'admin.people.index')
+                      ->add('Créer');
+
             return view('admin.people.create', [
                 'countries' => $this->countries(),
             ]);
@@ -61,6 +65,9 @@ class PersonController extends Controller
     public function show(Person $person)
     {
         try {
+            Breadcrumb::add('Utilisateurs', 'admin.people.index')
+                      ->add($person->full_name);
+
             return view('admin.people.show', [
                 'person' => $person->load('country'),
             ]);
@@ -76,6 +83,10 @@ class PersonController extends Controller
     public function edit(Person $person)
     {
         try {
+            Breadcrumb::add('Utilisateurs', 'admin.people.index')
+                      ->add($person->full_name, 'admin.people.show', $person)
+                      ->add('Modifier');
+
             return view('admin.people.edit', [
                 'person' => $person->load('country'),
                 'countries' => $this->countries(),
@@ -116,6 +127,10 @@ class PersonController extends Controller
                     __('messages.person.already_has_account')
                 );
             }
+
+            Breadcrumb::add('Utilisateurs', 'admin.people.index')
+                      ->add($person->full_name, 'admin.people.show', $person)
+                      ->add('Ajouter un utilisateur');
 
             return view('admin.users.create', compact('person'));
 
