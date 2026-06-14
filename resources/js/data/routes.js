@@ -10,6 +10,11 @@ export const routes = {
     profile: '/profile',
     apiUsers: '/api/users',
     apiUser: '/api/users/{id}',
+    
+    categories: '/api/categories',
+    category: '/api/categories/{id}',
+    
+    media: '/api/media/{id}',
 };
 
 export const bindParams = (url, params = {}) => {

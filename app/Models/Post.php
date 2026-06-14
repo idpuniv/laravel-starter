@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\PostStatus;
 use App\Traits\Auditable;
+use App\Traits\HasMedia;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,6 +19,7 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
     use Auditable;
+    use HasMedia;
 
     /**
      * The attributes that are mass assignable.

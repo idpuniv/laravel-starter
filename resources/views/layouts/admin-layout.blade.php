@@ -202,6 +202,21 @@
 
             </form>
 
+            <div class="modal fade" id="alertModal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white py-2">
+                            <h5 class="modal-title small" id="alertModalTitle">Confirmation</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body small" id="alertModalMessage"></div>
+                        <div class="modal-footer py-2">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal" id="alertModalCancel">Annuler</button>
+                            <button type="button" class="btn btn-danger btn-sm" id="alertModalConfirm">Confirmer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <footer class="footer-fixed">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
                     <small class="text-secondary">&copy; 2026 AdminDashboard. Tous droits réservés.</small>

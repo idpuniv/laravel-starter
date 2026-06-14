@@ -2,7 +2,9 @@
 
 namespace App\Menus;
 
+use App\Permissions\CategoryPermissions;
 use App\Permissions\PersonPermissions;
+use App\Permissions\PostPermissions;
 use App\Permissions\SystemPermissions;
 
 final class Menus
@@ -44,6 +46,22 @@ final class Menus
                             'route' => 'admin.roles.index',
                         ],
                     ]
+                ],
+
+                [
+                    'slug' => 'categories',
+                    'label' => 'Catégories',
+                    'icon' => 'fas fa-chart-line',
+                    'route' => 'admin.categories.index',
+                    'permission' => CategoryPermissions::LIST
+                ],
+
+                [
+                    'slug' => 'actualites',
+                    'label' => 'Actualités',
+                    'icon' => 'fas fa-chart-line',
+                    'route' => 'admin.posts.index',
+                    'permission' => PostPermissions::LIST
                 ],
 
                 [

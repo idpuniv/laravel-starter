@@ -8,26 +8,30 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Jobs\GenerateThumbnailJob;
 use App\Support\Flash;
+use App\Support\Breadcrumb;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Post::class, 'post');
-    }
-
     public function index()
     {
-        return view('admin.posts.index');
+        Breadcrumb::add('Articles', 'admin.posts.index');
+        
+        $posts = Post::with(['user', 'category'])->latest()->paginate(15);
+        
+        return view('admin.posts.index', compact('posts'));
     }
 
     public function create()
     {
         try {
+            Breadcrumb::add('Articles', 'admin.posts.index')
+                      ->add('Créer');
+
             return view('admin.posts.create', [
                 'categories' => $this->categories(),
                 'tags' => $this->tags(),
@@ -49,7 +53,22 @@ class PostController extends Controller
             $data['user_id'] = $request->user()->id;
             $data['slug'] = $data['slug'] ?? Str::slug($data['title']);
 
-            $post = Post::create(Arr::except($data, ['tags']));
+            $post = Post::create(Arr::except($data, ['tags', 'featured_image', 'gallery']));
+
+            // Gérer l'image à la une
+            if ($request->hasFile('featured_image')) {
+                $media = $this->uploadImage($post, $request->file('featured_image'), 'featured');
+                GenerateThumbnailJob::dispatch($media);
+            }
+
+            // Gérer la galerie d'images
+            if ($request->hasFile('gallery')) {
+                foreach ($request->file('gallery') as $file) {
+                    $media = $this->uploadImage($post, $file, 'gallery');
+                    GenerateThumbnailJob::dispatch($media);
+                }
+            }
+
             $post->tags()->sync($request->validated('tags', []));
 
             return redirect()
@@ -68,8 +87,11 @@ class PostController extends Controller
     public function show(Post $post)
     {
         try {
+            Breadcrumb::add('Articles', 'admin.posts.index')
+                      ->add($post->title);
+
             return view('admin.posts.show', [
-                'post' => $post->load(['category', 'user', 'tags', 'comments']),
+                'post' => $post->load(['category', 'user', 'tags', 'comments', 'media']),
             ]);
         } catch (\Throwable $e) {
             Log::error($e);
@@ -83,8 +105,12 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         try {
+            Breadcrumb::add('Articles', 'admin.posts.index')
+                      ->add($post->title, 'admin.posts.show', $post)
+                      ->add('Modifier');
+
             return view('admin.posts.edit', [
-                'post' => $post->load('tags'),
+                'post' => $post->load('tags', 'media'),
                 'categories' => $this->categories(),
                 'tags' => $this->tags(),
             ]);
@@ -103,7 +129,27 @@ class PostController extends Controller
             $data = $request->validated();
             $data['slug'] = $data['slug'] ?? Str::slug($data['title']);
 
-            $post->update(Arr::except($data, ['tags']));
+            $post->update(Arr::except($data, ['tags', 'featured_image', 'gallery']));
+
+            // Gérer l'image à la une
+            if ($request->hasFile('featured_image')) {
+                // Supprimer l'ancienne image à la une
+                $oldFeatured = $post->media()->where('role', 'featured')->first();
+                if ($oldFeatured) {
+                    $oldFeatured->delete();
+                }
+                $media = $this->uploadImage($post, $request->file('featured_image'), 'featured');
+                GenerateThumbnailJob::dispatch($media);
+            }
+
+            // Gérer la galerie d'images (ajout de nouvelles images)
+            if ($request->hasFile('gallery')) {
+                foreach ($request->file('gallery') as $file) {
+                    $media = $this->uploadImage($post, $file, 'gallery');
+                    GenerateThumbnailJob::dispatch($media);
+                }
+            }
+
             $post->tags()->sync($request->validated('tags', []));
 
             return redirect()
@@ -135,6 +181,18 @@ class PostController extends Controller
                 ->route('admin.posts.index')
                 ->with(Flash::ERROR, __('messages.delete_failed'));
         }
+    }
+
+    private function uploadImage(Post $post, $file, string $role)
+    {
+        $path = $file->store('posts/images', 'public');
+        
+        return $post->media()->create([
+            'path' => $path,
+            'role' => $role,
+            'disk' => 'public',
+            'is_current' => $role === 'featured',
+        ]);
     }
 
     private function categories()

@@ -6,27 +6,36 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Services\CategoryService;
 use App\Support\Flash;
+use App\Support\Breadcrumb;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
+    public function __construct(
+        private readonly CategoryService $categoryService
+    ) {
         $this->authorizeResource(Category::class, 'category');
     }
 
     public function index()
     {
-        return view('admin.categories.index');
+        Breadcrumb::add('Catégories', 'admin.categories.index');
+        
+        $categories = $this->categoryService->all();
+        
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function create()
     {
         try {
+            Breadcrumb::add('Catégories', 'admin.categories.index')
+                      ->add('Créer');
+
             return view('admin.categories.create', [
-                'categories' => $this->parents(),
+                'categories' => $this->categoryService->parents(),
             ]);
         } catch (\Throwable $e) {
             Log::error($e);
@@ -41,10 +50,7 @@ class CategoryController extends Controller
     public function store(StoreCategoryRequest $request)
     {
         try {
-            $data = $request->validated();
-            $data['slug'] = $data['slug'] ?? Str::slug($data['name']);
-
-            $category = Category::create($data);
+            $category = $this->categoryService->create($request->validated());
 
             return redirect()
                 ->route('admin.categories.show', $category->id)
@@ -62,6 +68,9 @@ class CategoryController extends Controller
     public function show(Category $category)
     {
         try {
+            Breadcrumb::add('Catégories', 'admin.categories.index')
+                      ->add($category->name);
+
             return view('admin.categories.show', [
                 'category' => $category->load(['parent', 'children']),
             ]);
@@ -77,9 +86,13 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         try {
+            Breadcrumb::add('Catégories', 'admin.categories.index')
+                      ->add($category->name, 'admin.categories.show', $category)
+                      ->add('Modifier');
+
             return view('admin.categories.edit', [
                 'category' => $category,
-                'categories' => $this->parents($category->id),
+                'categories' => $this->categoryService->parents($category->id),
             ]);
         } catch (\Throwable $e) {
             Log::error($e);
@@ -93,10 +106,7 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         try {
-            $data = $request->validated();
-            $data['slug'] = $data['slug'] ?? Str::slug($data['name']);
-
-            $category->update($data);
+            $this->categoryService->update($category, $request->validated());
 
             return redirect()
                 ->route('admin.categories.index')
@@ -114,7 +124,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         try {
-            $category->delete();
+            $this->categoryService->delete($category);
 
             return redirect()
                 ->route('admin.categories.index')
@@ -127,16 +137,5 @@ class CategoryController extends Controller
                 ->route('admin.categories.index')
                 ->with(Flash::ERROR, __('messages.delete_failed'));
         }
-    }
-
-    /**
-     * Liste des catégories pouvant servir de parent
-     * (exclut la catégorie courante en édition).
-     */
-    private function parents(?int $exclude = null)
-    {
-        return Category::when($exclude, fn ($q) => $q->where('id', '!=', $exclude))
-            ->orderBy('name')
-            ->get();
     }
 }

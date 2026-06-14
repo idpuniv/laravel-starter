@@ -24,9 +24,15 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/guest.js',
                 'resources/js/admin.js',
+                'resources/js/posts.js',
                 'resources/js/tom-select.js',
                 'resources/js/datatable-manager.js',
                 'resources/js/custom-select.js',
+
+                // Pages
+
+                'resources/js/pages/admin/posts.js'
+
             ],
             refresh: true,
         }),
@@ -47,6 +53,12 @@ export default defineConfig({
             }
         }
     ],
+
+     resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'resources/js'),
+        },
+    },
     
     esbuild: {
         legalComments: 'none', // Delete all comments (including licenses) from the output
