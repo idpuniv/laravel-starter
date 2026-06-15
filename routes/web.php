@@ -15,7 +15,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -26,7 +26,7 @@ Route::get('/admin/dashboard', function () {
         return view('admin.dashboard');
     })->middleware(['auth.404'])->name('admin.dashboard');
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('admin')->name('admin.')->group(function () {
 
 
     Route::resource('users', App\Http\Controllers\Admin\UserController::class);

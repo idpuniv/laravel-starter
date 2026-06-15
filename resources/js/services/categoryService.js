@@ -1,47 +1,41 @@
-import http from '@/core/https';
+// src/services/categoryService.js
+import http, { initCsrf } from '@/core/https';
 import { routes, bindParams } from '@/data/routes';
 
 export const categoryService = {
-    /**
-     * Récupérer toutes les catégories
-     */
+    /** Fetch all categories */
     async getAll() {
         const response = await http.get(routes.categories);
         return response.data;
     },
 
-    /**
-     * Récupérer une catégorie par son ID
-     */
+    /** Fetch a single category by ID */
     async getById(id) {
         const url = bindParams(routes.category, { id });
         const response = await http.get(url);
         return response.data;
     },
 
-    /**
-     * Créer une nouvelle catégorie
-     */
+    /** Create a new category */
     async create(data) {
+        await initCsrf();
         const response = await http.post(routes.categories, data);
         return response.data;
     },
 
-    /**
-     * Mettre à jour une catégorie
-     */
+    /** Update an existing category */
     async update(id, data) {
+        await initCsrf();
         const url = bindParams(routes.category, { id });
         const response = await http.put(url, data);
         return response.data;
     },
 
-    /**
-     * Supprimer une catégorie
-     */
+    /** Delete a category by ID */
     async delete(id) {
-        const url = bindParams(routes.media, { id });
+        await initCsrf();
+        const url = bindParams(routes.category, { id }); // ← routes.category, pas routes.media
         const response = await http.delete(url);
         return response.data;
-    }
+    },
 };

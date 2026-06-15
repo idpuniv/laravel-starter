@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('admin')->name('admin.')->group(function () {
 
          /*
     |--------------------------------------------------------------------------

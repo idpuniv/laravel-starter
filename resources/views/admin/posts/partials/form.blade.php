@@ -13,9 +13,9 @@
         <div class="input-group">
             <select id="category_id" name="category_id" class="form-select @error('category_id') is-invalid @enderror">
                 <option value="">{{ __('Choisir une catégorie') }}</option>
-                @foreach($categories as $category)
-                <option value="{{ $category->id }}" {{ old('category_id', $post->category_id ?? '') == $category->id ? 'selected' : '' }}>
-                    {{ $category->name }}
+                @foreach($categories as $cat)
+                <option value="{{ $cat->id }}" {{ old('category_id', $post->category_id ?? '') == $cat->id ? 'selected' : '' }}>
+                    {{ $cat->name }}
                 </option>
                 @endforeach
             </select>
@@ -85,14 +85,14 @@
 </div>
 
 
-<form method="POST" id="categoryForm">
+<form method="POST" id="category-form">
     @csrf
     <x-modal id="catModalForm"
         title="{{ __('Créer une nouvelle catégorie') }}"
         class="modal-dialog-centered">
 
         <div class="mb-3">
-            <div class="status status-success">{{ __('Catégorie enregistrée')}}</div>
+            <div class="status status-success d-none" id="category-success">{{ __('Catégorie enregistrée')}}</div>
             @include('admin.categories.partials.form')
         </div>
 
@@ -100,7 +100,7 @@
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 {{ __('Annuler') }}
             </button>
-            <button type="submit" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" id="btn-save-category">
                 {{ __('Enregistrer') }}
             </button>
         </div>

@@ -151,7 +151,7 @@
             <main id="main-content" class="content-scrollable" tabindex="-1">
                 <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
                     @yield('content-header')
-                    <div class="status">
+                    <div>
                         @include('layouts.partials.toasts')
                     </div>
                     {{-- <button class="btn btn-primary btn-sm" type="button">

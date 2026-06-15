@@ -294,4 +294,5 @@
             </div>
         </div>
     </div>
+    @vite(['resources/js/pages/admin/posts.js'])
 </x-guest-layout>

@@ -22,7 +22,6 @@
         </div>
     </div>
 
-@push('scripts')
-@vite(['resources/js/posts.js'])
-@endpush
+
+@vite(['resources/js/pages/admin/posts.js'])
 </x-admin-layout>

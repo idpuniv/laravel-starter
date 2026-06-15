@@ -17,6 +17,7 @@ class CategoryController extends Controller
         try {
             return response()->json([
                 'success' => true,
+                'user'  => auth()->user(),
                 'message' => null,
                 'data' => $categoryService->all(),
                 'errors' => null,

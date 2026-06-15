@@ -1,1 +1,2 @@
-import "./modal"
+import "./modal";
+import "./ui/flash";
