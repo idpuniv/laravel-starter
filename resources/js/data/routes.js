@@ -1,8 +1,9 @@
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 export const routes = {
-    
-    categories: '/api/categories',
-    category: '/api/categories/{id}',
-    media: '/api/media/{id}',
+    categories: `${API_BASE_URL}/categories`,
+    category: `${API_BASE_URL}/categories/{id}`,
+    media: `${API_BASE_URL}/media/{id}`,
 };
 
 export const bindParams = (url, params = {}) => {

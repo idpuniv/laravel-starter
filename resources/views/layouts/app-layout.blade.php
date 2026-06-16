@@ -21,6 +21,12 @@
     {{ $slot ?? '' }}
 
 
+    <script>
+        window.translations = {
+            add: "{{ __('Ajouter') }}",
+            no_results: "{{ __('Aucun résultat') }}",
+        };
+    </script>
     @stack('scripts')
 </body>
 

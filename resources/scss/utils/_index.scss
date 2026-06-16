@@ -220,3 +220,30 @@ $overlay-opacities: (
         font-size: 2rem;
     }
 }
+
+
+$heights: (
+    25: 25px,
+    40: 40px,
+    50: 50px,
+    75: 75px,
+    100: 100px,
+);
+
+@each $name, $value in $heights {
+    .h-fixed-#{$name} {
+        height: $value !important;
+        overflow: hidden;
+    }
+
+    @each $breakpoint, $breakpoint-value in $grid-breakpoints {
+        @if $breakpoint-value != 0 {
+            @media (min-width: $breakpoint-value) {
+                .h-fixed-#{$breakpoint}-#{$name} {
+                    height: $value !important;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

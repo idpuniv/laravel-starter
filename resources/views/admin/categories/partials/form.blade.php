@@ -1,7 +1,8 @@
 <div class="row g-4">
     <div class="col-md-6">
         <label for="name" class="form-label fw-semibold">{{ __('Nom de la catégorie') }} <span class="text-danger">*</span></label>
-        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $category->name ?? '') }}" placeholder="{{ __('Ex. Brèves') }}" required>
+        <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror"
+         value="{{ old('name', $category->name ?? '') }}" placeholder="{{ __('Ex. Brèves') }}" data-slug-target="slug" required>
         @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror

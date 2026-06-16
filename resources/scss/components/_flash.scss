@@ -1,14 +1,14 @@
-.status {
+.flash {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
     
     &::before {
         content: '';
-        width: 24px;
-        height: 24px;
+        width: 16px;
+        height: 16px;
         border-radius: 50%;
-        border: 2px solid;
+        border: 1px solid;
         display: inline-block;
     }
     
@@ -59,4 +59,14 @@
     &-info {
         color: #17a2b8;
     }
+}
+
+.flash-container {
+    position: absolute;
+    top: -15px;
+    left: 0;
+    right: 0;
+    z-index: 1055;
+    pointer-events: none;
+
 }

@@ -19,8 +19,7 @@ export const initCsrf = () => axios.get('/sanctum/csrf-cookie');
 
 // HTTP client configured for Sanctum SPA authentication
 const http = axios.create({
-    baseURL: '',
-    // withCredentials: true, // sends session cookies on every request
+    withCredentials: true, // sends session cookies on every request
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         'Accept': 'application/json',

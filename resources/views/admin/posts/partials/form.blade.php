@@ -8,10 +8,10 @@
         @enderror
     </div>
 
+
     <div class="col-md-6">
         <label for="category_id" class="form-label fw-semibold">{{ __('Catégorie') }}</label>
-        <div class="input-group">
-            <select id="category_id" name="category_id" class="form-select @error('category_id') is-invalid @enderror">
+            <select name="category_id" class="form-select-lg ts-select">
                 <option value="">{{ __('Choisir une catégorie') }}</option>
                 @foreach($categories as $cat)
                 <option value="{{ $cat->id }}" {{ old('category_id', $post->category_id ?? '') == $cat->id ? 'selected' : '' }}>
@@ -19,10 +19,6 @@
                 </option>
                 @endforeach
             </select>
-            <button class="btn btn-outline-secondary" type="button" id="addCategoryBtn" data-bs-toggle="modal" data-bs-target="#catModalForm">
-                <i class="bi bi-plus"></i>
-            </button>
-        </div>
         @error('category_id')
         <div class="invalid-feedback">{{ $message }}</div>
         @enderror
@@ -87,22 +83,34 @@
 
 <form method="POST" id="category-form">
     @csrf
+
     <x-modal id="catModalForm"
         title="{{ __('Créer une nouvelle catégorie') }}"
         class="modal-dialog-centered">
 
-        <div class="mb-3">
-            <div class="status status-success d-none" id="category-success">{{ __('Catégorie enregistrée')}}</div>
-            @include('admin.categories.partials.form')
+        <div class="position-relative">
+
+            <div class="flash-container">
+                <div class="flash flash-success d-none" id="category-success">
+                    {{ __('Enregistrée') }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                @include('admin.categories.partials.form')
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    {{ __('Fermer') }}
+                </button>
+
+                <button type="button" class="btn btn-primary" id="btn-save-category">
+                    {{ __('Enregistrer') }}
+                </button>
+            </div>
+
         </div>
 
-        <div class="d-flex justify-content-end gap-2">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                {{ __('Annuler') }}
-            </button>
-            <button type="button" class="btn btn-primary" id="btn-save-category">
-                {{ __('Enregistrer') }}
-            </button>
-        </div>
     </x-modal>
 </form>

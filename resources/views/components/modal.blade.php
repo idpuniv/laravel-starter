@@ -20,13 +20,13 @@
                 <h5 class="modal-title fw-semibold" id="{{ $id }}Label">
                     {{ $title }}
                 </h5>
+                
                 <button type="button"
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="{{ __('Fermer') }}">
                 </button>
             </div>
-
             <div class="modal-body">
                 {{ $slot }}
             </div>
