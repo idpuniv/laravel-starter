@@ -18,7 +18,8 @@ class StorePostRequest extends FormRequest
         return [
             'title'        => ['required', 'string', 'max:255'],
             'slug'         => ['nullable', 'string', 'max:255', 'unique:posts,slug'],
-            'category_id'  => ['nullable', 'exists:categories,id'],
+            'category_id'   => ['nullable', 'integer', 'exists:categories,id'],
+            'category_name' => ['nullable', 'string', 'max:255'],
             'summary'      => ['nullable', 'string', 'max:500'],
             'content'      => ['required', 'string'],
             'status'       => ['nullable', Rule::enum(PostStatus::class)],

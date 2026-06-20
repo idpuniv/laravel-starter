@@ -63,6 +63,7 @@ class ProfileTest extends TestCase
 
         $this->assertNotNull($user->refresh()->email_verified_at);
     }
+
     public function test_user_can_delete_their_account(): void
     {
         $user = User::factory()->create([
@@ -70,7 +71,7 @@ class ProfileTest extends TestCase
         ]);
 
         $response = $this
-            ->actingAs($user)
+            ->actingAs($user, 'web')
             ->delete('/profile', [
                 'password' => 'password',
             ]);
@@ -79,7 +80,7 @@ class ProfileTest extends TestCase
             ->assertSessionHasNoErrors()
             ->assertRedirect('/');
 
-        $this->assertGuest();
+        $this->assertGuest('web');
 
         $this->assertSoftDeleted('users', [
             'id' => $user->id,

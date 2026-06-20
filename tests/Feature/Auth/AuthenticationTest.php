@@ -45,10 +45,8 @@ class AuthenticationTest extends TestCase
     public function test_users_can_logout(): void
     {
         $user = User::factory()->create();
-
-        $response = $this->actingAs($user)->post('/logout');
-
-        $this->assertGuest();
+        $response = $this->actingAs($user, 'web')->post('/logout');
+        $this->assertGuest('web');
         $response->assertRedirect('/');
     }
 }
