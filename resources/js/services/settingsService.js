@@ -1,4 +1,4 @@
-import http from '@/core/https';
+import { http, initCsrf } from '@/core';
 import { routes } from '@/data/routes';
 
 /**

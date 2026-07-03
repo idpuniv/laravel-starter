@@ -1,5 +1,5 @@
 export * from './dom';
 export * from './events';
-export { default as http } from './https';
+export * from './http';
 export * from './storage';
 export * from './utils';
