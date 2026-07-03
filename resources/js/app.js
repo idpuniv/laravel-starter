@@ -6,6 +6,7 @@ import "./datatable-manager";
 import "./phone-input";
 import "./plugins/bootstrap";
 import "./plugins/tom-select";
+import "./components/index";
 import { initSlugGenerators } from '@/utils/slug';
 document.addEventListener('DOMContentLoaded', () => {
     console.log('hello');

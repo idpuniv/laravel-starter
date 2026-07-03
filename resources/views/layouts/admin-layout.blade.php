@@ -4,7 +4,7 @@
     @stack('styles')
     @endpush
     <x-theme-switch />
-    @include('layouts.partials.alert-top')
+    <!-- @include('layouts.partials.alert-top') -->
     <a href="#main-content" class="skip-to-content">Aller au contenu principal</a>
 
     <div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
