@@ -1,31 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Services\SettingsService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class SettingController extends Controller
 {
     /**
-     * Display application settings.
-     */
-    public function index(SettingsService $settings): \Illuminate\View\View
-    {
-        return view('settings.index', [
-            'groups' => $settings->visibleGroups(),
-            'fields' => config('settings.fields'),
-            'settings' => $settings->all(),
-        ]);
-    }
-
-    /**
      * Update a single setting (AJAX / API).
      */
-    public function update(Request $request, SettingsService $settings): JsonResponse
+    public function __invoke(Request $request, SettingsService $settings): JsonResponse
     {
         $validated = $request->validate([
             'key' => ['required', 'string'],

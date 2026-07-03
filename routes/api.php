@@ -10,4 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::apiResource('categories', App\Http\Controllers\Api\CategoryController::class);
+    Route::post('/settings/update', App\Http\Controllers\Api\SettingController::class)->name('settings.update');
 });

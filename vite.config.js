@@ -30,7 +30,8 @@ export default defineConfig({
 
                 // Pages
 
-                'resources/js/pages/admin/posts.js'
+                'resources/js/pages/admin/posts.js',
+                'resources/js/pages/settings.js'
 
             ],
             refresh: true,
