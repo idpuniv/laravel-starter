@@ -1,3 +1,19 @@
+// ============================================================================
+// ADMIN.SCSS - COMPILATION COMPOSANTS UNIQUEMENT (SANS LE CODE SOURCE DE BOOTSTRAP)
+// ============================================================================
 
+// 1. Outils abstraits de Bootstrap & surcharges locales
+@import "bootstrap/scss/functions";
 
+@import "bootstrap/variables";      // <-- FIX : On charge TES variables et jetons de dashboard ici !
+
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+// 2. Tes jetons de conception (Tokens additionnels)
+@import "core/index";
+
+// 3. Ton layout d'administration (Sidebar, Navbar, etc.)
 @import "layouts/admin/index";

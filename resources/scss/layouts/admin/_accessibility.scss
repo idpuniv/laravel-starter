@@ -1,33 +1,91 @@
+// resources/css/layouts/admin/_accessibility.scss
 // ============================================================================
-// ACCESSIBILITY & UTILITIES
+// ACCESSIBILITÉ & UTILITAIRES (A11Y)
+// Centralise la gestion des focus, des cibles tactiles et des préférences système.
 // ============================================================================
 
 @import "variables";
 
+// ----------------------------------------
+// 1. FOCUS ET VISIBILITÉ DE LA NAVIGATION
+// ----------------------------------------
+
 :focus-visible {
-    outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
-    border-radius: $dashboard-border-radius-sm;
+  outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
+  outline-offset: $dashboard-focus-outline-offset;
+  border-radius: $dashboard-border-radius-sm;
 }
 
+// Lien d'évitement pour les lecteurs d'écran / utilisateurs au clavier
 .skip-to-content {
-    background: $dashboard-focus-outline-color;
-    color: var(--bs-white);
-    border-radius: $dashboard-border-radius-sm;
+  position: absolute;
+  top: -100px; // Masqué hors de l'écran par défaut
+  left: $dashboard-spacer;
+  padding: $dashboard-spacer-half $dashboard-spacer;
+  z-index: $dashboard-zindex-overlay + 100;
+  text-decoration: none;
+  background-color: $dashboard-focus-outline-color;
+  color: var(--bs-white);
+  border-radius: 0 0 $dashboard-border-radius-sm $dashboard-border-radius-sm;
+  font-size: $dashboard-font-size-sm;
+  font-weight: $dashboard-font-weight-medium;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: top 0.2s ease-in-out;
+  
+  &:focus-visible,
+  &:focus {
+    top: 0; // Devient visible dès qu'il prend le focus
+    outline: $dashboard-focus-outline-width solid var(--bs-white);
+    outline-offset: -4px;
+  }
 }
 
+// ----------------------------------------
+// 2. PRÉFÉRENCES DE MOUVEMENT RÉDUIT (WCAG)
+// ----------------------------------------
+
+// Classe globale d'activation (ou via média query standard)
 .reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// En complément : respect natif du choix de l'utilisateur via le système
+@media (prefers-reduced-motion: reduce) {
+  html:not(.allow-motion) {
+    scroll-behavior: auto !important;
+    
     *,
     *::before,
     *::after {
-        animation-duration: 0.01ms !important;
-        transition-duration: 0.01ms !important;
+      animation-duration: 0s !important;
+      animation-delay: 0s !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
     }
+  }
 }
 
+// ----------------------------------------
+// 3. OPTIMISATION TACTILE (TOUCH TARGETS)
+// ----------------------------------------
+
 .touch-device {
-    button,
-    .nav-link,
-    .sidebar-toggle-btn {
-        min-height: $dashboard-touch-target-min-height;
-    }
+  button,
+  .nav-link,
+  .sidebar-toggle-btn,
+  .btn {
+    min-height: $dashboard-touch-target-min-height;
+    display: inline-flex;
+    align-items: center;
+  }
 }

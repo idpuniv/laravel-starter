@@ -1,150 +1,66 @@
+// resources/css/layouts/admin/components/_sidebar.scss
 // ============================================================================
-// SIDEBAR - Couleurs et styles visuels
+// COMPOSANT SIDEBAR (HABILLAGE DE LA COLONNE GAUCHE)
+// Gère uniquement l'identité visuelle interne (Profil, Avatar, Pied de Sidebar).
+// Note : La navigation et le menu sont cloisonnés dans _menu.scss.
 // ============================================================================
 
-@import "variables";
+@import "../variables"; // Ajustement du chemin selon ton architecture
 
-.sidebar-col {
-    background-color: $dashboard-sidebar-bg;
-}
-
-.sidebar-content {
-    &::-webkit-scrollbar {
-        width: $dashboard-scrollbar-width-sidebar;
-    }
-    &::-webkit-scrollbar-track {
-        background: $dashboard-sidebar-scrollbar-track;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: $dashboard-sidebar-scrollbar-thumb;
-        border-radius: 2px;
-    }
-}
-
+// Zone supérieure : Profil de l'utilisateur connecté
 .sidebar-profile {
-    text-align: center;
-    padding: $dashboard-sidebar-profile-padding;
-    border-bottom: 1px solid $dashboard-sidebar-profile-border;
-}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: var(--#{$dashboard-prefix-name}sidebar-profile-height);
+  padding: $dashboard-sidebar-profile-padding;
+  border-bottom: 1px solid var(--#{$dashboard-prefix-name}sidebar-profile-border);
+  transition: $dashboard-transition-colors;
 
-.sidebar-profile .avatar {
-    margin: 0;
+  .avatar {
+    margin-bottom: $dashboard-spacer-quarter;
     font-size: $dashboard-font-size-sm;
-}
+    flex-shrink: 0;
+  }
 
-.sidebar-profile .profile-name {
+  .profile-name {
+    font-size: $dashboard-font-size-sm;
+    font-weight: $dashboard-font-weight-medium;
     line-height: 1.2;
     margin: 0;
-}
-
-.sidebar-footer {
-    padding: $dashboard-sidebar-footer-padding;
-    border-top: 1px solid $dashboard-sidebar-footer-border;
-    font-size: $dashboard-font-size-xs;
-    color: $dashboard-sidebar-footer-color;
-    text-align: center;
-    height: $dashboard-sidebar-footer-height;
-}
-
-.sidebar-menu .nav-item {
-    width: 100%;
-}
-
-// Parent link
-.sidebar-menu .nav-link {
-    color: $dashboard-menu-link-color;
-    border-radius: $dashboard-border-radius-md;
-    font-size: $dashboard-font-size-sm;
-    transition: $dashboard-transition-colors;
-    width: 100%;
-    
-    &:hover {
-        background-color: $dashboard-menu-link-hover-bg;
-        color: $dashboard-menu-link-hover-color;
-    }
-    
-    // Parent actif (page courante)
-    &.active {
-        background-color: $dashboard-menu-link-active-bg;
-        color: $dashboard-menu-link-active-color;
-    }
-}
-
-.sidebar-menu .nav-link p {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    flex: 1;
-}
-
-.sidebar-menu .nav-arrow {
-    font-size: $dashboard-font-size-xs;
-}
-
-.sidebar-menu .nav-treeview {
-    width: 100%;
-}
-
-// Child link
-.sidebar-menu .nav-treeview .nav-link {
-    padding: $dashboard-menu-subitem-padding-y $dashboard-menu-subitem-padding-x;
-    font-size: $dashboard-font-size-xs;
-    color: $dashboard-menu-treeview-link-color;
-    border-radius: $dashboard-border-radius-md;
-    transition: $dashboard-transition-colors;
-    width: 100%;
-    
-    &:hover {
-        background-color: $dashboard-menu-link-hover-bg;
-        color: $dashboard-menu-link-hover-color;
-    }
-    
-    // Child actif (page courante dans sous-menu) - style plus léger
-    &.active {
-        background-color: rgba($primary, 0.1);
-        color: $primary;
-        font-weight: $dashboard-font-weight-semibold;
-    }
-}
-
-.sidebar-menu .nav-treeview .nav-link:first-child {
-    margin-top: $dashboard-spacer-half;
-}
-
-.sidebar-menu .nav-treeview .nav-link .nav-icon {
-    font-size: $dashboard-font-size-xs;
-}
-
-.sidebar-menu .nav-treeview .nav-treeview {
-    padding-left: $dashboard-menu-subitem-padding-left-nested;
-}
-
-.nav-badge {
-    border-radius: $dashboard-border-radius-pill;
-    background-color: $dashboard-badge-bg;
-    color: $dashboard-badge-color;
-    font-size: $dashboard-font-size-badge;
-    font-weight: $dashboard-font-weight-bold;
-    line-height: 0;
     white-space: nowrap;
-    border: $dashboard-badge-border-width solid $dashboard-badge-border-color;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
 }
 
-.nav-header {
-    font-size: $dashboard-font-size-nav-header;
-    font-weight: $dashboard-font-weight-semibold;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: $dashboard-nav-header-color;
-    padding: $dashboard-nav-header-padding;
-    min-height: $dashboard-navbar-height;  // ← hauteur minimum = hauteur navbar
+// Zone inférieure : Pied de la Sidebar (Copyright / Version / Statut)
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-shrink: 0;
+  padding: $dashboard-sidebar-footer-padding;
+  height: var(--#{$dashboard-prefix-name}sidebar-footer-height);
+  border-top: 1px solid var(--#{$dashboard-prefix-name}sidebar-footer-border);
+  font-size: $dashboard-font-size-xs;
+  color: var(--#{$dashboard-prefix-name}sidebar-footer-color);
+  transition: $dashboard-transition-colors;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
-.text-danger-sidebar {
-    color: $dashboard-danger-color;
-    
-    &:hover {
-        background-color: $dashboard-danger-hover-bg;
-        color: $dashboard-danger-hover-color;
-    }
+// ----------------------------------------
+// RESPONSIVE / ADAPTATIONS COMPOSANT
+// ----------------------------------------
+
+@media (max-width: $dashboard-breakpoint-mobile) {
+  .sidebar-profile {
+    height: auto;
+    min-height: var(--#{$dashboard-prefix-name}navbar-height);
+  }
 }

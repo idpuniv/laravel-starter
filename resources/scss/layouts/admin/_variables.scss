@@ -1,135 +1,134 @@
+// resources/css/layouts/admin/_variables.scss
 // ============================================================================
-// VARIABLES DASHBOARD
+// VARIABLES LÉGÈRES DE L'INTERFACE ADMIN (MODE CLAIR PAR DÉFAUT)
 // ============================================================================
 
+// --- N.B. : Les préfixes sont hérités de core/_config.scss pour éviter les conflits ---
+
+// ----------------------------------------
+// 1. Dimensions & Structure
+// ----------------------------------------
 $dashboard-prefix: "idash" !default;
 $dashboard-prefix-name: "#{$dashboard-prefix}-" !default;
-
-// Dimensions
-$dashboard-sidebar-width: 280px !default;
-$dashboard-sidebar-collapsed-w: 0 !default;
-$dashboard-navbar-height: 72px !default;
-$dashboard-sidebar-profile-height: 72px !default;
-$dashboard-footer-height: 60px !default;
-$dashboard-sidebar-footer-height: 60px !default;
-$dashboard-scrollbar-width: 6px !default;
-$dashboard-scrollbar-width-sidebar: 4px !default;
+$dashboard-sidebar-width:            280px !default;
+$dashboard-sidebar-collapsed-w:      0 !default;
+$dashboard-navbar-height:            72px !default;
+$dashboard-sidebar-profile-height:   72px !default;
+$dashboard-footer-height:            60px !default;
+$dashboard-sidebar-footer-height:    60px !default;
+$dashboard-scrollbar-width:          6px !default;
+$dashboard-scrollbar-width-sidebar:  4px !default;
 
 // Z-index
-$dashboard-zindex-sidebar: 1050 !default;
-$dashboard-zindex-overlay: 1040 !default;
+$dashboard-zindex-sidebar:           1050 !default;
+$dashboard-zindex-overlay:           1040 !default;
 
-// Border radius
-$dashboard-border-radius-sm: 0.375rem !default;
-$dashboard-border-radius-md: 0.5rem !default;
-$dashboard-border-radius-lg: 0.75rem !default;
-$dashboard-border-radius-pill: 50rem !default;
+// ----------------------------------------
+// 2. Bordures & Transitions
+// ----------------------------------------
+$dashboard-border-radius-sm:         0.375rem !default;
+$dashboard-border-radius-md:         0.5rem !default;
+$dashboard-border-radius-lg:         0.75rem !default;
+$dashboard-border-radius-pill:       50rem !default;
 
-// Transitions
-$dashboard-transition-width: width 0.25s ease !default;
-$dashboard-transition-transform: transform 0.3s ease !default;
-$dashboard-transition-nav-arrow: transform 0.2s ease !default;
-$dashboard-transition-treeview: max-height 0.25s ease-out !default;
-$dashboard-transition-colors: color 0.15s ease, background-color 0.15s ease !default;
+$dashboard-transition-width:         width 0.25s ease !default;
+$dashboard-transition-transform:     transform 0.3s ease !default;
+$dashboard-transition-nav-arrow:     transform 0.2s ease !default;
+$dashboard-transition-treeview:      max-height 0.25s ease-out !default;
+$dashboard-transition-colors:        color 0.15s ease, background-color 0.15s ease !default;
 
-// Spacing
-$dashboard-spacer: 1rem !default;
-$dashboard-spacer-half: $dashboard-spacer * 0.5 !default;
-$dashboard-spacer-quarter: $dashboard-spacer * 0.25 !default;
+// ----------------------------------------
+// 3. Spacements (Paddings & Margins)
+// ----------------------------------------
+$dashboard-spacer:                   1rem !default;
+$dashboard-spacer-half:              $dashboard-spacer * 0.5 !default;
+$dashboard-spacer-quarter:           $dashboard-spacer * 0.25 !default;
 
-$dashboard-sidebar-padding-y: $dashboard-spacer-half !default;
-$dashboard-sidebar-padding-x: $dashboard-spacer * 0.75 !default;
-$dashboard-sidebar-profile-padding: $dashboard-spacer * 0.75 $dashboard-spacer !default;
-$dashboard-sidebar-footer-padding: $dashboard-spacer * 0.75 $dashboard-spacer !default;
-$dashboard-content-padding: $dashboard-spacer * 1.5 !default;
-$dashboard-content-padding-mobile: $dashboard-spacer !default;
-$dashboard-footer-padding: $dashboard-spacer * 0.75 $dashboard-spacer * 1.5 !default;
-$dashboard-nav-link-padding: $dashboard-spacer-half !default;
-$dashboard-nav-link-margin-right: $dashboard-spacer-half !default;
-$dashboard-menu-item-padding-y: $dashboard-spacer * 0.625 !default;
-$dashboard-menu-item-padding-x: $dashboard-spacer * 0.75 !default;
-$dashboard-menu-item-icon-width: $dashboard-spacer * 1.5 !default;
-$dashboard-menu-item-icon-margin: $dashboard-spacer-half !default;
-$dashboard-menu-subitem-padding-y: $dashboard-spacer-half !default;
-$dashboard-menu-subitem-padding-x: $dashboard-spacer * 0.75 !default;
-$dashboard-menu-subitem-padding-left: $dashboard-spacer * 0 !default;
+$dashboard-sidebar-padding-y:        $dashboard-spacer-half !default;
+$dashboard-sidebar-padding-x:        $dashboard-spacer * 0.75 !default;
+$dashboard-sidebar-profile-padding:  $dashboard-spacer * 0.75 $dashboard-spacer !default;
+$dashboard-sidebar-footer-padding:   $dashboard-spacer * 0.75 $dashboard-spacer !default;
+
+$dashboard-content-padding:          $dashboard-spacer * 1.5 !default;
+$dashboard-content-padding-mobile:   $dashboard-spacer !default;
+$dashboard-footer-padding:           $dashboard-spacer * 0.75 $dashboard-spacer * 1.5 !default;
+
+$dashboard-menu-item-padding-y:      $dashboard-spacer * 0.625 !default;
+$dashboard-menu-item-padding-x:      $dashboard-spacer * 0.75 !default;
+$dashboard-menu-item-icon-width:     $dashboard-spacer * 1.5 !default;
+$dashboard-menu-item-icon-margin:    $dashboard-spacer-half !default;
+
+$dashboard-menu-subitem-padding-y:   $dashboard-spacer-half !default;
+$dashboard-menu-subitem-padding-x:   $dashboard-spacer * 0.75 !default;
+$dashboard-menu-subitem-padding-left: 0 !default;
 $dashboard-menu-subitem-padding-left-nested: $dashboard-spacer * 1.5 !default;
-$dashboard-nav-header-padding: $dashboard-spacer $dashboard-spacer * 0.75 $dashboard-spacer-half $dashboard-spacer * 0.75 !default;
+$dashboard-nav-header-padding:       $dashboard-spacer $dashboard-spacer * 0.75 $dashboard-spacer-half $dashboard-spacer * 0.75 !default;
 
-// Breakpoints
-$dashboard-breakpoint-mobile: 768px !default;
-$dashboard-breakpoint-small: 480px !default;
+// Breakpoints & Accessibilité
+$dashboard-breakpoint-mobile:        768px !default;
+$dashboard-breakpoint-small:         480px !default;
+$dashboard-touch-target-min-height:  44px !default;
 
-// Font sizes
-$dashboard-font-size-sm: 0.875rem !default;
-$dashboard-font-size-xs: 0.7rem !default;
-$dashboard-font-size-nav-header: 0.7rem !default;
-$dashboard-font-size-badge: 0.65rem !default;
-$dashboard-font-size-avatar: 1rem !default;
+// ----------------------------------------
+// 4. Typographie
+// ----------------------------------------
+$dashboard-font-size-sm:             0.875rem !default;
+$dashboard-font-size-xs:             0.7rem !default;
+$dashboard-font-size-nav-header:     0.7rem !default;
+$dashboard-font-size-badge:          0.65rem !default;
+$dashboard-font-size-avatar:         1rem !default;
 
-// Font weights
-$dashboard-font-weight-semibold: 600 !default;
-$dashboard-font-weight-bold: 700 !default;
+$dashboard-font-weight-semibold:     600 !default;
+$dashboard-font-weight-bold:         700 !default;
 
-// Touch target
-$dashboard-touch-target-min-height: 44px !default;
+// ----------------------------------------
+// 5. Design Concept & Couleurs (Mode Clair)
+// ----------------------------------------
+$dashboard-overlay-bg:               rgba($black, 0.5) !default;
+$dashboard-focus-outline-color:      $primary !default;
+$dashboard-focus-outline-width:      2px !default;
+$dashboard-focus-outline-offset:     2px !default;
 
-// Overlay
-$dashboard-overlay-bg: rgba(0, 0, 0, 0.5) !default;
+// Global Body & Structure Backgrounds
+$dashboard-body-bg:                  $gray-100 !default; 
+$dashboard-body-color:               $gray-900 !default;
 
-// Scrollbar colors
-$dashboard-sidebar-scrollbar-track: var(--bs-gray-800) !default;
-$dashboard-sidebar-scrollbar-thumb: var(--bs-gray-600) !default;
-$dashboard-content-scrollbar-track: var(--bs-gray-300) !default;
-$dashboard-content-scrollbar-thumb: var(--bs-gray-500) !default;
+// Top Navbar
+$dashboard-navbar-bg:                $white !default;
+$dashboard-navbar-border-color:      $gray-200 !default;
+$dashboard-navbar-toggle-color:      $gray-700 !default;
 
-// Sidebar colors
-$dashboard-sidebar-bg: var(--bs-dark) !default;
-$dashboard-sidebar-color: var(--bs-light) !default;
-$dashboard-sidebar-profile-border: var(--bs-gray-700) !default;
-$dashboard-sidebar-footer-border: var(--bs-gray-700) !default;
-$dashboard-sidebar-footer-color: var(--bs-gray-500) !default;
+// Footer
+$dashboard-footer-bg:                $white !default;
+$dashboard-footer-border-color:      $gray-200 !default;
 
-// Menu colors
-$dashboard-menu-link-color: var(--bs-gray-700) !default;
-$dashboard-menu-link-hover-bg: rgba($primary, 0.08) !default;
-$dashboard-menu-link-hover-color: var(--bs-primary) !default;
-$dashboard-menu-link-active-bg: $primary !default;
-$dashboard-menu-link-active-color: var(--bs-white) !default;
-$dashboard-menu-treeview-link-color: var(--bs-gray-600) !default;
+// Sidebar Globale (Claire par défaut dans ce fichier)
+$dashboard-sidebar-bg:               $white !default;
+$dashboard-sidebar-color:            $gray-800 !default;
+$dashboard-sidebar-profile-border:   $gray-200 !default;
+$dashboard-sidebar-footer-border:    $gray-200 !default;
+$dashboard-sidebar-footer-color:     $gray-600 !default;
+$dashboard-sidebar-scrollbar-track:  $gray-100 !default;
+$dashboard-sidebar-scrollbar-thumb:  $gray-300 !default;
 
-// Navbar colors
-$dashboard-navbar-bg: var(--bs-body-bg) !default;
-$dashboard-navbar-border-color: var(--bs-border-color) !default;
-$dashboard-navbar-toggle-color: var(--bs-gray-700) !default;
+// Menu de Navigation de la Sidebar
+$dashboard-nav-header-color:         $gray-500 !default;
+$dashboard-menu-link-color:          $gray-700 !default;
+$dashboard-menu-link-hover-bg:       rgba($primary, 0.08) !default;
+$dashboard-menu-link-hover-color:    $primary !default;
+$dashboard-menu-link-active-bg:      $primary !default;
+$dashboard-menu-link-active-color:   $white !default;
+$dashboard-menu-treeview-link-color: $gray-600 !default;
 
-// Footer colors
-$dashboard-footer-bg: var(--bs-body-bg) !default;
-$dashboard-footer-border-color: var(--bs-border-color) !default;
+// Composants Internes (Utilitaires)
+$dashboard-avatar-bg:                $primary !default;
+$dashboard-avatar-color:             $white !default;
 
-// Avatar colors
-$dashboard-avatar-bg: var(--bs-primary) !default;
-$dashboard-avatar-color: var(--bs-white) !default;
+$dashboard-badge-bg:                 $danger !default;
+$dashboard-badge-color:              $white !default;
+$dashboard-badge-border-width:       1.5px !default;
+$dashboard-badge-border-color:       $white !default;
 
-// Danger link colors
-$dashboard-danger-color: var(--bs-danger) !default;
-$dashboard-danger-hover-bg: var(--bs-danger) !default;
-$dashboard-danger-hover-color: var(--bs-white) !default;
-
-// Focus outline
-$dashboard-focus-outline-color: var(--bs-primary) !default;
-$dashboard-focus-outline-width: 2px !default;
-$dashboard-focus-outline-offset: 2px !default;
-
-// Badge
-$dashboard-badge-bg: var(--bs-danger) !default;
-$dashboard-badge-color: $white !default;
-$dashboard-badge-border-width: 1.5px !default;
-$dashboard-badge-border-color: var(--dashboard-navbar-bg, #fff) !default;
-
-// Nav header
-$dashboard-nav-header-color: var(--bs-gray-500) !default;
-
-// Body
-$dashboard-body-bg: var(--bs-body-bg) !default;
-$dashboard-body-color: $gray-900 !default;
+$dashboard-danger-color:             $danger !default;
+$dashboard-danger-hover-bg:          $danger !default;
+$dashboard-danger-hover-color:       $white !default;

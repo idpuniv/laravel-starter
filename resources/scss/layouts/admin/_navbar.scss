@@ -1,35 +1,109 @@
+// resources/css/layouts/admin/components/_navbar.scss
+// ============================================================================
+// COMPOSANT NAVBAR (BARRE SUPÉRIEURE)
+// Gère l'affichage, les alignements et les dropdowns de la barre haute.
+// ============================================================================
 
-
-@import "variables";
+@import "../variables"; // Ajustement du chemin selon ton architecture
 
 .navbar-fixed {
-    background-color: $dashboard-navbar-bg;
-    border-bottom: 1px solid $dashboard-navbar-border-color;
-    height: $dashboard-navbar-height;
-}
+  height: var(--#{$dashboard-prefix-name}navbar-height);
+  background-color: var(--#{$dashboard-prefix-name}navbar-bg);
+  border-bottom: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 
-.navbar-fixed .nav-link {
-    color: $dashboard-navbar-toggle-color;
+  // Alignements internes hérités du squelette
+  .container-fluid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $dashboard-spacer-half;
+  }
+
+  // Configuration des liens de la barre supérieure
+  .nav-link {
+    color: var(--#{$dashboard-prefix-name}navbar-toggle-color);
     padding: $dashboard-nav-link-padding;
     border-radius: $dashboard-border-radius-sm;
-}
+    transition: $dashboard-transition-colors;
 
-.navbar-fixed .nav-link.btn-link {
-    padding: $dashboard-nav-link-padding;
-}
-
-.sidebar-toggle-btn {
-    border-radius: $dashboard-border-radius-sm;
-    color: $dashboard-navbar-toggle-color;
-    
-    &:focus-visible {
-        outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
-        outline-offset: $dashboard-focus-outline-offset;
+    &:hover {
+      background-color: rgba($primary, 0.08);
+      color: $primary;
     }
+
+    &.btn-link {
+      padding: $dashboard-nav-link-padding;
+    }
+  }
+
+  // Zone d'isolation des menus déroulants (Profil, Notifications)
+  .dropdown {
+    position: relative;
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      margin-top: $dashboard-spacer-half;
+      z-index: 1000;
+      border: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
+      background-color: var(--#{$dashboard-prefix-name}navbar-bg);
+
+      &.dropdown-menu-end {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
 }
 
-.navbar-brand i {
+// Bouton de basculement de la Sidebar (Toggle)
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $dashboard-nav-link-padding;
+  margin-right: $dashboard-nav-link-margin-right;
+  border-radius: $dashboard-border-radius-sm;
+  color: var(--#{$dashboard-prefix-name}navbar-toggle-color);
+  min-height: $dashboard-touch-target-min-height; // Target tactile mobile
+  transition: $dashboard-transition-colors;
+
+  &:hover {
+    background-color: rgba($primary, 0.08);
+    color: $primary;
+  }
+}
+
+// Identité visuelle / Logo dans la barre
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+
+  i {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+// Ajustement responsive pour la Navbar haute
+@media (max-width: $dashboard-breakpoint-mobile) {
+  .navbar-fixed {
+    height: auto;
+    min-height: var(--#{$dashboard-prefix-name}navbar-height);
+  }
 }

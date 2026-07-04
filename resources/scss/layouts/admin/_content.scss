@@ -1,22 +1,26 @@
+// resources/css/layouts/admin/_content.scss
 // ============================================================================
-// CONTENT - Couleurs et styles visuels
+// CONTENT - ZONE DE TRAVAIL PRINCIPALE
+// Gère l'habillage visuel de la zone de contenu centrale.
+// Note : Le comportement de la scrollbar et la grille sont gérés dans _layout.scss.
 // ============================================================================
 
 @import "variables";
 
 .main-col {
-    background-color: $dashboard-body-bg;
+  // Prise en compte dynamique du changement de thème (Clair / Sombre)
+  background-color: var(--#{$dashboard-prefix-name}body-bg);
+  transition: $dashboard-transition-background, $dashboard-transition-colors;
 }
 
-.content-scrollable {
-    &::-webkit-scrollbar {
-        width: $dashboard-scrollbar-width;
-    }
-    &::-webkit-scrollbar-track {
-        background: $dashboard-content-scrollbar-track;
-    }
-    &::-webkit-scrollbar-thumb {
-        background: $dashboard-content-scrollbar-thumb;
-        border-radius: 3px;
-    }
+// Styles spécifiques aux conteneurs de pages internes
+.content-header {
+  padding-bottom: $dashboard-spacer;
+  margin-bottom: $dashboard-spacer;
+  border-bottom: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
+  
+  .breadcrumb {
+    margin-bottom: 0;
+    font-size: $dashboard-font-size-sm;
+  }
 }

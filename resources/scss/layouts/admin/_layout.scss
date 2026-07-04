@@ -1,271 +1,227 @@
+// resources/css/layouts/admin/_layout.scss
 // ============================================================================
-// LAYOUT - Squelette complet
+// STRUCTURE GLOBALE & ARCHITECTURE DE L'ADMIN
+// Contient uniquement le squelette structurel et les variables CSS dynamiques.
 // ============================================================================
 
 @import "variables";
+@import "variables-dark";
 
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+// ----------------------------------------
+// 1. DÉCLARATION DES VARIABLES CSS DYNAMIQUES
+// ----------------------------------------
+
+:root {
+  // Dimensions
+  --#{$dashboard-prefix-name}sidebar-width:            #{$dashboard-sidebar-width};
+  --#{$dashboard-prefix-name}sidebar-collapsed-w:      #{$dashboard-sidebar-collapsed-w};
+  --#{$dashboard-prefix-name}navbar-height:            #{$dashboard-navbar-height};
+  --#{$dashboard-prefix-name}sidebar-profile-height:   #{$dashboard-sidebar-profile-height};
+  --#{$dashboard-prefix-name}footer-height:            #{$dashboard-footer-height};
+  --#{$dashboard-prefix-name}sidebar-footer-height:    #{$dashboard-sidebar-footer-height};
+  --#{$dashboard-prefix-name}scrollbar-width:          #{$dashboard-scrollbar-width};
+  --#{$dashboard-prefix-name}scrollbar-width-sidebar:  #{$dashboard-scrollbar-width-sidebar};
+
+  // Couleurs Thème Clair (Héritées de _variables.scss)
+  --#{$dashboard-prefix-name}body-bg:                  #{$dashboard-body-bg};
+  --#{$dashboard-prefix-name}body-color:               #{$dashboard-body-color};
+  --#{$dashboard-prefix-name}overlay-bg:               #{$dashboard-overlay-bg};
+  
+  --#{$dashboard-prefix-name}navbar-bg:                #{$dashboard-navbar-bg};
+  --#{$dashboard-prefix-name}navbar-border-color:      #{$dashboard-navbar-border-color};
+  --#{$dashboard-prefix-name}navbar-toggle-color:      #{$dashboard-navbar-toggle-color};
+
+  --#{$dashboard-prefix-name}footer-bg:                #{$dashboard-footer-bg};
+  --#{$dashboard-prefix-name}footer-border-color:      #{$dashboard-footer-border-color};
+
+  --#{$dashboard-prefix-name}sidebar-bg:               #{$dashboard-sidebar-bg};
+  --#{$dashboard-prefix-name}sidebar-color:            #{$dashboard-sidebar-color};
+  --#{$dashboard-prefix-name}sidebar-profile-border:   #{$dashboard-sidebar-profile-border};
+  --#{$dashboard-prefix-name}sidebar-footer-border:    #{$dashboard-sidebar-footer-border};
+  --#{$dashboard-prefix-name}sidebar-footer-color:     #{$dashboard-sidebar-footer-color};
+  --#{$dashboard-prefix-name}sidebar-scrollbar-track:  #{$dashboard-sidebar-scrollbar-track};
+  --#{$dashboard-prefix-name}sidebar-scrollbar-thumb:  #{$dashboard-sidebar-scrollbar-thumb};
+
+  --#{$dashboard-prefix-name}content-scrollbar-track:  #{$dashboard-content-scrollbar-track};
+  --#{$dashboard-prefix-name}content-scrollbar-thumb:  #{$dashboard-content-scrollbar-thumb};
 }
+
+// Commutateur Mode Sombre Automatique
+[data-bs-theme="dark"] {
+  // Écrase uniquement les variables de couleurs (Héritées de _variables-dark.scss)
+  --#{$dashboard-prefix-name}body-bg:                  #{$dashboard-body-bg-dark};
+  --#{$dashboard-prefix-name}body-color:               #{$dashboard-body-color-dark};
+  --#{$dashboard-prefix-name}overlay-bg:               #{$dashboard-overlay-bg-dark};
+
+  --#{$dashboard-prefix-name}navbar-bg:                #{$dashboard-navbar-bg-dark};
+  --#{$dashboard-prefix-name}navbar-border-color:      #{$dashboard-navbar-border-color-dark};
+  --#{$dashboard-prefix-name}navbar-toggle-color:      #{$dashboard-navbar-toggle-color-dark};
+
+  --#{$dashboard-prefix-name}footer-bg:                #{$dashboard-footer-bg-dark};
+  --#{$dashboard-prefix-name}footer-border-color:      #{$dashboard-footer-border-color-dark};
+
+  --#{$dashboard-prefix-name}sidebar-bg:               #{$dashboard-sidebar-bg-dark};
+  --#{$dashboard-prefix-name}sidebar-color:            #{$dashboard-sidebar-color-dark};
+  --#{$dashboard-prefix-name}sidebar-profile-border:   #{$dashboard-sidebar-profile-border-dark};
+  --#{$dashboard-prefix-name}sidebar-footer-border:    #{$dashboard-sidebar-footer-border-dark};
+  --#{$dashboard-prefix-name}sidebar-footer-color:     #{$dashboard-sidebar-footer-color-dark};
+  --#{$dashboard-prefix-name}sidebar-scrollbar-track:  #{$dashboard-sidebar-scrollbar-track-dark};
+  --#{$dashboard-prefix-name}sidebar-scrollbar-thumb:  #{$dashboard-sidebar-scrollbar-thumb-dark};
+}
+
+// ----------------------------------------
+// 2. CONFIGURATION DE BASE DE LA PAGE
+// ----------------------------------------
 
 html, body {
-    height: 100%;
-    overflow: hidden;
-    color: $dashboard-body-color
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--#{$dashboard-prefix-name}body-bg);
+  color: var(--#{$dashboard-prefix-name}body-color);
 }
 
+// Conteneur Maître Flexbox
 .app-container {
-    display: flex;
-    height: 100vh;
-    height: 100dvh;
-    width: 100%;
-    overflow: hidden;
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
 }
 
+// ----------------------------------------
+// 3. LA GRILLE DU SQUELETTE STRUCTUREL
+// ----------------------------------------
+
+// Colonne Sidebar Externe
 .sidebar-col {
-    width: $dashboard-sidebar-width;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    transition: $dashboard-transition-width;
-    
-    &.desktop-collapsed {
-        width: $dashboard-sidebar-collapsed-w;
-        overflow: hidden;
-    }
+  width: var(--#{$dashboard-prefix-name}sidebar-width);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--#{$dashboard-prefix-name}sidebar-bg);
+  transition: $dashboard-transition-width;
+  
+  &.desktop-collapsed {
+    width: var(--#{$dashboard-prefix-name}sidebar-collapsed-w);
+    overflow: hidden;
+  }
 }
 
+// Zone défilante à l'intérieur de la Sidebar
 .sidebar-content {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  // Custom scrollbar performance
+  &::-webkit-scrollbar {
+    width: var(--#{$dashboard-prefix-name}scrollbar-width-sidebar);
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--#{$dashboard-prefix-name}sidebar-scrollbar-track);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--#{$dashboard-prefix-name}sidebar-scrollbar-thumb);
+    border-radius: $dashboard-border-radius-pill;
+  }
 }
 
+// Colonne Principale (Navbar + Content + Footer)
 .main-col {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-.navbar-fixed {
-    flex-shrink: 0;
-    height: $dashboard-navbar-height;
-    display: flex;
-    align-items: center;
-}
-
-.navbar-fixed .container-fluid {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.navbar-fixed .navbar-nav {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.navbar-fixed .dropdown {
-    position: relative;
-}
-
-.navbar-fixed .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    margin-top: $dashboard-spacer-half;
-    z-index: 1000;
-}
-
-.navbar-fixed .dropdown-menu-end {
-    right: 0;
-    left: auto;
-}
-
-.sidebar-toggle-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: $dashboard-nav-link-padding;
-    margin-right: $dashboard-nav-link-margin-right;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.navbar-brand {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-}
-
+// Contenu central scrollable de l'application
 .content-scrollable {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: $dashboard-content-padding;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: $dashboard-content-padding;
+
+  &::-webkit-scrollbar {
+    width: var(--#{$dashboard-prefix-name}scrollbar-width);
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--#{$dashboard-prefix-name}content-scrollbar-track);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--#{$dashboard-prefix-name}content-scrollbar-thumb);
+    border-radius: $dashboard-border-radius-pill;
+  }
 }
 
-.footer-fixed {
-    flex-shrink: 0;
-    padding: $dashboard-footer-padding;
-    height: $dashboard-footer-height;
-    display: flex;
-    align-items: center;
-    height: $dashboard-footer-height;
-}
-
-.sidebar-menu {
-    margin: 0;
-    padding: $dashboard-sidebar-padding-y $dashboard-sidebar-padding-x;
-    list-style: none;
-}
-
-.sidebar-menu .nav-item {
-    list-style: none;
-    margin-bottom: $dashboard-spacer-quarter;
-}
-
-.sidebar-menu .nav-link {
-    display: flex;
-    align-items: center;
-    padding: $dashboard-menu-item-padding-y $dashboard-menu-item-padding-x;
-    text-decoration: none;
-    cursor: pointer;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-}
-
-.sidebar-menu .nav-icon {
-    width: $dashboard-menu-item-icon-width;
-    margin-right: $dashboard-menu-item-icon-margin;
-    flex-shrink: 0;
-}
-
-.sidebar-menu .nav-arrow {
-    margin-left: auto;
-    transition: $dashboard-transition-nav-arrow;
-}
-
-.sidebar-menu .nav-link[aria-expanded="true"] .nav-arrow {
-    transform: rotate(90deg);
-}
-
-.sidebar-menu .nav-treeview {
-    list-style: none;
-    padding-left: $dashboard-menu-subitem-padding-left;
-    margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: $dashboard-transition-treeview;
-}
-
-.sidebar-menu .nav-treeview.show {
-    max-height: 500px;
-}
-
-.sidebar-menu .nav-treeview .nav-icon {
-    width: 1.25rem;
-}
-
-.nav-badge {
-    position: absolute;
-    top: 0;
-    left: 100%;
-    transform: translate(-50%, -50%);
-    margin-top: $dashboard-spacer-quarter;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 1 / 1;
-    min-width: 1.1rem;
-    width: fit-content;
-    padding: 0.1rem;
-    pointer-events: none;
-}
+// ----------------------------------------
+// 4. ACCESSIBILITÉ & OVERLAY STRATÉGIQUE
+// ----------------------------------------
 
 .sidebar-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: $dashboard-zindex-overlay;
-    display: none;
-}
+  position: fixed;
+  inset: 0;
+  z-index: $dashboard-zindex-overlay;
+  background-color: var(--#{$dashboard-prefix-name}overlay-bg);
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 
-.sidebar-overlay.open {
+  &.open {
     display: block;
+    opacity: 1;
+  }
 }
 
 :focus-visible {
-    outline-offset: $dashboard-focus-outline-offset;
+  outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
+  outline-offset: $dashboard-focus-outline-offset;
 }
 
 .skip-to-content {
-    position: absolute;
-    top: -40px;
-    left: 0;
-    padding: 8px 12px;
-    z-index: 1100;
-    text-decoration: none;
-}
-
-.skip-to-content:focus {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  padding: 8px 12px;
+  z-index: 1100;
+  text-decoration: none;
+  background-color: $primary;
+  color: $white;
+  border-radius: 0 0 $dashboard-border-radius-sm $dashboard-border-radius-sm;
+  
+  &:focus {
     top: 8px;
     left: 8px;
+  }
 }
+
+// ----------------------------------------
+// 5. RESPONSIVE / MEDIA QUERIES STRUCTURELLES
+// ----------------------------------------
 
 @media (max-width: $dashboard-breakpoint-mobile) {
-    .sidebar-col {
-        position: fixed;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: $dashboard-zindex-sidebar;
-        width: $dashboard-sidebar-width;
-        transition: $dashboard-transition-transform;
-        transform: translateX(-100%);
-        
-        &.mobile-open {
-            transform: translateX(0);
-        }
-        
-        &.desktop-collapsed {
-            width: $dashboard-sidebar-width;
-            transform: translateX(-100%);
-        }
+  .sidebar-col {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: $dashboard-zindex-sidebar;
+    width: var(--#{$dashboard-prefix-name}sidebar-width);
+    transition: $dashboard-transition-transform;
+    transform: translateX(-100%);
+    
+    &.mobile-open {
+      transform: translateX(0);
     }
     
-    .content-scrollable {
-        padding: $dashboard-content-padding-mobile;
+    &.desktop-collapsed {
+      width: var(--#{$dashboard-prefix-name}sidebar-width);
+      transform: translateX(-100%);
     }
-    
-    .footer-fixed {
-        padding: $dashboard-spacer * 0.75 $dashboard-spacer;
-        height: $dashboard-sidebar-profile-height;
-        min-height: $dashboard-footer-height;
-    }
-    
-    .sidebar-profile {
-        height: $dashboard-sidebar-profile-height;
-        min-height: $dashboard-navbar-height;
-    }
-    
-    .navbar-fixed {
-        height: auto;
-        min-height: $dashboard-navbar-height;
-    }
-}
-
-@media (max-width: $dashboard-breakpoint-small) {
-    .footer-fixed .d-flex {
-        flex-direction: column;
-        gap: $dashboard-spacer-half;
-        text-align: center;
-    }
+  }
+  
+  .content-scrollable {
+    padding: $dashboard-content-padding-mobile;
+  }
 }

@@ -1,46 +1,30 @@
 // ============================================================================
-// APP.SCSS - Main entry point
+// APP.SCSS - MAIN ENTRY POINT (FRONT-OFFICE / GLOBAL)
 // ============================================================================
 
-// 1. BOOTSTRAP FUNCTIONS (must be first)
+// 1. BOOTSTRAP FUNCTIONS (Prérequis absolu pour la logique)
 @import "bootstrap/scss/functions";
 
-// 2. CORE TOKENS
+// 2. CORE TOKENS (Tes variables globales personnalisées)
 @import "core/index";
 
-// 3. BOOTSTRAP CORE + OVERRIDES
+// 3. BOOTSTRAP CORE + OVERRIDES (Génère les variables de base comme $white)
 @import "bootstrap/index";
 
-// 4. UTILITIES
-@import "utils/index";
-
-// 5. SHARED
-@import "shared/index";
-
-// 6. COMPONENTS
-
-
-
-// 7. LAYOUTS
-@import "layouts/index";
-
-// 8. PAGES
-@import "pages/index";
-
-// 9. THEMES
-@import "themes/index";
-
-// 10. FONTS
+// 4. TYPOGRAPHIES & ICONES (Placés ici pour hériter des variables Bootstrap)
 @import "fonts/index";
+@import "icons/index"; // <-- Fix : Maintenant $white est bien défini ici !
 
-// 11. ICONS
-@import "icons/index";
-
-// 12. PLUGINS
+// 5. UTILITIES & PLUGINS
+@import "utils/index";
 @import "plugins/index";
 
-@import "utils/index";
-
-@import "themes/index";
-
+// 6. SHARED & COMPONENTS
+@import "shared/index";
 @import "components/index";
+
+// 7. PAGES
+@import "pages/index";
+
+// 8. THEMES
+@import "themes/index";

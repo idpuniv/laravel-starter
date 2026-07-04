@@ -1,0 +1,181 @@
+// resources/css/layouts/admin/_nav.scss
+// ============================================================================
+// COMPOSANT NAVIGATION (SIDEBAR NAV - ALIGNÉ SUR BOOTSTRAP 5)
+// Gère l'arborescence des liens, les icônes, les badges et les collapses.
+// ============================================================================
+
+@import "variables";
+
+// Conteneur principal (.nav vertical de Bootstrap personnalisé)
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: $dashboard-spacer-half 0;
+  margin: 0;
+  list-style: none;
+
+  .nav-item {
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  // ----------------------------------------
+  // LIENS DE NAVIGATION (PARENTS)
+  // ----------------------------------------
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: $dashboard-spacer-half;
+    padding: $dashboard-menu-item-padding-y $dashboard-menu-item-padding-x;
+    color: $dashboard-menu-link-color;
+    border-radius: $dashboard-border-radius-md;
+    font-size: $dashboard-font-size-sm;
+    text-decoration: none;
+    transition: $dashboard-transition-colors, $dashboard-transition-background;
+    width: 100%;
+    
+    &:hover {
+      background-color: $dashboard-menu-link-hover-bg;
+      color: $dashboard-menu-link-hover-color;
+    }
+    
+    // État actif Bootstrap (Page courante)
+    &.active {
+      background-color: $dashboard-menu-link-active-bg;
+      color: $dashboard-menu-link-active-color;
+      font-weight: $dashboard-font-weight-medium;
+    }
+
+    // Gestion du contenu textuel interne
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      white-space: nowrap;
+    }
+
+    .nav-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.25rem;
+      font-size: $dashboard-font-size-base;
+      text-align: center;
+    }
+  }
+
+  // Flèche d'ouverture s'appuyant sur l'état Bootstrap aria-expanded
+  .nav-arrow {
+    font-size: $dashboard-font-size-xs;
+    transition: transform 0.2s ease;
+  }
+  
+  // Utilisation de la mécanique native data-bs-toggle="collapse"
+  .nav-link[aria-expanded="true"] {
+    .nav-arrow {
+      transform: rotate(90deg);
+    }
+  }
+
+  // ----------------------------------------
+  // SOUS-MENUS ALIGNÉS SUR LES COLLAPSES BOOTSTRAP
+  // ----------------------------------------
+  .collapse {
+    width: 100%;
+
+    // La liste imbriquée réutilise la classe native .nav
+    .nav {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    // Liens enfants (Sous-éléments)
+    .nav-link {
+      padding: $dashboard-menu-subitem-padding-y $dashboard-menu-subitem-padding-x;
+      padding-left: calc(#{$dashboard-menu-item-padding-x} + 1.25rem + #{$dashboard-spacer-half});
+      font-size: $dashboard-font-size-xs;
+      color: $dashboard-menu-treeview-link-color;
+      border-radius: $dashboard-border-radius-md;
+      
+      &:hover {
+        background-color: $dashboard-menu-link-hover-bg;
+        color: $dashboard-menu-link-hover-color;
+      }
+      
+      // Enfant actif (plus subtil et léger)
+      &.active {
+        background-color: rgba($primary, 0.08);
+        color: $primary;
+        font-weight: $dashboard-font-weight-semibold;
+      }
+
+      .nav-icon {
+        font-size: $dashboard-font-size-xs;
+      }
+    }
+
+    // Espacement léger du premier enfant
+    .nav-item:first-child {
+      margin-top: $dashboard-spacer-quarter;
+    }
+
+    // Niveaux d'imbrication plus profonds (Niveau 3+)
+    .collapse {
+      padding-left: $dashboard-menu-subitem-padding-left-nested;
+    }
+  }
+}
+
+// ----------------------------------------
+// ENTÊTES DE CATÉGORIES (NAV HEADER)
+// ----------------------------------------
+.nav-header {
+  font-size: $dashboard-font-size-nav-header;
+  font-weight: $dashboard-font-weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: $dashboard-nav-header-color;
+  padding: $dashboard-nav-header-padding;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+// ----------------------------------------
+// BADGES DE NOTIFICATION INTEGRÉS (ALIGNÉS SUR LES BADGES)
+// ----------------------------------------
+.nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 0.6em;
+  border-radius: $dashboard-border-radius-pill;
+  background-color: $dashboard-badge-bg;
+  color: $dashboard-badge-color;
+  font-size: $dashboard-font-size-badge;
+  font-weight: $dashboard-font-weight-bold;
+  line-height: 1;
+  white-space: nowrap;
+  border: $dashboard-badge-border-width solid $dashboard-badge-border-color;
+  margin-left: auto;
+}
+
+// ----------------------------------------
+// ACTIONS CRITIQUES / ACTIONS DE DANGER
+// ----------------------------------------
+.text-danger-sidebar {
+  color: $dashboard-danger-color !important;
+  
+  &:hover {
+    background-color: $dashboard-danger-hover-bg !important;
+    color: $dashboard-danger-hover-color !important;
+  }
+}

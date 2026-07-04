@@ -1,0 +1,21 @@
+// resources/css/core/_index.scss
+// ============================================================================
+// CORE TOKENS - ARCHITECTURE GLOBALE
+// ============================================================================
+
+// 1. Fondations & Variables de configuration initiales
+@import "config";
+@import "colors";       // Contient ton $primary-dark essentiel pour Bootstrap
+
+// 2. Jetons structurels et géométriques
+@import "breakpoints";
+@import "spacing";
+@import "borders";
+@import "shadows";
+
+// 3. Comportements & Couches système
+@import "transitions";
+@import "zindex";
+
+// 4. Identité visuelle & Textes
+@import "typography";

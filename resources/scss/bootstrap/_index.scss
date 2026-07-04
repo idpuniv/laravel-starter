@@ -1,18 +1,20 @@
 // ============================================================================
-// BOOTSTRAP
-// Main entry point
+// BOOTSTRAP - MANIFESTE CONFIGURATION & SURCHARGES
 // ============================================================================
 
-
-// ----------------------------------------------------------------------------
-// Bootstrap overrides
-//
-// Project-specific Bootstrap customizations.
-// May include component overrides and light/dark theme variants.
-// Must be loaded before Bootstrap components.
-// ----------------------------------------------------------------------------
-
+// 1. SURCHARGES DE VARIABLES INITIALES (Obligatoirement en premier)
 @import "variables";
+
+// 2. CORE BOOTSTRAP (Variables système et outils logiques)
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/transitions";
+
+// 3. TES SURCHARGES DE COMPOSANTS (Déplacées ici !)
+// Maintenant, elles ont accès à TOUT Bootstrap et à tes jetons sans aucun conflit.
 @import "nav";
 @import "navbar";
 @import "buttons";
@@ -24,29 +26,7 @@
 @import "table";
 @import "toasts";
 
-
-// ----------------------------------------------------------------------------
-// Bootstrap variables
-// ----------------------------------------------------------------------------
-
-@import "bootstrap/scss/variables";
-@import "bootstrap/scss/variables-dark";
-
-
-// ----------------------------------------------------------------------------
-// Bootstrap core
-// ----------------------------------------------------------------------------
-
-@import "bootstrap/scss/maps";
-@import "bootstrap/scss/mixins";
-@import "bootstrap/scss/utilities";
-@import "bootstrap/scss/transitions";
-
-
-// ----------------------------------------------------------------------------
-// Root and reset
-// ----------------------------------------------------------------------------
-
+// 4. STRUCTURE & RESET NATIONAUX
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
@@ -54,13 +34,7 @@
 @import "bootstrap/scss/containers";
 @import "bootstrap/scss/grid";
 
-
-// ----------------------------------------------------------------------------
-// Bootstrap components with project overrides
-// ----------------------------------------------------------------------------
-
-
-
+// 5. COMPOSANTS SÉLECTIONNÉS AVEC LEUR CODE SOURCE
 @import "bootstrap/scss/nav";
 @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/buttons";
@@ -73,11 +47,7 @@
 @import "bootstrap/scss/tables";
 @import "bootstrap/scss/toasts";
 
-
-// ----------------------------------------------------------------------------
-// Bootstrap components without custom overrides
-// ----------------------------------------------------------------------------
-
+// 6. COMPOSANTS SANS LOGIQUE EMBARQUÉE CLIENT
 @import "bootstrap/scss/accordion";
 @import "bootstrap/scss/badge";
 @import "bootstrap/scss/breadcrumb";
@@ -92,13 +62,6 @@
 @import "bootstrap/scss/spinners";
 @import "bootstrap/scss/tooltip";
 
-
-// ----------------------------------------------------------------------------
-// Bootstrap helpers and utility API
-// Must remain at the end of the import chain
-// ----------------------------------------------------------------------------
-
+// 7. HELPERS & UTILITY API (Fin de chaîne obligatoire)
 @import "bootstrap/scss/helpers";
 @import "bootstrap/scss/utilities/api";
-
-

@@ -1,0 +1,40 @@
+// resources/css/layouts/admin/_variables-dark.scss
+// ============================================================================
+// VARIABLES DE L'INTERFACE ADMIN (MODE SOMBRE / DARK MODE)
+// Écrase uniquement les jetons de couleur pour le thème nuit.
+// ============================================================================
+
+// 1. Global Body & Structure Backgrounds
+$dashboard-body-bg-dark:                  $gray-950 !default;
+$dashboard-body-color-dark:               $gray-200 !default;
+
+// 2. Top Navbar
+$dashboard-navbar-bg-dark:                $gray-900 !default;
+$dashboard-navbar-border-color-dark:      $gray-800 !default;
+$dashboard-navbar-toggle-color-dark:      $gray-400 !default;
+
+// 3. Footer
+$dashboard-footer-bg-dark:                $gray-900 !default;
+$dashboard-footer-border-color-dark:      $gray-800 !default;
+
+// 4. Sidebar Globale (Passe en sombre profond)
+$dashboard-sidebar-bg-dark:               $gray-900 !default;
+$dashboard-sidebar-color-dark:            $gray-300 !default;
+$dashboard-sidebar-profile-border-dark:   $gray-800 !default;
+$dashboard-sidebar-footer-border-dark:    $gray-800 !default;
+$dashboard-sidebar-footer-color-dark:     $gray-500 !default;
+$dashboard-sidebar-scrollbar-track-dark:  $gray-900 !default;
+$dashboard-sidebar-scrollbar-thumb-dark:  $gray-700 !default;
+
+// 5. Menu de Navigation de la Sidebar
+$dashboard-nav-header-color-dark:         $gray-500 !default;
+$dashboard-menu-link-color-dark:          $gray-400 !default;
+$dashboard-menu-link-hover-bg-dark:       rgba($primary, 0.15) !default; // Légère surbrillance sur fond sombre
+$dashboard-menu-link-hover-color-dark:    lighten($primary, 10%) !default;
+$dashboard-menu-link-active-bg-dark:      $primary !default;
+$dashboard-menu-link-active-color-dark:   $white !default;
+$dashboard-menu-treeview-link-color-dark: $gray-500 !default;
+
+// 6. Composants Internes (Utilitaires)
+$dashboard-badge-border-color-dark:       $gray-900 !default; // Évite le flash blanc autour du badge sur fond sombre
+$dashboard-overlay-bg-dark:               rgba($black, 0.7) !default; // Overlay légèrement plus dense

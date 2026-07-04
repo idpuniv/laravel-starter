@@ -1,46 +1,12 @@
+// resources/css/core/_colors.scss
 // ============================================================================
-// COLORS - BOOTSTRAP 5.3 DEFAULTS
+// JETONS DE COULEURS - CHARTE GRAPHIQUE CLIENT
 // ============================================================================
 
-// ----------------------------------------
-// Theme colors
-// ----------------------------------------
-$primary: #0d6efd !default;
-$secondary: #6c757d !default;
-$success: #198754 !default;
-$danger: #dc3545 !default;
-$warning: #ffc107 !default;
-$info: #0dcaf0 !default;
-$light: #f8f9fa !default;
-$dark: #212529 !default;
-
-
-// ----------------------------------------
-// Theme colors
-// ----------------------------------------
-$primary: #0d6efd !default;
-$primary-dark: darken($primary, 10%) !default;  // ← Ajouter cette ligne
-$secondary: #6c757d !default;
-$secondary-dark: darken($secondary, 10%) !default;
-$success: #198754 !default;
-$success-dark: darken($success, 10%) !default;
-$danger: #dc3545 !default;
-$danger-dark: darken($danger, 10%) !default;
-$warning: #ffc107 !default;
-$warning-dark: darken($warning, 10%) !default;
-$info: #0dcaf0 !default;
-$info-dark: darken($info, 10%) !default;
-$light: #f8f9fa !default;
-$light-dark: darken($light, 10%) !default;
-$dark: #212529 !default;
-$dark-dark: darken($dark, 10%) !default;
-
-// ----------------------------------------
-// Grayscale (complete)
-// ----------------------------------------
-$white: #fff !default;
-$black: #000 !default;
-$gray-50: #f9fafb !default;
+// 1. PALETTE DE GRIS COMPLÈTE (Tokens Neutres)
+$white:    #ffffff !default;
+$black:    #000000 !default;
+$gray-50:  #f9fafb !default;
 $gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -52,56 +18,28 @@ $gray-800: #343a40 !default;
 $gray-900: #212529 !default;
 $gray-950: #0f172a !default;
 
-// ----------------------------------------
-// Text colors
-// ----------------------------------------
+// 2. COULEURS THÉMATIQUES PRIMAIRES (Modifiables pour chaque client)
+$primary:   #0d6efd !default;
+$secondary: #6c757d !default;
+$success:   #198754 !default;
+$danger:    #dc3545 !default;
+$warning:   #ffc107 !default;
+$info:      #0dcaf0 !default;
+$light:     $gray-100 !default;
+$dark:      $gray-900 !default;
+
+// 3. COULEURS DE BASE DE L'APPLICATION (S'appliquent au site et à l'admin)
+$body-bg:    $white !default;
 $body-color: $gray-900 !default;
+
+// Textes
 $text-muted: $gray-600 !default;
-$text-dark: $gray-900 !default;
+$text-dark:  $gray-900 !default;
 $text-light: $gray-700 !default;
 $text-white: $white !default;
 $text-black: $black !default;
 
-// ----------------------------------------
-// Link colors
-// ----------------------------------------
-$link-color: $primary !default;
-$link-hover-color: darken($primary, 15%) !default;  // ← simplifié
-$link-decoration: underline !default;
+// Liens
+$link-color:            $primary !default;
+$link-decoration:       underline !default;
 $link-hover-decoration: null !default;
-
-// ----------------------------------------
-// Body colors
-// ----------------------------------------
-$body-bg: $white !default;
-$body-color: $gray-900 !default;
-
-// ----------------------------------------
-// Sidebar light mode
-// ----------------------------------------
-$sidebar-light-bg: $white !default;
-$sidebar-light-color: $gray-800 !default;
-$sidebar-light-border-color: $gray-200 !default;
-$sidebar-light-footer-color: $gray-600 !default;
-$sidebar-light-link-color: $gray-700 !default;
-$sidebar-light-link-hover-bg: $gray-100 !default;
-$sidebar-light-link-hover-color: $gray-900 !default;
-$sidebar-light-link-active-bg: $primary !default;
-$sidebar-light-link-active-color: $white !default;
-$sidebar-light-scrollbar-track: $gray-100 !default;
-$sidebar-light-scrollbar-thumb: $gray-400 !default;
-
-// ----------------------------------------
-// Sidebar dark mode
-// ----------------------------------------
-$sidebar-dark-bg: $gray-900 !default;
-$sidebar-dark-color: $gray-400 !default;
-$sidebar-dark-border-color: $gray-700 !default;
-$sidebar-dark-footer-color: $gray-500 !default;
-$sidebar-dark-link-color: $gray-400 !default;
-$sidebar-dark-link-hover-bg: $gray-800 !default;
-$sidebar-dark-link-hover-color: $gray-100 !default;
-$sidebar-dark-link-active-bg: $primary !default;
-$sidebar-dark-link-active-color: $white !default;
-$sidebar-dark-scrollbar-track: $gray-800 !default;
-$sidebar-dark-scrollbar-thumb: $gray-600 !default;
