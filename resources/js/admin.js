@@ -147,28 +147,46 @@
         });
     });
 
+    function openSubmenu(submenu) {
+        submenu.classList.add("show");
+        submenu.style.maxHeight = `${submenu.scrollHeight}px`;
+    }
+
+    function closeSubmenu(submenu) {
+        submenu.classList.remove("show");
+        submenu.style.maxHeight = "0px";
+    }
+
     function initTreeview() {
         const treeviewToggles = document.querySelectorAll(
             "[data-treeview-toggle]",
         );
 
         treeviewToggles.forEach((toggle) => {
+            const parentLi = toggle.closest(".nav-item");
+            const submenu = parentLi?.querySelector(":scope > .nav-treeview");
+
+            // Pre-existing "active child" state (see admin-layout.blade.php)
+            // renders already expanded — sync the inline height so it
+            // doesn't snap shut the first time it's toggled closed.
+            if (submenu?.classList.contains("show")) {
+                submenu.style.maxHeight = `${submenu.scrollHeight}px`;
+            }
+
             toggle.addEventListener("click", function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                const parentLi = this.closest(".nav-item");
-                if (!parentLi) return;
-
-                const submenu = parentLi.querySelector(
-                    ":scope > .nav-treeview",
-                );
                 if (!submenu) return;
 
                 const isExpanded =
                     this.getAttribute("aria-expanded") === "true";
 
-                submenu.classList.toggle("show", !isExpanded);
+                if (isExpanded) {
+                    closeSubmenu(submenu);
+                } else {
+                    openSubmenu(submenu);
+                }
                 this.setAttribute("aria-expanded", String(!isExpanded));
             });
         });

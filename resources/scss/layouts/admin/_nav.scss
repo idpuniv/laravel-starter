@@ -90,12 +90,18 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    display: none;
+    display: flex;
     flex-direction: column;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: $dashboard-transition-submenu;
 
-    // Toggled by initTreeview() in admin-sidebar.js
+    // max-height is set inline by initTreeview() in admin-sidebar.js —
+    // it measures the real content height, since "auto" can't be
+    // transitioned. This class only drives the fade.
     &.show {
-      display: flex;
+      opacity: 1;
     }
 
     .nav-link {
