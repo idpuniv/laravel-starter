@@ -71,3 +71,6 @@ If you discover a security vulnerability in this project, please email [your-ema
 ## License
 
 This project is open-sourced software licensed under the [MIT license](LICENSE).
+
+
+scp laravel-init.zip devops@212.47.65.177:/home/devops/codes/laravel/

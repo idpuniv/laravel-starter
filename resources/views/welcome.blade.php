@@ -188,48 +188,6 @@
 
             <button type="button" class="btn btn-link">Link</button>
 
-            <!-- Maquettes HTML (templates) -->
-            <div class="row justify-content-center mt-5">
-                <div class="col-12 col-lg-10">
-                    <div class="feature-card rounded-4 p-4">
-                        <h5 class="fw-semibold mb-1" style="color: var(--bs-body-color);">
-                            <i class="bi bi-file-earmark-code me-1" style="color: var(--bs-primary);"></i>
-                            Maquettes HTML
-                        </h5>
-                        <p class="small mb-3" style="color: var(--bs-secondary-color);">
-                            Prévisualisez les maquettes statiques du site SP-CNPI.
-                        </p>
-                        <div class="d-flex flex-wrap gap-2">
-                            <a href="{{ url('/templates/index') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
-                                <i class="bi bi-house-door me-1"></i> Accueil
-                            </a>
-                            <a href="{{ url('/templates/apropos') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
-                                <i class="bi bi-info-circle me-1"></i> À propos
-                            </a>
-                            <a href="{{ url('/templates/articles') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
-                                <i class="bi bi-newspaper me-1"></i> Actualités
-                            </a>
-                            <a href="{{ url('/templates/article-detail') }}" target="_blank" class="btn btn-outline-primary btn-sm rounded-pill">
-                                <i class="bi bi-file-text me-1"></i> Détail article
-                            </a>
-                            <a href="{{ url('/templates/article-list') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
-                                <i class="bi bi-table me-1"></i> Liste (admin)
-                            </a>
-                            <a href="{{ url('/templates/article-form') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
-                                <i class="bi bi-pencil-square me-1"></i> Formulaire (admin)
-                            </a>
-                            <a href="{{ url('/templates/video') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
-                                <i class="bi bi-pencil-square me-1"></i> Videos
-                            </a>
-                            <a href="{{ url('/templates/documents') }}" target="_blank" class="btn btn-outline-secondary btn-sm rounded-pill">
-                                <i class="bi bi-pencil-square me-1"></i> Documents
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
             <!-- 3 Cards en bas -->
             <div class="row g-4 mt-2">
 
