@@ -5,7 +5,6 @@
     const toggleBtn = document.getElementById("sidebarToggleBtn");
     const overlay = document.getElementById("sidebarOverlay");
     const hideBtn = document.getElementById("sidebarHideBtn");
-    const showBtn = document.getElementById("sidebarShowBtn");
 
     // Fallback matches $dashboard-breakpoint-md in case the custom
     // property is missing or fails to parse (e.g. CSS not yet loaded).
@@ -122,10 +121,6 @@
 
     if (hideBtn) {
         hideBtn.addEventListener("click", hideSidebar);
-    }
-
-    if (showBtn) {
-        showBtn.addEventListener("click", showSidebar);
     }
 
     // Only elements explicitly marked as treeview toggles are parent-menu

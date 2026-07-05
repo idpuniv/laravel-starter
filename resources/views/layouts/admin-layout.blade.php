@@ -11,11 +11,6 @@
 
     <div id="sidebarOverlay" class="sidebar-overlay" aria-hidden="true"></div>
 
-    <button id="sidebarShowBtn" class="sidebar-show-btn" type="button"
-        aria-label="{{ __('Show sidebar') }}">
-        <i class="bi bi-chevron-right" aria-hidden="true"></i>
-    </button>
-
     <div class="app-container">
         <aside id="sidebar" class="sidebar" aria-label="{{ __('Main menu') }}">
             <button id="sidebarHideBtn" class="sidebar-hide-btn" type="button"
@@ -130,7 +125,7 @@
             </div>
         </aside>
 
-        <div class="main-col">
+        <div class="app-main">
             <nav class="navbar navbar-fixed navbar-expand-lg" aria-label="{{ __('Top navigation bar') }}">
                 <div class="container-fluid py-2">
                     <ul class="navbar-nav flex-row align-items-center">

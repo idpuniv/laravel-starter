@@ -2,10 +2,11 @@
 // ============================================================================
 // NAVBAR COMPONENT (TOP BAR)
 // Handles layout, alignment and dropdown re-theming for the top bar.
-// Dropdown positioning itself is left to Bootstrap's native dropdown JS
-// (Popper) — this file only re-themes colors, never fights Popper's
-// inline position/transform/margin (see notification/profile dropdowns,
-// which use data-bs-toggle="dropdown").
+// Dropdown position is set explicitly (not left to Bootstrap/Popper alone):
+// the front-office bundle (bootstrap/index.scss) loads its own component
+// overrides before Bootstrap's real dropdown.scss, which can leave
+// .dropdown-menu without position:absolute. Without this explicit rule,
+// the menu renders in-flow and breaks the navbar's layout on click.
 // ============================================================================
 
 .navbar-fixed {
@@ -46,11 +47,24 @@
     }
   }
 
-  // Only re-theme colors here — position/alignment is handled by
-  // Bootstrap's dropdown JS + Popper, do not add position/margin/z-index.
+  // Explicit positioning restored on purpose — see file header. Do not
+  // remove: this is what keeps the menu out of the navbar's flex flow.
+  .dropdown {
+    position: relative;
+  }
+
   .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    margin-top: $dashboard-spacer-half;
+    z-index: 1000;
     border: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
     background-color: var(--#{$dashboard-prefix-name}navbar-bg);
+
+    &.dropdown-menu-end {
+      right: 0;
+      left: auto;
+    }
   }
 }
 

@@ -5,7 +5,7 @@
 // Scrollbar behavior and grid structure live in _layout.scss.
 // ============================================================================
 
-.main-col {
+.app-main {
   // Reacts to light/dark theme switch via the custom property below.
   background-color: var(--#{$dashboard-prefix-name}body-bg);
   transition: $dashboard-transition-background, $dashboard-transition-colors;

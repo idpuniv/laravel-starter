@@ -2,7 +2,7 @@
 // ============================================================================
 // SIDEBAR COMPONENT (LEFT COLUMN VISUAL SKIN)
 // Handles only the internal visual identity (profile, avatar, sidebar footer).
-// Navigation and menu items live in _menu.scss.
+// Navigation and menu items live in _nav.scss.
 // ============================================================================
 
 // Top zone: connected user's profile
@@ -50,6 +50,20 @@
   transition: $dashboard-transition-colors;
   white-space: nowrap;
   overflow: hidden;
+}
+
+// ----------------------------------------
+// COLLAPSED STATE (ICON RAIL)
+// ----------------------------------------
+
+.sidebar-collapsed {
+  .sidebar-profile .profile-name {
+    display: none;
+  }
+
+  .sidebar-footer {
+    display: none;
+  }
 }
 
 // ----------------------------------------

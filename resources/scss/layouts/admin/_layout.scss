@@ -179,7 +179,7 @@ html, body {
   }
 }
 
-.main-col {
+.app-main {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -247,34 +247,6 @@ html, body {
   }
 }
 
-// Floating tab to bring the sidebar back once fully hidden.
-.sidebar-show-btn {
-  position: fixed;
-  top: calc(var(--#{$dashboard-prefix-name}navbar-height) + #{$dashboard-spacer});
-  left: 0;
-  z-index: $dashboard-zindex-sidebar;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 40px;
-  border: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
-  border-left: 0;
-  border-radius: 0 $dashboard-border-radius-md $dashboard-border-radius-md 0;
-  background-color: var(--#{$dashboard-prefix-name}navbar-bg);
-  color: var(--#{$dashboard-prefix-name}navbar-toggle-color);
-  cursor: pointer;
-  transition: $dashboard-transition-colors, $dashboard-transition-background;
-
-  &:hover {
-    background-color: var(--#{$dashboard-prefix-name}navbar-link-hover-bg);
-  }
-}
-
-body.sidebar-hidden-layout .sidebar-show-btn {
-  display: inline-flex;
-}
-
 // Scoped focus ring and skip-link now live in _accessibility.scss, which
 // centralizes all a11y concerns — this file stays purely structural.
 
@@ -307,8 +279,7 @@ body.sidebar-hidden-layout .sidebar-show-btn {
     padding: $dashboard-content-padding-mobile;
   }
 
-  .sidebar-hide-btn,
-  .sidebar-show-btn {
+  .sidebar-hide-btn {
     display: none !important;
   }
 }
