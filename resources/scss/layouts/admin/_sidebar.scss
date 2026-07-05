@@ -1,13 +1,11 @@
 // resources/css/layouts/admin/components/_sidebar.scss
 // ============================================================================
-// COMPOSANT SIDEBAR (HABILLAGE DE LA COLONNE GAUCHE)
-// Gère uniquement l'identité visuelle interne (Profil, Avatar, Pied de Sidebar).
-// Note : La navigation et le menu sont cloisonnés dans _menu.scss.
+// SIDEBAR COMPONENT (LEFT COLUMN VISUAL SKIN)
+// Handles only the internal visual identity (profile, avatar, sidebar footer).
+// Navigation and menu items live in _menu.scss.
 // ============================================================================
 
-@import "../variables"; // Ajustement du chemin selon ton architecture
-
-// Zone supérieure : Profil de l'utilisateur connecté
+// Top zone: connected user's profile
 .sidebar-profile {
   display: flex;
   flex-direction: column;
@@ -37,7 +35,7 @@
   }
 }
 
-// Zone inférieure : Pied de la Sidebar (Copyright / Version / Statut)
+// Bottom zone: sidebar footer (copyright / version / status)
 .sidebar-footer {
   display: flex;
   align-items: center;
@@ -55,10 +53,10 @@
 }
 
 // ----------------------------------------
-// RESPONSIVE / ADAPTATIONS COMPOSANT
+// COMPONENT RESPONSIVE ADAPTATIONS
 // ----------------------------------------
 
-@media (max-width: $dashboard-breakpoint-mobile) {
+@media (max-width: $dashboard-breakpoint-md) {
   .sidebar-profile {
     height: auto;
     min-height: var(--#{$dashboard-prefix-name}navbar-height);

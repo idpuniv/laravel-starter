@@ -1,134 +1,155 @@
 // resources/css/layouts/admin/_variables.scss
 // ============================================================================
-// VARIABLES LÉGÈRES DE L'INTERFACE ADMIN (MODE CLAIR PAR DÉFAUT)
+// DASHBOARD VARIABLES — LIGHT THEME + STATIC TOKENS
+// Every value here was derived from what the component files in
+// layouts/admin/ actually consume — nothing declared "just in case".
+// Dark-theme color overrides live in _variables-dark.scss.
+// Adjust the color values below to match the client's brand; everything
+// else (spacing, radii, sizes) is a sensible Bootstrap 5.3-style default.
 // ============================================================================
 
-// --- N.B. : Les préfixes sont hérités de core/_config.scss pour éviter les conflits ---
+// ----------------------------------------
+// PREFIX & BREAKPOINT
+// ----------------------------------------
+$dashboard-prefix-name: "dashboard-";
+$dashboard-breakpoint-md: 768px; // Matches Bootstrap's md breakpoint
 
 // ----------------------------------------
-// 1. Dimensions & Structure
+// DIMENSIONS
 // ----------------------------------------
-$dashboard-prefix: "idash" !default;
-$dashboard-prefix-name: "#{$dashboard-prefix}-" !default;
-$dashboard-sidebar-width:            280px !default;
-$dashboard-sidebar-collapsed-w:      0 !default;
-$dashboard-navbar-height:            72px !default;
-$dashboard-sidebar-profile-height:   72px !default;
-$dashboard-footer-height:            60px !default;
-$dashboard-sidebar-footer-height:    60px !default;
-$dashboard-scrollbar-width:          6px !default;
-$dashboard-scrollbar-width-sidebar:  4px !default;
-
-// Z-index
-$dashboard-zindex-sidebar:           1050 !default;
-$dashboard-zindex-overlay:           1040 !default;
+$dashboard-sidebar-width: 260px;
+$dashboard-sidebar-collapsed-width: 72px;
+$dashboard-navbar-height: 60px;
+$dashboard-sidebar-profile-height: 88px;
+$dashboard-footer-height: 48px;
+$dashboard-sidebar-footer-height: 40px;
+$dashboard-scrollbar-width: 6px;
+$dashboard-scrollbar-width-sidebar: 4px;
+$dashboard-avatar-size: 40px;
+$dashboard-touch-target-min-height: 44px; // WCAG 2.5.5 minimum
 
 // ----------------------------------------
-// 2. Bordures & Transitions
+// SPACING
 // ----------------------------------------
-$dashboard-border-radius-sm:         0.375rem !default;
-$dashboard-border-radius-md:         0.5rem !default;
-$dashboard-border-radius-lg:         0.75rem !default;
-$dashboard-border-radius-pill:       50rem !default;
-
-$dashboard-transition-width:         width 0.25s ease !default;
-$dashboard-transition-transform:     transform 0.3s ease !default;
-$dashboard-transition-nav-arrow:     transform 0.2s ease !default;
-$dashboard-transition-treeview:      max-height 0.25s ease-out !default;
-$dashboard-transition-colors:        color 0.15s ease, background-color 0.15s ease !default;
-
-// ----------------------------------------
-// 3. Spacements (Paddings & Margins)
-// ----------------------------------------
-$dashboard-spacer:                   1rem !default;
-$dashboard-spacer-half:              $dashboard-spacer * 0.5 !default;
-$dashboard-spacer-quarter:           $dashboard-spacer * 0.25 !default;
-
-$dashboard-sidebar-padding-y:        $dashboard-spacer-half !default;
-$dashboard-sidebar-padding-x:        $dashboard-spacer * 0.75 !default;
-$dashboard-sidebar-profile-padding:  $dashboard-spacer * 0.75 $dashboard-spacer !default;
-$dashboard-sidebar-footer-padding:   $dashboard-spacer * 0.75 $dashboard-spacer !default;
-
-$dashboard-content-padding:          $dashboard-spacer * 1.5 !default;
-$dashboard-content-padding-mobile:   $dashboard-spacer !default;
-$dashboard-footer-padding:           $dashboard-spacer * 0.75 $dashboard-spacer * 1.5 !default;
-
-$dashboard-menu-item-padding-y:      $dashboard-spacer * 0.625 !default;
-$dashboard-menu-item-padding-x:      $dashboard-spacer * 0.75 !default;
-$dashboard-menu-item-icon-width:     $dashboard-spacer * 1.5 !default;
-$dashboard-menu-item-icon-margin:    $dashboard-spacer-half !default;
-
-$dashboard-menu-subitem-padding-y:   $dashboard-spacer-half !default;
-$dashboard-menu-subitem-padding-x:   $dashboard-spacer * 0.75 !default;
-$dashboard-menu-subitem-padding-left: 0 !default;
-$dashboard-menu-subitem-padding-left-nested: $dashboard-spacer * 1.5 !default;
-$dashboard-nav-header-padding:       $dashboard-spacer $dashboard-spacer * 0.75 $dashboard-spacer-half $dashboard-spacer * 0.75 !default;
-
-// Breakpoints & Accessibilité
-$dashboard-breakpoint-mobile:        768px !default;
-$dashboard-breakpoint-small:         480px !default;
-$dashboard-touch-target-min-height:  44px !default;
+$dashboard-spacer: 1rem;
+$dashboard-spacer-half: .5rem;
+$dashboard-spacer-quarter: .25rem;
+$dashboard-content-padding: 1.5rem;
+$dashboard-content-padding-mobile: 1rem;
+$dashboard-sidebar-profile-padding: 1rem;
+$dashboard-sidebar-footer-padding: .5rem 1rem;
+$dashboard-footer-padding-y: .75rem;
+$dashboard-footer-padding-x: 1.5rem;
+$dashboard-menu-item-padding-y: .625rem;
+$dashboard-menu-item-padding-x: 1rem;
+$dashboard-menu-subitem-padding-y: .5rem;
+$dashboard-menu-subitem-padding-x: 1rem;
+$dashboard-menu-subitem-padding-left-nested: 2.5rem;
+$dashboard-nav-header-padding: .75rem 1rem .25rem;
+$dashboard-nav-link-padding: .5rem .75rem;
+$dashboard-nav-link-margin-right: .5rem;
 
 // ----------------------------------------
-// 4. Typographie
+// BORDER RADIUS
 // ----------------------------------------
-$dashboard-font-size-sm:             0.875rem !default;
-$dashboard-font-size-xs:             0.7rem !default;
-$dashboard-font-size-nav-header:     0.7rem !default;
-$dashboard-font-size-badge:          0.65rem !default;
-$dashboard-font-size-avatar:         1rem !default;
-
-$dashboard-font-weight-semibold:     600 !default;
-$dashboard-font-weight-bold:         700 !default;
+$dashboard-border-radius-sm: .25rem;
+$dashboard-border-radius-md: .375rem;
+$dashboard-border-radius-lg: .5rem;
+$dashboard-border-radius-pill: 50rem;
 
 // ----------------------------------------
-// 5. Design Concept & Couleurs (Mode Clair)
+// Z-INDEX
 // ----------------------------------------
-$dashboard-overlay-bg:               rgba($black, 0.5) !default;
-$dashboard-focus-outline-color:      $primary !default;
-$dashboard-focus-outline-width:      2px !default;
-$dashboard-focus-outline-offset:     2px !default;
+$dashboard-zindex-overlay: 1020;
+$dashboard-zindex-sidebar: 1030;
+$dashboard-zindex-skip-link: 1100;
 
-// Global Body & Structure Backgrounds
-$dashboard-body-bg:                  $gray-100 !default; 
-$dashboard-body-color:               $gray-900 !default;
+// ----------------------------------------
+// TRANSITIONS
+// ----------------------------------------
+$dashboard-transition-width: width .25s ease;
+$dashboard-transition-transform: transform .25s ease;
+$dashboard-transition-colors: color .2s ease;
+$dashboard-transition-background: background-color .2s ease;
+$dashboard-transition-nav-arrow: transform .2s ease;
 
-// Top Navbar
-$dashboard-navbar-bg:                $white !default;
-$dashboard-navbar-border-color:      $gray-200 !default;
-$dashboard-navbar-toggle-color:      $gray-700 !default;
+// ----------------------------------------
+// TYPOGRAPHY
+// ----------------------------------------
+$dashboard-font-size-base: .9375rem;
+$dashboard-font-size-sm: .875rem;
+$dashboard-font-size-xs: .75rem;
+$dashboard-font-size-nav-header: .6875rem;
+$dashboard-font-size-badge: .6875rem;
+$dashboard-font-size-avatar: .875rem;
+$dashboard-font-weight-medium: 500;
+$dashboard-font-weight-semibold: 600;
+$dashboard-font-weight-bold: 700;
 
-// Footer
-$dashboard-footer-bg:                $white !default;
-$dashboard-footer-border-color:      $gray-200 !default;
+// ----------------------------------------
+// FOCUS RING
+// Kept as static tokens (not theme-reactive): a brand-colored focus ring
+// has sufficient contrast on both light and dark surfaces, same approach
+// Bootstrap itself uses.
+// ----------------------------------------
+$dashboard-focus-outline-width: 2px;
+$dashboard-focus-outline-color: $primary;
+$dashboard-focus-outline-offset: 2px;
 
-// Sidebar Globale (Claire par défaut dans ce fichier)
-$dashboard-sidebar-bg:               $white !default;
-$dashboard-sidebar-color:            $gray-800 !default;
-$dashboard-sidebar-profile-border:   $gray-200 !default;
-$dashboard-sidebar-footer-border:    $gray-200 !default;
-$dashboard-sidebar-footer-color:     $gray-600 !default;
-$dashboard-sidebar-scrollbar-track:  $gray-100 !default;
-$dashboard-sidebar-scrollbar-thumb:  $gray-300 !default;
+// ----------------------------------------
+// COLORS — LIGHT THEME
+// Feed the CSS custom properties declared in _layout.scss's :root.
+// ----------------------------------------
+$dashboard-body-bg: $gray-100;
+$dashboard-body-color: $gray-900;
+$dashboard-overlay-bg: rgba(0, 0, 0, .5);
 
-// Menu de Navigation de la Sidebar
-$dashboard-nav-header-color:         $gray-500 !default;
-$dashboard-menu-link-color:          $gray-700 !default;
-$dashboard-menu-link-hover-bg:       rgba($primary, 0.08) !default;
-$dashboard-menu-link-hover-color:    $primary !default;
-$dashboard-menu-link-active-bg:      $primary !default;
-$dashboard-menu-link-active-color:   $white !default;
-$dashboard-menu-treeview-link-color: $gray-600 !default;
+$dashboard-navbar-bg: $white;
+$dashboard-navbar-border-color: $gray-200;
+$dashboard-navbar-toggle-color: $gray-700;
+$dashboard-navbar-link-hover-bg: rgba($primary, .08);
+$dashboard-navbar-link-hover-color: $primary;
 
-// Composants Internes (Utilitaires)
-$dashboard-avatar-bg:                $primary !default;
-$dashboard-avatar-color:             $white !default;
+$dashboard-footer-bg: $white;
+$dashboard-footer-border-color: $gray-200;
 
-$dashboard-badge-bg:                 $danger !default;
-$dashboard-badge-color:              $white !default;
-$dashboard-badge-border-width:       1.5px !default;
-$dashboard-badge-border-color:       $white !default;
+$dashboard-sidebar-bg: $white;
+$dashboard-sidebar-color: $gray-800;
+$dashboard-sidebar-profile-border: $gray-200;
+$dashboard-sidebar-footer-border: $gray-200;
+$dashboard-sidebar-footer-color: $gray-600;
+$dashboard-sidebar-scrollbar-track: $gray-100;
+$dashboard-sidebar-scrollbar-thumb: $gray-400;
 
-$dashboard-danger-color:             $danger !default;
-$dashboard-danger-hover-bg:          $danger !default;
-$dashboard-danger-hover-color:       $white !default;
+$dashboard-content-scrollbar-track: $gray-100;
+$dashboard-content-scrollbar-thumb: $gray-400;
+
+// Skip-link / focus accent — decoupled from $primary/$white so it stays
+// overridable per client without touching the front-office theme.
+$dashboard-focus-bg: $primary;
+$dashboard-focus-color: $white;
+
+$dashboard-avatar-bg: $primary;
+$dashboard-avatar-color: $white;
+
+$dashboard-menu-link-color: $gray-700;
+$dashboard-menu-link-hover-bg: $gray-100;
+$dashboard-menu-link-hover-color: $primary;
+$dashboard-menu-link-active-bg: rgba($primary, .1);
+$dashboard-menu-link-active-color: $primary;
+$dashboard-menu-treeview-link-color: $gray-600;
+$dashboard-menu-treeview-active-bg: rgba($primary, .08);
+$dashboard-menu-treeview-active-color: $primary;
+
+$dashboard-nav-header-color: $gray-500;
+
+// Badges/danger — semantic brand colors, intentionally constant across
+// themes (see _variables-dark.scss header note).
+$dashboard-badge-bg: $primary;
+$dashboard-badge-color: $white;
+$dashboard-badge-border-width: 0;
+$dashboard-badge-border-color: transparent;
+
+$dashboard-danger-color: $danger;
+$dashboard-danger-hover-bg: rgba($danger, .1);
+$dashboard-danger-hover-color: $danger;

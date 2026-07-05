@@ -1,62 +1,27 @@
 // resources/css/layouts/admin/_footer.scss
 // ============================================================================
-// COMPOSANT FOOTER (BAS DE PAGE COMPLET)
-// Gère uniquement l'habillage visuel, les textes et les liens du bas de page.
-// Note : Le positionnement structurel est géré directement dans _layout.scss.
+// FOOTER COMPONENT (PAGE BOTTOM BAR)
+// Visual skin only (background, border, spacing). Text/link colors are left
+// to Bootstrap utilities (text-secondary) directly in the Blade markup, not
+// to dashboard color tokens — no themed .footer-text/.footer-links wrapper
+// exists in the real markup, so none is styled here.
+// Structural positioning lives in _layout.scss.
 // ============================================================================
 
-@import "variables"; // Import direct, tout est au même niveau dans layouts/admin/
-
-.main-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.footer-fixed {
   padding: $dashboard-footer-padding-y $dashboard-footer-padding-x;
   font-size: $dashboard-font-size-sm;
   background-color: var(--#{$dashboard-prefix-name}footer-bg);
   border-top: 1px solid var(--#{$dashboard-prefix-name}footer-border-color);
-  color: var(--#{$dashboard-prefix-name}footer-color);
   transition: $dashboard-transition-colors, $dashboard-transition-background;
-
-  // Alignement des textes internes (ex: copyright)
-  .footer-text {
-    margin: 0;
-  }
-
-  // Liens annexes (ex: version, mentions)
-  .footer-links {
-    display: flex;
-    gap: $dashboard-spacer;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    a {
-      color: var(--#{$dashboard-prefix-name}footer-link-color);
-      text-decoration: none;
-      transition: $dashboard-transition-colors;
-
-      &:hover {
-        color: var(--#{$dashboard-prefix-name}footer-link-hover-color);
-        text-decoration: underline;
-      }
-    }
-  }
 }
 
 // ----------------------------------------
-// RESPONSIVE / ADAPTATIONS MOBILES
+// RESPONSIVE ADAPTATION
 // ----------------------------------------
-@media (max-width: $dashboard-breakpoint-mobile) {
-  .main-footer {
-    flex-direction: column;
-    gap: $dashboard-spacer-half;
-    text-align: center;
-    padding: $dashboard-spacer;
-    
-    .footer-links {
-      justify-content: center;
-      flex-wrap: wrap;
-    }
+
+@media (max-width: $dashboard-breakpoint-md) {
+  .footer-fixed {
+    padding: $dashboard-spacer-half $dashboard-spacer;
   }
 }

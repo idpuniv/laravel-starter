@@ -1,20 +1,19 @@
 // resources/css/layouts/admin/_layout.scss
 // ============================================================================
-// STRUCTURE GLOBALE & ARCHITECTURE DE L'ADMIN
-// Contient uniquement le squelette structurel et les variables CSS dynamiques.
+// ADMIN LAYOUT — STRUCTURAL SKELETON
+// Structural rules only. Sass variables and CSS custom properties are
+// provided by the index (layouts/admin/index.scss) — this file must never
+// re-import variables/variables-dark itself (single source of truth).
 // ============================================================================
 
-@import "variables";
-@import "variables-dark";
-
 // ----------------------------------------
-// 1. DÉCLARATION DES VARIABLES CSS DYNAMIQUES
+// 1. DYNAMIC CSS CUSTOM PROPERTIES
 // ----------------------------------------
 
 :root {
   // Dimensions
   --#{$dashboard-prefix-name}sidebar-width:            #{$dashboard-sidebar-width};
-  --#{$dashboard-prefix-name}sidebar-collapsed-w:      #{$dashboard-sidebar-collapsed-w};
+  --#{$dashboard-prefix-name}sidebar-collapsed-width:      #{$dashboard-sidebar-collapsed-width};
   --#{$dashboard-prefix-name}navbar-height:            #{$dashboard-navbar-height};
   --#{$dashboard-prefix-name}sidebar-profile-height:   #{$dashboard-sidebar-profile-height};
   --#{$dashboard-prefix-name}footer-height:            #{$dashboard-footer-height};
@@ -22,11 +21,11 @@
   --#{$dashboard-prefix-name}scrollbar-width:          #{$dashboard-scrollbar-width};
   --#{$dashboard-prefix-name}scrollbar-width-sidebar:  #{$dashboard-scrollbar-width-sidebar};
 
-  // Couleurs Thème Clair (Héritées de _variables.scss)
+  // Light theme colors
   --#{$dashboard-prefix-name}body-bg:                  #{$dashboard-body-bg};
   --#{$dashboard-prefix-name}body-color:               #{$dashboard-body-color};
   --#{$dashboard-prefix-name}overlay-bg:               #{$dashboard-overlay-bg};
-  
+
   --#{$dashboard-prefix-name}navbar-bg:                #{$dashboard-navbar-bg};
   --#{$dashboard-prefix-name}navbar-border-color:      #{$dashboard-navbar-border-color};
   --#{$dashboard-prefix-name}navbar-toggle-color:      #{$dashboard-navbar-toggle-color};
@@ -44,11 +43,44 @@
 
   --#{$dashboard-prefix-name}content-scrollbar-track:  #{$dashboard-content-scrollbar-track};
   --#{$dashboard-prefix-name}content-scrollbar-thumb:  #{$dashboard-content-scrollbar-thumb};
+
+  // Focus/skip-link accent, decoupled from global $primary so it stays
+  // overridable per-client without affecting the front-office theme.
+  --#{$dashboard-prefix-name}focus-bg:                 #{$dashboard-focus-bg};
+  --#{$dashboard-prefix-name}focus-color:              #{$dashboard-focus-color};
+
+  // Exposed so JS reads the same breakpoint as SCSS instead of hardcoding
+  // its own copy — Sass stays the single source of truth.
+  --#{$dashboard-prefix-name}breakpoint-md:            #{$dashboard-breakpoint-md};
+
+  // Menu links (sidebar navigation)
+  --#{$dashboard-prefix-name}menu-link-color:          #{$dashboard-menu-link-color};
+  --#{$dashboard-prefix-name}menu-link-hover-bg:       #{$dashboard-menu-link-hover-bg};
+  --#{$dashboard-prefix-name}menu-link-hover-color:    #{$dashboard-menu-link-hover-color};
+  --#{$dashboard-prefix-name}menu-link-active-bg:      #{$dashboard-menu-link-active-bg};
+  --#{$dashboard-prefix-name}menu-link-active-color:   #{$dashboard-menu-link-active-color};
+  --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color};
+  --#{$dashboard-prefix-name}menu-treeview-active-bg:  #{$dashboard-menu-treeview-active-bg};
+  --#{$dashboard-prefix-name}menu-treeview-active-color: #{$dashboard-menu-treeview-active-color};
+  --#{$dashboard-prefix-name}nav-header-color:         #{$dashboard-nav-header-color};
+
+  // Top navbar hover state
+  --#{$dashboard-prefix-name}navbar-link-hover-bg:     #{$dashboard-navbar-link-hover-bg};
+  --#{$dashboard-prefix-name}navbar-link-hover-color:  #{$dashboard-navbar-link-hover-color};
+
+  // Badges — semantic/brand colors, intentionally constant across themes
+  --#{$dashboard-prefix-name}badge-bg:                 #{$dashboard-badge-bg};
+  --#{$dashboard-prefix-name}badge-color:               #{$dashboard-badge-color};
+  --#{$dashboard-prefix-name}badge-border-color:       #{$dashboard-badge-border-color};
+
+  // Danger action (logout) — semantic color, intentionally constant across themes
+  --#{$dashboard-prefix-name}danger-color:             #{$dashboard-danger-color};
+  --#{$dashboard-prefix-name}danger-hover-bg:          #{$dashboard-danger-hover-bg};
+  --#{$dashboard-prefix-name}danger-hover-color:       #{$dashboard-danger-hover-color};
 }
 
-// Commutateur Mode Sombre Automatique
+// Automatic dark mode switch
 [data-bs-theme="dark"] {
-  // Écrase uniquement les variables de couleurs (Héritées de _variables-dark.scss)
   --#{$dashboard-prefix-name}body-bg:                  #{$dashboard-body-bg-dark};
   --#{$dashboard-prefix-name}body-color:               #{$dashboard-body-color-dark};
   --#{$dashboard-prefix-name}overlay-bg:               #{$dashboard-overlay-bg-dark};
@@ -67,10 +99,23 @@
   --#{$dashboard-prefix-name}sidebar-footer-color:     #{$dashboard-sidebar-footer-color-dark};
   --#{$dashboard-prefix-name}sidebar-scrollbar-track:  #{$dashboard-sidebar-scrollbar-track-dark};
   --#{$dashboard-prefix-name}sidebar-scrollbar-thumb:  #{$dashboard-sidebar-scrollbar-thumb-dark};
+
+  --#{$dashboard-prefix-name}focus-bg:                 #{$dashboard-focus-bg-dark};
+  --#{$dashboard-prefix-name}focus-color:              #{$dashboard-focus-color-dark};
+
+  --#{$dashboard-prefix-name}menu-link-color:          #{$dashboard-menu-link-color-dark};
+  --#{$dashboard-prefix-name}menu-link-hover-bg:       #{$dashboard-menu-link-hover-bg-dark};
+  --#{$dashboard-prefix-name}menu-link-hover-color:    #{$dashboard-menu-link-hover-color-dark};
+  --#{$dashboard-prefix-name}menu-link-active-bg:      #{$dashboard-menu-link-active-bg-dark};
+  --#{$dashboard-prefix-name}menu-link-active-color:   #{$dashboard-menu-link-active-color-dark};
+  --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color-dark};
+  --#{$dashboard-prefix-name}menu-treeview-active-bg:  #{$dashboard-menu-treeview-active-bg-dark};
+  --#{$dashboard-prefix-name}menu-treeview-active-color: #{$dashboard-menu-treeview-active-color-dark};
+  --#{$dashboard-prefix-name}nav-header-color:         #{$dashboard-nav-header-color-dark};
 }
 
 // ----------------------------------------
-// 2. CONFIGURATION DE BASE DE LA PAGE
+// 2. BASE PAGE SETUP
 // ----------------------------------------
 
 html, body {
@@ -80,7 +125,6 @@ html, body {
   color: var(--#{$dashboard-prefix-name}body-color);
 }
 
-// Conteneur Maître Flexbox
 .app-container {
   display: flex;
   height: 100vh;
@@ -90,11 +134,11 @@ html, body {
 }
 
 // ----------------------------------------
-// 3. LA GRILLE DU SQUELETTE STRUCTUREL
+// 3. STRUCTURAL GRID
 // ----------------------------------------
 
-// Colonne Sidebar Externe
-.sidebar-col {
+.sidebar {
+  position: relative;
   width: var(--#{$dashboard-prefix-name}sidebar-width);
   flex-shrink: 0;
   display: flex;
@@ -102,20 +146,27 @@ html, body {
   height: 100%;
   background-color: var(--#{$dashboard-prefix-name}sidebar-bg);
   transition: $dashboard-transition-width;
-  
-  &.desktop-collapsed {
-    width: var(--#{$dashboard-prefix-name}sidebar-collapsed-w);
+
+  &.sidebar-collapsed {
+    width: var(--#{$dashboard-prefix-name}sidebar-collapsed-width);
     overflow: hidden;
+  }
+
+  // Fully hidden — distinct from .sidebar-collapsed (icon rail): here the
+  // sidebar takes zero space at all, main content uses the freed width.
+  &.sidebar-hidden {
+    width: 0;
+    min-width: 0;
+    overflow: hidden;
+    border: 0;
   }
 }
 
-// Zone défilante à l'intérieur de la Sidebar
 .sidebar-content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
 
-  // Custom scrollbar performance
   &::-webkit-scrollbar {
     width: var(--#{$dashboard-prefix-name}scrollbar-width-sidebar);
   }
@@ -128,7 +179,6 @@ html, body {
   }
 }
 
-// Colonne Principale (Navbar + Content + Footer)
 .main-col {
   flex: 1;
   display: flex;
@@ -136,7 +186,6 @@ html, body {
   overflow: hidden;
 }
 
-// Contenu central scrollable de l'application
 .content-scrollable {
   flex: 1;
   overflow-y: auto;
@@ -156,7 +205,7 @@ html, body {
 }
 
 // ----------------------------------------
-// 4. ACCESSIBILITÉ & OVERLAY STRATÉGIQUE
+// 4. ACCESSIBILITY & OVERLAY
 // ----------------------------------------
 
 .sidebar-overlay {
@@ -174,34 +223,67 @@ html, body {
   }
 }
 
-:focus-visible {
-  outline: $dashboard-focus-outline-width solid $dashboard-focus-outline-color;
-  outline-offset: $dashboard-focus-outline-offset;
-}
-
-.skip-to-content {
+// Small chevron anchored to the sidebar's edge — dedicated control for the
+// fully-hidden state, independent from the navbar hamburger (rail toggle).
+.sidebar-hide-btn {
   position: absolute;
-  top: -40px;
-  left: 0;
-  padding: 8px 12px;
-  z-index: 1100;
-  text-decoration: none;
-  background-color: $primary;
-  color: $white;
-  border-radius: 0 0 $dashboard-border-radius-sm $dashboard-border-radius-sm;
-  
-  &:focus {
-    top: 8px;
-    left: 8px;
+  top: $dashboard-spacer;
+  right: -12px;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--#{$dashboard-prefix-name}sidebar-profile-border);
+  border-radius: $dashboard-border-radius-pill;
+  background-color: var(--#{$dashboard-prefix-name}sidebar-bg);
+  color: var(--#{$dashboard-prefix-name}sidebar-color);
+  cursor: pointer;
+  transition: $dashboard-transition-colors, $dashboard-transition-background;
+
+  &:hover {
+    background-color: var(--#{$dashboard-prefix-name}menu-link-hover-bg);
   }
 }
 
+// Floating tab to bring the sidebar back once fully hidden.
+.sidebar-show-btn {
+  position: fixed;
+  top: calc(var(--#{$dashboard-prefix-name}navbar-height) + #{$dashboard-spacer});
+  left: 0;
+  z-index: $dashboard-zindex-sidebar;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 40px;
+  border: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
+  border-left: 0;
+  border-radius: 0 $dashboard-border-radius-md $dashboard-border-radius-md 0;
+  background-color: var(--#{$dashboard-prefix-name}navbar-bg);
+  color: var(--#{$dashboard-prefix-name}navbar-toggle-color);
+  cursor: pointer;
+  transition: $dashboard-transition-colors, $dashboard-transition-background;
+
+  &:hover {
+    background-color: var(--#{$dashboard-prefix-name}navbar-link-hover-bg);
+  }
+}
+
+body.sidebar-hidden-layout .sidebar-show-btn {
+  display: inline-flex;
+}
+
+// Scoped focus ring and skip-link now live in _accessibility.scss, which
+// centralizes all a11y concerns — this file stays purely structural.
+
 // ----------------------------------------
-// 5. RESPONSIVE / MEDIA QUERIES STRUCTURELLES
+// 5. STRUCTURAL RESPONSIVE BEHAVIOR
 // ----------------------------------------
 
-@media (max-width: $dashboard-breakpoint-mobile) {
-  .sidebar-col {
+@media (max-width: $dashboard-breakpoint-md) {
+  .sidebar {
     position: fixed;
     left: 0;
     top: 0;
@@ -210,18 +292,23 @@ html, body {
     width: var(--#{$dashboard-prefix-name}sidebar-width);
     transition: $dashboard-transition-transform;
     transform: translateX(-100%);
-    
-    &.mobile-open {
+
+    &.sidebar-offcanvas-open {
       transform: translateX(0);
     }
-    
-    &.desktop-collapsed {
+
+    &.sidebar-collapsed {
       width: var(--#{$dashboard-prefix-name}sidebar-width);
       transform: translateX(-100%);
     }
   }
-  
+
   .content-scrollable {
     padding: $dashboard-content-padding-mobile;
+  }
+
+  .sidebar-hide-btn,
+  .sidebar-show-btn {
+    display: none !important;
   }
 }

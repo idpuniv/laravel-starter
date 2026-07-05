@@ -1,13 +1,13 @@
 // resources/css/layouts/admin/_accessibility.scss
 // ============================================================================
-// ACCESSIBILITÉ & UTILITAIRES (A11Y)
-// Centralise la gestion des focus, des cibles tactiles et des préférences système.
+// ACCESSIBILITY & UTILITIES (A11Y)
+// Single source of truth for focus treatment, skip-link, touch targets and
+// motion preferences. Nothing else in the admin bundle should redefine
+// :focus-visible or .skip-to-content.
 // ============================================================================
 
-@import "variables";
-
 // ----------------------------------------
-// 1. FOCUS ET VISIBILITÉ DE LA NAVIGATION
+// 1. FOCUS & SKIP LINK
 // ----------------------------------------
 
 :focus-visible {
@@ -16,53 +16,41 @@
   border-radius: $dashboard-border-radius-sm;
 }
 
-// Lien d'évitement pour les lecteurs d'écran / utilisateurs au clavier
+// Skip link for keyboard/screen-reader users, hidden off-screen until focused.
 .skip-to-content {
   position: absolute;
-  top: -100px; // Masqué hors de l'écran par défaut
-  left: $dashboard-spacer;
+  top: -40px;
+  left: 0;
   padding: $dashboard-spacer-half $dashboard-spacer;
-  z-index: $dashboard-zindex-overlay + 100;
+  z-index: $dashboard-zindex-skip-link;
   text-decoration: none;
-  background-color: $dashboard-focus-outline-color;
-  color: var(--bs-white);
+  background-color: var(--#{$dashboard-prefix-name}focus-bg);
+  color: var(--#{$dashboard-prefix-name}focus-color);
   border-radius: 0 0 $dashboard-border-radius-sm $dashboard-border-radius-sm;
   font-size: $dashboard-font-size-sm;
   font-weight: $dashboard-font-weight-medium;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   transition: top 0.2s ease-in-out;
-  
+
   &:focus-visible,
   &:focus {
-    top: 0; // Devient visible dès qu'il prend le focus
-    outline: $dashboard-focus-outline-width solid var(--bs-white);
+    top: 8px;
+    left: 8px;
+    outline: $dashboard-focus-outline-width solid var(--#{$dashboard-prefix-name}focus-color);
     outline-offset: -4px;
   }
 }
 
 // ----------------------------------------
-// 2. PRÉFÉRENCES DE MOUVEMENT RÉDUIT (WCAG)
+// 2. REDUCED MOTION (WCAG)
 // ----------------------------------------
-
-// Classe globale d'activation (ou via média query standard)
-.reduced-motion {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0s !important;
-    animation-delay: 0s !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-// En complément : respect natif du choix de l'utilisateur via le système
+// Single source of truth: the native media query. No JS-mirrored class —
+// duplicating the same check in two places let them drift out of sync
+// (the JS version never respected the .allow-motion escape hatch below).
 @media (prefers-reduced-motion: reduce) {
   html:not(.allow-motion) {
     scroll-behavior: auto !important;
-    
+
     *,
     *::before,
     *::after {
@@ -76,7 +64,7 @@
 }
 
 // ----------------------------------------
-// 3. OPTIMISATION TACTILE (TOUCH TARGETS)
+// 3. TOUCH TARGETS
 // ----------------------------------------
 
 .touch-device {

@@ -4,67 +4,110 @@
     const sidebar = document.getElementById("sidebar");
     const toggleBtn = document.getElementById("sidebarToggleBtn");
     const overlay = document.getElementById("sidebarOverlay");
+    const hideBtn = document.getElementById("sidebarHideBtn");
+    const showBtn = document.getElementById("sidebarShowBtn");
 
-    let desktopCollapsed = false;
+    // Fallback matches $dashboard-breakpoint-md in case the custom
+    // property is missing or fails to parse (e.g. CSS not yet loaded).
+    const FALLBACK_BREAKPOINT_MD = 768;
 
-    const mobileQuery = window.matchMedia("(max-width: 768px)");
+    function readBreakpointMd() {
+        const raw = getComputedStyle(document.documentElement)
+            .getPropertyValue("--dashboard-breakpoint-md")
+            .trim();
+        const parsed = parseInt(raw, 10);
+        return Number.isNaN(parsed) ? FALLBACK_BREAKPOINT_MD : parsed;
+    }
 
-    function openMobileSidebar() {
-        if (mobileQuery.matches) {
-            sidebar.classList.add("mobile-open");
+    let sidebarCollapsed = false;
+    let sidebarHidden = false;
+
+    // Single source of truth for the breakpoint lives in SCSS
+    // ($dashboard-breakpoint-md) — this only reads it.
+    const belowBreakpointQuery = window.matchMedia(
+        `(max-width: ${readBreakpointMd()}px)`,
+    );
+
+    function openOffcanvasSidebar() {
+        if (belowBreakpointQuery.matches) {
+            sidebar.classList.add("sidebar-offcanvas-open");
             overlay.classList.add("open");
-            document.body.style.overflow = "hidden";
+            document.body.classList.add("sidebar-offcanvas-locked");
         }
     }
 
-    function closeMobileSidebar() {
-        if (mobileQuery.matches) {
-            sidebar.classList.remove("mobile-open");
+    function closeOffcanvasSidebar() {
+        if (belowBreakpointQuery.matches) {
+            sidebar.classList.remove("sidebar-offcanvas-open");
             overlay.classList.remove("open");
-            document.body.style.overflow = "";
+            document.body.classList.remove("sidebar-offcanvas-locked");
         }
+    }
+
+    // Fully hidden state — independent from the rail-collapse toggle,
+    // desktop only (offcanvas already achieves "fully gone" on mobile).
+    function hideSidebar() {
+        if (belowBreakpointQuery.matches) {
+            return;
+        }
+        sidebarHidden = true;
+        sidebar.classList.add("sidebar-hidden");
+        document.body.classList.add("sidebar-hidden-layout");
+    }
+
+    function showSidebar() {
+        sidebarHidden = false;
+        sidebar.classList.remove("sidebar-hidden");
+        document.body.classList.remove("sidebar-hidden-layout");
     }
 
     function toggleSidebar() {
-        if (mobileQuery.matches) {
-            if (sidebar.classList.contains("mobile-open")) {
-                closeMobileSidebar();
+        if (belowBreakpointQuery.matches) {
+            if (sidebar.classList.contains("sidebar-offcanvas-open")) {
+                closeOffcanvasSidebar();
             } else {
-                openMobileSidebar();
+                openOffcanvasSidebar();
             }
-        } else {
-            desktopCollapsed = !desktopCollapsed;
-            if (desktopCollapsed) {
-                sidebar.classList.add("desktop-collapsed");
-            } else {
-                sidebar.classList.remove("desktop-collapsed");
-            }
+            return;
         }
+
+        // Bringing the menu back is the more intuitive action here than
+        // toggling a collapse state the user cannot currently see.
+        if (sidebarHidden) {
+            showSidebar();
+            return;
+        }
+
+        sidebarCollapsed = !sidebarCollapsed;
+        sidebar.classList.toggle("sidebar-collapsed", sidebarCollapsed);
     }
 
-    function handleScreenChange(e) {
+    function handleBreakpointChange(e) {
         if (e.matches) {
-            console.log("📱 Mode mobile activé");
-            sidebar.classList.remove("desktop-collapsed");
+            // Below breakpoint: offcanvas mode. Collapsed/hidden desktop
+            // states are meaningless here and must not linger — otherwise
+            // resizing back down could leave the sidebar permanently gone
+            // with no offcanvas trigger able to reveal it.
+            sidebar.classList.remove("sidebar-collapsed");
+            sidebar.classList.remove("sidebar-hidden");
+            document.body.classList.remove("sidebar-hidden-layout");
             overlay.classList.remove("open");
-            sidebar.classList.remove("mobile-open");
-            document.body.style.overflow = "";
+            sidebar.classList.remove("sidebar-offcanvas-open");
+            document.body.classList.remove("sidebar-offcanvas-locked");
         } else {
-            console.log("🖥️ Mode desktop activé");
-            sidebar.classList.remove("mobile-open");
+            // Above breakpoint: offcanvas state is meaningless, restore
+            // the persisted collapsed/hidden preference instead.
+            sidebar.classList.remove("sidebar-offcanvas-open");
             overlay.classList.remove("open");
-            document.body.style.overflow = "";
-
-            if (desktopCollapsed) {
-                sidebar.classList.add("desktop-collapsed");
-            } else {
-                sidebar.classList.remove("desktop-collapsed");
-            }
+            document.body.classList.remove("sidebar-offcanvas-locked");
+            sidebar.classList.toggle("sidebar-collapsed", sidebarCollapsed);
+            sidebar.classList.toggle("sidebar-hidden", sidebarHidden);
+            document.body.classList.toggle("sidebar-hidden-layout", sidebarHidden);
         }
     }
 
-    mobileQuery.addEventListener("change", handleScreenChange);
-    handleScreenChange(mobileQuery);
+    belowBreakpointQuery.addEventListener("change", handleBreakpointChange);
+    handleBreakpointChange(belowBreakpointQuery);
 
     if (toggleBtn) {
         toggleBtn.addEventListener("click", function (e) {
@@ -74,33 +117,38 @@
     }
 
     if (overlay) {
-        overlay.addEventListener("click", closeMobileSidebar);
+        overlay.addEventListener("click", closeOffcanvasSidebar);
     }
 
-    // CORRECTION ICI : Ne fermer le sidebar que pour les VRAIS liens de navigation
-    // Exclure les boutons avec data-treeview-toggle (menus parents)
-    const allNavLinks = document.querySelectorAll(".sidebar-menu .nav-link");
+    if (hideBtn) {
+        hideBtn.addEventListener("click", hideSidebar);
+    }
+
+    if (showBtn) {
+        showBtn.addEventListener("click", showSidebar);
+    }
+
+    // Only elements explicitly marked as treeview toggles are parent-menu
+    // buttons; everything else is treated as a real navigation link. This
+    // avoids misclassifying anchors that use href="#" as a placeholder.
+    const allNavLinks = document.querySelectorAll(".sidebar-nav .nav-link");
     allNavLinks.forEach((link) => {
-        link.addEventListener("click", function (e) {
-            // Vérifier si c'est un VRAI lien (a href) et non un bouton de menu
-            const isRealLink = this.tagName === 'A' && this.getAttribute('href') !== '#';
+        link.addEventListener("click", function () {
             const isTreeviewToggle = this.hasAttribute("data-treeview-toggle");
-            
-            // Ne fermer le sidebar mobile que pour les vrais liens, pas pour les toggles
+
+            if (isTreeviewToggle) {
+                return;
+            }
+
             if (
-                isRealLink &&
-                !isTreeviewToggle &&
-                mobileQuery.matches &&
-                sidebar.classList.contains("mobile-open")
+                belowBreakpointQuery.matches &&
+                sidebar.classList.contains("sidebar-offcanvas-open")
             ) {
-                setTimeout(closeMobileSidebar, 150);
+                setTimeout(closeOffcanvasSidebar, 150);
             }
-            
-            // Gestion de l'état actif (pour les vrais liens uniquement)
-            if (!isTreeviewToggle && isRealLink) {
-                allNavLinks.forEach((l) => l.classList.remove("active"));
-                this.classList.add("active");
-            }
+
+            allNavLinks.forEach((l) => l.classList.remove("active"));
+            this.classList.add("active");
         });
     });
 
@@ -125,13 +173,8 @@
                 const isExpanded =
                     this.getAttribute("aria-expanded") === "true";
 
-                if (isExpanded) {
-                    submenu.classList.remove("show");
-                    this.setAttribute("aria-expanded", "false");
-                } else {
-                    submenu.classList.add("show");
-                    this.setAttribute("aria-expanded", "true");
-                }
+                submenu.classList.toggle("show", !isExpanded);
+                this.setAttribute("aria-expanded", String(!isExpanded));
             });
         });
     }
@@ -139,54 +182,23 @@
     initTreeview();
 
     // ============================================================
-    // GESTION DES PRÉFÉRENCES D'ANIMATION
-    // ============================================================
-    const reducedMotionQuery = window.matchMedia(
-        "(prefers-reduced-motion: reduce)",
-    );
-    function handleReducedMotion(e) {
-        if (e.matches) {
-            console.log("♿ Préférence : animations réduites");
-            document.body.classList.add("reduced-motion");
-        } else {
-            document.body.classList.remove("reduced-motion");
-        }
-    }
-    reducedMotionQuery.addEventListener("change", handleReducedMotion);
-    handleReducedMotion(reducedMotionQuery);
-
-    // ============================================================
-    // GESTION DE L'ORIENTATION
+    // ORIENTATION
     // ============================================================
     const orientationQuery = window.matchMedia("(orientation: landscape)");
     function handleOrientation(e) {
-        if (e.matches) {
-            console.log("Mode paysage");
-            document.body.classList.add("landscape");
-            document.body.classList.remove("portrait");
-        } else {
-            console.log("Mode portrait");
-            document.body.classList.add("portrait");
-            document.body.classList.remove("landscape");
-        }
+        document.body.classList.toggle("landscape", e.matches);
+        document.body.classList.toggle("portrait", !e.matches);
     }
     orientationQuery.addEventListener("change", handleOrientation);
     handleOrientation(orientationQuery);
 
     // ============================================================
-    // DÉTECTION TACTILE
+    // TOUCH DETECTION
     // ============================================================
     const touchQuery = window.matchMedia("(pointer: coarse)");
     function handleTouch(e) {
-        if (e.matches) {
-            console.log("Appareil tactile détecté");
-            document.body.classList.add("touch-device");
-        } else {
-            document.body.classList.remove("touch-device");
-        }
+        document.body.classList.toggle("touch-device", e.matches);
     }
     touchQuery.addEventListener("change", handleTouch);
     handleTouch(touchQuery);
-
-    console.log('Dashboard initialisé - Gestion du thème confiée à color-modes.js');
 })();

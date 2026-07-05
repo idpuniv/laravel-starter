@@ -1,164 +1,19 @@
-// resources/css/layouts/admin/index.scss (Point d'entrée principal du Layout)
+// resources/css/layouts/admin/_index.scss (Main layout entry point)
 // ============================================================================
-// ADMIN LAYOUT - COMPILATION MANIFESTE
-// Centralise les configurations de thèmes et orchestre les fichiers du layout.
-// Structure calquée rigoureusement sur l'ordre de compilation de Bootstrap 5.3.
+// ADMIN LAYOUT — COMPILATION MANIFEST
+// Assembles the admin dashboard partials. All CSS custom properties
+// (:root / [data-bs-theme="dark"]) are declared once, in _layout.scss —
+// nothing else in this bundle should redeclare them.
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// 1. FONDATIONS ET CONFIGURATIONS SASS (VARIABLES ONLY)
+// 1. VARIABLES (Sass tokens only, no CSS output)
 // ----------------------------------------------------------------------------
-@import "../../core/colors";
-@import "./variables";      // FIX: Force la recherche locale explicite dans le bon dossier
-@import "./variables-dark"; // FIX: Force la recherche locale explicite dans le bon dossier
-
-// ----------------------------------------------------------------------------
-// 2. INJECTION DES THÈMES DE L'INTERFACE (VARIABLES CSS DYNAMIQUES)
-// ----------------------------------------------------------------------------
-
-// Thème racine par défaut (Clair)
-:root {
-  // Dimensions structurelles
-  --#{$dashboard-prefix-name}sidebar-width: #{$dashboard-sidebar-width};
-  --#{$dashboard-prefix-name}sidebar-collapsed-w: #{$dashboard-sidebar-collapsed-w};
-  --#{$dashboard-prefix-name}navbar-height: #{$dashboard-navbar-height};
-  --#{$dashboard-prefix-name}footer-height: #{$dashboard-footer-height};
-  --#{$dashboard-prefix-name}scrollbar-width: #{$dashboard-scrollbar-width};
-  --#{$dashboard-prefix-name}scrollbar-width-sidebar: #{$dashboard-scrollbar-width-sidebar};
-
-  // Gestion des calques (Z-index)
-  --#{$dashboard-prefix-name}zindex-sidebar: #{$dashboard-zindex-sidebar};
-  --#{$dashboard-prefix-name}zindex-overlay: #{$dashboard-zindex-overlay};
-
-  // Arrondis (Border radius)
-  --#{$dashboard-prefix-name}border-radius-sm: #{$dashboard-border-radius-sm};
-  --#{$dashboard-prefix-name}border-radius-md: #{$dashboard-border-radius-md};
-  --#{$dashboard-prefix-name}border-radius-lg: #{$dashboard-border-radius-lg};
-  --#{$dashboard-prefix-name}border-radius-pill: #{$dashboard-border-radius-pill};
-
-  // Transitions fluides hardware-accelerated
-  --#{$dashboard-prefix-name}transition-width: #{$dashboard-transition-width};
-  --#{$dashboard-prefix-name}transition-transform: #{$dashboard-transition-transform};
-  --#{$dashboard-prefix-name}transition-nav-arrow: #{$dashboard-transition-nav-arrow};
-  --#{$dashboard-prefix-name}transition-colors: #{$dashboard-transition-colors};
-
-  // Espacements et Padding internes
-  --#{$dashboard-prefix-name}spacer: #{$dashboard-spacer};
-  --#{$dashboard-prefix-name}spacer-half: #{$dashboard-spacer-half};
-  --#{$dashboard-prefix-name}spacer-quarter: #{$dashboard-spacer-quarter};
-  --#{$dashboard-prefix-name}content-padding: #{$dashboard-content-padding};
-  --#{$dashboard-prefix-name}content-padding-mobile: #{$dashboard-content-padding-mobile};
-  
-  // Tailles de polices (Typography)
-  --#{$dashboard-prefix-name}font-size-sm: #{$dashboard-font-size-sm};
-  --#{$dashboard-prefix-name}font-size-xs: #{$dashboard-font-size-xs};
-  --#{$dashboard-prefix-name}font-size-nav-header: #{$dashboard-font-size-nav-header};
-  --#{$dashboard-prefix-name}font-size-badge: #{$dashboard-font-size-badge};
-  --#{$dashboard-prefix-name}font-size-avatar: #{$dashboard-font-size-avatar};
-
-  // Graisses de polices
-  --#{$dashboard-prefix-name}font-weight-semibold: #{$dashboard-font-weight-semibold};
-  --#{$dashboard-prefix-name}font-weight-bold: #{$dashboard-font-weight-bold};
-
-  // Cible ergonomique tactile minimum (A11y Mobile)
-  --#{$dashboard-prefix-name}touch-target-min-height: #{$dashboard-touch-target-min-height};
-
-  // Arrière-plans d'ombrage (Overlay responsive)
-  --#{$dashboard-prefix-name}overlay-bg: #{$dashboard-overlay-bg};
-
-  // Teintes des barres de défilement (Scrollbars custom)
-  --#{$dashboard-prefix-name}sidebar-scrollbar-track: #{$dashboard-sidebar-scrollbar-track};
-  --#{$dashboard-prefix-name}sidebar-scrollbar-thumb: #{$dashboard-sidebar-scrollbar-thumb};
-  --#{$dashboard-prefix-name}content-scrollbar-track: #{$dashboard-content-scrollbar-track};
-  --#{$dashboard-prefix-name}content-scrollbar-thumb: #{$dashboard-content-scrollbar-thumb};
-
-  // Couleurs dynamiques - Zone Sidebar
-  --#{$dashboard-prefix-name}sidebar-bg: #{$dashboard-sidebar-bg};
-  --#{$dashboard-prefix-name}sidebar-color: #{$dashboard-sidebar-color};
-  --#{$dashboard-prefix-name}sidebar-profile-border: #{$dashboard-sidebar-profile-border};
-  --#{$dashboard-prefix-name}sidebar-footer-border: #{$dashboard-sidebar-footer-border};
-  --#{$dashboard-prefix-name}sidebar-footer-color: #{$dashboard-sidebar-footer-color};
-
-  // Couleurs dynamiques - Navigation et Liens
-  --#{$dashboard-prefix-name}menu-link-color: #{$dashboard-menu-link-color};
-  --#{$dashboard-prefix-name}menu-link-hover-bg: #{$dashboard-menu-link-hover-bg};
-  --#{$dashboard-prefix-name}menu-link-hover-color: #{$dashboard-menu-link-hover-color};
-  --#{$dashboard-prefix-name}menu-link-active-bg: #{$dashboard-menu-link-active-bg};
-  --#{$dashboard-prefix-name}menu-link-active-color: #{$dashboard-menu-link-active-color};
-  --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color};
-
-  // Couleurs dynamiques - Navbar Supérieure
-  --#{$dashboard-prefix-name}navbar-bg: #{$dashboard-navbar-bg};
-  --#{$dashboard-prefix-name}navbar-border-color: #{$dashboard-navbar-border-color};
-  --#{$dashboard-prefix-name}navbar-toggle-color: #{$dashboard-navbar-toggle-color};
-
-  // Couleurs dynamiques - Footer Bas de page
-  --#{$dashboard-prefix-name}footer-bg: #{$dashboard-footer-bg};
-  --#{$dashboard-prefix-name}footer-border-color: #{$dashboard-footer-border-color};
-
-  // Couleurs dynamiques - Profil / Avatar
-  --#{$dashboard-prefix-name}avatar-bg: #{$dashboard-avatar-bg};
-  --#{$dashboard-prefix-name}avatar-color: #{$dashboard-avatar-color};
-
-  // Actions Critiques (Danger)
-  --#{$dashboard-prefix-name}danger-color: #{$dashboard-danger-color};
-  --#{$dashboard-prefix-name}danger-hover-bg: #{$dashboard-danger-hover-bg};
-  --#{$dashboard-prefix-name}danger-hover-color: #{$dashboard-danger-hover-color};
-
-  // Indicateur d'accessibilité (Focus au clavier)
-  --#{$dashboard-prefix-name}focus-outline-color: #{$dashboard-focus-outline-color};
-  --#{$dashboard-prefix-name}focus-outline-width: #{$dashboard-focus-outline-width};
-  --#{$dashboard-prefix-name}focus-outline-offset: #{$dashboard-focus-outline-offset};
-
-  // Éléments de Badge indicatifs
-  --#{$dashboard-prefix-name}badge-bg: #{$dashboard-badge-bg};
-  --#{$dashboard-prefix-name}badge-color: #{$dashboard-badge-color};
-  --#{$dashboard-prefix-name}badge-border-width: #{$dashboard-badge-border-width};
-  --#{$dashboard-prefix-name}badge-border-color: #{$dashboard-badge-border-color};
-
-  // Séparateurs de Navigation
-  --#{$dashboard-prefix-name}nav-header-color: #{$dashboard-nav-header-color};
-}
-
-// Surcharge pour le mode alternatif (Sombre) - Injectée directement après la racine
-[data-bs-theme="dark"] {
-  // Global Body
-  --#{$dashboard-prefix-name}body-bg: #{$dashboard-body-bg-dark};
-
-  // Top Navbar
-  --#{$dashboard-prefix-name}navbar-bg: #{$dashboard-navbar-bg-dark};
-  --#{$dashboard-prefix-name}navbar-border-color: #{$dashboard-navbar-border-color-dark};
-  --#{$dashboard-prefix-name}navbar-toggle-color: #{$dashboard-navbar-toggle-color-dark};
-
-  // Footer
-  --#{$dashboard-prefix-name}footer-bg: #{$dashboard-footer-bg-dark};
-  --#{$dashboard-prefix-name}footer-border-color: #{$dashboard-footer-border-color-dark};
-
-  // Sidebar
-  --#{$dashboard-prefix-name}sidebar-bg: #{$dashboard-sidebar-bg-dark};
-  --#{$dashboard-prefix-name}sidebar-color: #{$dashboard-sidebar-color-dark};
-  --#{$dashboard-prefix-name}sidebar-profile-border: #{$dashboard-sidebar-profile-border-dark};
-  --#{$dashboard-prefix-name}sidebar-footer-border: #{$dashboard-sidebar-footer-border-dark};
-  --#{$dashboard-prefix-name}sidebar-footer-color: #{$dashboard-sidebar-footer-color-dark};
-  --#{$dashboard-prefix-name}sidebar-scrollbar-track: #{$dashboard-sidebar-scrollbar-track-dark};
-  --#{$dashboard-prefix-name}sidebar-scrollbar-thumb: #{$dashboard-sidebar-scrollbar-thumb-dark};
-
-  // Navigation (Nav Bootstrap 5)
-  --#{$dashboard-prefix-name}nav-header-color: #{$dashboard-nav-header-color-dark};
-  --#{$dashboard-prefix-name}menu-link-color: #{$dashboard-menu-link-color-dark};
-  --#{$dashboard-prefix-name}menu-link-hover-bg: #{$dashboard-menu-link-hover-bg-dark};
-  --#{$dashboard-prefix-name}menu-link-hover-color: #{$dashboard-menu-link-hover-color-dark};
-  --#{$dashboard-prefix-name}menu-link-active-bg: #{$dashboard-menu-link-active-bg-dark};
-  --#{$dashboard-prefix-name}menu-link-active-color: #{$dashboard-menu-link-active-color-dark};
-  --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color-dark};
-
-  // Utilitaires & Composants
-  --#{$dashboard-prefix-name}badge-border-color: #{$dashboard-badge-border-color-dark};
-  --#{$dashboard-prefix-name}overlay-bg: #{$dashboard-overlay-bg-dark};
-}
+@import "variables";
+@import "variables-dark";
 
 // ----------------------------------------------------------------------------
-// 3. CHARGEMENT DU SQUELETTE ET DES COMPOSANTS GRAPHLOQUES
+// 2. STRUCTURE, THEME TOKENS & COMPONENTS
 // ----------------------------------------------------------------------------
 @import "layout";
 @import "sidebar";
@@ -169,6 +24,6 @@
 @import "avatar";
 
 // ----------------------------------------------------------------------------
-// 4. UTILITAIRES SYSTÈMES ET ACCESSIBILITÉ (A11y)
+// 3. ACCESSIBILITY (must load last: focus ring must win the cascade)
 // ----------------------------------------------------------------------------
 @import "accessibility";

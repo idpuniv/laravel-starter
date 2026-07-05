@@ -1,24 +1,22 @@
 // resources/css/layouts/admin/_content.scss
 // ============================================================================
-// CONTENT - ZONE DE TRAVAIL PRINCIPALE
-// Gère l'habillage visuel de la zone de contenu centrale.
-// Note : Le comportement de la scrollbar et la grille sont gérés dans _layout.scss.
+// CONTENT — MAIN WORKING AREA
+// Visual styling for the central content area only.
+// Scrollbar behavior and grid structure live in _layout.scss.
 // ============================================================================
 
-@import "variables";
-
 .main-col {
-  // Prise en compte dynamique du changement de thème (Clair / Sombre)
+  // Reacts to light/dark theme switch via the custom property below.
   background-color: var(--#{$dashboard-prefix-name}body-bg);
   transition: $dashboard-transition-background, $dashboard-transition-colors;
 }
 
-// Styles spécifiques aux conteneurs de pages internes
+// Page-level header used by individual admin views (see @yield('content-header'))
 .content-header {
   padding-bottom: $dashboard-spacer;
   margin-bottom: $dashboard-spacer;
   border-bottom: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
-  
+
   .breadcrumb {
     margin-bottom: 0;
     font-size: $dashboard-font-size-sm;

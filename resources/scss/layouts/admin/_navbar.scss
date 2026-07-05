@@ -1,10 +1,12 @@
 // resources/css/layouts/admin/components/_navbar.scss
 // ============================================================================
-// COMPOSANT NAVBAR (BARRE SUPÉRIEURE)
-// Gère l'affichage, les alignements et les dropdowns de la barre haute.
+// NAVBAR COMPONENT (TOP BAR)
+// Handles layout, alignment and dropdown re-theming for the top bar.
+// Dropdown positioning itself is left to Bootstrap's native dropdown JS
+// (Popper) — this file only re-themes colors, never fights Popper's
+// inline position/transform/margin (see notification/profile dropdowns,
+// which use data-bs-toggle="dropdown").
 // ============================================================================
-
-@import "../variables"; // Ajustement du chemin selon ton architecture
 
 .navbar-fixed {
   height: var(--#{$dashboard-prefix-name}navbar-height);
@@ -14,7 +16,6 @@
   align-items: center;
   flex-shrink: 0;
 
-  // Alignements internes hérités du squelette
   .container-fluid {
     display: flex;
     align-items: center;
@@ -29,7 +30,6 @@
     gap: $dashboard-spacer-half;
   }
 
-  // Configuration des liens de la barre supérieure
   .nav-link {
     color: var(--#{$dashboard-prefix-name}navbar-toggle-color);
     padding: $dashboard-nav-link-padding;
@@ -37,8 +37,8 @@
     transition: $dashboard-transition-colors;
 
     &:hover {
-      background-color: rgba($primary, 0.08);
-      color: $primary;
+      background-color: var(--#{$dashboard-prefix-name}navbar-link-hover-bg);
+      color: var(--#{$dashboard-prefix-name}navbar-link-hover-color);
     }
 
     &.btn-link {
@@ -46,27 +46,15 @@
     }
   }
 
-  // Zone d'isolation des menus déroulants (Profil, Notifications)
-  .dropdown {
-    position: relative;
-
-    .dropdown-menu {
-      position: absolute;
-      top: 100%;
-      margin-top: $dashboard-spacer-half;
-      z-index: 1000;
-      border: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
-      background-color: var(--#{$dashboard-prefix-name}navbar-bg);
-
-      &.dropdown-menu-end {
-        right: 0;
-        left: auto;
-      }
-    }
+  // Only re-theme colors here — position/alignment is handled by
+  // Bootstrap's dropdown JS + Popper, do not add position/margin/z-index.
+  .dropdown-menu {
+    border: 1px solid var(--#{$dashboard-prefix-name}navbar-border-color);
+    background-color: var(--#{$dashboard-prefix-name}navbar-bg);
   }
 }
 
-// Bouton de basculement de la Sidebar (Toggle)
+// Sidebar toggle button
 .sidebar-toggle-btn {
   background: none;
   border: none;
@@ -78,16 +66,16 @@
   margin-right: $dashboard-nav-link-margin-right;
   border-radius: $dashboard-border-radius-sm;
   color: var(--#{$dashboard-prefix-name}navbar-toggle-color);
-  min-height: $dashboard-touch-target-min-height; // Target tactile mobile
+  min-height: $dashboard-touch-target-min-height; // Minimum touch target size
   transition: $dashboard-transition-colors;
 
   &:hover {
-    background-color: rgba($primary, 0.08);
-    color: $primary;
+    background-color: var(--#{$dashboard-prefix-name}navbar-link-hover-bg);
+    color: var(--#{$dashboard-prefix-name}navbar-link-hover-color);
   }
 }
 
-// Identité visuelle / Logo dans la barre
+// Brand / logo in the top bar
 .navbar-brand {
   display: inline-flex;
   align-items: center;
@@ -100,8 +88,11 @@
   }
 }
 
-// Ajustement responsive pour la Navbar haute
-@media (max-width: $dashboard-breakpoint-mobile) {
+// ----------------------------------------
+// RESPONSIVE ADAPTATION
+// ----------------------------------------
+
+@media (max-width: $dashboard-breakpoint-md) {
   .navbar-fixed {
     height: auto;
     min-height: var(--#{$dashboard-prefix-name}navbar-height);
