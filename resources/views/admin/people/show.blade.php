@@ -29,45 +29,48 @@
 
         {{-- Profile hero --}}
         <div class="card border-0 shadow-sm rounded-4 mb-4">
-            <div class="card-body p-4">
-                <div class="d-flex align-items-center gap-4 flex-wrap">
-
-                    {{-- Avatar --}}
-                    <div class="rounded-circle bg-primary-subtle border border-primary-subtle d-flex align-items-center justify-content-center flex-shrink-0 overflow-hidden"
-                        style="width:72px;height:72px;font-size:1.75rem;">
-                        @if($person->photo_url)
-                        <img src="{{ $person->photo_url }}"
-                            alt="{{ $person->first_name }}"
-                            class="w-100 h-100 object-fit-cover">
-                        @else
-                        <i class="bi bi-person text-primary"></i>
-                        @endif
-                    </div>
-
-                    {{-- Meta --}}
-                    <div>
-                        <h2 class="h5 fw-bold mb-1">
-                            {{ $person->first_name }} {{ $person->last_name }}
-                            <span class="badge text-bg-secondary fw-normal fs-xs ms-1">
-                                #{{ $person->id }}
-                            </span>
-                        </h2>
-                        <div class="d-flex flex-wrap gap-3 text-body-secondary small">
-                            @if($person->gender === 'male')
-                            <span><i class="bi bi-gender-male me-1"></i>{{ __('Masculin') }}</span>
-                            @elseif($person->gender === 'female')
-                            <span><i class="bi bi-gender-female me-1"></i>{{ __('Féminin') }}</span>
-                            @endif
-                            @if($person->country)
-                            <span><i class="bi bi-geo-alt me-1"></i>{{ $person->country->name }}</span>
-                            @endif
-                            <span><i class="bi bi-clock me-1"></i>{{ $person->created_at->diffForHumans() }}</span>
-                        </div>
-                    </div>
-
+    <div class="card-body p-4">
+        <div class="d-flex align-items-center gap-4 flex-wrap">
+            {{-- Avatar --}}
+            <div class="position-relative flex-shrink-0" style="width:72px;height:72px;">
+                <div class="rounded-circle bg-primary-subtle border border-primary-subtle d-flex align-items-center justify-content-center w-100 h-100 overflow-hidden"
+                    style="font-size:1.75rem;">
+                    @if($person->photo_url)
+                    <img src="{{ $person->photo_url }}"
+                        alt="{{ $person->first_name }}"
+                        class="w-100 h-100 object-fit-cover">
+                    @else
+                    <i class="bi bi-person text-primary"></i>
+                    @endif
+                </div>
+                {{-- Pastille en ligne — statique pour l'instant, à dynamiser plus tard --}}
+                <span class="person-online-dot position-absolute rounded-circle"
+                      style="width:16px;height:16px;bottom:2px;right:2px;background:#28a745;border:3px solid var(--bs-body-bg,#fff);"
+                      title="{{ __('En ligne') }}"></span>
+            </div>
+            {{-- Meta --}}
+            <div>
+                <h2 class="h5 fw-bold mb-1">
+                    {{ $person->first_name }} {{ $person->last_name }}
+                    <span class="badge text-bg-secondary fw-normal fs-xs ms-1">
+                        #{{ $person->id }}
+                    </span>
+                </h2>
+                <div class="d-flex flex-wrap gap-3 text-body-secondary small">
+                    @if($person->gender === 'male')
+                    <span><i class="bi bi-gender-male me-1"></i>{{ __('Masculin') }}</span>
+                    @elseif($person->gender === 'female')
+                    <span><i class="bi bi-gender-female me-1"></i>{{ __('Féminin') }}</span>
+                    @endif
+                    @if($person->country)
+                    <span><i class="bi bi-geo-alt me-1"></i>{{ $person->country->name }}</span>
+                    @endif
+                    <span><i class="bi bi-clock me-1"></i>{{ $person->created_at->diffForHumans() }}</span>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
         {{-- Personal info --}}
         <div class="card border-0 shadow-sm rounded-4 mb-4">

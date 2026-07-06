@@ -46,28 +46,36 @@ new class extends Component {
 <div>
     @if($hasPages)
         <div class="mt-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
-            <div class="text-secondary small px-3 py-2 rounded">
+            <div class="text-secondary small">
                 Affichage de {{ $firstItem }} à {{ $lastItem }}
                 sur <strong>{{ $total }}</strong> éléments
             </div>
 
             <nav aria-label="Pagination">
-                <ul class="pagination mb-0 gap-1">
+                <ul class="pagination pagination-sm gap-1 mb-0">
+
                     {{-- Première page --}}
                     <li class="page-item {{ $onFirstPage ? 'disabled' : '' }}">
-                        <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="firstPage" {{ $onFirstPage ? 'disabled' : '' }} aria-label="Première page">
-                            <i class="bi bi-chevron-double-left fs-5"></i>
+                        <button type="button"
+                                class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square"
+                                wire:click="firstPage"
+                                {{ $onFirstPage ? 'disabled' : '' }}
+                                aria-label="Première page">
+                            <i class="bi bi-chevron-double-left pg-icon"></i>
                         </button>
                     </li>
 
                     {{-- Précédent --}}
                     <li class="page-item {{ $onFirstPage ? 'disabled' : '' }}">
-                        <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="previousPage" {{ $onFirstPage ? 'disabled' : '' }} aria-label="Page précédente">
-                            <i class="bi bi-chevron-left fs-5"></i>
+                        <button type="button"
+                                class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square"
+                                wire:click="previousPage"
+                                {{ $onFirstPage ? 'disabled' : '' }}
+                                aria-label="Page précédente">
+                            <i class="bi bi-chevron-left pg-icon"></i>
                         </button>
                     </li>
 
-                    {{-- Pages avec points de suspension --}}
                     @php
                         $start = max(1, $currentPage - 2);
                         $end = min($lastPage, $currentPage + 2);
@@ -75,24 +83,27 @@ new class extends Component {
                         $showRightDots = $end < $lastPage - 1;
                     @endphp
 
-                    {{-- Première page --}}
+                    {{-- Première page numérotée --}}
                     @if($start > 1)
                         <li class="page-item">
-                            <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="goToPage(1)">1</button>
+                            <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square" wire:click="goToPage(1)">1</button>
                         </li>
                     @endif
 
                     {{-- Points à gauche --}}
                     @if($showLeftDots)
                         <li class="page-item disabled">
-                            <span class="page-link rounded-3 border-0 bg-transparent d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">...</span>
+                            <span class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square">&hellip;</span>
                         </li>
                     @endif
 
                     {{-- Pages centrales --}}
                     @for($i = $start; $i <= $end; $i++)
                         <li class="page-item {{ $currentPage == $i ? 'active' : '' }}">
-                            <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center {{ $currentPage == $i ? 'fw-semibold' : '' }}" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="goToPage({{ $i }})">
+                            <button type="button"
+                                    class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square"
+                                    wire:click="goToPage({{ $i }})"
+                                    @if($currentPage == $i) aria-current="page" @endif>
                                 {{ $i }}
                             </button>
                         </li>
@@ -101,14 +112,14 @@ new class extends Component {
                     {{-- Points à droite --}}
                     @if($showRightDots)
                         <li class="page-item disabled">
-                            <span class="page-link rounded-3 border-0 bg-transparent d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">...</span>
+                            <span class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square">&hellip;</span>
                         </li>
                     @endif
 
-                    {{-- Dernière page --}}
+                    {{-- Dernière page numérotée --}}
                     @if($end < $lastPage)
                         <li class="page-item">
-                            <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="goToPage({{ $lastPage }})">
+                            <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square" wire:click="goToPage({{ $lastPage }})">
                                 {{ $lastPage }}
                             </button>
                         </li>
@@ -116,19 +127,43 @@ new class extends Component {
 
                     {{-- Suivant --}}
                     <li class="page-item {{ !$hasMorePages ? 'disabled' : '' }}">
-                        <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="nextPage" {{ !$hasMorePages ? 'disabled' : '' }} aria-label="Page suivante">
-                            <i class="bi bi-chevron-right fs-5"></i>
+                        <button type="button"
+                                class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square"
+                                wire:click="nextPage"
+                                {{ !$hasMorePages ? 'disabled' : '' }}
+                                aria-label="Page suivante">
+                            <i class="bi bi-chevron-right pg-icon"></i>
                         </button>
                     </li>
 
                     {{-- Dernière page --}}
                     <li class="page-item {{ !$hasMorePages ? 'disabled' : '' }}">
-                        <button type="button" class="page-link rounded-3 d-inline-flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem; padding: 0;" wire:click="lastPage" {{ !$hasMorePages ? 'disabled' : '' }} aria-label="Dernière page">
-                            <i class="bi bi-chevron-double-right fs-5"></i>
+                        <button type="button"
+                                class="page-link rounded-3 d-inline-flex align-items-center justify-content-center pg-square"
+                                wire:click="lastPage"
+                                {{ !$hasMorePages ? 'disabled' : '' }}
+                                aria-label="Dernière page">
+                            <i class="bi bi-chevron-double-right pg-icon"></i>
                         </button>
                     </li>
+
                 </ul>
             </nav>
         </div>
     @endif
+
+    <style>
+        /* Uniquement du dimensionnement, aucune couleur : Bootstrap gère
+           hover / active / disabled nativement via .page-item/.page-link */
+        .pg-square {
+            width: 2.25rem;
+            height: 2.25rem;
+            padding: 0;
+            line-height: 1;
+        }
+        .pg-icon {
+            font-size: 0.875rem;
+            line-height: 1;
+        }
+    </style>
 </div>
