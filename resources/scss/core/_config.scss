@@ -1,7 +1,14 @@
 // ============================================================================
 // CONFIGURATION
 // ============================================================================
-
-// Prefix for CSS variables (change this for different projects)
-$prefix: "dashboard" !default;
-$prefix-name: "#{$prefix}-" !default;
+// Prefix for the project's own CSS custom properties (change per project).
+// Named $brand-prefix (not $prefix) on purpose: Bootstrap itself declares
+// its own $prefix in bootstrap/_variables.scss ($prefix: "bs-" !default),
+// used to generate every --bs-* custom property. Since Sass never
+// reassigns a variable that already has a value via !default, naming this
+// one $prefix here silently blocked Bootstrap's own default from ever
+// applying — every --bs-* property was generated as --dashboard* instead,
+// breaking anything (Bootstrap's own component CSS, JS reading --bs-*)
+// that expected the real prefix.
+$brand-prefix: "dashboard" !default;
+$brand-prefix-name: "#{$brand-prefix}-" !default;

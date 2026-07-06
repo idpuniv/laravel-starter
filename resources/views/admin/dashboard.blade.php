@@ -147,17 +147,36 @@
     </div>
 
     <script>
-        // Helper function to get Bootstrap CSS variable value
+        // Reads a Bootstrap CSS custom property (e.g. --bs-primary).
         function getCssVar(variable) {
             return getComputedStyle(document.documentElement).getPropertyValue(variable).trim();
         }
 
-        // Get theme colors from Bootstrap CSS variables
+        // Off-screen element used purely to let the browser's own CSS engine
+        // resolve any valid color syntax (hex, rgb(), hsl(), color-mix()...)
+        // into a plain "r, g, b" triplet. Canvas's 2D color parser isn't
+        // guaranteed to support every modern CSS color syntax, but rgba()
+        // has always been universally supported there.
+        const colorProbe = document.createElement("span");
+        colorProbe.style.display = "none";
+        document.body.appendChild(colorProbe);
+
+        function toRgbTriplet(cssColor) {
+            colorProbe.style.color = cssColor;
+            const resolved = getComputedStyle(colorProbe).color;
+            const numbers = resolved.match(/[\d.]+/g) || ["0", "0", "0"];
+            return numbers.slice(0, 3).join(", ");
+        }
+
+        // alpha is 0–1, matching rgba()'s own scale.
+        function withAlpha(cssColor, alpha) {
+            return `rgba(${toRgbTriplet(cssColor)}, ${alpha})`;
+        }
+
         const primaryColor = getCssVar('--bs-primary');
         const successColor = getCssVar('--bs-success');
         const dangerColor = getCssVar('--bs-danger');
         const infoColor = getCssVar('--bs-info');
-        const warningColor = getCssVar('--bs-warning');
         const secondaryColor = getCssVar('--bs-secondary');
         const bodyColor = getCssVar('--bs-body-color');
         const bodyBg = getCssVar('--bs-body-bg');
@@ -166,9 +185,9 @@
         // Sales Chart (Bar)
         const salesCtx = document.getElementById('salesChart').getContext('2d');
         const gradient1 = salesCtx.createLinearGradient(0, 0, 0, 300);
-        gradient1.addColorStop(0, primaryColor + 'cc');
-        gradient1.addColorStop(1, primaryColor + '33');
-        
+        gradient1.addColorStop(0, withAlpha(primaryColor, 0.8));
+        gradient1.addColorStop(1, withAlpha(primaryColor, 0.2));
+
         new Chart(salesCtx, {
             type: 'bar',
             data: {
@@ -187,7 +206,7 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false },
-                    tooltip: { 
+                    tooltip: {
                         backgroundColor: bodyColor,
                         titleColor: bodyBg,
                         bodyColor: secondaryColor,
@@ -196,11 +215,11 @@
                     }
                 },
                 scales: {
-                    y: { 
-                        grid: { display: true, drawBorder: false, color: borderColor + '33' }, 
+                    y: {
+                        grid: { display: true, drawBorder: false, color: withAlpha(borderColor, 0.2) },
                         ticks: { stepSize: 30, color: secondaryColor }
                     },
-                    x: { 
+                    x: {
                         grid: { display: false },
                         ticks: { color: secondaryColor }
                     }
@@ -225,22 +244,22 @@
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { 
-                        position: 'bottom', 
-                        labels: { 
-                            usePointStyle: true, 
-                            pointStyle: 'circle', 
-                            boxWidth: 8, 
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            boxWidth: 8,
                             padding: 15,
                             color: bodyColor
-                        } 
+                        }
                     },
-                    tooltip: { 
+                    tooltip: {
                         backgroundColor: bodyColor,
                         titleColor: bodyBg,
                         bodyColor: secondaryColor,
-                        padding: 10, 
-                        cornerRadius: 8 
+                        padding: 10,
+                        cornerRadius: 8
                     }
                 }
             }
@@ -249,9 +268,9 @@
         // Users Chart (Line)
         const usersCtx = document.getElementById('usersChart').getContext('2d');
         const gradient2 = usersCtx.createLinearGradient(0, 0, 0, 300);
-        gradient2.addColorStop(0, primaryColor + '4d');
-        gradient2.addColorStop(1, primaryColor + '03');
-        
+        gradient2.addColorStop(0, withAlpha(primaryColor, 0.3));
+        gradient2.addColorStop(1, withAlpha(primaryColor, 0.01));
+
         new Chart(usersCtx, {
             type: 'line',
             data: {
@@ -276,20 +295,20 @@
                 maintainAspectRatio: false,
                 plugins: {
                     legend: { display: false },
-                    tooltip: { 
+                    tooltip: {
                         backgroundColor: bodyColor,
                         titleColor: bodyBg,
                         bodyColor: secondaryColor,
-                        padding: 10, 
-                        cornerRadius: 8 
+                        padding: 10,
+                        cornerRadius: 8
                     }
                 },
                 scales: {
-                    y: { 
-                        grid: { display: true, drawBorder: false, color: borderColor + '33' }, 
+                    y: {
+                        grid: { display: true, drawBorder: false, color: withAlpha(borderColor, 0.2) },
                         ticks: { stepSize: 500, color: secondaryColor }
                     },
-                    x: { 
+                    x: {
                         grid: { display: false },
                         ticks: { color: secondaryColor }
                     }
