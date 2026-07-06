@@ -38,6 +38,18 @@ $dashboard-content-padding: 1.5rem;
 $dashboard-content-padding-mobile: 1rem;
 $dashboard-sidebar-profile-padding: 1rem;
 $dashboard-sidebar-footer-padding: .5rem 1rem;
+
+// Sidebar-profile bottom divider and sidebar-footer top divider — a plain
+// CSS border always spans 100% of the element's width, so a shorter,
+// centered line needs a pseudo-element instead (see _sidebar.scss).
+// Length accepts any CSS length, including 100% for a full-width line.
+$dashboard-sidebar-profile-divider-style: solid;
+$dashboard-sidebar-profile-divider-width: 0;
+$dashboard-sidebar-profile-divider-length: 100%;
+
+$dashboard-sidebar-footer-divider-style: solid;
+$dashboard-sidebar-footer-divider-width: 0;
+$dashboard-sidebar-footer-divider-length: 100%;
 $dashboard-footer-padding-y: .75rem;
 $dashboard-footer-padding-x: 1.5rem;
 $dashboard-sidebar-nav-item-padding-y: .625rem;

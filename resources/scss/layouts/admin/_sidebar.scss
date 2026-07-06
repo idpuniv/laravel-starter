@@ -7,6 +7,7 @@
 
 // Top zone: connected user's profile
 .sidebar-profile {
+  position: relative; // anchors the centered divider below
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,8 +15,20 @@
   text-align: center;
   height: var(--#{$dashboard-prefix-name}sidebar-profile-height);
   padding: $dashboard-sidebar-profile-padding;
-  border-bottom: 1px solid var(--#{$dashboard-prefix-name}sidebar-profile-border);
   transition: $dashboard-transition-colors;
+
+  // Centered divider — see _variables.scss for style/width/length tokens.
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: $dashboard-sidebar-profile-divider-length;
+    border-bottom: $dashboard-sidebar-profile-divider-width
+      $dashboard-sidebar-profile-divider-style
+      var(--#{$dashboard-prefix-name}sidebar-profile-border);
+  }
 
   .avatar {
     margin-bottom: $dashboard-spacer-quarter;
@@ -37,6 +50,7 @@
 
 // Bottom zone: sidebar footer (copyright / version / status)
 .sidebar-footer {
+  position: relative; // anchors the centered divider above
   display: flex;
   align-items: center;
   justify-content: center;
@@ -44,12 +58,24 @@
   flex-shrink: 0;
   padding: $dashboard-sidebar-footer-padding;
   height: var(--#{$dashboard-prefix-name}sidebar-footer-height);
-  border-top: 1px solid var(--#{$dashboard-prefix-name}sidebar-footer-border);
   font-size: $dashboard-font-size-xs;
   color: var(--#{$dashboard-prefix-name}sidebar-footer-color);
   transition: $dashboard-transition-colors;
   white-space: nowrap;
   overflow: hidden;
+
+  // Centered divider — see _variables.scss for style/width/length tokens.
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: $dashboard-sidebar-footer-divider-length;
+    border-top: $dashboard-sidebar-footer-divider-width
+      $dashboard-sidebar-footer-divider-style
+      var(--#{$dashboard-prefix-name}sidebar-footer-border);
+  }
 }
 
 // ----------------------------------------
