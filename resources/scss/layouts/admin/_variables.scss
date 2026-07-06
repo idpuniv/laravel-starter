@@ -40,11 +40,11 @@ $dashboard-sidebar-profile-padding: 1rem;
 $dashboard-sidebar-footer-padding: .5rem 1rem;
 $dashboard-footer-padding-y: .75rem;
 $dashboard-footer-padding-x: 1.5rem;
-$dashboard-menu-item-padding-y: .625rem;
-$dashboard-menu-item-padding-x: 1rem;
-$dashboard-menu-subitem-padding-y: .5rem;
-$dashboard-menu-subitem-padding-x: 1rem;
-$dashboard-menu-subitem-padding-left-nested: 2.5rem;
+$dashboard-sidebar-nav-item-padding-y: .625rem;
+$dashboard-sidebar-nav-item-padding-x: 1rem;
+$dashboard-sidebar-nav-subitem-padding-y: .5rem;
+$dashboard-sidebar-nav-subitem-padding-x: 1rem;
+$dashboard-sidebar-nav-subitem-padding-left-nested: 2.5rem;
 $dashboard-nav-header-padding: .75rem 1rem .25rem;
 $dashboard-nav-link-padding: .5rem .75rem;
 $dashboard-nav-link-margin-right: .5rem;
@@ -114,7 +114,7 @@ $dashboard-navbar-link-hover-color: $primary;
 $dashboard-footer-bg: $white;
 $dashboard-footer-border-color: $gray-200;
 
-$dashboard-sidebar-bg: $gray-200;
+$dashboard-sidebar-bg: $white;
 $dashboard-sidebar-color: $gray-800;
 $dashboard-sidebar-profile-border: $gray-200;
 $dashboard-sidebar-footer-border: $gray-200;
@@ -133,14 +133,14 @@ $dashboard-focus-color: $white;
 $dashboard-avatar-bg: $primary;
 $dashboard-avatar-color: $white;
 
-$dashboard-menu-link-color: $gray-700;
-$dashboard-menu-link-hover-bg: $gray-100;
-$dashboard-menu-link-hover-color: $primary;
-$dashboard-menu-link-active-bg: rgba($primary, .1);
-$dashboard-menu-link-active-color: $primary;
-$dashboard-menu-treeview-link-color: $gray-600;
-$dashboard-menu-treeview-active-bg: rgba($primary, .08);
-$dashboard-menu-treeview-active-color: $primary;
+$dashboard-sidebar-nav-link-color: $gray-700;
+$dashboard-sidebar-nav-link-hover-bg: $gray-100;
+$dashboard-sidebar-nav-link-hover-color: $primary;
+$dashboard-sidebar-nav-link-active-bg: rgba($primary, .1);
+$dashboard-sidebar-nav-link-active-color: $primary;
+$dashboard-sidebar-nav-treeview-link-color: $gray-600;
+$dashboard-sidebar-nav-treeview-active-bg: rgba($primary, .08);
+$dashboard-sidebar-nav-treeview-active-color: $primary;
 
 $dashboard-nav-header-color: $gray-500;
 

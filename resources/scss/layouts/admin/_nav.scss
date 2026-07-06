@@ -31,8 +31,8 @@
     display: flex;
     align-items: center;
     gap: $dashboard-spacer-half;
-    padding: $dashboard-menu-item-padding-y $dashboard-menu-item-padding-x;
-    color: var(--#{$dashboard-prefix-name}menu-link-color);
+    padding: $dashboard-sidebar-nav-item-padding-y $dashboard-sidebar-nav-item-padding-x;
+    color: var(--#{$dashboard-prefix-name}sidebar-nav-link-color);
     border-radius: $dashboard-border-radius-md;
     font-size: $dashboard-font-size-sm;
     text-decoration: none;
@@ -40,14 +40,14 @@
     width: 100%;
 
     &:hover {
-      background-color: var(--#{$dashboard-prefix-name}menu-link-hover-bg);
-      color: var(--#{$dashboard-prefix-name}menu-link-hover-color);
+      background-color: var(--#{$dashboard-prefix-name}sidebar-nav-link-hover-bg);
+      color: var(--#{$dashboard-prefix-name}sidebar-nav-link-hover-color);
     }
 
     // Current page state
     &.active {
-      background-color: var(--#{$dashboard-prefix-name}menu-link-active-bg);
-      color: var(--#{$dashboard-prefix-name}menu-link-active-color);
+      background-color: var(--#{$dashboard-prefix-name}sidebar-nav-link-active-bg);
+      color: var(--#{$dashboard-prefix-name}sidebar-nav-link-active-color);
       font-weight: $dashboard-font-weight-medium;
     }
 
@@ -105,22 +105,22 @@
     }
 
     .nav-link {
-      padding: $dashboard-menu-subitem-padding-y $dashboard-menu-subitem-padding-x;
-      padding-left: calc(#{$dashboard-menu-item-padding-x} + 1.25rem + #{$dashboard-spacer-half});
+      padding: $dashboard-sidebar-nav-subitem-padding-y $dashboard-sidebar-nav-subitem-padding-x;
+      padding-left: calc(#{$dashboard-sidebar-nav-item-padding-x} + 1.25rem + #{$dashboard-spacer-half});
       font-size: $dashboard-font-size-xs;
-      color: var(--#{$dashboard-prefix-name}menu-treeview-link-color);
+      color: var(--#{$dashboard-prefix-name}sidebar-nav-treeview-link-color);
       border-radius: $dashboard-border-radius-md;
 
       &:hover {
-        background-color: var(--#{$dashboard-prefix-name}menu-link-hover-bg);
-        color: var(--#{$dashboard-prefix-name}menu-link-hover-color);
+        background-color: var(--#{$dashboard-prefix-name}sidebar-nav-link-hover-bg);
+        color: var(--#{$dashboard-prefix-name}sidebar-nav-link-hover-color);
       }
 
       // Active child — softer than top-level active state, uses its own
       // dashboard token rather than reaching into $primary directly.
       &.active {
-        background-color: var(--#{$dashboard-prefix-name}menu-treeview-active-bg);
-        color: var(--#{$dashboard-prefix-name}menu-treeview-active-color);
+        background-color: var(--#{$dashboard-prefix-name}sidebar-nav-treeview-active-bg);
+        color: var(--#{$dashboard-prefix-name}sidebar-nav-treeview-active-color);
         font-weight: $dashboard-font-weight-semibold;
       }
 
@@ -135,7 +135,7 @@
 
     // Nested submenus (level 3+)
     .nav-treeview {
-      padding-left: $dashboard-menu-subitem-padding-left-nested;
+      padding-left: $dashboard-sidebar-nav-subitem-padding-left-nested;
     }
   }
 }
@@ -148,7 +148,7 @@
 .sidebar-collapsed .sidebar-nav {
   .nav-link {
     justify-content: center;
-    padding: $dashboard-menu-item-padding-y;
+    padding: $dashboard-sidebar-nav-item-padding-y;
 
     p {
       display: none;

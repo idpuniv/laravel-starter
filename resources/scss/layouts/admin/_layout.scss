@@ -54,14 +54,14 @@
   --#{$dashboard-prefix-name}breakpoint-md:            #{$dashboard-breakpoint-md};
 
   // Menu links (sidebar navigation)
-  --#{$dashboard-prefix-name}menu-link-color:          #{$dashboard-menu-link-color};
-  --#{$dashboard-prefix-name}menu-link-hover-bg:       #{$dashboard-menu-link-hover-bg};
-  --#{$dashboard-prefix-name}menu-link-hover-color:    #{$dashboard-menu-link-hover-color};
-  --#{$dashboard-prefix-name}menu-link-active-bg:      #{$dashboard-menu-link-active-bg};
-  --#{$dashboard-prefix-name}menu-link-active-color:   #{$dashboard-menu-link-active-color};
-  --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color};
-  --#{$dashboard-prefix-name}menu-treeview-active-bg:  #{$dashboard-menu-treeview-active-bg};
-  --#{$dashboard-prefix-name}menu-treeview-active-color: #{$dashboard-menu-treeview-active-color};
+  --#{$dashboard-prefix-name}sidebar-nav-link-color:          #{$dashboard-sidebar-nav-link-color};
+  --#{$dashboard-prefix-name}sidebar-nav-link-hover-bg:       #{$dashboard-sidebar-nav-link-hover-bg};
+  --#{$dashboard-prefix-name}sidebar-nav-link-hover-color:    #{$dashboard-sidebar-nav-link-hover-color};
+  --#{$dashboard-prefix-name}sidebar-nav-link-active-bg:      #{$dashboard-sidebar-nav-link-active-bg};
+  --#{$dashboard-prefix-name}sidebar-nav-link-active-color:   #{$dashboard-sidebar-nav-link-active-color};
+  --#{$dashboard-prefix-name}sidebar-nav-treeview-link-color: #{$dashboard-sidebar-nav-treeview-link-color};
+  --#{$dashboard-prefix-name}sidebar-nav-treeview-active-bg:  #{$dashboard-sidebar-nav-treeview-active-bg};
+  --#{$dashboard-prefix-name}sidebar-nav-treeview-active-color: #{$dashboard-sidebar-nav-treeview-active-color};
   --#{$dashboard-prefix-name}nav-header-color:         #{$dashboard-nav-header-color};
 
   // Top navbar hover state
@@ -103,14 +103,14 @@
   --#{$dashboard-prefix-name}focus-bg:                 #{$dashboard-focus-bg-dark};
   --#{$dashboard-prefix-name}focus-color:              #{$dashboard-focus-color-dark};
 
-  --#{$dashboard-prefix-name}menu-link-color:          #{$dashboard-menu-link-color-dark};
-  --#{$dashboard-prefix-name}menu-link-hover-bg:       #{$dashboard-menu-link-hover-bg-dark};
-  --#{$dashboard-prefix-name}menu-link-hover-color:    #{$dashboard-menu-link-hover-color-dark};
-  --#{$dashboard-prefix-name}menu-link-active-bg:      #{$dashboard-menu-link-active-bg-dark};
-  --#{$dashboard-prefix-name}menu-link-active-color:   #{$dashboard-menu-link-active-color-dark};
-  --#{$dashboard-prefix-name}menu-treeview-link-color: #{$dashboard-menu-treeview-link-color-dark};
-  --#{$dashboard-prefix-name}menu-treeview-active-bg:  #{$dashboard-menu-treeview-active-bg-dark};
-  --#{$dashboard-prefix-name}menu-treeview-active-color: #{$dashboard-menu-treeview-active-color-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-link-color:          #{$dashboard-sidebar-nav-link-color-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-link-hover-bg:       #{$dashboard-sidebar-nav-link-hover-bg-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-link-hover-color:    #{$dashboard-sidebar-nav-link-hover-color-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-link-active-bg:      #{$dashboard-sidebar-nav-link-active-bg-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-link-active-color:   #{$dashboard-sidebar-nav-link-active-color-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-treeview-link-color: #{$dashboard-sidebar-nav-treeview-link-color-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-treeview-active-bg:  #{$dashboard-sidebar-nav-treeview-active-bg-dark};
+  --#{$dashboard-prefix-name}sidebar-nav-treeview-active-color: #{$dashboard-sidebar-nav-treeview-active-color-dark};
   --#{$dashboard-prefix-name}nav-header-color:         #{$dashboard-nav-header-color-dark};
 }
 
@@ -243,7 +243,7 @@ html, body {
   transition: $dashboard-transition-colors, $dashboard-transition-background;
 
   &:hover {
-    background-color: var(--#{$dashboard-prefix-name}menu-link-hover-bg);
+    background-color: var(--#{$dashboard-prefix-name}sidebar-nav-link-hover-bg);
   }
 }
 
