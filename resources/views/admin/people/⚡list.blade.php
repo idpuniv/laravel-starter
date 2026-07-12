@@ -395,32 +395,37 @@ new class extends Component {
                             </td>
 
                             {{-- Name --}}
-                            <td>
-                                <div class="d-flex align-items-center gap-2">
-                                    <div class="position-relative flex-shrink-0" style="width:32px;height:32px;">
-                                        <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center w-100 h-100"
-                                             style="font-size:.8rem;">
-                                            <span class="text-primary fw-semibold">
-                                                {{ strtoupper(substr($person->first_name, 0, 1)) }}{{ strtoupper(substr($person->last_name, 0, 1)) }}
-                                            </span>
-                                        </div>
-                                        {{-- Pastille en ligne — statique pour l'instant, à dynamiser plus tard --}}
-                                        <span class="person-online-dot position-absolute rounded-circle"
-                                              style="width:9px;height:9px;bottom:-1px;right:-1px;background:#28a745;border:2px solid var(--bs-body-bg,#fff);"
-                                              title="{{ __('En ligne') }}"></span>
-                                    </div>
-                                    <div>
-                                        <div class="fw-medium small text-nowrap">
-                                            {{ $person->last_name }} {{ $person->first_name }}
-                                        </div>
-                                        @if(!$person->user)
-                                            <span class="badge text-bg-secondary rounded-pill" style="font-size:.65rem">
-                                                {{ __('Sans compte') }}
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </td>
+                             <td>
+    <div class="d-flex align-items-center gap-2">
+        <div class="position-relative flex-shrink-0" style="width:32px;height:32px;" 
+             title="{{ $person->user && $person->user->last_logged_at ? __('Activité : :time', ['time' => time_ago_short($person->user->last_logged_at)]) : '' }}">
+            
+            <div class="rounded-circle bg-primary-subtle d-flex align-items-center justify-content-center w-100 h-100"
+                 style="font-size:.8rem;">
+                <span class="text-primary fw-semibold">
+                    {{ strtoupper(substr($person->first_name, 0, 1)) }}{{ strtoupper(substr($person->last_name, 0, 1)) }}
+                </span>
+            </div>
+
+            {{-- Pastille en ligne — S'affiche uniquement si le user est connecté --}}
+            @if($person->user && $person->user->is_logged)
+                <span class="person-online-dot position-absolute rounded-circle"
+                      style="width:9px;height:9px;bottom:-1px;right:-1px;background:#28a745;border:2px solid var(--bs-body-bg,#fff);"
+                      title="{{ __('En ligne') }}"></span>
+            @endif
+        </div>
+        <div>
+            <div class="fw-medium small text-nowrap">
+                {{ $person->last_name }} {{ $person->first_name }}
+            </div>
+            @if(!$person->user)
+                <span class="badge text-bg-secondary rounded-pill" style="font-size:.65rem">
+                    {{ __('Sans compte') }}
+                </span>
+            @endif
+        </div>
+    </div>
+</td>
 
                             {{-- Phone --}}
                             <td class="small text-body-secondary text-nowrap">

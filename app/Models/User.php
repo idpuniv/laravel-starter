@@ -7,14 +7,17 @@ use App\Enums\UserStatus;
 use App\Mail\TwoFactorCodeMail;
 use App\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Spatie\Permission\Traits\HasRoles;
 use App\Traits\HasMedia;
@@ -25,7 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use HasRoles;
     use SoftDeletes;
-     use HasMedia;
+    use HasMedia;
 
     protected $guard_name = 'web';
 
@@ -52,6 +55,70 @@ class User extends Authenticatable implements MustVerifyEmail
         'two_factor_expires_at' => 'datetime',
         'status' => UserStatus::class,
     ];
+
+    /**
+     * Ajout des attributs virtuels lors de la sérialisation (JSON / Array)
+     */
+    protected $appends = [
+        'is_logged',
+        'last_login_at',
+    ];
+
+    /* -----------------------------------------------------------------
+     | ACCESSORS (DYNAMIQUES VIA LA TABLE SESSIONS)
+     |-----------------------------------------------------------------*/
+
+    /**
+     * Retrieves the most recent "last_activity" timestamp for this user
+     * from the sessions table. Centralized here to avoid querying twice
+     * (once for is_logged, once for last_login_at).
+     */
+    private function latestSessionActivity(): ?int
+    {
+        return DB::table('sessions')
+            ->where('user_id', $this->id)
+            ->max('last_activity');
+    }
+
+    /**
+     * Whether the user currently has an active session,
+     * based on the configured session lifetime window.
+     */
+    protected function isLogged(): Attribute
+    {
+        return Attribute::make(
+            get: function (): bool {
+                $lastActivity = $this->latestSessionActivity();
+
+                if ($lastActivity === null) {
+                    return false;
+                }
+
+                $lifetimeInSeconds = config('session.lifetime') * 60;
+
+                // Session is still valid if the last activity is within the lifetime window.
+                return $lastActivity >= (time() - $lifetimeInSeconds);
+            },
+        );
+    }
+
+    /**
+     * Timestamp of the user's last known activity (last time they were online),
+     * regardless of whether the session is still valid. Null if the user
+     * has never had a session recorded.
+     */
+    protected function lastLoginAt(): Attribute
+    {
+        return Attribute::make(
+            get: function (): ?Carbon {
+                $lastActivity = $this->latestSessionActivity();
+
+                return $lastActivity !== null
+                    ? Carbon::createFromTimestamp($lastActivity)
+                    : null;
+            },
+        );
+    }
 
     /* -----------------------------------------------------------------
      | RELATIONS
