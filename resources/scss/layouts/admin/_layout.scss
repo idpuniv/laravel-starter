@@ -15,7 +15,7 @@
   --#{$dashboard-prefix-name}sidebar-width:            #{$dashboard-sidebar-width};
   --#{$dashboard-prefix-name}sidebar-collapsed-width:      #{$dashboard-sidebar-collapsed-width};
   --#{$dashboard-prefix-name}navbar-height:            #{$dashboard-navbar-height};
-  --#{$dashboard-prefix-name}sidebar-profile-height:   #{$dashboard-sidebar-profile-height};
+  --#{$dashboard-prefix-name}sidebar-header-height:   #{$dashboard-sidebar-header-height};
   --#{$dashboard-prefix-name}footer-height:            #{$dashboard-footer-height};
   --#{$dashboard-prefix-name}sidebar-footer-height:    #{$dashboard-sidebar-footer-height};
   --#{$dashboard-prefix-name}scrollbar-width:          #{$dashboard-scrollbar-width};
@@ -35,7 +35,7 @@
 
   --#{$dashboard-prefix-name}sidebar-bg:               #{$dashboard-sidebar-bg};
   --#{$dashboard-prefix-name}sidebar-color:            #{$dashboard-sidebar-color};
-  --#{$dashboard-prefix-name}sidebar-profile-border:   #{$dashboard-sidebar-profile-border};
+  --#{$dashboard-prefix-name}sidebar-header-border:   #{$dashboard-sidebar-header-border};
   --#{$dashboard-prefix-name}sidebar-footer-border:    #{$dashboard-sidebar-footer-border};
   --#{$dashboard-prefix-name}sidebar-footer-color:     #{$dashboard-sidebar-footer-color};
   --#{$dashboard-prefix-name}sidebar-scrollbar-track:  #{$dashboard-sidebar-scrollbar-track};
@@ -94,7 +94,7 @@
 
   --#{$dashboard-prefix-name}sidebar-bg:               #{$dashboard-sidebar-bg-dark};
   --#{$dashboard-prefix-name}sidebar-color:            #{$dashboard-sidebar-color-dark};
-  --#{$dashboard-prefix-name}sidebar-profile-border:   #{$dashboard-sidebar-profile-border-dark};
+  --#{$dashboard-prefix-name}sidebar-header-border:   #{$dashboard-sidebar-header-border-dark};
   --#{$dashboard-prefix-name}sidebar-footer-border:    #{$dashboard-sidebar-footer-border-dark};
   --#{$dashboard-prefix-name}sidebar-footer-color:     #{$dashboard-sidebar-footer-color-dark};
   --#{$dashboard-prefix-name}sidebar-scrollbar-track:  #{$dashboard-sidebar-scrollbar-track-dark};
@@ -166,6 +166,13 @@ html, body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  // Standard property (Firefox and other non-WebKit engines) — "thin" is
+  // a keyword, not a pixel value, so it can't match
+  // --scrollbar-width-sidebar exactly, but it's the closest the standard
+  // API allows. WebKit engines get the precise pixel width below.
+  scrollbar-width: thin;
+  scrollbar-color: var(--#{$dashboard-prefix-name}sidebar-scrollbar-thumb)
+    var(--#{$dashboard-prefix-name}sidebar-scrollbar-track);
 
   &::-webkit-scrollbar {
     width: var(--#{$dashboard-prefix-name}scrollbar-width-sidebar);
@@ -191,6 +198,9 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   padding: $dashboard-content-padding;
+  scrollbar-width: thin;
+  scrollbar-color: var(--#{$dashboard-prefix-name}content-scrollbar-thumb)
+    var(--#{$dashboard-prefix-name}content-scrollbar-track);
 
   &::-webkit-scrollbar {
     width: var(--#{$dashboard-prefix-name}scrollbar-width);
@@ -235,7 +245,7 @@ html, body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--#{$dashboard-prefix-name}sidebar-profile-border);
+  border: 1px solid var(--#{$dashboard-prefix-name}sidebar-header-border);
   border-radius: $dashboard-border-radius-pill;
   background-color: var(--#{$dashboard-prefix-name}sidebar-bg);
   color: var(--#{$dashboard-prefix-name}sidebar-color);
@@ -276,7 +286,7 @@ html, body {
   }
 
   .content-scrollable {
-    padding: $dashboard-content-padding-mobile;
+    padding: $dashboard-content-padding-sm;
   }
 
   .sidebar-hide-btn {

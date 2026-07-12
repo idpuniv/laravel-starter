@@ -20,12 +20,12 @@ $dashboard-breakpoint-md: 768px; // Matches Bootstrap's md breakpoint
 $dashboard-sidebar-width: 260px;
 $dashboard-sidebar-collapsed-width: 72px;
 $dashboard-navbar-height: 60px;
-$dashboard-sidebar-profile-height: 88px;
+$dashboard-sidebar-header-height: 100px;
 $dashboard-footer-height: 48px;
-$dashboard-sidebar-footer-height: 40px;
+$dashboard-sidebar-footer-height: 80px;
 $dashboard-scrollbar-width: 6px;
-$dashboard-scrollbar-width-sidebar: 4px;
-$dashboard-avatar-size: 38px;
+$dashboard-scrollbar-width-sidebar: 1px;
+$dashboard-avatar-size: 40px;
 $dashboard-touch-target-min-height: 44px; // WCAG 2.5.5 minimum
 
 // ----------------------------------------
@@ -35,17 +35,17 @@ $dashboard-spacer: 1rem;
 $dashboard-spacer-half: .5rem;
 $dashboard-spacer-quarter: .25rem;
 $dashboard-content-padding: 1.5rem;
-$dashboard-content-padding-mobile: 1rem;
-$dashboard-sidebar-profile-padding: 1rem;
+$dashboard-content-padding-sm: 1rem;
+$dashboard-sidebar-header-padding: 1rem;
 $dashboard-sidebar-footer-padding: .5rem 1rem;
 
 // Sidebar-profile bottom divider and sidebar-footer top divider — a plain
 // CSS border always spans 100% of the element's width, so a shorter,
 // centered line needs a pseudo-element instead (see _sidebar.scss).
 // Length accepts any CSS length, including 100% for a full-width line.
-$dashboard-sidebar-profile-divider-style: solid;
-$dashboard-sidebar-profile-divider-width: 0;
-$dashboard-sidebar-profile-divider-length: 100%;
+$dashboard-sidebar-header-divider-style: solid;
+$dashboard-sidebar-header-divider-width: 0;
+$dashboard-sidebar-header-divider-length: 100%;
 
 $dashboard-sidebar-footer-divider-style: solid;
 $dashboard-sidebar-footer-divider-width: 0;
@@ -128,7 +128,7 @@ $dashboard-footer-border-color: $gray-200;
 
 $dashboard-sidebar-bg: $white;
 $dashboard-sidebar-color: $gray-800;
-$dashboard-sidebar-profile-border: $gray-200;
+$dashboard-sidebar-header-border: $gray-200;
 $dashboard-sidebar-footer-border: $gray-200;
 $dashboard-sidebar-footer-color: $gray-600;
 $dashboard-sidebar-scrollbar-track: $gray-100;

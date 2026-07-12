@@ -17,15 +17,15 @@
                 aria-label="{{ __('Hide sidebar') }}">
                 <i class="bi bi-chevron-left" aria-hidden="true"></i>
             </button>
-            <div class="sidebar-profile text-center">
-                    {{-- Decorative: the full name right below already provides
-                         the accessible label, avoid a conflicting aria-label. --}}
-                    <div class="avatar d-inline-flex mx-auto" aria-hidden="true">TA</div>
-                    <div class="profile-name text-muted">Thomas Anderson</div>
-                </div>
+
+            <div class="sidebar-header text-center">
+                {{-- Decorative: the full name right below already provides
+                     the accessible label, avoid a conflicting aria-label. --}}
+                <div class="avatar d-inline-flex mx-auto" aria-hidden="true">TA</div>
+                <div class="profile-name text-muted">Thomas Anderson</div>
+            </div>
 
             <div class="sidebar-content">
-
                 <nav class="mt-2" aria-label="{{ __('Main navigation') }}">
                     <ul class="nav sidebar-nav flex-column" role="menubar" data-accordion="false">
                         @foreach ($sidebarMenus as $menu)
@@ -116,49 +116,44 @@
                                 </button>
                             </form>
                         </li>
-
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
-                         <li class="nav-item mt-2" role="none">
-                            <a class="nav-link" href="">Menu item 1</a>
-                        </li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
+                        <li class="nav-item"><a href="nav-link">Lien</a></li>
                     </ul>
                 </nav>
             </div>

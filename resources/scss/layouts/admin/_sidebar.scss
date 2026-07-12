@@ -1,20 +1,22 @@
 // resources/css/layouts/admin/components/_sidebar.scss
 // ============================================================================
 // SIDEBAR COMPONENT (LEFT COLUMN VISUAL SKIN)
-// Handles only the internal visual identity (profile, avatar, sidebar footer).
-// Navigation and menu items live in _nav.scss.
+// Handles the fixed (non-scrolling) header — profile, brand, or any other
+// content — and the sidebar footer. Navigation lives in _nav.scss.
 // ============================================================================
 
-// Top zone: connected user's profile
-.sidebar-profile {
+// Top zone: fixed header, sits outside .sidebar-content so it never scrolls
+// with the nav below it (see admin-layout.blade.php).
+.sidebar-header {
   position: relative; // anchors the centered divider below
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  height: var(--#{$dashboard-prefix-name}sidebar-profile-height);
-  padding: $dashboard-sidebar-profile-padding;
+  height: var(--#{$dashboard-prefix-name}sidebar-header-height);
+  padding: $dashboard-sidebar-header-padding;
   transition: $dashboard-transition-colors;
 
   // Centered divider — see _variables.scss for style/width/length tokens.
@@ -24,10 +26,10 @@
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: $dashboard-sidebar-profile-divider-length;
-    border-bottom: $dashboard-sidebar-profile-divider-width
-      $dashboard-sidebar-profile-divider-style
-      var(--#{$dashboard-prefix-name}sidebar-profile-border);
+    width: $dashboard-sidebar-header-divider-length;
+    border-bottom: $dashboard-sidebar-header-divider-width
+      $dashboard-sidebar-header-divider-style
+      var(--#{$dashboard-prefix-name}sidebar-header-border);
   }
 
   .avatar {
@@ -83,7 +85,7 @@
 // ----------------------------------------
 
 .sidebar-collapsed {
-  .sidebar-profile .profile-name {
+  .sidebar-header .profile-name {
     display: none;
   }
 
@@ -97,7 +99,7 @@
 // ----------------------------------------
 
 @media (max-width: $dashboard-breakpoint-md) {
-  .sidebar-profile {
+  .sidebar-header {
     height: auto;
     min-height: var(--#{$dashboard-prefix-name}navbar-height);
   }

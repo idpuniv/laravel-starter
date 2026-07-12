@@ -44,7 +44,8 @@
     }
 
     // Fully hidden state — independent from the rail-collapse toggle,
-    // desktop only (offcanvas already achieves "fully gone" on mobile).
+    // above the breakpoint only (offcanvas already achieves "fully gone"
+    // below it).
     function hideSidebar() {
         if (belowBreakpointQuery.matches) {
             return;
@@ -83,7 +84,7 @@
 
     function handleBreakpointChange(e) {
         if (e.matches) {
-            // Below breakpoint: offcanvas mode. Collapsed/hidden desktop
+            // Below breakpoint: offcanvas mode. Collapsed/hidden states
             // states are meaningless here and must not linger — otherwise
             // resizing back down could leave the sidebar permanently gone
             // with no offcanvas trigger able to reveal it.
