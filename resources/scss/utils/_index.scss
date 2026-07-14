@@ -247,3 +247,19 @@ $heights: (
         }
     }
 }
+
+
+// ============================================================================
+// BTN-FULL - Bouton pleine largeur, revient à "auto" à partir du breakpoint
+// ============================================================================
+
+
+@each $breakpoint, $breakpoint-value in $grid-breakpoints {
+    @if $breakpoint-value != 0 {
+        @media (min-width: $breakpoint-value) {
+            .btn-#{$breakpoint}-full {
+                width: 100%;
+            }
+        }
+    }
+}   

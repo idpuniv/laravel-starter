@@ -21,3 +21,22 @@ $modal-backdrop-opacity: 0.35 !default;
 $modal-backdrop-bg: var(--bs-dark) !default;
 
 $modal-transition: transform 0.3s ease !default;
+
+
+/* Drag handle - petit trait indicateur en haut de l'offcanvas-bottom */
+.offcanvas-bottom::before {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--bs-secondary-color, #adb5bd);
+    opacity: 0.5;
+}
+
+.offcanvas-bottom .offcanvas-header {
+    padding-top: 1.5rem;
+}

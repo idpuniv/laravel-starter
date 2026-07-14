@@ -220,3 +220,14 @@ $overlay-opacities: (
         font-size: 2rem;
     }
 }
+
+@each $breakpoint, $breakpoint-value in $grid-breakpoints {
+    @if $breakpoint-value != 0 {
+        @media (min-width: $breakpoint-value) {
+            .btn-#{$breakpoint}-full {
+                width: 100%;
+                background-color: red !important;
+            }
+        }
+    }
+}
